@@ -1,6 +1,8 @@
 'use strict';
 
-angular.module('citizenfrontApp', [])
+angular.module('citizenfrontApp', [
+    'ngRoute'
+  ])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
