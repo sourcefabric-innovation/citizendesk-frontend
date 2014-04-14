@@ -2,5 +2,5 @@
 
 angular.module('citizenfrontApp')
   .controller('ReportListCtrl', ['$scope', 'ReportResource', function ($scope, ReportResource) {
-    $scope.reports = ReportResource.query();
+    $scope.reports = ReportResource.query({limit:100});
   }]);
