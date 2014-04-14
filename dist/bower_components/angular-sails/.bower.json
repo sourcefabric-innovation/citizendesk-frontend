@@ -1,0 +1,43 @@
+{
+  "name": "angular-sails",
+  "version": "1.0.4",
+  "authors": [
+    "Jan-Oliver Pantel <info@janpantel.de>"
+  ],
+  "description": "An angular provider for using the sails socket.io api",
+  "main": "./dist/angular-sails.js",
+  "keywords": [
+    "angular",
+    "angularjs",
+    "sails",
+    "sailsjs",
+    "socket.io",
+    "provider",
+    "api"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/kyjan/angular-sails",
+  "dependencies": {
+    "angular": ">=1.2.*"
+  },
+  "ignore": [
+    "**/.*",
+    "gulpfile.js",
+    "package.json",
+    "node_modules",
+    "bower_components",
+    "app/bower_components",
+    "test",
+    "tests"
+  ],
+  "_release": "1.0.4",
+  "_resolution": {
+    "type": "version",
+    "tag": "1.0.4",
+    "commit": "83344cc117555bf37d3d3300c2d3a9e8223fb6f3"
+  },
+  "_source": "git://github.com/kyjan/angular-sails.git",
+  "_target": "~1.0.4",
+  "_originalSource": "angular-sails",
+  "_direct": true
+}
