@@ -1,15 +1,17 @@
 'use strict';
 
-angular.module('citizenfrontApp', [
-  'ngRoute',
-  'ngResource'
-])
-  .config(function ($routeProvider) {
+angular
+  .module('citizenfrontApp', [
+    'ngRoute',
+    'ngResource',
+    'ngSails'
+  ])
+  .config(['$routeProvider', '$sailsProvider', function($routeProvider, $sailsProvider) {
     $routeProvider
     /*
       .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl'
+      templateUrl: 'views/main.html',
+      controller: 'MainCtrl'
       })
     */
       .when('/new-report', {
@@ -23,4 +25,5 @@ angular.module('citizenfrontApp', [
       .otherwise({
         redirectTo: '/list-reports'
       });
-  });
+    $sailsProvider.url = 'http://martin.sourcefabric.net:1337';
+  }]);
