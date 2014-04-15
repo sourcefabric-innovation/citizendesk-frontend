@@ -3,4 +3,7 @@
    class="panel panel-default"
    >
   <div class="panel-body" ng-bind="report.texts[0]"></div>
+  <div class="panel-footer">
+    Created: <span ng-bind="report.created | date:'medium'"></span>
+  </div>
 </div>
