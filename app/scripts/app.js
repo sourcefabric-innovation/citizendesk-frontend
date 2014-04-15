@@ -6,10 +6,12 @@ angular.module('citizenfrontApp', [
 ])
   .config(function ($routeProvider) {
     $routeProvider
+    /*
       .when('/', {
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
       })
+    */
       .when('/new-report', {
         templateUrl: 'views/new-report.html',
         controller: 'NewReportCtrl'
@@ -19,6 +21,6 @@ angular.module('citizenfrontApp', [
         controller: 'ReportListCtrl'
       })
       .otherwise({
-        redirectTo: '/'
+        redirectTo: '/list-reports'
       });
   });
