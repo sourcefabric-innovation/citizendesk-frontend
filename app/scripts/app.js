@@ -22,6 +22,26 @@ angular
         templateUrl: 'views/list-reports.html',
         controller: 'ReportListCtrl'
       })
+      .when('/configure', {
+        templateUrl: 'views/configure.html',
+        controller: 'ConfigureCtrl'
+      })
+      .when('/configure-twitter-ingestion', {
+        templateUrl: 'views/configure-twitter-ingestion.html',
+        controller: 'ConfigureTwitterIngestionCtrl'
+      })
+      .when('/configure-twitter-ingestion-filters', {
+        templateUrl: 'views/configure-twitter-ingestion-filters.html',
+        controller: 'ConfigureTwitterIngestionFiltersCtrl'
+      })
+      .when('/configure-twitter-ingestion-oauths', {
+        templateUrl: 'views/configure-twitter-ingestion-oauths.html',
+        controller: 'ConfigureTwitterIngestionOauthsCtrl'
+      })
+      .when('/configure-twitter-ingestion-streams', {
+        templateUrl: 'views/configure-twitter-ingestion-streams.html',
+        controller: 'ConfigureTwitterIngestionStreamsCtrl'
+      })
       .otherwise({
         redirectTo: '/list-reports'
       });
