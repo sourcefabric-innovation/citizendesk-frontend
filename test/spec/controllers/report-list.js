@@ -7,23 +7,31 @@ describe('Controller: ReportListCtrl', function () {
 
   var ReportListCtrl,
     scope,
-  $httpBackend;
+  $httpBackend,
+  $sails = {
+    on: function() {},
+    get: function() {
+      return {
+        success: function(f) {
+          f([{
+          },{
+          },{
+          }]);
+        }
+      }
+    }
+  };
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope, _$httpBackend_) {
     scope = $rootScope.$new();
-    $httpBackend = _$httpBackend_;
-    $httpBackend
-      .expectGET(root + '/reports')
-      .respond([{},{},{}]);
     ReportListCtrl = $controller('ReportListCtrl', {
-      $scope: scope
+      $scope: scope,
+      $sails: $sails
     });
   }));
 
   it('should attach a list of reports to the scope', function () {
-    $httpBackend.flush();
     expect(scope.reports.length).toBe(3);
-    $httpBackend.verifyNoOutstandingExpectation();
   });
 });
