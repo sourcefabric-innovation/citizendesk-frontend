@@ -10,7 +10,7 @@ angular.module('citizenfrontApp')
     $sails
       .on('message', function (message) {
       if (message.verb === 'create') {
-        $scope.reports.push(message.data);
+        $scope.reports.unshift(message.data);
       }
     });
   }]);
