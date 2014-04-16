@@ -1,5 +1,6 @@
 'use strict';
+/* jshint indent: false */
 
 angular.module('citizenfrontApp')
-  .controller('ConfigureTwitterIngestionCtrl', ['$scope', '$sails', function ($scope, $sails) {
+  .controller('ConfigureTwitterIngestionCtrl', [function () {
   }]);
