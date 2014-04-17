@@ -18,6 +18,7 @@ module.exports = function(config) {
       'app/manual_components/socket/socket.io.js',
       'app/manual_components/socket/sails.io.js',
       'app/bower_components/angular-sails/dist/angular-sails.js',
+      'app/bower_components/raven-js/dist/raven.js',
       'app/scripts/*.js',
       'app/scripts/**/*.js',
       'test/globals.js',
