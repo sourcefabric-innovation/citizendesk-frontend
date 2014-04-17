@@ -52,6 +52,6 @@ angular
         redirectTo: '/list-reports'
       });
   }]).run(['gettextCatalog', function(gettextCatalog){
-    gettextCatalog.currentLanguage = 'it_IT';
-    gettextCatalog.debug = true;
+    //gettextCatalog.currentLanguage = 'it_IT';
+    //gettextCatalog.debug = true;
   }]);
