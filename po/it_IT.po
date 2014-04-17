@@ -1,0 +1,25 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Project-Id-Version: citizendesk-frontend\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Language: it_IT\n"
+"X-Generator: Poedit 1.6.4\n"
+
+#: app/views/configure.html
+msgid "Autoreply"
+msgstr "Risposta automatica"
+
+#: app/views/configure.html
+msgid "Configure"
+msgstr "Configura"
+
+#: app/views/configure.html
+msgid "Twitter ingestion"
+msgstr "Ingestion da Twitter"

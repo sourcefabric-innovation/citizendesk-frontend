@@ -4,7 +4,8 @@ angular
   .module('citizenfrontApp', [
     'ngRoute',
     'ngResource',
-    'ngSails'
+    'ngSails',
+    'gettext'
   ])
   .config(['$routeProvider', '$sailsProvider', function($routeProvider, $sailsProvider) {
     $sailsProvider.url = 'http://martin.sourcefabric.net:1337';
@@ -50,4 +51,7 @@ angular
       .otherwise({
         redirectTo: '/list-reports'
       });
+  }]).run(['gettextCatalog', function(gettextCatalog){
+    gettextCatalog.currentLanguage = 'it_IT';
+    gettextCatalog.debug = true;
   }]);

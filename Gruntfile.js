@@ -1,5 +1,6 @@
 // Generated on 2014-04-04 using generator-angular 0.6.0
 'use strict';
+/* jshint camelcase:false */
 
 // # Globbing
 // for performance reasons we're only matching one level down:
@@ -314,6 +315,23 @@ module.exports = function (grunt) {
       unit: {
         configFile: 'karma.conf.js',
         singleRun: true
+      }
+    },
+
+    // Internationalisation
+    nggettext_extract: {
+      pot: {
+        files: {
+          'po/template.pot': ['app/views/*.html']
+        }
+      }
+    },
+    // Localisation
+    nggettext_compile: {
+      all: {
+        files: {
+          'app/scripts/translations.js': ['po/*.po']
+        }
       }
     }
   });

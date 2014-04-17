@@ -1,0 +1,16 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: app/views/configure.html
+msgid "Autoreply"
+msgstr ""
+
+#: app/views/configure.html
+msgid "Configure"
+msgstr ""
+
+#: app/views/configure.html
+msgid "Twitter ingestion"
+msgstr ""
