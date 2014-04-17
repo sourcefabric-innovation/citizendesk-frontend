@@ -1,8 +1,7 @@
 'use strict';
 
 angular.module('citizenfrontApp')
-  .controller('ReportListCtrl', ['$scope', '$sails', 'Raven', function ($scope, $sails, Raven) {
-    Raven.raven.captureMessage('reports list controller');
+  .controller('ReportListCtrl', ['$scope', '$sails', function ($scope, $sails) {
     $sails
       .get('/reports?limit=100&sort=created%20DESC')
       .success(function(data) {

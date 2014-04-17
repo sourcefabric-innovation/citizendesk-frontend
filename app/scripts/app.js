@@ -26,6 +26,10 @@ angular
         templateUrl: 'views/configure.html',
         controller: 'ConfigureCtrl'
       })
+      .when('/configure-autoreply', {
+        templateUrl: 'views/configure-autoreply.html',
+        controller: 'ConfigureAutoreplyCtrl'
+      })
       .when('/configure-twitter-ingestion', {
         templateUrl: 'views/configure-twitter-ingestion.html',
         controller: 'ConfigureTwitterIngestionCtrl'
