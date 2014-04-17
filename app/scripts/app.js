@@ -7,6 +7,7 @@ angular
     'ngSails'
   ])
   .config(['$routeProvider', '$sailsProvider', function($routeProvider, $sailsProvider) {
+    $sailsProvider.url = 'http://martin.sourcefabric.net:1337';
     $routeProvider
     /*
       .when('/', {
@@ -49,5 +50,4 @@ angular
       .otherwise({
         redirectTo: '/list-reports'
       });
-    $sailsProvider.url = 'http://martin.sourcefabric.net:1337';
   }]);
