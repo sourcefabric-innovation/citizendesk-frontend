@@ -1,4 +1,5 @@
 'use strict';
+/* jshint eqeqeq:false */
 
 angular.module('citizendeskFrontendApp')
   .controller('ReportListCtrl', ['$scope', '$sails', function ($scope, $sails) {
@@ -9,7 +10,7 @@ angular.module('citizendeskFrontendApp')
       });
     $sails
       .on('message', function (message) {
-      if (message.verb === 'create') {
+      if (message.model == 'reports' && message.verb == 'create') {
         $scope.reports.unshift(message.data);
       }
     });
