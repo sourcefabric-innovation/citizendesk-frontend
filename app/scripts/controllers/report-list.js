@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('citizenfrontApp')
+angular.module('citizendeskFrontendApp')
   .controller('ReportListCtrl', ['$scope', '$sails', function ($scope, $sails) {
     $sails
       .get('/reports?limit=100&sort=created%20DESC')

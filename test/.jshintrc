@@ -29,7 +29,9 @@
     "expect": false,
     "inject": false,
     "it": false,
-    "spyOn": false
+    "xit": false,
+    "spyOn": false,
+    "globals": false
   }
 }
 

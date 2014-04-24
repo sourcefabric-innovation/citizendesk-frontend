@@ -3,7 +3,7 @@
 describe('Controller: ConfigureTwitterIngestionOauthsCtrl', function () {
 
   // load the controller's module
-  beforeEach(module('citizenfrontApp'));
+  beforeEach(module('citizendeskFrontendApp'));
 
   var ConfigureTwitterIngestionOauthsCtrl,
     scope;
@@ -13,7 +13,7 @@ describe('Controller: ConfigureTwitterIngestionOauthsCtrl', function () {
     scope = $rootScope.$new();
     ConfigureTwitterIngestionOauthsCtrl = $controller('ConfigureTwitterIngestionOauthsCtrl', {
       $scope: scope,
-      $sails: $sails
+      $sails: globals.sails
     });
   }));
 

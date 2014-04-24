@@ -1,6 +1,6 @@
 'use strict';
 /* jshint indent: false */
 
-angular.module('citizenfrontApp')
+angular.module('citizendeskFrontendApp')
   .controller('ConfigureTwitterIngestionCtrl', [function () {
   }]);

@@ -1,38 +1,13 @@
 'use strict';
 
-angular.module('citizenfrontApp')
-  .controller('ConfigureAutoreplyCtrl', ['$scope', '$sails', 'Raven', '$timeout', function ($scope, $sails, Raven, $timeout) {
+angular.module('citizendeskFrontendApp')
+  .controller('ConfigureAutoreplyCtrl', ['$scope', '$sails', 'Raven', '$timeout', 'SocketsHelpers', function ($scope, $sails, Raven, $timeout, SocketsHelpers) {
     function saved() {
       $scope.alert = 'saved';
       $scope.status = 'success';
       $timeout(function() {
         $scope.alert = '';
       }, 1000);
-    }
-    function save(key, endpoint) {
-      var id = $scope[key].id;
-      if(typeof id === 'undefined') {
-        $sails
-          .post(endpoint, $scope[key])
-          .success(function(id) {
-            $scope[key].id = id;
-            saved();
-          })
-          .error(function(response) {
-            $scope.alert = Raven.captureSocketError(response);
-            $scope.status = 'danger';
-          });
-      } else {
-        $sails
-          .put(endpoint+id, $scope[key])
-          .success(function() {
-            saved();
-          })
-          .error(function(response) {
-            $scope.alert = Raven.captureSocketError(response);
-            $scope.status = 'danger';
-          });
-      }
     }
     $sails
       .get('/settings-bool?key=autoreply%20enabled')
@@ -72,8 +47,29 @@ angular.module('citizenfrontApp')
       });
     $scope.disabled = false;
     $scope.submit = function() {
-      save('enabled', '/settings-bool/');
-      save('text', '/settings-string/');
-      save('timeout', '/settings-int/');
+      SocketsHelpers.save($scope.enabled, '/settings-bool/')
+        .success(function() {
+          saved();
+        })
+        .error(function(response) {
+          $scope.alert = Raven.parseSocketError(response);
+          $scope.status = 'danger';
+        });
+      SocketsHelpers.save($scope.text, '/settings-string/')
+        .success(function() {
+          saved();
+        })
+        .error(function(response) {
+          $scope.alert = Raven.parseSocketError(response);
+          $scope.status = 'danger';
+        });
+      SocketsHelpers.save($scope.timeout, '/settings-int/')
+        .success(function() {
+          saved();
+        })
+        .error(function(response) {
+          $scope.alert = Raven.parseSocketError(response);
+          $scope.status = 'danger';
+        });
     };
   }]);

@@ -3,7 +3,7 @@
 describe('Controller: ConfigureAutoreplyCtrl', function () {
 
   // load the controller's module
-  beforeEach(module('citizenfrontApp'));
+  beforeEach(module('citizendeskFrontendApp'));
 
   var ConfigureAutoreplyCtrl,
     scope;
@@ -13,7 +13,7 @@ describe('Controller: ConfigureAutoreplyCtrl', function () {
     scope = $rootScope.$new();
     ConfigureAutoreplyCtrl = $controller('ConfigureAutoreplyCtrl', {
       $scope: scope,
-      $sails: $sails
+      $sails: globals.sails
     });
   }));
 

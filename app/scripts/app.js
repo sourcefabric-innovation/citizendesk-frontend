@@ -1,7 +1,7 @@
 'use strict';
 
 angular
-  .module('citizenfrontApp', [
+  .module('citizendeskFrontendApp', [
     'ngRoute',
     'ngResource',
     'ngSails',
@@ -53,5 +53,5 @@ angular
       });
   }]).run(['gettextCatalog', function(gettextCatalog){
     //gettextCatalog.currentLanguage = 'it_IT';
-    //gettextCatalog.debug = true;
+    gettextCatalog.debug = true;
   }]);

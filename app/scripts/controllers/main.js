@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('citizenfrontApp')
+angular.module('citizendeskFrontendApp')
   .controller('MainCtrl', function ($scope) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',

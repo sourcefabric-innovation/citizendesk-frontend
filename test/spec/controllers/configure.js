@@ -3,7 +3,7 @@
 describe('Controller: ConfigureCtrl', function () {
 
   // load the controller's module
-  beforeEach(module('citizenfrontApp'));
+  beforeEach(module('citizendeskFrontendApp'));
 
   var ConfigureCtrl,
     scope;

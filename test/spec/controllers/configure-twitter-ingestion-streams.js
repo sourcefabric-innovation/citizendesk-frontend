@@ -3,7 +3,7 @@
 describe('Controller: ConfigureTwitterIngestionStreamsCtrl', function () {
 
   // load the controller's module
-  beforeEach(module('citizenfrontApp'));
+  beforeEach(module('citizendeskFrontendApp'));
 
   var ConfigureTwitterIngestionStreamsCtrl,
     scope;
@@ -13,7 +13,7 @@ describe('Controller: ConfigureTwitterIngestionStreamsCtrl', function () {
     scope = $rootScope.$new();
     ConfigureTwitterIngestionStreamsCtrl = $controller('ConfigureTwitterIngestionStreamsCtrl', {
       $scope: scope,
-      $sails: $sails
+      $sails: globals.sails
     });
   }));
 

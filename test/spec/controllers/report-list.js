@@ -1,9 +1,10 @@
 'use strict';
+/* jshint unused: false */
 
 describe('Controller: ReportListCtrl', function () {
 
   // load the controller's module
-  beforeEach(module('citizenfrontApp'));
+  beforeEach(module('citizendeskFrontendApp'));
 
   var ReportListCtrl,
     scope,
@@ -18,7 +19,7 @@ describe('Controller: ReportListCtrl', function () {
           },{
           }]);
         }
-      }
+      };
     }
   };
 

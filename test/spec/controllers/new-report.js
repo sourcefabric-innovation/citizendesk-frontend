@@ -3,7 +3,7 @@
 describe('Controller: NewReportCtrl', function () {
 
   // load the controller's module
-  beforeEach(module('citizenfrontApp'));
+  beforeEach(module('citizendeskFrontendApp'));
 
   var NewReportCtrl,
     scope;

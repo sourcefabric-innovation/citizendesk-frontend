@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('citizenfrontApp')
+angular.module('citizendeskFrontendApp')
   .controller('NewReportCtrl', ['$scope', '$sails', '$log', function ($scope, $sails, $log) {
     $scope.content = '';
     $scope.submit = function() {

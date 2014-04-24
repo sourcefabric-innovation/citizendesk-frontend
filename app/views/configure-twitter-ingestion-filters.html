@@ -3,9 +3,11 @@
   <li><a href="#/configure-twitter-ingestion">Twitter ingestion</a></li>
   <li class="active">Filters</li>
 </ol>
+<div class="alert alert-{{status}}" ng-hide="alert==''" ng-bind="alert">
+</div>
 <form class="form-horizontal">
   <form class="form-horizontal">
-    <fieldset ng-repeat="element in twtFilters" disabled>
+    <fieldset ng-repeat="element in twtFilters" ng-disabled="disabled">
       <div class="form-group">
         <label class="col-md-2">Identifier</label>
         <p class="col-md-10 form-control-static" ng-bind="element.id"></p>
@@ -18,10 +20,24 @@
         <label class="col-md-2">Created</label>
         <p class="col-md-10 form-control-static" ng-bind="element.logs.created|date"></p>
       </div>
-      <div ng-repeat="e in element.spec.track" class="form-group">
-        <label class="col-md-2">track {{$index + 1}}</label>
+      <div class="form-group">
+        <label class="col-md-2">track</label>
         <div class="col-md-10">
-          <input type="text" class="col-md-10 form-control" ng-model="e">
+          <input
+             type="text"
+             class="col-md-10 form-control"
+             ng-list
+             ng-model="element.spec.track">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-2">follow</label>
+        <div class="col-md-10">
+          <input
+             type="text"
+             class="col-md-10 form-control"
+             ng-list
+             ng-model="element.spec.follow">
         </div>
       </div>
       <div ng-repeat="e in element.spec.follow" class="form-group">
@@ -63,9 +79,12 @@
         </div>
       </div>
       <div class="col-md-10 col-md-offset-2">
-        <button class="btn btn-primary">
-          Submit
+        <button class="btn btn-primary" ng-click="saveFilter(element)">
+          Save
         </button>
       </div>
     </fieldset>
   </form>
+  <button class="btn btn-primary" ng-click="addFilter()">
+    Add filter
+  </button>

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('citizenfrontApp')
+angular.module('citizendeskFrontendApp')
   .controller('ConfigureTwitterIngestionOauthsCtrl', ['$scope', '$sails', function ($scope, $sails) {
     $sails
       .get('/twt_oauths')

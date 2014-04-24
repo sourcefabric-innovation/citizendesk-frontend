@@ -3,7 +3,7 @@
 describe('Service: Raven', function () {
 
   // load the service's module
-  beforeEach(module('citizenfrontApp'));
+  beforeEach(module('citizendeskFrontendApp'));
 
   // instantiate service
   var Raven;

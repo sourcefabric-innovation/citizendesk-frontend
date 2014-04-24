@@ -4,11 +4,16 @@
   <li class="active">Streams</li>
 </ol>
 <form class="form-horizontal">
-  <fieldset ng-repeat="element in twtStreams" disabled>
+  <fieldset ng-repeat="element in twtStreams">
     <div class="form-group">
       <label class="col-md-2">Active</label>
       <div class="col-md-10">
-        <input type="checkbox" class="col-md-10 form-control" placeholder="Consumer secret" ng-model="element.control.switch_on">
+        <input
+           type="checkbox"
+           class="col-md-10 form-control"
+           ng-model="element.control.switch_on"
+           ng-change="saveStream(element)"
+           >
       </div>
     </div>
     <div class="form-group">
@@ -34,19 +39,22 @@
     <div class="form-group">
       <label class="col-md-2">OAuth</label>
       <div class="col-md-10">
-        <input type="text" class="col-md-10 form-control" placeholder="Consumer secret" ng-model="element.spec.oauth_id">
+        <input disabled type="text" class="col-md-10 form-control" placeholder="Consumer secret" ng-model="element.spec.oauth_id">
       </div>
     </div>
     <div class="form-group">
       <label class="col-md-2">Filter</label>
       <div class="col-md-10">
-        <input type="text" class="col-md-10 form-control" placeholder="Consumer secret" ng-model="element.spec.filter_id">
+        <select
+           class="col-md-10 form-control"
+           ng-model="element.spec.filter_id"
+           ng-options="filter.id as filter.id for filter in twtFilters"
+           ng-disabled="element.disabled"
+           ng-class="{'has-error': 'element.error'}"
+           ng-change="saveStream(element)"
+           >
+        </select>
       </div>
-    </div>
-    <div class="col-md-10 col-md-offset-2">
-      <button class="btn btn-primary">
-        Submit
-      </button>
     </div>
   </fieldset>
 </form>
