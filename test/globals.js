@@ -7,6 +7,13 @@ var  globals = {
         if (!failure) {
           f(response);
         }
+        return {
+          error: function(f) {
+            if (failure) {
+              f(response);
+            }
+          }
+        };
       },
       error: function(f) {
         if (failure) {

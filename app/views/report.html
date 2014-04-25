@@ -7,3 +7,43 @@
     Created: <span ng-bind="report.created | date:'medium'"></span>
   </p>
 </div>
+<div class="alert alert-{{status}}" ng-hide="alert==''" ng-bind="alert"></div>
+<form class="form-horizontal"
+      ng-repeat="step in report.steps"
+      >
+  <fieldset
+     >
+    <div class="form-group">
+      <div class="col-md-2">
+        <input type="checkbox"
+               ng-model="step.done"
+               ng-change="changeStep(step.done)"
+               ng-disabled="stepsDisabled"
+               >
+      </div>
+      <label class="col-md-10"
+             ng-bind="step.description"
+             ></label>
+    </div>
+  </fieldset>
+</form>
+<form class="form-horizontal"
+      >
+  <fieldset
+     >
+    <div class="form-group">
+      <div class="col-md-2">
+        <input type="checkbox"
+               ng-model="report.verified"
+               ng-change="save()"
+               ng-disabled="wait"
+               >
+      </div>
+      <label class="col-md-10 label label-warning"
+             translate
+             >
+        This report is verified
+      </label>
+    </div>
+  </fieldset>
+</form>
