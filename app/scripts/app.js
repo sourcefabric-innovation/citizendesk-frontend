@@ -24,6 +24,10 @@ angular
         templateUrl: 'views/list-reports.html',
         controller: 'ReportListCtrl'
       })
+      .when('/reports/:id', {
+        templateUrl: 'views/report.html',
+        controller: 'ReportCtrl'
+      })
       .when('/configure', {
         templateUrl: 'views/configure.html',
         controller: 'ConfigureCtrl'
