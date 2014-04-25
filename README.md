@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/sourcefabric-innovation/citizendesk-frontend.png?branch=master)](https://travis-ci.org/sourcefabric-innovation/citizendesk-frontend)
+
 ### Citizendesk frontend
 
 This is the frontend for Citizendesk. It will serve a web interface
