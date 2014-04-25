@@ -22,4 +22,12 @@ angular.module('citizendeskFrontendApp')
       this.raven.captureMessage(message);
       return message; // for possible logging or user prompt
     };
+    this.captureSocketsHelpersError = function(response, obj, path) {
+      var message = 'sockets helpers error: ';
+      message += this.parseSocketError(response);
+      // the following breaks sentry
+      //message += ' while sending ' + JSON.stringify(obj);
+      message += ' to ' + path;
+      this.raven.captureMessage(message);
+    };
   });

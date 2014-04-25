@@ -1,0 +1,16 @@
+<div
+   ng-repeat="report in reports"
+   data-id="{{report.id}}"
+   class="panel panel-default"
+   >
+  <div class="panel-body" ng-bind="report.texts[0].original"></div>
+  <div class="panel-footer clearfix">
+    Created: <span ng-bind="report.created | date:'medium'"></span>
+    <a href="#/reports/{{report.id}}"
+       class="btn btn-info pull-right"
+       translate
+       >
+      Details
+    </a>
+  </div>
+</div>

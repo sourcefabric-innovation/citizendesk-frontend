@@ -9,18 +9,20 @@ angular.module('citizendeskFrontendApp')
        * are used in a ng-repeat directive, but it conflicts with
        * mongo, so i have to remove it */
       delete obj.$$hashKey;
-      var id = obj.id, promise;
+      var id = obj.id, promise, path;
       if(typeof id === 'undefined') {
-        promise = this.$sails.post(endpoint, obj);
+        path = endpoint;
+        promise = this.$sails.post(path, obj);
         promise
           .success(function(saved) {
             original.id = saved.id;
           });
       } else {
-        promise = this.$sails.put(endpoint+id, obj);
+        path = endpoint + id;
+        promise = this.$sails.put(path, obj);
       }
       promise.error(function(response) {
-        Raven.captureSocketError(response);
+        Raven.captureSocketsHelpersError(response, obj, path);
       });
       return promise;
     };

@@ -59,7 +59,7 @@ angular.module('citizendeskFrontendApp')
           $scope.alert = 'saved';
         })
         .error(function () {
-          $scope.status = 'error';
+          $scope.status = 'danger';
           $scope.alert = 'error';
         });
     };
