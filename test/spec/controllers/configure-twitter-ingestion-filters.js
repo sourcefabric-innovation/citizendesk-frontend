@@ -7,14 +7,7 @@ describe('Controller: ConfigureTwitterIngestionFiltersCtrl', function () {
 
   var ConfigureTwitterIngestionFiltersCtrl,
   scope,
-  SocketsHelpers = {
-    save: function() {
-      return {
-        success: function() {},
-        error: function() {}
-      };
-    }
-  };
+  SocketsHelpers = globals.SocketsHelpers;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {

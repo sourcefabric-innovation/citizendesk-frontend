@@ -32,5 +32,17 @@ var  globals = {
     put: function() {
       return globals.sailsWrapResponse({});
     }
+  },
+  SocketsHelpers: {
+    save: function() {
+      return {
+        success: function() {
+          return {
+            error: function() {}
+          }
+        },
+        error: function() {}
+      };
+    }
   }
 };

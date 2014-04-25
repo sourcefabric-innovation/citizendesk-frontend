@@ -1,0 +1,38 @@
+<ol class="breadcrumb">
+  <li><a href="#/configure">Configure</a></li>
+  <li class="active">Validation steps</li>
+</ol>
+<div class="alert alert-{{status}}" ng-hide="alert==''" ng-bind="alert">
+</div>
+<form class="form-horizontal"
+      ng-repeat="step in steps"
+      >
+  <fieldset ng-disabled="step.disabled"
+            >
+    <div class="form-group">
+      <label class="col-md-2"></label>
+      <div class="col-md-10">
+        <input type="text"
+               class="col-md-10 form-control"
+               ng-model="step.description"
+               >
+      </div>
+    </div>
+    <div class="col-md-10 col-md-offset-2">
+      <button class="btn btn-primary"
+              ng-click="save(step)"
+              ng-disabled="step.disabled"
+              >
+        Save
+      </button>
+      <!--button class="btn btn-danger" ng-click="delete(step)">
+        Delete
+      </button-->
+    </div>
+  </fieldset>
+</form>
+<div class="col-md-10 col-md-offset-2">
+  <button class="btn btn-warning" ng-click="add()">
+    Add
+  </button>
+</div>
