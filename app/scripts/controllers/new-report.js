@@ -1,18 +1,21 @@
 'use strict';
 
 angular.module('citizendeskFrontendApp')
-  .controller('NewReportCtrl', ['$scope', '$sails', '$log', function ($scope, $sails, $log) {
+  .controller('NewReportCtrl', ['$scope', 'reportResource', '$log', function ($scope, reportResource, $log) {
     $scope.content = '';
     $scope.submit = function() {
-      $sails.post('/reports', {
-        texts: [{
-          original: $scope.content
-        }],
-        created: (new Date()).toISOString()
-      }, function() {
-        $log.debug('report posted');
-      }, function() {
-        $log.error('error posting report');
-      });
+      reportResource.save(
+        {
+          texts: [{
+            original: $scope.content
+          }]
+        },
+        function() {
+          $log.debug('report posted');
+          $scope.content = '';
+        },
+        function() {
+          $log.error('error posting report');
+        });
     };
   }]);
