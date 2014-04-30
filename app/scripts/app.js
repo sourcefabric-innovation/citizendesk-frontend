@@ -7,8 +7,8 @@ angular
     'ngSails',
     'gettext'
   ])
-  .config(['$routeProvider', '$sailsProvider', function($routeProvider, $sailsProvider) {
-    $sailsProvider.url = 'http://martin.sourcefabric.net:1337';
+  .config(['$routeProvider', '$sailsProvider', 'prefix', function($routeProvider, $sailsProvider, prefix) {
+    $sailsProvider.url = prefix;
     $routeProvider
     /*
       .when('/', {

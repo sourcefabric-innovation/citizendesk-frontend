@@ -12,7 +12,7 @@
            type="checkbox"
            class="col-md-10 form-control"
            ng-model="element.control.switch_on"
-           ng-change="saveStream(element)"
+           disabled
            >
       </div>
     </div>
@@ -55,6 +55,15 @@
            >
         </select>
       </div>
+    </div>
+    <div>
+      <button class="btn"
+              ng-class="{'btn-success': !restartError[$index], 'btn-error': restartError[$index]}"
+              ng-disabled="restartDisabled[$index]"
+              ng-click="restart(element, $index)"
+              >
+        Restart
+      </button>
     </div>
   </fieldset>
 </form>

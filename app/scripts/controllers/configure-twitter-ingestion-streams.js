@@ -2,7 +2,7 @@
 /* jshint camelcase:false */
 
 angular.module('citizendeskFrontendApp')
-  .controller('ConfigureTwitterIngestionStreamsCtrl', ['$scope', '$sails', 'SocketsHelpers', function ($scope, $sails, SocketsHelpers) {
+  .controller('ConfigureTwitterIngestionStreamsCtrl', ['$scope', '$sails', 'SocketsHelpers', 'prefix', '$http', 'Raven', function ($scope, $sails, SocketsHelpers, prefix, $http, Raven) {
     $sails
       .get('/twt_filters')
       .success(function(data) {
@@ -28,6 +28,33 @@ angular.module('citizendeskFrontendApp')
         .error(function () {
           original.disabled = false;
           original.error = true;
+        });
+    };
+    $scope.restartDisabled = {};
+    $scope.restartError = {};
+    $scope.restart = function(stream, index) {
+      var id = stream.id;
+      var path = prefix + '/twt_streams';
+      $scope.restartDisabled[index] = true;
+      $http
+        .get(path + '/stop?id='+id)
+        .success(function() {
+          $http
+            .get(path + '/start?id='+id)
+            .success(function() {
+              $scope.restartDisabled[index] = false;
+              $scope.restartError[index] = false;
+            })
+            .error(function() {
+              Raven.raven.captureMessage('error starting stream');
+              $scope.restartDisabled[index] = false;
+              $scope.restartError[index] = true;
+            });
+        })
+        .error(function() {
+          Raven.raven.captureMessage('error stopping stream');
+          $scope.restartDisabled[index] = false;
+          $scope.restartError[index] = true;
         });
     };
   }]);
