@@ -9,6 +9,7 @@ describe('Service: Reports', function () {
   var Reports;
   beforeEach(inject(function (_Reports_) {
     Reports = _Reports_;
+    Reports.$sails = globals.sails;
   }));
 
   it('should do something', function () {

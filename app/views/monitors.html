@@ -1,0 +1,9 @@
+<div class="list-group">
+  <a class="list-group-item"
+     ng-repeat="(slug, group) in filters"
+     ng-href="#/list-reports/{{slug}}"
+     >
+    <span class="badge">{{group.reports.length}}</span>
+    {{group.description}}
+  </a>
+</div>

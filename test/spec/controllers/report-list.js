@@ -28,7 +28,9 @@ describe('Controller: ReportListCtrl', function () {
     scope = $rootScope.$new();
     ReportListCtrl = $controller('ReportListCtrl', {
       $scope: scope,
-      $sails: $sails
+      Reports: {
+        reports: [{},{},{}]
+      }
     });
   }));
 

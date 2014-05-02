@@ -20,7 +20,7 @@ angular
         templateUrl: 'views/new-report.html',
         controller: 'NewReportCtrl'
       })
-      .when('/list-reports', {
+      .when('/list-reports/:group', {
         templateUrl: 'views/list-reports.html',
         controller: 'ReportListCtrl'
       })
@@ -31,6 +31,10 @@ angular
       .when('/reports/:id', {
         templateUrl: 'views/report.html',
         controller: 'ReportCtrl'
+      })
+      .when('/monitors', {
+        templateUrl: 'views/monitors.html',
+        controller: 'MonitorsCtrl'
       })
       .when('/configure', {
         templateUrl: 'views/configure.html',
