@@ -67,7 +67,8 @@ angular
       .otherwise({
         redirectTo: '/verified-reports'
       });
-  }]).run(['gettextCatalog', function(gettextCatalog){
+  }]).run(['gettextCatalog', 'Raven', function(gettextCatalog, Raven){
     //gettextCatalog.currentLanguage = 'it_IT';
     gettextCatalog.debug = true;
+    Raven.handleWindowErrors();
   }]);
