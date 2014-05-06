@@ -65,7 +65,7 @@ angular
         controller: 'ConfigureTwitterIngestionStreamsCtrl'
       })
       .otherwise({
-        redirectTo: '/list-reports'
+        redirectTo: '/verified-reports'
       });
   }]).run(['gettextCatalog', function(gettextCatalog){
     //gettextCatalog.currentLanguage = 'it_IT';
