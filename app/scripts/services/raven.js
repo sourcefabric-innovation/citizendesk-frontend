@@ -1,15 +1,17 @@
 'use strict';
 
 angular.module('citizendeskFrontendApp')
-  .service('Raven', ['$window', function RavenService($window) {
+  .service('Raven', [function RavenService() {
     // AngularJS will instantiate a singleton by calling "new" on this function
     var service = this;
-    Raven
-      .config('http://b1901abf077d476ba253bce45dd5bf91@sentry.sourcefabric.org/8', {
-        ignoreErrors: []
-      })
-      .install();
-    this.raven = Raven;
+    this.install = function() {
+      Raven
+        .config('http://b1901abf077d476ba253bce45dd5bf91@sentry.sourcefabric.org/8', {
+          ignoreErrors: []
+        })
+        .install();
+      service.raven = Raven;
+    };
     this.parseSocketError = function(response) {
       var message = '';
       if('errors' in response && response.errors.length) {
@@ -30,15 +32,5 @@ angular.module('citizendeskFrontendApp')
       //message += ' while sending ' + JSON.stringify(obj);
       message += ' to ' + path;
       this.raven.captureMessage(message);
-    };
-    this.handleWindowErrors = function() {
-      $window.onerror = function(message, source, line, column) {
-        var composed = 'window.error - ' +
-          'message: ' + message +
-          ', source: ' + source +
-          ', line: ' + line +
-          ', column: ' + column;
-        service.raven.captureMessage(composed);
-      };
     };
   }]);

@@ -70,5 +70,5 @@ angular
   }]).run(['gettextCatalog', 'Raven', function(gettextCatalog, Raven){
     //gettextCatalog.currentLanguage = 'it_IT';
     gettextCatalog.debug = true;
-    Raven.handleWindowErrors();
+    Raven.install();
   }]);
