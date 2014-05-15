@@ -6,17 +6,21 @@ describe('Controller: MonitorsCtrl', function () {
   beforeEach(module('citizendeskFrontendApp'));
 
   var MonitorsCtrl,
-    scope;
+      scope,
+      Reports = {
+        filters: []
+      };
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
     MonitorsCtrl = $controller('MonitorsCtrl', {
-      $scope: scope
+      $scope: scope,
+      Reports: Reports
     });
   }));
 
-  it('should attach a list of awesomeThings to the scope', function () {
-    expect(scope.awesomeThings.length).toBe(3);
+  it('should attach a list of filters to the scope', function () {
+    expect(scope.filters.length).toBe(0);
   });
 });

@@ -29,12 +29,20 @@ describe('Controller: ReportListCtrl', function () {
     ReportListCtrl = $controller('ReportListCtrl', {
       $scope: scope,
       Reports: {
-        reports: [{},{},{}]
+        reports: [{},{},{}],
+        filters: {
+          group: {
+            reports: []
+          }
+        }
+      },
+      $routeParams: {
+        group: 'group'
       }
     });
   }));
 
   it('should attach a list of reports to the scope', function () {
-    expect(scope.reports.length).toBe(3);
+    expect(scope.reports.length).toBe(0);
   });
 });

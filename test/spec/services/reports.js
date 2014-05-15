@@ -7,6 +7,11 @@ describe('Service: Reports', function () {
 
   // instantiate service
   var Reports;
+  beforeEach(function() {
+    module(function($provide) {
+      $provide.value('$sails', globals.sails);
+    });
+  });
   beforeEach(inject(function (_Reports_) {
     Reports = _Reports_;
     Reports.$sails = globals.sails;

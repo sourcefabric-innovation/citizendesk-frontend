@@ -19,7 +19,7 @@ describe('Service: FilterGrouper', function () {
 
   it('should create a slug from a filter', function () {
     expect(FilterGrouper.getSlug(filter))
-      .toBe('track1, track2, follow1, follow2');
+      .toBe('track1-track2-follow1-follow2');
   });
   it('should create a description from a filter', function () {
     expect(FilterGrouper.getDescription(filter))
