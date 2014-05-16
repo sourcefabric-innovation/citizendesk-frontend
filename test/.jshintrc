@@ -31,7 +31,8 @@
     "it": false,
     "xit": false,
     "spyOn": false,
-    "globals": false
+    "globals": false,
+    "mocks": false
   }
 }
 

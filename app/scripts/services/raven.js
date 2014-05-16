@@ -33,4 +33,8 @@ angular.module('citizendeskFrontendApp')
       message += ' to ' + path;
       this.raven.captureMessage(message);
     };
+    this.promiseErrorHandler = function(reason) {
+      var message = 'promise failed with reason: ' + reason;
+      service.raven.captureMessage(message);
+    };
   }]);

@@ -1,0 +1,43 @@
+<div class="dropdown">
+  <a data-toggle="dropdown">
+    <h3 ng-bind="queue.slug"></h3>
+  </a>
+  <ul class="dropdown-menu">
+    <li ng-repeat="queue in queues"
+        ng-switch on="queue.type">
+      <a
+         ng-switch-when="monitor"
+         ng-href="#/monitor/{{queue.slug}}">
+        <span ng-bind="queue.description"></span>
+        <span class="badge" ng-bind="queue.reports.length"></span>
+      </a>
+      <a
+         ng-switch-when="search"
+         ng-href="#/twitter-search/{{queue.slug}}">
+        <span ng-bind="queue.description"></span>
+        <span class="badge" ng-bind="queue.reports.length"></span>
+      </a>
+    </li>
+    <li>
+      <a ng-href="#/new-twitter-search">
+        <span>New Twitter search</span>
+      </a>
+    </li>
+  </ul>
+</div>
+<div
+   ng-repeat="report in queue.reports"
+   data-id="{{report.id}}"
+   class="panel panel-default"
+   >
+  <div class="panel-body" ng-bind="report.texts[0].original"></div>
+  <div class="panel-footer clearfix">
+    Created: <span ng-bind="report.created | date:'medium'"></span>
+    <a href="#/reports/{{report.id}}"
+       class="btn btn-primary pull-right"
+       translate
+       >
+      Verify
+    </a>
+  </div>
+</div>

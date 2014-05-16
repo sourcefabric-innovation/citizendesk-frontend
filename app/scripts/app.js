@@ -32,9 +32,13 @@ angular
         templateUrl: 'views/report.html',
         controller: 'ReportCtrl'
       })
-      .when('/monitors', {
-        templateUrl: 'views/monitors.html',
-        controller: 'MonitorsCtrl'
+      .when('/monitor/:id?', {
+        templateUrl: 'views/monitor.html',
+        controller: 'MonitorCtrl'
+      })
+      .when('/twitter-search/:id?', {
+        templateUrl: 'views/twitter-search.html',
+        controller: 'TwitterSearchCtrl'
       })
       .when('/configure', {
         templateUrl: 'views/configure.html',
@@ -63,6 +67,17 @@ angular
       .when('/configure-twitter-ingestion-streams', {
         templateUrl: 'views/configure-twitter-ingestion-streams.html',
         controller: 'ConfigureTwitterIngestionStreamsCtrl'
+      })
+      .when('/new-twitter-search', {
+        templateUrl: 'views/new-twitter-search.html',
+        controller: 'NewTwitterSearchCtrl'
+      })
+      // static pages, without controllers
+      .when('/error-no-monitors', {
+        templateUrl: 'views/error-no-monitors.html'
+      })
+      .when('/error-no-searches', {
+        templateUrl: 'views/error-no-searches.html'
       })
       .otherwise({
         redirectTo: '/verified-reports'

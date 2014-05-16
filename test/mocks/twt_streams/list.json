@@ -1,0 +1,42 @@
+[
+  {
+    "control": {
+      "process_id": 12835,
+      "streamer_url": "http://localhost:9054/",
+      "switch_on": true
+    },
+    "disabled": false,
+    "logs": {
+      "created": "2014-03-24T11:58:35.304Z",
+      "started": "2014-05-13T14:20:26.039Z",
+      "stopped": "2014-05-13T14:20:25.972Z",
+      "updated": "2014-03-24T11:58:35.304Z"
+    },
+    "spec": {
+      "oauth_id": 1,
+      "filter_id": "5358ee549611f4a65e3068ac"
+    },
+    "updatedAt": "2014-04-30T16:37:18.883Z",
+    "id": 1
+  },
+  {
+    "control": {
+      "process_id": null,
+      "streamer_url": "http://localhost:9054/",
+      "switch_on": false
+    },
+    "disabled": true,
+    "logs": {
+      "created": "2014-03-24T12:09:27.548Z",
+      "started": "2014-04-28T10:13:39.832Z",
+      "stopped": "2014-04-28T10:13:53.821Z",
+      "updated": "2014-03-24T12:09:27.548Z"
+    },
+    "spec": {
+      "oauth_id": 1,
+      "filter_id": "5358ee549611f4a65e3068ac"
+    },
+    "updatedAt": "2014-04-24T15:09:30.166Z",
+    "id": 2
+  }
+]

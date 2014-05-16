@@ -1,0 +1,61 @@
+[
+  {
+    "spec": {
+      "track": [],
+      "follow": [],
+      "locations": [
+        {
+          "west": -74,
+          "east": "-70",
+          "north": 41,
+          "south": 40
+        }
+      ],
+      "language": null
+    },
+    "createdAt": "2014-04-24T10:15:00.671Z",
+    "updatedAt": "2014-04-24T10:15:00.671Z",
+    "id": "5358e4249611f4a65e3068ab"
+  },
+  {
+    "createdAt": "2014-04-24T10:58:28.053Z",
+    "spec": {
+      "track": [
+        "Ukraine"
+      ],
+      "follow": [],
+      "locations": [],
+      "language": null
+    },
+    "updatedAt": "2014-05-07T13:19:01.779Z",
+    "id": "5358ee549611f4a65e3068ac"
+  },
+  {
+    "createdAt": "2014-04-24T15:31:53.381Z",
+    "spec": {
+      "track": [
+        "Prague",
+        "Praha",
+        "Czech"
+      ],
+      "follow": [],
+      "locations": [],
+      "language": null
+    },
+    "updatedAt": "2014-05-13T09:18:45.799Z",
+    "id": "53592e69a023fffd465bebed"
+  },
+  {
+    "spec": {
+      "track": [
+        "another nice test"
+      ],
+      "follow": [],
+      "locations": [],
+      "language": null
+    },
+    "createdAt": "2014-04-24T15:34:25.989Z",
+    "updatedAt": "2014-04-24T15:34:25.989Z",
+    "id": "53592f01a023fffd465bebef"
+  }
+]

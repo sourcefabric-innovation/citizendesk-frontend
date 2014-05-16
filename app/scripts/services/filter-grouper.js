@@ -12,6 +12,13 @@ angular.module('citizendeskFrontendApp')
       if ('follow' in filter) {
         desc = desc.concat(filter.follow);
       }
+      if ('location' in filter) {
+        var l = [];
+        angular.forEach(filter.location, function(key, value) {
+          l.push(value);
+        });
+        desc = desc.concat(l);
+      }
       return desc.join(', ');
     };
     this.getSlug = function(original) {
@@ -22,6 +29,13 @@ angular.module('citizendeskFrontendApp')
       }
       if ('follow' in filter) {
         desc = desc.concat(filter.follow);
+      }
+      if ('location' in filter) {
+        var l = [];
+        angular.forEach(filter.location, function(key, value) {
+          l.push(value);
+        });
+        desc = desc.concat(l);
       }
       return desc.join('-');
     };

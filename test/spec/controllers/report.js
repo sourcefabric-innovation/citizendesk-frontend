@@ -21,7 +21,7 @@ describe('Controller: ReportCtrl', function () {
           }, {
             description: 'test step 2'
           }]);
-        }
+        };
         return globals.sailsWrapResponse({
           // report body
         });
