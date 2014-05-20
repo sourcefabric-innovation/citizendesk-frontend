@@ -33,6 +33,9 @@ describe('Service: Monitors', function () {
     promise = Monitors.getMonitors();
     expect('then' in promise).toBe(true);
   });
+  it('has resources with proper methods', function() {
+    expect(typeof Monitors.resources.filter.save).toBe('function');
+  });
   describe('got monitors from the server', function() {
     var monitors;
     beforeEach(function() {

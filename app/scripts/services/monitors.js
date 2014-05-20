@@ -7,13 +7,14 @@
 
  */
 angular.module('citizendeskFrontendApp')
-  .service('Monitors', ['$resource', 'prefix', '$q', 'Raven', 'FilterGrouper', '$rootScope', '$sails', function Monitors($resource, prefix, $q, Raven, FilterGrouper, $rootScope, $sails) {
+  .service('Monitors', ['$resource', 'prefix', '$q', 'Raven', 'FilterGrouper', '$rootScope', '$sails', '$http', function Monitors($resource, prefix, $q, Raven, FilterGrouper, $rootScope, $sails, $http) {
     // AngularJS will instantiate a singleton by calling "new" on this function
     var resources = {
       filter: $resource(prefix + '/twt_filters/:id'),
       stream: $resource(prefix + '/twt_streams/:id'),
       key: $resource(prefix + '/twt_oauths/:id')
     };
+    this.resources = resources; // exposing for tests
     // calling `get` just in order to be subscribed to the collection messages
     $sails.get('/reports?limit=1').error(Raven.captureSocketError);
     /*
@@ -35,14 +36,17 @@ angular.module('citizendeskFrontendApp')
         }
       });
     }
+    function updateMonitorFromFilter(monitor, filter) {
+      monitor.slug = FilterGrouper.getSlug(filter.spec);
+      monitor.description = FilterGrouper.getDescription(filter.spec);
+    }
     function addFilter(monitor, filters) {
       var id = monitor.spec.filter_id;
       for (var i=0; i<filters.length; i++ ) {
         var filter = filters[i];
         if (filter.id === id) {
           monitor.filter = angular.copy(filter);
-          monitor.slug = FilterGrouper.getSlug(filter.spec);
-          monitor.description = FilterGrouper.getDescription(filter.spec);
+          updateMonitorFromFilter(monitor, filter);
           return;
         }
       }
@@ -100,5 +104,50 @@ angular.module('citizendeskFrontendApp')
           }
         }
       }
+    };
+    function restart(id) {
+      var path = prefix + '/twt_streams',
+          deferred = $q.defer();
+      $http
+        .get(path + '/stop?id='+id)
+        .success(function() {
+          $http
+            .get(path + '/start?id='+id)
+            .success(function() {
+              deferred.resolve();
+            })
+            .error(function() {
+              Raven.raven.captureMessage('error starting stream');
+              deferred.reject('error starting');
+            });
+        })
+        .error(function() {
+          Raven.raven.captureMessage('error stopping stream');
+          deferred.reject('error stopping');
+        });
+      return deferred.promise;
+    }
+    this.retrack = function(monitor, newTrack) {
+      var deferred = $q.defer();
+      monitor.filter.spec.track = newTrack;
+      $http({
+        method: 'PUT',
+        url: prefix+'/twt_filters/'+monitor.filter.id,
+        data: monitor.filter,
+      })
+        .success(function() {
+          restart(monitor.id)
+            .then(function() {
+              // empty collected reports
+              monitor.reports = [];
+              // update the monitor properties related to the filter
+              updateMonitorFromFilter(monitor, monitor.filter);
+              // tell upstream
+              deferred.resolve();
+            })
+            .catch(Raven.promiseErrorHandler);
+        })
+        .error(Raven.promiseErrorHandler);
+      return deferred.promise;
     };
   }]);

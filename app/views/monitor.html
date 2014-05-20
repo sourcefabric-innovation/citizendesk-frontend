@@ -1,6 +1,7 @@
 <div class="dropdown">
   <a data-toggle="dropdown">
-    <h3 ng-bind="monitor.slug"></h3>
+    <h3 ng-bind="monitor.slug"
+        ></h3>
   </a>
   <ul class="dropdown-menu">
     <li ng-repeat="queue in queues"
@@ -18,6 +19,7 @@
         <span class="badge" ng-bind="queue.reports.length"></span>
       </a>
     </li>
+    <li class="divider"></li>
     <li>
       <a ng-href="#/new-twitter-search">
         <span>New Twitter search</span>
@@ -25,6 +27,35 @@
     </li>
   </ul>
 </div>
+<form ng-hide="editing" class="form-inline">
+  <div class="form-group">
+    <button class="btn btn-default"
+            type="button"
+            ng-click="resetNewTrack(); editing=true"
+            ><span class="glyphicon glyphicon-pencil"
+                   ></span>
+    </button>
+  </div>
+</form>
+<form ng-show="editing" class="form-inline" ng-submit="save()">
+  <div class="form-group">
+    <button class="btn btn-default"
+            type="button"
+            ng-click="resetNewTrack(); editing=false"
+            ><span class="glyphicon glyphicon-remove"
+                   ></span>
+    </button>
+    <button class="btn btn-default"
+            type="submit"
+            ><span class="glyphicon glyphicon-floppy-disk"></span>
+    </button>
+  </div>
+  <div class="form-group">
+    <input class="form-control"
+           ng-model="newTrack"
+           ng-list>
+  </div>
+</form>
 <div
    ng-repeat="report in monitor.reports"
    data-id="{{report.id}}"

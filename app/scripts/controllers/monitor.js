@@ -12,4 +12,12 @@ angular.module('citizendeskFrontendApp')
         $location.url('/error-no-monitors');
       }
     });
+    $scope.resetNewTrack = function() {
+      $scope.newTrack = angular.copy($scope.monitor.filter.spec.track);
+    };
+    $scope.save = function() {
+      Monitors
+        .retrack($scope.monitor, $scope.newTrack)
+        .then(function() { $scope.editing = false; });
+    };
   }]);
