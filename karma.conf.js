@@ -24,8 +24,10 @@ module.exports = function(config) {
       'app/scripts/**/*.js',
       'test/globals.js',
       'test/mock.js',
-      'test/mock/**/*.js',
-      'test/spec/**/*.js'
+      'test/spec/**/*.js',
+      // for karma markup preprocessor
+      'app/views/**/*.js',
+      'app/views/**/*.html'
     ],
 
     // list of files / patterns to exclude
@@ -56,6 +58,15 @@ module.exports = function(config) {
 
     // Continuous Integration mode
     // if true, it capture browsers, run tests and exit
-    singleRun: false
+    singleRun: false,
+
+    // karma preprocessor for templates in code
+    preprocessors: {
+      '**/*.html': ['ng-html2js']
+    },
+    ngHtml2JsPreprocessor: {
+      // in order to match the location in the directives `templateUrl`
+      stripPrefix: 'app/'
+    }
   });
 };
