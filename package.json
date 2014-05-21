@@ -1,6 +1,7 @@
 {
   "name": "citizendesk-frontend",
   "version": "0.0.0",
+  "repository": "https://github.com/sourcefabric-innovation/citizendesk-frontend/",
   "dependencies": {},
   "devDependencies": {
     "grunt": "~0.4.1",
