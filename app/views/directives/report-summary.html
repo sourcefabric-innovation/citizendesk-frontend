@@ -1,11 +1,11 @@
 <div
-   data-id="{{report.id}}"
+   data-id="{{report._id}}"
    class="panel panel-default"
    >
   <div class="panel-body" ng-bind="report.texts[0].original"></div>
   <div class="panel-footer clearfix">
-    Created: <span ng-bind="report.created | date:'medium'"></span>
-    <a href="#/reports/{{report.id}}"
+    Created: <span ng-bind="report.produced | date:'medium'"></span>
+    <a href="#/reports/{{report._id}}"
        class="btn btn-primary pull-right"
        translate
        >

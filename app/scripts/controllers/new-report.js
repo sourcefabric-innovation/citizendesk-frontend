@@ -8,7 +8,11 @@ angular.module('citizendeskFrontendApp')
         {
           texts: [{
             original: $scope.content
-          }]
+          }],
+          channels: [{
+            type: 'web'
+          }],
+          produced: (new Date()).toGMTString()
         },
         function() {
           $log.debug('report posted');

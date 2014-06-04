@@ -15,19 +15,10 @@ describe('Controller: TwitterSearchCtrl', function () {
       $scope: scope,
       $routeParams: {
       },
-      Monitors: {},
-      Queues: {
-        promise: {
-          then: function() {}
-        }
-      }
     });
   }));
 
   it('attaches a queue to the scope', function () {
     expect(scope.queue).toBeDefined();
-  });
-  it('should attach queues to the scope', function () {
-    expect(scope.queues.length).toBe(0);
   });
 });

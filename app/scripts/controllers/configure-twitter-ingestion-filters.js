@@ -1,39 +1,36 @@
 'use strict';
 
 angular.module('citizendeskFrontendApp')
-  .controller('ConfigureTwitterIngestionFiltersCtrl', ['$scope', '$sails', 'SocketsHelpers', 'Raven', function ($scope, $sails, SocketsHelpers, Raven) {
+  .controller('ConfigureTwitterIngestionFiltersCtrl', ['$scope', 'prefix', '$resource', 'Raven', function ($scope, prefix, $resource, Raven) {
+    var Resource = $resource(prefix + '/twt_filters');
     $scope.alert = '';
     $scope.disabled = false;
     $scope.canAddFilter = true;
-    $sails
-      .get('/twt_filters')
-      .success(function(data) {
-        $scope.twtFilters = data;
-      });
+    $scope.twtFilters = Resource.query();
     $scope.addFilter = function() {
-      $scope.twtFilters.push({
+      $scope.twtFilters.push(new Resource({
         spec: {
           track: [],
           follow: [],
           locations: [],
           language: null
         }
-      });
+      }));
     };
     $scope.addTrack = function(filter) {
       filter.spec.track.push('');
     };
     $scope.saveFilter = function(filter) {
-      var promise = SocketsHelpers.save(filter, '/twt_filters/');
       $scope.disabled = true;
-      promise.success(function() {
-        $scope.disabled = false;
-        $scope.alert = '';
-      });
-      promise.error(function(response) {
-        $scope.disabled = false;
-        $scope.status = 'warning';
-        $scope.alert = Raven.parseSocketError(response);
-      });
+      filter.$save().$promise.then(
+        function() {
+          $scope.disabled = false;
+          $scope.alert = '';
+        },
+        function(response) {
+          $scope.disabled = false;
+          $scope.status = 'warning';
+          $scope.alert = Raven.parseSocketError(response);
+        });
     };
   }]);

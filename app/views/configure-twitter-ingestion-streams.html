@@ -48,9 +48,9 @@
         <select
            class="col-md-10 form-control"
            ng-model="element.spec.filter_id"
-           ng-options="filter.id as filter.id for filter in twtFilters"
-           ng-disabled="element.disabled"
-           ng-class="{'has-error': 'element.error'}"
+           ng-options="filter._id as filter._id for filter in twtFilters"
+           ng-disabled="disabled[element._id]"
+           ng-class="{'has-error': error[element._id]}"
            ng-change="saveStream(element)"
            >
         </select>
@@ -58,9 +58,9 @@
     </div>
     <div>
       <button class="btn"
-              ng-class="{'btn-success': !restartError[$index], 'btn-error': restartError[$index]}"
-              ng-disabled="restartDisabled[$index]"
-              ng-click="restart(element, $index)"
+              ng-class="{'btn-success': !restartError[element._id], 'btn-error': restartError[element._id]}"
+              ng-disabled="restartDisabled[element._id]"
+              ng-click="restart(element)"
               >
         Restart
       </button>

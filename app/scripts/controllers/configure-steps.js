@@ -1,28 +1,29 @@
 'use strict';
+/* jshint newcap: false */
 
 angular.module('citizendeskFrontendApp')
-  .controller('ConfigureStepsCtrl', ['$scope', 'SocketsHelpers', '$sails', function ($scope, SocketsHelpers, $sails) {
-    $sails
-      .get('/steps')
-      .success(function(data) {
+  .controller('ConfigureStepsCtrl', ['$scope', 'resource', 'prefix', function ($scope, resource, prefix) {
+    var res = resource(prefix + '/steps/:id');
+    res
+      .query()
+      .$promise
+      .then(function(data) {
         $scope.steps = data;
       });
+    $scope.status = {};
     $scope.add = function() {
-      $scope.steps.push({
-        description: ''
-      });
+      var step = new res({ description: '' });
+      $scope.steps.push(step);
     };
-    $scope.save = function(original) {
-      var step = angular.copy(original);
-      original.disabled = true;
-      SocketsHelpers
-        .save(step, '/steps/')
-        .success(function () {
-          original.disabled = false;
+    $scope.save = function(step) {
+      $scope.status[step._id] = 'disabled';
+      step
+        .$save()
+        .then(function() {
+          $scope.status[step._id] = '';
         })
-        .error(function () {
-          original.disabled = false;
-          original.error = true;
+        .catch(function() {
+          $scope.status[step._id] = 'error';
         });
     };
   }]);

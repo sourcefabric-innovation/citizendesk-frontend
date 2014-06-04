@@ -1,56 +1,72 @@
 'use strict';
+/* jshint camelcase: false */
 
 angular.module('citizendeskFrontendApp')
-  .service('TwitterSearches', ['$sails', '$rootScope', function TwitterSearches($sails, $rootScope) {
-    // AngularJS will instantiate a singleton by calling "new" on this function
+  .service('TwitterSearches', ['$resource', '$q', 'Raven', 'prefix', '$http', 'reportResource', function TwitterSearches($resource, $q, Raven, prefix, $http, reportResource) {
     var service = this;
-    this.slugify = function(text) {
-      return text.split(' ').join('-');
-    };
-    // calling `get` just in order to be subscribed to the collection messages
-    $sails.get('/reports?limit=1').error(Raven.captureSocketError);
+    var Search = $resource(prefix + '/twt-searches');
+    this.promise = Search.query().$promise;
+    this.list = [];
+    // dictionary to keep track of twitter searches whose reports have
+    // already been fetched
+    this.fetched = {};
+    this.promise.then(function(searches) {
+      service.list = searches;
+    });
     /*
-     register the queue for real time report creation. doing like
-     this for every queue is inefficient, but the number of queues
-     is very low
-
-     this is also a potential leak, because the following reference to
-     the queue will remain even if the queue is removed from its array
-     around
+     create the search, get the id from the database, use it in order
+     to trigger an actual search action
      */
-    function register(queue) {
-      $sails.on('message', function (message) {
-        if (message.model === 'reports' && message.verb === 'create') {
-          $rootScope.$apply(function() {
-            var report = message.data,
-                channel = report.channels[0],
-                searchChannel = channel && channel.type === 'search';
-            if (searchChannel && channel.request === queue.id) {
-              queue.reports.unshift(report);
-            }
+    this.create = function(terms) {
+      var query = {
+        contains: [terms]
+      };
+      var newSearch = new Search({
+        description: terms,
+        query: query
+      });
+      var deferred = $q.defer();
+      newSearch
+        .$save()
+        .then(function(queue) {
+          $http
+            .post(prefix + '/proxy/start-twitter-search/', {
+              user_id: '1',
+              request_id: queue._id,
+              search_spec: {
+                query: query
+              }
+            })
+            .then(function() {
+              deferred.resolve(queue._id);
+              service.list.push(queue);
+              service.fetchResults(queue);
+            });
+        });
+      return deferred.promise;
+    };
+    this.fetchResults = function(queue) {
+      var id = queue._id;
+      if (id in service.fetched) {
+      } else {
+        var query = JSON.stringify({
+          'channels.request': id
+        });
+        reportResource
+          .query({ where: query })
+          .$promise
+          .then(function(reports) {
+            queue.reports = reports;
+            service.fetched[id] = true;
           });
         }
-      });
-    }
-    this.create = function(text) {
-      var queue = {
-        slug: service.slugify(text),
-        terms: text,
-        description: text,
-        reports: [],
-        type: 'search'
-      };
-      register(queue);
-      return queue;
     };
-    this.getBySlug = function(queues, slug) {
-      for (var i=0; i<queues.length; i++) {
-        var queue = queues[i];
-        if (queue.type === 'search') {
-          if (typeof slug === 'undefined' || queue.slug === slug) {
-            return queue;
-          }
+    this.byId = function(id) {
+      for (var i=0; i<service.list.length; i++) {
+        if (typeof id === 'undefined' || service.list[i]._id === id) {
+          return service.list[i];
         }
       }
+      Raven.raven.captureMessage('twitter search with id ' + id + ' not found');
     };
   }]);

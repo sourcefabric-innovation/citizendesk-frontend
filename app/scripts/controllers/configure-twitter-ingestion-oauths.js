@@ -1,10 +1,8 @@
 'use strict';
 
 angular.module('citizendeskFrontendApp')
-  .controller('ConfigureTwitterIngestionOauthsCtrl', ['$scope', '$sails', function ($scope, $sails) {
-    $sails
-      .get('/twt_oauths')
-      .success(function(data) {
-        $scope.twtOauths = data;
-      });
+  //.controller('ConfigureTwitterIngestionOauthsCtrl', ['$scope', function ($scope) {
+  .controller('ConfigureTwitterIngestionOauthsCtrl', ['resource', 'prefix', '$scope', function (resource, prefix, $scope) {
+    var res = resource(prefix + '/twt_oauths/:id');
+    $scope.twtOauths = res.query();
   }]);

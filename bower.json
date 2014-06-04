@@ -9,7 +9,6 @@
     "angular-route": "~1.2.16",
     "angular-resource": "~1.2.16",
     "sass-bootstrap": "~3.0.2",
-    "angular-sails": "~1.0.4",
     "raven-js": "~1.1.13",
     "angular-gettext": "~0.2.8"
   },

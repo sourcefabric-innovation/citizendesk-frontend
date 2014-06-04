@@ -32,7 +32,8 @@
     "xit": false,
     "spyOn": false,
     "globals": false,
-    "mocks": false
+    "mocks": false,
+    "jasmine": false
   }
 }
 

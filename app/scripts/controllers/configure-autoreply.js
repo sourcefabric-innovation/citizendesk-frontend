@@ -1,75 +1,62 @@
 'use strict';
 
 angular.module('citizendeskFrontendApp')
-  .controller('ConfigureAutoreplyCtrl', ['$scope', '$sails', 'Raven', '$timeout', 'SocketsHelpers', function ($scope, $sails, Raven, $timeout, SocketsHelpers) {
-    function saved() {
-      $scope.alert = 'saved';
+  .controller('ConfigureAutoreplyCtrl', ['$scope', 'Raven', 'Resources', '$q', '$timeout', function ($scope, Raven, Resources, $q, $timeout) {
+    $scope.status = 'success';
+    $scope.alert = '';
+    function promiseError(reason) {
+      $scope.disabled = false;
+      $scope.status = 'error';
+      $scope.alert = reason;
+    }
+    function success() {
+      $scope.disabled = false;
+      $scope.alert = 'success';
       $scope.status = 'success';
       $timeout(function() {
         $scope.alert = '';
       }, 1000);
     }
-    $sails
-      .get('/settings-bool?key=autoreply%20enabled')
-      .success(function(data) {
-        if(data.length) {
-          $scope.enabled = data[0];
-        } else {
-          $scope.enabled = {
-            key: 'autoreply enabled',
-            value: false
-          };
-        }
-      });
-    $sails
-      .get('/settings-string?key=autoreply%20text')
-      .success(function(data) {
-        if(data.length) {
-          $scope.text = data[0];
-        } else {
-          $scope.text = {
-            key: 'autoreply text',
-            value: 'Thank you for your report'
-          };
-        }
-      });
-    $sails
-      .get('/settings-int?key=autoreply%20timeout')
-      .success(function(data) {
-        if(data.length) {
-          $scope.timeout = data[0];
-        } else {
-          $scope.timeout = {
-            key: 'autoreply timeout',
-            value: 5
-          };
-        }
-      });
+    Resources.settings.bool.query({key: 'autoreply enabled'}, function(resp) {
+      if (resp.length > 0 ) {
+        $scope.enabled = resp.pop();
+      } else {
+        $scope.enabled = new Resources.settings.bool({
+          key: 'autoreply enabled',
+          value: false
+        });
+      }
+    }, promiseError);
+    Resources.settings.string.query({key: 'autoreply text'}, function(resp) {
+      if (resp.length > 0) {
+        $scope.text = resp.pop();
+      } else {
+        $scope.text = new Resources.settings.string({
+          key: 'autoreply text',
+          value: 'Thank you for your report'
+        });
+      }
+    }, Raven.promiseError);
+    Resources.settings.int.query({key: 'autoreply timeout'}, function(resp) {
+      if (resp.length > 0) {
+        $scope.timeout = resp.pop();
+      } else {
+        $scope.timeout = new Resources.settings.int({
+          key: 'autoreply timeout',
+          value: 5
+        });
+      }
+    }, promiseError);
     $scope.disabled = false;
     $scope.submit = function() {
-      SocketsHelpers.save($scope.enabled, '/settings-bool/')
-        .success(function() {
-          saved();
-        })
-        .error(function(response) {
-          $scope.alert = Raven.parseSocketError(response);
-          $scope.status = 'danger';
-        });
-      SocketsHelpers.save($scope.text, '/settings-string/')
-        .success(function() {
-          saved();
-        })
-        .error(function(response) {
-          $scope.alert = Raven.parseSocketError(response);
-          $scope.status = 'danger';
-        });
-      SocketsHelpers.save($scope.timeout, '/settings-int/')
-        .success(function() {
-          saved();
-        })
-        .error(function(response) {
-          $scope.alert = Raven.parseSocketError(response);
-          $scope.status = 'danger';
-        });
+      $scope.disabled = true;
+      $q
+        .all([
+          $scope.timeout.$save().$promise,
+          $scope.text.$save().$promise,
+          $scope.enabled.$save().$promise
+        ])
+        .then(success)
+        .catch(promiseError);
     };
   }]);

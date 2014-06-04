@@ -1,14 +1,15 @@
 'use strict';
 
 angular.module('citizendeskFrontendApp')
-  .controller('TwitterSearchCtrl', ['$scope', 'Queues', 'TwitterSearches', '$routeParams', '$location', function ($scope, Queues, TwitterSearches, $routeParams, $location) {
-    $scope.queues = [];
+  .controller('TwitterSearchCtrl', ['$scope', 'TwitterSearches', '$routeParams', '$location', 'QueueSelection', function ($scope, TwitterSearches, $routeParams, $location, QueueSelection) {
     $scope.queue = {};
-    Queues.promise.then(function(queues) {
-      $scope.queues = queues;
-      $scope.queue  = TwitterSearches.getBySlug(queues, $routeParams.id);
+    TwitterSearches.promise.then(function() {
+      $scope.queue  = TwitterSearches.byId($routeParams.id);
       if (!$scope.queue) {
         $location.url('/error-no-searches');
+      } else {
+        TwitterSearches.fetchResults($scope.queue);
+        QueueSelection.description = $scope.queue.description;
       }
     });
   }]);

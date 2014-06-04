@@ -1,8 +1,9 @@
 'use strict';
 
 angular.module('citizendeskFrontendApp')
-  .controller('ReportCtrl', ['$scope', '$routeParams', '$sails', 'Raven', '$log', 'SocketsHelpers', function ($scope, $routeParams, $sails, Raven, $log, SocketsHelpers) {
+  .controller('ReportCtrl', ['$scope', '$routeParams', 'Raven', 'Resources', 'prefix', function ($scope, $routeParams, Raven, Resources) {
     var id = $routeParams.id;
+
     function watchSteps() {
       $scope.$watch('report.steps', function() {
         $scope.wait = $scope.report.steps.some(function(step) {
@@ -10,14 +11,14 @@ angular.module('citizendeskFrontendApp')
         });
       }, true);
     }
+
     function addSteps(report) {
       if ('steps' in report) {
-        $log.debug('keeping existent report steps');
         watchSteps();
       } else {
-        $sails
-          .get('/steps')
-          .success(function(data) {
+        Resources.steps.query()
+          .$promise
+          .then(function(data) {
             if (data.length === 0) {
               Raven.raven.captureMessage('no validation steps for report detail');
             } else {
@@ -30,39 +31,37 @@ angular.module('citizendeskFrontendApp')
           });
       }
     }
-    $sails
-      .get('/reports?id='+id)
-      .success(function(data) {
-        if (data.length === 0) {
-          Raven.raven.captureMessage('empty return set for report detail. report id: '+id);
-        } else {
-          $scope.report = data;
-          addSteps($scope.report);
-          $scope.$watch('report.verified', function(newValue, oldValue) {
-            if (oldValue === true && newValue === false) {
-              alert('this report was marked as verified, and now it is marked as unverified again! this is a very bad practice, and should be avoided');
-            }
-            $scope.stepsDisabled = $scope.report.verified;
-          });
-        }
-      })
-      .error(function(data) {
-        Raven.captureSocketError(data);
+
+    Resources.reports
+      .get({id:id})
+      .$promise
+      .then(function(data) {
+        $scope.report = data;
+        addSteps($scope.report);
+        $scope.$watch('report.verified', function(newValue, oldValue) {
+          if (oldValue === true && newValue === false) {
+            alert('this report was marked as verified, and now it is marked as unverified again! this is a very bad practice, and should be avoided');
+          }
+          $scope.stepsDisabled = $scope.report.verified;
+        });
       });
+
     $scope.save = function() {
       $scope.status = 'info';
       $scope.alert = 'saving';
-      SocketsHelpers
-        .save($scope.report, '/reports/')
-        .success(function () {
+
+      $scope.report
+        .$save()
+        .then(function () {
           $scope.status = 'success';
           $scope.alert = 'saved';
         })
-        .error(function () {
+        .catch(function () {
           $scope.status = 'danger';
           $scope.alert = 'error';
         });
     };
+
     $scope.changeStep = function(checking) {
       if (!checking) {
         alert('A validation step should never be unchecked, if you are unchecking now this means that the validation process was poor. Please be sure to avoid this in the future');

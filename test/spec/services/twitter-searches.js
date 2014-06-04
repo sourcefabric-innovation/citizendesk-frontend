@@ -14,8 +14,5 @@ describe('Service: TwitterSearches', function () {
   it('has a create method', function () {
     expect(TwitterSearches.create).toBeDefined();
   });
-  it('slugifies', function() {
-    expect(TwitterSearches.slugify('hey joe')).toBe('hey-joe');
-  });
 
 });

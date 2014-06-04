@@ -1,32 +1,4 @@
-<div class="dropdown">
-  <a data-toggle="dropdown">
-    <h3 ng-bind="monitor.slug"
-        ></h3>
-  </a>
-  <ul class="dropdown-menu">
-    <li ng-repeat="queue in queues"
-        ng-switch on="queue.type">
-      <a
-         ng-switch-when="monitor"
-         ng-href="#/monitor/{{queue.slug}}">
-        <span ng-bind="queue.description"></span>
-        <span class="badge" ng-bind="queue.reports.length"></span>
-      </a>
-      <a
-         ng-switch-when="search"
-         ng-href="#/twitter-search/{{queue.slug}}">
-        <span ng-bind="queue.description"></span>
-        <span class="badge" ng-bind="queue.reports.length"></span>
-      </a>
-    </li>
-    <li class="divider"></li>
-    <li>
-      <a ng-href="#/new-twitter-search">
-        <span>New Twitter search</span>
-      </a>
-    </li>
-  </ul>
-</div>
+<div queue-selection></div>
 <form ng-hide="editing" class="form-inline">
   <div class="form-group">
     <button class="btn btn-default"

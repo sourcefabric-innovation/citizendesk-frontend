@@ -4,18 +4,13 @@ angular
   .module('citizendeskFrontendApp', [
     'ngRoute',
     'ngResource',
-    'ngSails',
     'gettext'
   ])
-  .config(['$routeProvider', '$sailsProvider', 'prefix', function($routeProvider, $sailsProvider, prefix) {
-    $sailsProvider.url = prefix;
+  .config(['$routeProvider', 'prefix', '$httpProvider', 'unwrap', function($routeProvider, prefix, $httpProvider, unwrap) {
+    $httpProvider.defaults.transformResponse.push(unwrap);
+    $httpProvider.interceptors.push('errorHttpInterceptor');
+    $httpProvider.interceptors.push('etagInterceptor');
     $routeProvider
-    /*
-      .when('/', {
-      templateUrl: 'views/main.html',
-      controller: 'MainCtrl'
-      })
-    */
       .when('/new-report', {
         templateUrl: 'views/new-report.html',
         controller: 'NewReportCtrl'
@@ -71,6 +66,10 @@ angular
       .when('/new-twitter-search', {
         templateUrl: 'views/new-twitter-search.html',
         controller: 'NewTwitterSearchCtrl'
+      })
+      .when('/web-queue', {
+        templateUrl: 'views/web-queue.html',
+        controller: 'WebQueueCtrl'
       })
       // static pages, without controllers
       .when('/error-no-monitors', {

@@ -1,15 +1,1 @@
-[
-  {
-    "logs": {
-      "updated": "2014-03-24T11:54:22.582Z",
-      "created": "2014-03-24T11:54:22.582Z"
-    },
-    "spec": {
-      "consumer_secret": "***************************************aS4",
-      "access_token_key": "***********************************************CHK",
-      "consumer_key": "******************Tcg",
-      "access_token_secret": "******************************************Q73"
-    },
-    "id": 1
-  }
-]
+{"_items": [{"_updated": "Thu, 01 Jan 1970 00:00:00 GMT", "logs": {"updated": "Mon, 24 Mar 2014 11:54:22 GMT", "created": "Mon, 24 Mar 2014 11:54:22 GMT"}, "spec": {"consumer_secret": "lGKwHAYJv7YnPTGR9Zs7wFDLM6gvrKtwtlwjlWgaS4", "access_token_key": "1960324645-CBO7cMKawGY2w8RYQ9zTGJZP5w9xMV3VRWF1CHK", "consumer_key": "JGlewgaLsKsBC1STyOTcg", "access_token_secret": "a8lkUGylSbZyR5JcDXhfuW7N403ZgFGq9htHPgfcmBQ73"}, "_links": {"self": {"href": "/twt_oauths/1", "title": "Twt_oauth"}}, "_created": "Thu, 01 Jan 1970 00:00:00 GMT", "_id": 1, "_etag": "9da39c7616bd1ff043f0cc6e8d3569125cf5d56d"}], "_links": {"self": {"href": "/twt_oauths", "title": "twt_oauths"}, "parent": {"href": "", "title": "home"}}}

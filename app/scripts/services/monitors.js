@@ -7,7 +7,7 @@
 
  */
 angular.module('citizendeskFrontendApp')
-  .service('Monitors', ['$resource', 'prefix', '$q', 'Raven', 'FilterGrouper', '$rootScope', '$sails', '$http', function Monitors($resource, prefix, $q, Raven, FilterGrouper, $rootScope, $sails, $http) {
+  .service('Monitors', ['$resource', 'prefix', '$q', 'Raven', 'FilterGrouper', '$rootScope', '$http', function Monitors($resource, prefix, $q, Raven, FilterGrouper, $rootScope, $http) {
     // AngularJS will instantiate a singleton by calling "new" on this function
     var resources = {
       filter: $resource(prefix + '/twt_filters/:id'),
@@ -15,13 +15,11 @@ angular.module('citizendeskFrontendApp')
       key: $resource(prefix + '/twt_oauths/:id')
     };
     this.resources = resources; // exposing for tests
-    // calling `get` just in order to be subscribed to the collection messages
-    $sails.get('/reports?limit=1').error(Raven.captureSocketError);
     /*
      register the monitor for real time report creation. doing like
      this for every monitor is inefficient, but the number of monitors
      is very low
-     */
+     *
     function register(monitor) {
       $sails.on('message', function (message) {
         if (message.model === 'reports' && message.verb === 'create') {
@@ -36,6 +34,7 @@ angular.module('citizendeskFrontendApp')
         }
       });
     }
+     */
     function updateMonitorFromFilter(monitor, filter) {
       monitor.slug = FilterGrouper.getSlug(filter.spec);
       monitor.description = FilterGrouper.getDescription(filter.spec);
@@ -44,19 +43,19 @@ angular.module('citizendeskFrontendApp')
       var id = monitor.spec.filter_id;
       for (var i=0; i<filters.length; i++ ) {
         var filter = filters[i];
-        if (filter.id === id) {
+        if (filter._id === id) {
           monitor.filter = angular.copy(filter);
           updateMonitorFromFilter(monitor, filter);
           return;
         }
       }
-      throw new Error('monitor has no associated filter');
+      throw new Error('monitor '+monitor._id+' has no associated filter');
     }
     function addKey(monitor, keys) {
       var id = monitor.spec.oauth_id;
       for (var i=0; i<keys.length; i++) {
         var key = keys[i];
-        if (key.id === id) {
+        if (key._id === id) {
           monitor.key = angular.copy(key);
           return;
         }
@@ -84,7 +83,7 @@ angular.module('citizendeskFrontendApp')
             monitor.reports = [];
             // a monitor is also a queue with type 'monitor'
             monitor.type = 'monitor';
-            register(monitor);
+            //register(monitor);
             addFilter(monitor, results.filters);
             addKey(monitor, results.keys);
             monitors.push(monitor);
@@ -132,11 +131,11 @@ angular.module('citizendeskFrontendApp')
       monitor.filter.spec.track = newTrack;
       $http({
         method: 'PUT',
-        url: prefix+'/twt_filters/'+monitor.filter.id,
+        url: prefix+'/twt_filters/'+monitor.filter._id,
         data: monitor.filter,
       })
         .success(function() {
-          restart(monitor.id)
+          restart(monitor._id)
             .then(function() {
               // empty collected reports
               monitor.reports = [];

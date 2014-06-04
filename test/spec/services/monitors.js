@@ -8,11 +8,6 @@ describe('Service: Monitors', function () {
 
   // instantiate service
   var Monitors, $httpBackend, promise;
-  beforeEach(function() {
-    module(function($provide) {
-      $provide.value('$sails', globals.sails);
-    });
-  });
   beforeEach(inject(function(_$httpBackend_, prefix) {
     $httpBackend = _$httpBackend_;
     $httpBackend

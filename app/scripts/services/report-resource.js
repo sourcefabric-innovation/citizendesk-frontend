@@ -1,7 +1,6 @@
 'use strict';
 
 angular.module('citizendeskFrontendApp')
-  .factory('reportResource', ['$resource', function ($resource) {
-    var root = 'http://martin.sourcefabric.net:1337';
-    return $resource(root + '/reports/:id');
+  .factory('reportResource', ['$resource', 'prefix', function ($resource, prefix) {
+    return $resource(prefix + '/reports/:id');
   }]);

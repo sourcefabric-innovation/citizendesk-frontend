@@ -8,20 +8,7 @@ describe('Controller: ReportListCtrl', function () {
 
   var ReportListCtrl,
     scope,
-  $httpBackend,
-  $sails = {
-    on: function() {},
-    get: function() {
-      return {
-        success: function(f) {
-          f([{
-          },{
-          },{
-          }]);
-        }
-      };
-    }
-  };
+  $httpBackend;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope, _$httpBackend_) {

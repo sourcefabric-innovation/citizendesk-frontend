@@ -9,7 +9,7 @@ angular.module('citizendeskFrontendApp')
       $scope.monitor = Monitors
         .getBySlug($scope.queues, $routeParams.id);
       if (!$scope.monitor) {
-        $location.url('/error-no-monitors');
+        $location.url('/new-twitter-search');
       }
     });
     $scope.resetNewTrack = function() {

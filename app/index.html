@@ -49,7 +49,7 @@
           <div class="collapse navbar-collapse" id="navbar-collapse">
             <ul class="nav navbar-nav pull-right">
               <li><a ng-href="#/new-report">New Report</a></li>
-              <li><a ng-href="#/monitor">Queues</a></li>
+              <li><a ng-href="#/twitter-search">Queues</a></li>
               <li><a ng-href="#/configure">Configure</a></li>
             </ul>
           </div>
@@ -72,14 +72,10 @@
        ga('send', 'pageview');
     </script>
 
-    <script src="http://martin.sourcefabric.net:1337/js/renew-session.js"></script>
     <script src="bower_components/jquery/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/angular-resource/angular-resource.js"></script>
-    <script src="manual_components/socket/socket.io.js"></script>
-    <script src="manual_components/socket/sails.io.js"></script>
-    <script src="bower_components/angular-sails/dist/angular-sails.js"></script>
     <script src="bower_components/raven-js/dist/raven.js"></script>
     <script src="bower_components/angular-gettext/dist/angular-gettext.min.js"></script>
 
@@ -112,7 +108,6 @@
         <script src="scripts/controllers/configure-twitter-ingestion-streams.js"></script>
         <script src="scripts/controllers/configure-autoreply.js"></script>
         <script src="scripts/services/raven.js"></script>
-        <script src="scripts/services/sockets-helpers.js"></script>
         <script src="scripts/controllers/configure-steps.js"></script>
         <script src="scripts/controllers/report.js"></script>
         <script src="scripts/services/report-resource.js"></script>
@@ -125,6 +120,17 @@
         <script src="scripts/services/twitter-searches.js"></script>
         <script src="scripts/controllers/twitter-search.js"></script>
         <script src="scripts/directives/report-summary.js"></script>
+        <script src="scripts/services/unwrap.js"></script>
+        <script src="scripts/services/resources.js"></script>
+        <script src="scripts/services/exception-handler.js"></script>
+        <script src="scripts/services/error-http-interceptor.js"></script>
+        <script src="scripts/services/resource.js"></script>
+        <script src="scripts/services/etag-interceptor.js"></script>
+        <script src="scripts/services/report-polling.js"></script>
+        <script src="scripts/directives/queue-selection.js"></script>
+        <script src="scripts/controllers/queue-selection.js"></script>
+        <script src="scripts/services/queue-selection.js"></script>
+        <script src="scripts/controllers/web-queue.js"></script>
         <!-- endbuild -->
 </body>
 </html>

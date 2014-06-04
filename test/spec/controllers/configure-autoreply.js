@@ -12,8 +12,7 @@ describe('Controller: ConfigureAutoreplyCtrl', function () {
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
     ConfigureAutoreplyCtrl = $controller('ConfigureAutoreplyCtrl', {
-      $scope: scope,
-      $sails: globals.sails
+      $scope: scope
     });
   }));
 
