@@ -1,0 +1,28 @@
+<h3 ng-class="{'text-center': largeScreen}" translate>Processed reports</h3>
+<div class="row">
+  <div class="col-md-offset-2 col-md-8">
+    <ul class="list-group text-center">
+      <!-- !totals[group.key] collapses when the totals are 0 or when
+      the totals are not fetched yet. this avoids showing danger
+      elements when we are still fetching the data -->
+      <div ng-repeat="group in groups" collapse="collapseEmpty && (!totals[group.key])">
+         <a class="list-group-item" ng-class="group.class" ng-href="#/generic-report-list/{{group.key}}">
+           <span ng-bind="group.description"></span>
+           <span class="badge" ng-bind="totals[group.key]"></span>
+         </a>
+      </div>
+    </ul>
+  </div>
+  <div class="col-md-offset-2 col-md-8">
+    <p>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" ng-model="collapseEmpty">
+          <span translate>
+            Collapse empty groups
+          </span>
+        </label>
+      </div>
+    </p>
+  </div>
+</div>

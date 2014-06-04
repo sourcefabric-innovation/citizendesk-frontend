@@ -1,0 +1,49 @@
+<ol class="breadcrumb">
+  <li><a href="#/configure" translate>Configure</a></li>
+  <li class="active" translate>Validation steps</li>
+</ol>
+<div class="form-group">
+  <p class="help-block" translate>
+    Changing these settings will not affect reports that already started
+    the verification process
+  </p>
+</div>
+<div ng-repeat="step in steps">
+  <div class="form-group">
+    <label class="col-md-2" translate>Description</label>
+    <div class="col-md-10">
+      <input type="text" class="col-md-10 form-control" ng-model="step.description">
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-md-10 col-md-offset-2">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" ng-model="step.mandatory">
+          <span translate>Required</span>
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-md-10 col-md-offset-2">
+      <button class="btn btn-primary" ng-click="save(step)" ng-disabled="disabled">
+        <span translate>Save</span>
+      </button>
+      <button class="btn btn-danger" ng-click="remove(step)" ng-disabled="disabled">
+        <span translate>Delete</span>
+      </button>
+    </div>
+  </div>
+  <!-- had troubles applying ng-repeat directly to `p`, so i add an
+  empty `p` in order to have the bottom padding -->
+  <p>
+    &nbsp;
+  </p>
+</div>
+<p class="col-md-10 col-md-offset-2">
+  <button class="btn btn-warning" ng-click="add()">
+    <span translate>Add</span>
+  </button>
+</p>
+<div class="clearfix"></div>

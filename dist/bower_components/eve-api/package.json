@@ -1,0 +1,28 @@
+{
+  "name": "eve-api",
+  "version": "0.10.0",
+  "description": "Angular resource service optimised for Python Eve backends",
+  "main": "api-service.js",
+  "scripts": {
+    "test": "./test-service && ./test-service-mock"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/sourcefabric-innovation/eve-resource.git"
+  },
+  "keywords": [
+    "angular"
+  ],
+  "author": "",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/sourcefabric-innovation/eve-resource/issues"
+  },
+  "devDependencies": {
+    "karma-jasmine": "~0.1.5",
+    "karma": "~0.12.16",
+    "karma-phantomjs-launcher": "~0.1.4",
+    "karma-cli": "0.0.4",
+    "karma-firefox-launcher": "~0.1.3"
+  }
+}

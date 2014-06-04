@@ -1,0 +1,24 @@
+<h3>
+  <span class="glyphicon glyphicon-user"></span>
+  <span translate>Assign to:</span>
+</h3>
+<p>
+  <button type="button" class="btn btn-info btn-lg btn-block" ng-click="assignTo(identity._id)" ng-disabled="disabled">
+    <span translate>
+      Me
+    </span>
+    <span ng-show="totals[identity._id]">({{totals[identity._id]}})</span>
+  </button>
+</p>
+<p ng-repeat="user in users" ng-hide="user._id === identity._id">
+  <button type="button" class="btn btn-default btn-lg btn-block" ng-click="assignTo(user._id)" ng-disabled="disabled">
+    <span ng-bind="user.username"></span>
+    <span ng-show="totals[user._id]">({{totals[user._id]}})</span>
+  </button>
+</p>
+<p>
+  <button type="button" class="btn btn-warning btn-lg btn-block" ng-click="back()" ng-disabled="disabled">
+    <span class="glyphicon glyphicon-arrow-left"></span>
+    <span translate>Go back</span>
+  </button>
+</p>

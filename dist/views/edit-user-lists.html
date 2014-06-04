@@ -1,0 +1,17 @@
+<form ng-submit="save()">
+  <h3 translate>
+    Citizen {{alias.identifiers.user_name}} belongs to list:
+  </h3>
+  <div class="row">
+    <div class="col-xs-8 col-md-8">
+      <select ng-model="currentList" ng-options="list._id as list.name for list in lists" class="form-control">
+        <option value=""><span translate>no list</span></option>
+      </select>
+    </div>
+    <div class="col-xs-4 col-md-4">
+      <button type="submit" class="btn btn-primary" ng-disabled="disabled">
+        <span translate>Save</span>
+      </button>
+    </div>
+  </div>
+</form>

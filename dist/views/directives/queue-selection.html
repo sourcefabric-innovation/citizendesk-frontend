@@ -1,0 +1,31 @@
+<div class="dropdown" ng-controller="QueueSelectionCtrl">
+  <a dropdown-toggle>
+    <h3 ng-bind="service.description"></h3>
+  </a>
+  <ul class="dropdown-menu">
+    <li>
+      <a ng-href="#/mobile-queue">
+        <span>Mobile reports</span>
+      </a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a ng-href="#/new-twitter-search">
+        <span>New Twitter search</span>
+      </a>
+    </li>
+    <li class="divider"></li>
+    <li ng-repeat="queue in searches">
+      <a ng-href="#/twitter-search/{{queue._id}}">
+        <span ng-bind="queue.description"></span>
+        <span class="badge" ng-bind="queue.reports.length"></span>
+      </a>
+    </li>
+    <li ng-repeat="queue in monitors">
+      <a ng-href="#/monitor/{{queue.slug}}">
+        <span ng-bind="queue.description"></span>
+        <span class="badge" ng-bind="queue.reports.length"></span>
+      </a>
+    </li>
+  </ul>
+</div>

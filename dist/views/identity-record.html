@@ -1,0 +1,60 @@
+<h3 translate>
+  Identity record
+</h3>
+<div ng-if="identity.deleted" class="alert alert-danger">
+  <span translate>
+    <strong>This identity record was deleted!</strong> Someone deleted
+    this identity record, any alias associated with it should be
+    re-associated to a new, valid citizen identity
+  </span>
+</div>
+<form ng-submit="submit()">
+  <div class="form-group">
+    <label translate>First name</label>
+    <input class="form-control" ng-model="identity.first_name" required>
+  </div>
+  <div class="form-group">
+    <label translate>Last name</label>
+    <input class="form-control" ng-model="identity.last_name" required>
+  </div>
+  <div class="form-group">
+    <label translate>E-Mail</label>
+    <input class="form-control" ng-model="identity.email" type="email">
+  </div>
+  <div class="form-group">
+    <label translate>Location</label>
+    <input class="form-control" ng-model="identity.location">
+  </div>
+  <div class="clearfix">
+    <button type="button" class="btn btn-danger" ng-click="delete()" ng-hide="hideDelete" ng-disabled="deleteDisabled">
+      <span translate>Delete</span>
+    </button>
+    <span class="pull-right">
+      <button type="button" class="btn btn-default" ng-click="cancel()">
+        <span translate>Cancel</span>
+      </button>
+      <button type="submit" class="btn btn-primary" ng-disabled="disabled">
+        <span translate>Save</span>
+      </button>
+    </span>
+  </div>
+  <p ng-show="aliases.length" class="help-block">
+    <span translate>
+      Deletion is disabled because this identity is associated with
+      some aliases
+    </span>
+  </p>
+</form>
+<div ng-show="aliases.length">
+  <h5 translate>This identity is associated with the aliases below:</h5>
+  <div class="list-group">
+    <a ng-repeat="al in aliases" class="list-group-item" ng-href="#/citizen-card/{{al.authority}}/{{al.identifiers.user_name}}">
+      <span class="pull-right">
+        <span ng-if="al.authority === 'twitter'" class="fa fa-twitter"></span>
+        <span ng-if="al.authority === 'telco'" class="fa fa-phone"></span>
+      </span>
+      <span ng-bind="al.identifiers.user_name_search">
+      </span>
+    </a>
+  </div>
+</div>

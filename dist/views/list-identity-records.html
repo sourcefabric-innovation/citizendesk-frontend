@@ -1,0 +1,31 @@
+<!-- the user can navigate to this page from two locations, the
+configuration page and the citizen card. in the two cases there will
+be different route parameters. we have to show either a title or a
+configuration breadcrumb, depending on the origin -->
+<div ng-switch="configuration">
+  <ol ng-switch-when="true" class="breadcrumb">
+    <li><a href="#/configure" translate>Configure</a></li>
+    <li class="active" translate>Known Identities</li>
+  </ol>
+  <h3 ng-switch-when="false"><span translate>Identity records</span></h3>
+</div>
+<div ng-hide="configuration">
+  <p translate>
+    Select an identity to associate the alias with
+  </p>
+</div>
+<div class="text-center">
+  <div class="btn-group-vertical">
+    <button class="btn btn-info" ng-click="add()">
+      <span translate>Add a new identity</span>
+    </button>
+    <button ng-repeat="identity in identities" class="btn btn-default" ng-disabled="disabled" ng-click="select(identity)">
+      {{identity.first_name}} {{identity.last_name}}
+    </button>
+    <button ng-show="dissociate" class="btn btn-warning" ng-disabled="disabled" ng-click="dissociate()">
+      <span translate translate-comment="for example, the owner of a phone number is...">
+        Unknown
+      </span>
+    </button>
+  </div>
+</div>

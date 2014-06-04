@@ -1,0 +1,67 @@
+<h3 translate>
+  Incoming Reports
+</h3>
+<ul class="list-group">
+  <a class="list-group-item list-group-item-info" ng-href="#/mobile-queue">
+    <span class="glyphicon glyphicon-phone pull-right"></span>
+    <span translate>Mobile reports</span>
+  </a>
+  <a class="list-group-item list-group-item-info" ng-href="#/list-from-the-web">
+    <span class="glyphicon glyphicon-globe pull-right"></span>
+    <span translate>Content from the Web</span>
+  </a>
+</ul>
+<h4>
+  <span translate>Tweets</span>
+  <a href="#/help-tweet-queues">
+    <small>
+      <span class="glyphicon glyphicon-question-sign"></span>
+    </small>
+  </a>
+</h4>
+<ul class="list-group">
+  <a ng-repeat="queue in monitors" class="list-group-item list-group-item-success" ng-href="#/monitor/{{queue._id}}" ng-show="queue.user_id._id != session.identity._id">
+    <span translate>
+      {{queue.user_id.username}}'s monitor
+    </span>
+    <span class="badge" ng-bind="queue.reports.length"></span>
+  </a>
+  <a class="list-group-item list-group-item-success" ng-href="#/my-monitor">
+    <span class="glyphicon glyphicon-eye-open pull-right"></span>
+    <span translate>
+      Your monitor
+    </span>
+    <span class="badge" ng-bind="myMonitor.reports.length"></span>
+  </a>
+  <a class="list-group-item list-group-item-warning" ng-href="#/new-twitter-search">
+    <span translate>New Twitter search</span>
+  </a>
+  <a class="list-group-item list-group-item-warning" ng-show="searches.length" ng-click="collapseSearches = !collapseSearches">
+    <span class="glyphicon glyphicon-search pull-right"></span>
+    <span ng-switch="collapseSearches">
+      <span ng-switch-when="true">
+        <span translate>Show Twitter searches</span>
+      </span>
+      <span ng-switch-default>
+        <span translate>Hide Twitter searches</span>
+      </span>
+    </span>
+  </a>
+  <div collapse="collapseSearches">
+    <a ng-repeat="queue in searches" class="list-group-item" ng-href="#/twitter-search/{{queue._id}}">
+      <span ng-bind="queue.description"></span>
+      <span class="badge" ng-bind="queue.reports.length"></span>
+    </a>
+  </div>
+  <!--li class="list-group-item">
+      <a ng-href="#/web-queue">
+        <span>From the web</span>
+      </a>
+  </li-->
+</ul>
+<ul class="list-group">
+  <a class="list-group-item" ng-href="#/processed-queues">
+    <span class="glyphicon glyphicon-list-alt pull-right"></span>
+    <span translate>Processed reports</span>
+  </a>
+</ul>

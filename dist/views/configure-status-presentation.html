@@ -1,0 +1,26 @@
+<ol class="breadcrumb">
+  <li><a href="#/configure" translate>Configure</a></li>
+  <li class="active" translate>Status presentation</li>
+</ol>
+<p>
+  <span translate>
+    Modify these texts in order to change the way verification status
+    is presented to the readers
+  </span>
+</p>
+<div ng-repeat="status in statuses">
+  <div class="form-group">
+    <label class="col-md-2" ng-bind="status.key"></label>
+    <div class="col-md-8">
+      <input type="text" class="form-control" ng-model="status.description">
+    </div>
+    <div class="col-md-2">
+      <button class="btn btn-primary" ng-click="save(status)" ng-disabled="disabled">
+        <span translate>Save</span>
+      </button>
+    </div>
+  </div>
+  <!-- had troubles applying ng-repeat directly to `p`, so i add an
+  empty `p` in order to have the bottom padding -->
+  <p>&nbsp;</p>
+</div>

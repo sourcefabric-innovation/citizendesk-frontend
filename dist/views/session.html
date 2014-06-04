@@ -1,0 +1,115 @@
+<h3 translate>Mobile session</h3>
+<div ng-repeat="report in reports">
+  <div class="row">
+    <div ng-show="report.authors[0].identifiers.user_id == identity.user" class="col-md-9 col-md-offset-3">
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <small class="pull-right" ng-bind="report.produced | date:'medium'">
+          </small>
+          <!-- since fetching details about the actual sender happens
+              asynchronously, the markup must support the lack of
+              details -->
+          <span ng-if="report.local">
+            <span ng-if="users[report.user_id]">
+              <span ng-bind="users[report.user_id].username">
+              </span>
+            </span>
+            <span ng-if="!users[report.user_id]">
+              <span translate>
+                Sent by Citizen Desk
+              </span>
+            </span>
+          </span>
+          <span ng-if="!report.local">
+            <span ng-repeat="author in report.authors" ng-bind="author.identifiers.user_name">
+            </span>
+          </span>
+        </div>
+        <div class="panel-body" ng-bind="report.texts[0].original">
+        </div>
+      </div>
+    </div>
+    <div ng-hide="report.authors[0].identifiers.user_id == identity.user" class="col-md-9">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <small class="pull-right" ng-bind="report.produced | date:'medium'">
+          </small>
+          <span ng-bind="report.authors[0].identifiers.user_name">
+          </span>
+        </div>
+        <div class="panel-body" ng-bind="report.texts[0].original">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<tabset>
+  <tab>
+    <tab-heading>
+      <span translate>Reply</span>
+    </tab-heading>
+    <p>
+      <form>
+        <div class="form-group">
+          <label translate>
+            Reply to {{replyReport.authors[0].identifiers.user_name}}
+          </label>
+          <textarea class="form-control" rows="3" ng-model="reply">
+          </textarea>
+          <p class="help-block" translate>
+            Still {{140 - reply.length}} characters in order to fit in
+            a single SMS
+          </p>
+        </div>
+        <button class="btn btn-primary" translate ng-click="sendReply()" type="submit">
+          Send
+        </button>
+        <button class="btn btn-default" translate ng-click="reset()">
+          Reset
+        </button>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" ng-model="body.glue">
+            <span translate>Stick to the bottom</span>
+          </label>
+        </div>
+      </form>
+    </p>
+  </tab>
+  <tab>
+    <tab-heading>
+      <span translate>Summary</span>
+    </tab-heading>
+    <p>
+      <form>
+        <div class="form-group">
+          <label>Session summary:</label>
+          <div ng-hide="summaries.length">
+            <textarea class="form-control" ng-model="$parent.summaryContent" required rows="3">
+            </textarea>
+          </div>
+          <div ng-show="summaries.length">
+            <textarea class="form-control" ng-model="summaries[0].texts[0].original" rows="3" disabled="disabled">
+            </textarea>
+          </div>
+        </div>
+        <button class="btn btn-primary" ng-click="submitSummary()" ng-if="!summaries.length">
+          <span translate>
+            Create a session summary
+          </span>
+        </button>
+        <button class="btn btn-primary" ng-click="goToSummary()" ng-if="summaries.length">
+          <span translate>
+            See summary details
+          </span>
+        </button>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" ng-model="body.glue">
+            <span translate>Stick to the bottom</span>
+          </label>
+        </div>
+      </form>
+    </p>
+  </tab>
+</tabset>

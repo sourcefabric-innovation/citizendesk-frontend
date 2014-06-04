@@ -1,0 +1,58 @@
+<div data-id="{{report._id}}" scroll-target="report._id" class="panel panel-default">
+  <div class="panel-heading clearfix" ng-if="report.authors[0].alias.tags[0]">
+    <span class="label pull-right" ng-bind="report.authors[0].alias.tags[0].name" ng-class="report.authors[0].alias.tags[0].variation">
+    </span>
+  </div>
+  <div class="panel-body break-long-words">
+    <p>
+      <div class="row">
+        <!-- avatar -->
+        <div class="col-md-2 col-xs-3">
+          <a target="_blank" ng-href="//twitter.com/{{report.original.user.screen_name}}">
+            <img class="media-object" ng-src="{{report.original.user.profile_image_url_https}}">
+          </a>
+        </div>
+        <div class="col-md-10 col-xs-7">
+          <div>
+            <span ng-bind="report.produced | date:'short'" class="text-muted pull-right">
+            </span>
+            <!-- full name -->
+            <a target="_blank" ng-href="//twitter.com/{{report.original.user.screen_name}}">
+              <strong ng-bind="report.original.user.name"></strong>
+            </a>
+            <!-- Twitter user name -->
+            <a target="_blank" ng-href="//twitter.com/{{report.original.user.screen_name}}">
+              <span ng-bind="'@'+report.original.user.screen_name" class="text-muted">
+              </span>
+            </a>
+          </div>
+          <!-- middle part of the tweet -->
+          <p id="text" ng-if="report.linkedText" ng-bind-html="report.linkedText" ng-class="lead">
+          </p>
+          <!-- this in case we do not have a linked text -->
+          <p id="text" ng-if="!report.linkedText" ng-bind-html="report.texts[0].original" ng-class="lead">
+          </p>
+          <!-- lower part of the tweet -- actions -->
+          <div>
+            <a ng-href="https://twitter.com/intent/favorite?tweet_id={{report.original.id_str}}" target="_blank">
+              <img src="//si0.twimg.com/images/dev/cms/intents/icons/favorite.png">
+            </a>
+            <a ng-href="https://twitter.com/intent/tweet?in_reply_to={{report.original.id_str}}" target="_blank">
+              <img src="//si0.twimg.com/images/dev/cms/intents/icons/reply.png">
+            </a>
+            <a ng-href="https://twitter.com/intent/retweet?tweet_id={{report.original.id_str}}" target="_blank">
+              <img src="//si0.twimg.com/images/dev/cms/intents/icons/retweet.png">
+            </a>
+          </div>
+        </div>
+      </div>
+    </p>
+  </div>
+  <div class="panel-footer clearfix">
+    <div class="panel" ng-repeat="medium in report.original.entities.media">
+      <img class="img-responsive center-block" ng-src="{{medium.media_url_https}}">
+    </div>
+    <span ng-show="report.original.entities.urls.length" class="glyphicon glyphicon-link"></span>
+    <span report-summary-buttons></span> 
+  </div>
+</div>

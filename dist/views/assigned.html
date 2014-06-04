@@ -1,0 +1,9 @@
+<h3 translate>
+  Number of reports assigned for every user
+</h3>
+<div class="list-group">
+  <a ng-href="#/assigned-to/{{user._id}}/{{user.username}}" class="list-group-item" ng-repeat="user in users">
+    <span class="badge" ng-bind="totals[user._id]"></span>
+    <span ng-bind="user.username"></span>
+  </a>
+</div>

@@ -1,0 +1,28 @@
+<h3 translate>
+  Items assigned to you <small>for verification or publishing</small>
+</h3>
+<p>
+  <div class="input-group">
+    <div class="input-group-addon">
+      <span class="glyphicon glyphicon-search"></span>
+    </div>
+    <input class="form-control" type="search" ng-model="q">
+  </div>
+</p>
+<div ng-repeat="report in reports | filter:q" ng-switch on="report.feed_type">
+  <div ng-switch-when="tweet" tweet-summary></div>
+  <div ng-switch-default report-summary></div>
+</div>
+<div ng-show="loading">
+  <p>
+    <h5 class="text-center" translate>Loading...</h5>
+    <div class="text-center">
+      <span class="fa fa-refresh fa-spin"></span>
+    </div>
+  </p>
+</div>
+<p ng-hide="loading || reports.length" translate>
+  There are no reports assigned to you yet. You can go to
+  the <a href="#/queues/">incoming reports page</a> to pick something
+  interesting
+</p>

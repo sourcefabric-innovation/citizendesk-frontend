@@ -1,0 +1,17 @@
+<ol class="breadcrumb">
+  <li><a href="#/configure" translate>Configure</a></li>
+  <li class="active" translate>Citizen lists</li>
+</ol>
+<p ng-repeat="list in lists" class="clearfix">
+  <label class="label" ng-class="list.variation" ng-bind="list.name">
+  </label>
+  <button ng-click="edit(list)" class="btn btn-default pull-right">
+    <span translate>Edit</span>
+  </button>
+</p>
+<p>
+  <button ng-click="create()" class="btn btn-default pull-right">
+    <span translate>Create a new list</span>
+  </button>
+</p>
+<p class="clearfix"></p>

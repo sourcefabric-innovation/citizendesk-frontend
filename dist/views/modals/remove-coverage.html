@@ -1,0 +1,39 @@
+<div ng-controller="RemoveCoverageModalCtrl">
+  <div class="modal-header">
+    <h4 class="modal-title" translate>
+      Confirm coverage deletion
+    </h4>
+  </div>
+  <div class="modal-body">
+    <div ng-show="loading" class="text-center">
+      <span class="fa fa-refresh fa-spin"></span>
+    </div>
+    <div ng-hide="loading">
+      <div ng-show="disabled">
+        <p translate>
+          There are {{reports.length}} reports published under this
+          coverage, you have to unpublish those reports before
+          deleting the coverage
+        </p>
+        <p>
+          <a ng-href="#/reports-in-coverage/{{coverage.uuid}}" ng-click="$dismiss()">
+            <span translate>See the published reports</span>
+          </a>
+        </p>
+      </div>
+      <div ng-hide="disabled">
+        <p translate>
+          Are you sure that you want to delete this coverage?
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" ng-click="$close()" ng-disabled="disabled" translate>
+      Delete
+    </button>
+    <button type="button" class="btn btn-primary" ng-click="$dismiss()" translate>
+      Do not delete
+    </button>
+  </div>
+</div>

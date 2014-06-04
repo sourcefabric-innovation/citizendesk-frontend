@@ -1,0 +1,55 @@
+<div queue-selection></div>
+<div>
+  <p ng-switch="status" class="clearfix">
+    <a href="https://twitter.com" target="_blank">
+      <img src="https://g.twimg.com/dev/sites/default/files/images_documentation/bird_blue_16.png" width="14" height="11">
+    </a>
+    <span class="pull-right">
+      <button class="btn btn-warning btn-xs pull-right" ng-switch-when="deleted" disabled="disabled">
+        <span translate>Deleted</span>
+      </button>
+      <span ng-switch-when="error">
+        <span translate>Error deleting</span>
+        <button class="btn btn-warning btn-xs" ng-click="delete()">
+          <span translate>Try again</span>
+        </button>
+      </span>
+      <button class="btn btn-warning btn-xs" ng-switch-when="deleting" disabled="disabled">
+        <span class="fa fa-refresh fa-spin"></span>
+        <span translate>Deleting</span>
+      </button>
+      <button class="btn btn-warning btn-xs" ng-switch-default ng-click="delete()" ng-disabled="!queue">
+        <span class="glyphicon glyphicon-trash"></span>
+        <span translate>Delete search</span>
+      </button>
+    </span>
+  </p>
+</div>
+<p>
+  <div class="input-group">
+    <div class="input-group-addon">
+      <span class="glyphicon glyphicon-search"></span>
+    </div>
+    <input class="form-control" type="search" ng-model="q">
+  </div>
+</p>
+<div ng-repeat="report in queue.reports | filter:q | limitTo:queue.limit" tweet-summary>
+</div>
+<p ng-show="queue.reports.length > queue.limit">
+  <button class="btn btn-default btn-lg btn-block" ng-click="queue.limit = queue.limit + 50">
+    <span translate>
+      See more reports
+    </span>
+  </button>
+</p>
+<div ng-show="loading">
+  <p>
+    <h5 class="text-center" translate>Loading...</h5>
+    <div class="text-center">
+      <span class="fa fa-refresh fa-spin"></span>
+    </div>
+  </p>
+</div>
+<p ng-hide="loading || queue.reports.length" translate>
+  No reports match your search criteria
+</p>

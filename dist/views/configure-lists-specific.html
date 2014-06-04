@@ -1,0 +1,50 @@
+<ol class="breadcrumb">
+  <li><a href="#/configure" translate>Configure</a></li>
+  <li><a href="#/configure-lists" translate>Citizen lists</a></li>
+  <li ng-hide="newList" class="active" ng-bind="list.name"></li>
+  <li ng-show="newList" class="active">
+    <span translate>New list</span>
+  </li>
+</ol>
+<form ng-submit="save()" name="form">
+  <div class="form-group">
+    <label for="name" translate>List name</label>
+    <input class="form-control" id="name" ng-model="list.name" placeholder="{{'List name'|translate}}" required>
+  </div>
+  <div class="form-group">
+    <label for="variation" translate>Style for the list label</label>
+    <select class="form-control" id="variation" ng-model="list.variation" ng-options="variation.class as variation.name for variation in variations">
+    </select>
+  </div>
+  <div class="form-group">
+    <label translate>Preview</label>
+    <p class="form-control-static">
+      <label class="label" ng-class="list.variation" ng-bind="list.name">
+      </label>
+    </p>
+  </div>
+  <button type="button" class="btn btn-default" ng-click="back()" translate>Cancel</button>
+  <button type="submit" class="btn btn-primary" ng-disabled="disabled" translate>
+    Save
+  </button>
+</form>
+<p></p>
+<div ng-show="deletable">
+  <button type="button" class="btn btn-default" ng-click="delete()" ng-disabled="disabled" translate>Delete</button>
+  <p></p>
+  <p translate>
+    This list does not contain any citizen
+  </p>
+</div>
+<div ng-show="aliases.length">
+  <p translate>
+    This list cannot be deleted, because some citizens belong to
+    it. Please remove the citizens from the list in order to delete it
+  </p>
+  <p translate>
+    Citizens belonging to this list:
+  </p>
+  <div ng-repeat="alias in aliases">
+    <a ng-bind="alias.identifiers.user_name" ng-href="#/citizen-card/{{alias.authority}}/{{alias.identifiers.user_name}}"></a>
+  </div>
+</div>

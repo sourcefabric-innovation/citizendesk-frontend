@@ -1,0 +1,13 @@
+<!-- link to the citizen card just if not a local author, see comments
+     on
+     https://github.com/sourcefabric-innovation/citizendesk-frontend/issues/53
+     -->
+<a ng-href="#/citizen-card/{{author.authority}}/{{author.identifiers.user_name}}" ng-hide="author.authority === 'citizen_desk'">
+  <span ng-bind="author.identifiers.user_name"></span>
+  <span ng-if="author.alias.identity_record_id.first_name">
+    ({{author.alias.identity_record_id.first_name}}
+    {{author.alias.identity_record_id.last_name}})
+  </span>
+</a>
+<strong ng-bind="author.identifiers.user_display_name" ng-show="author.authority === 'citizen_desk'">
+</strong>

@@ -1,0 +1,21 @@
+<h4 translate>
+  Please select the image you want to be published with this report
+</h4>
+<form ng-submit="submit()">
+  <div class="checkbox" ng-repeat="image in report.media">
+    <label>
+      <input type="radio" ng-model="$parent.selected" ng-value="$index">
+      <strong translate>Image {{$index+1}}</strong>
+      <p></p>
+      <p>
+        <img ng-src="{{image.link}}" class="img-thumbnail">
+      </p>
+    </label>
+  </div>
+  <button class="btn btn-default" ng-click="cancel()">
+    <span translate>Cancel</span>
+  </button>
+  <button type="sumbit" class="btn btn-primary" ng-disabled="disabled">
+    <span translate>Save selection</span>
+  </button>
+</form>

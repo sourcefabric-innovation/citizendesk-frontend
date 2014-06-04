@@ -1,0 +1,88 @@
+<h3 translate>Report details</h3>
+<div class="panel panel-info">
+  <div class="panel-heading" translate>
+    Text
+  </div>
+  <div class="panel-body break-long-words">
+    <div ng-show="editingTranscript" class="form-group">
+      <textarea ng-model="transcriptCandidate" class="form-control" rows="5"></textarea>
+      <button type="button" class="btn btn-default btn-sm" translate ng-click="saveTranscript()" ng-disabled="disableTranscript">
+        Save
+      </button>
+      <button type="button" class="btn btn-default btn-sm" translate ng-click="cancelTranscriptEditing()" ng-disabled="disableTranscript">
+        Cancel
+      </button>
+    </div>
+    <div ng-show="hasTranscript && !editingTranscript">
+      <p class="lead" id="text" ng-bind="report.texts[0].transcript"></p>
+      <button type="button" class="btn btn-default btn-sm" translate ng-click="startTranscript()">
+        Edit
+      </button>
+      <button type="button" class="btn btn-default btn-sm" translate ng-click="discardTranscript()">
+        Discard
+      </button>
+      <hr>
+    </div>
+    <h5 ng-show="hasTranscript || editingTranscript" translate>
+      Original text:
+    </h5>
+    <p id="text" ng-bind="report.texts[0].original" ng-class="{lead: !hasTranscript}"></p>
+    <button type="button" class="btn btn-default btn-sm" translate ng-click="startTranscript()" ng-hide="hasTranscript || editingTranscript">
+      Edit
+    </button>
+  </div>
+</div>
+<p ng-show="report.feed_type=='sms'">
+  <a class="btn btn-default" ng-href="#/session/{{encodedSession}}">
+    <span class="fa fa-comments-o"></span>
+    <span translate>Session</span>
+  </a>
+</p>
+<div>
+  <div class="row">
+    <div class="col-sm-6">
+      <dl>
+        <dt translate>Author</dt>
+        <dd>
+          <report-author author="report.authors[0]">
+        </report-author></dd>
+      </dl>
+      <dl>
+        <dt translate>Created</dt>
+        <dd ng-bind="report.produced | date:'medium'"></dd>
+      </dl>
+      <dl ng-repeat="url in report.original.entities.urls">
+        <dt translate>External link</dt>
+        <dd>
+          <a target="_blank" ng-href="{{url.url}}" ng-bind="url.display_url">
+          </a>
+        </dd>
+      </dl>
+    </div>
+  </div>
+</div>
+<div common-report-detail-part></div>
+<div ng-if="report.summary">
+  <h4 translate>Session summary</h4>
+  <p translate>
+    This report was generated as the summary of a session, so you
+    can perform specific actions like deleting this summary
+  </p>
+  <p>
+    <a ng-href="#/session/{{report.session}}">
+      <span translate>Go to the corresponding session</span>
+    </a>
+  </p>
+  <p ng-show="isPublished">
+    <span translate>
+      The summary cannot be deleted as long as it is published
+    </span>
+  </p>
+  <p ng-hide="isPublished">
+    <button class="btn btn-danger" ng-click="deleteSummary()" ng-disabled="deleteSummaryDisabled">
+      <span translate>Delete this summary</span>
+    </button>
+  </p>
+</div>
+<p>&nbsp;</p>
+<div class="clearfix"></div>

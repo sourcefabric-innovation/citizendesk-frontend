@@ -1,0 +1,37 @@
+<h3 translate>Add a report from a web location</h3>
+<form ng-submit="submit()">
+  <div class="form-group">
+    <label translate>Location</label>
+    <input type="url" placeholder="http://www.{{'example'|translate}}.com" ng-model="location" required class="form-control">
+  </div>
+  <!--div class="checkbox">
+    <label>
+      <input type="checkbox" ng-model="assign">
+      <span translate>Assign immediately</span>
+    </label>
+  </div>
+  <div class="form-group" collapse="!assign">
+    <label translate>Assign to</label>
+    <select class="form-control" options="user in users"
+            ng-model="assignedTo">
+    </select>
+  </div-->
+  <div class="checkbox">
+    <label>
+      <input type="checkbox" ng-model="repeat">
+      <span translate>Add another</span>
+    </label>
+  </div>
+  <button class="btn btn-default" ng-click="cancel()">
+    <span translate>Cancel</span>
+  </button>
+  <button type="sumbit" class="btn btn-primary">
+    <span translate>Ingest</span>
+  </button>
+</form>
+<div ng-show="showConfirm" class="alert alert-info alert-dismissable">
+  <button class="close" data-dismiss="alert">&times;</button>
+  <span translate>
+    The link has been added to the list of incoming web reports
+  </span>
+</div>

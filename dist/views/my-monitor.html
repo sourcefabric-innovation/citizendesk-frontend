@@ -1,0 +1,62 @@
+<div queue-selection></div>
+<div ng-show="monitor">
+  <form ng-hide="editing" class="form-inline">
+    <div class="form-group">
+      <button class="btn btn-default" type="button" ng-click="edit()" ng-disabled="disabled">
+        <span class="glyphicon glyphicon-pencil"></span>
+      </button>
+      <span class="fa fa-refresh fa-spin" ng-show="updating"></span>
+    </div>
+  </form>
+  <form ng-show="editing" class="form-inline">
+    <div class="form-group">
+      <input class="form-control" ng-model="search" required ng-list>
+    </div>
+    <div class="form-group">
+      <button class="btn btn-default" type="button" ng-click="cancelEdit()" ng-disabled="disabled">
+        <span class="glyphicon glyphicon-remove"></span>
+      </button>
+      <button class="btn btn-default" type="button" ng-click="save()" ng-disabled="disabled">
+        <span class="glyphicon glyphicon-floppy-disk"></span>
+      </button>
+    </div>
+  </form>
+  <p ng-show="tellToWait">
+    <span translate>
+      Your monitored terms have been saved. Check back to this page to
+      see updates as they come in
+    </span>
+  </p>
+  <p ng-show="newReports.length" class="text-center">
+    <button type="button" class="btn btn-default" ng-click="showNew()">
+      <span translate>{{newReports.length}} new reports</span>
+    </button>
+  </p>
+  <div ng-repeat="report in reports" tweet-summary>
+  </div>
+</div>
+<div ng-show="showCreate">
+  <h4 translate>Start your monitor</h4>
+  <form>
+    <div class="form-group">
+      <label for="createSearch" translate>
+        Search terms
+      </label>
+      <input class="form-control" id="createSearch" ng-model="search" ng-list required placeholder="place @user #hashtag">
+    </div>
+    <button type="submit" class="btn btn-primary" ng-click="create()" ng-disabled="disabled">
+      <span translate>
+        Start monitoring
+      </span>
+    </button>
+  </form>
+</div>
+<div ng-show="showKeyPointer">
+  <h4 translate>Your Twitter key is missing</h4>
+  <p translate>
+      In order to use a personal monitor, Twitter requires an
+      application key. You can find more information and add your key
+      in the <a href="#/configure-twitter-ingestion-oauths"> key
+      configuration page </a>
+  </p>
+</div>

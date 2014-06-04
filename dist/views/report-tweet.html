@@ -1,0 +1,104 @@
+<h3 translate>Report details</h3>
+<div class="panel panel-info">
+  <div class="panel-heading" translate>
+    Tweet
+  </div>
+  <div class="panel-body break-long-words">
+    <!-- upper part of the tweet -->
+    <p>
+      <div class="row">
+        <!-- avatar -->
+        <div class="col-md-2 col-xs-3">
+          <a target="_blank" ng-href="//twitter.com/{{report.original.user.screen_name}}">
+            <img class="media-object" ng-src="{{report.original.user.profile_image_url_https}}">
+          </a>
+        </div>
+        <div class="col-md-8 col-xs-7">
+          <p>
+            <!-- full name -->
+            <div>
+              <a target="_blank" ng-href="//twitter.com/{{report.original.user.screen_name}}">
+                <strong ng-bind="report.original.user.name"></strong>
+              </a>
+            </div>
+            <!-- Twitter user name -->
+            <div>
+              <a target="_blank" ng-href="//twitter.com/{{report.original.user.screen_name}}">
+                <span ng-bind="'@'+report.original.user.screen_name" class="text-muted">
+                </span>
+              </a>
+            </div>
+          </p>
+        </div>
+        <!-- logo button -->
+        <div class="col-md-2 col-xs-2">
+          <a href="https://twitter.com" target="_blank" class="pull-right">
+            <img src="https://g.twimg.com/dev/sites/default/files/images_documentation/bird_blue_16.png" width="14" height="11">
+          </a>
+        </div>
+      </div>
+    </p>
+    <!-- middle part of the tweet -->
+    <p id="text" ng-bind-html="linkedText" ng-class="lead">
+    </p>
+    <!-- lower part of the tweet -->
+    <p>
+      <div class="pull-right">
+        <a ng-href="https://twitter.com/intent/favorite?tweet_id={{report.original.id_str}}" target="_blank">
+          <img src="//si0.twimg.com/images/dev/cms/intents/icons/favorite.png">
+        </a>
+        <a ng-href="https://twitter.com/intent/tweet?in_reply_to={{report.original.id_str}}" target="_blank">
+          <img src="//si0.twimg.com/images/dev/cms/intents/icons/reply.png">
+        </a>
+        <a ng-href="https://twitter.com/intent/retweet?tweet_id={{report.original.id_str}}" target="_blank">
+          <img src="//si0.twimg.com/images/dev/cms/intents/icons/retweet.png">
+        </a>
+      </div>
+      <span ng-bind="report.produced | date:'medium'" class="text-muted">
+      </span>
+    </p>
+  </div>
+</div>
+<div class="panel panel-info" ng-repeat="medium in report.original.entities.media">
+  <div class="panel-heading" translate>
+    Media
+  </div>
+  <div class="panel-body">
+    <img class="img-responsive center-block" ng-src="{{medium.media_url_https}}">
+  </div>
+  <div class="panel-footer text-center">
+    <a target="_blank" class="btn btn-default" ng-href="http://regex.info/exif.cgi?imgurl={{medium.media_url_https}}">
+      Jeffrey's Exif Viewer
+    </a>
+    <a target="_blank" ng-href="http://www.google.com/searchbyimage?image_url={{medium.media_url_https}}" class="btn btn-default">
+      <span translate>Reverse Image Search</span>
+    </a>
+    <a target="_blank" ng-href="http://fotoforensics.com/upload-url.php?url={{medium.media_url_https}}" class="btn btn-default">
+      <span translate>Error level</span>
+    </a>
+  </div>
+</div>
+<p ng-show="report.feed_type=='sms'">
+  <!--a class="btn btn-primary"
+      ng-href="#/session/{{encodedSession}}/{{report._id}}"
+      translate
+      >
+      Reply
+      </a-->
+  <a class="btn btn-default" ng-href="#/session/{{encodedSession}}" translate>
+    Session
+  </a>
+</p>
+<div>
+  <div class="row">
+    <div class="col-sm-6">
+      <dl>
+        <dt translate>Citizen card</dt>
+        <dd>
+          <a ng-bind="report.authors[0].identifiers.user_name" ng-href="#/citizen-card/{{report.authors[0].authority}}/{{report.authors[0].identifiers.user_name}}"></a>
+        </dd>
+      </dl>
+    </div>
+  </div>
+</div>
+<div common-report-detail-part></div>

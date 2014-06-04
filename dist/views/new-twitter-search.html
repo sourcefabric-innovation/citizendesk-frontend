@@ -1,0 +1,26 @@
+<h2 translate>New Twitter search</h2>
+<form class="form-horizontal">
+  <fieldset>
+    <div class="form-group">
+      <label class="col-md-2" translate>
+        Please specify some search terms
+      </label>
+      <div class="col-md-10">
+        <input type="text" class="col-md-10 form-control" ng-model="terms">
+      </div>
+    </div>
+    <div class="col-md-10 col-md-offset-2">
+      <button class="btn btn-primary" ng-click="submit()">
+        Submit
+      </button>
+    </div>
+  </fieldset>
+</form>
+<div ng-show="loading">
+  <p>
+    <h5 class="text-center" translate>Loading...</h5>
+    <div class="text-center">
+      <span class="fa fa-refresh fa-spin"></span>
+    </div>
+  </p>
+</div>

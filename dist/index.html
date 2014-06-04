@@ -1,0 +1,112 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Citizen Desk</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+    <link href="//fonts.googleapis.com/css?family=Roboto:400,300,300italic|Roboto+Slab:400,700,300&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="styles/b8e23452.main.css">
+</head>
+  <body ng-app="citizendeskFrontendApp" ng-controller="BodyCtrl" scroll-glue ng-model="service.glue">
+    <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <!--[if lt IE 9]>
+      <script src="bower_components/es5-shim/es5-shim.js"></script>
+      <script src="bower_components/json3/lib/json3.min.js"></script>
+    <![endif]-->
+
+    <!-- Add your site or application content here -->
+    <div class="container">
+      <div class="page-header clearfix hidden-xs hidden-sm">
+        <h2>Citizen Desk <small>Alpha</small></h2>
+      </div>
+      <div ng-show="service.connectionError" class="alert alert-danger alert-dismissable">
+        <button class="close" data-dismiss="alert">&times;</button>
+        <span ng-bind="service.connectionError"></span>
+        <a ng-click="reload()" class="alert-link" translate>
+          click to reload the page
+        </a>
+      </div>
+      <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" ng-click="navCollapsed = !navCollapsed">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a href="#" class="navbar-brand visible-xs visible-sm">
+              Citizen Desk
+            </a>
+          </div>
+          <div collapse="navCollapsed" class="navbar-collapse">
+            <ul class="nav navbar-nav navbar-left">
+              <li><a ng-href="#/assigned-to-me" translate ng-click="clickNavigation()">
+                  Your Assignments
+              </a></li>
+              <li><a ng-href="#/queues" translate ng-click="clickNavigation()">
+                  Queues
+              </a></li>
+              <li><a ng-href="#/configure" translate ng-click="clickNavigation()">
+                  Configure
+              </a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right" ng-controller="LoginCtrl">
+              <li class="hidden-xs hidden-sm">
+                <span class="navbar-text" translate ng-click="clickNavigation()">
+                  logged in as {{username}}
+                </span>
+              </li>
+              <li><a ng-click="logout()" ng-click="clickNavigation()">
+                  Logout
+              </a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <p class="clearfix" ng-view></p>
+      <div class="footer text-center">
+        <span translate>♥ from Sourcefabric</span>
+        <span>—</span>
+        <a href="https://github.com/sourcefabric-innovation/citizendesk-frontend/issues/new" target="blank">
+          <span class="fa fa-bug"></span>
+          <span translate>Report an issue</span>
+        </a>
+      </div>
+    </div>
+
+     <script>
+       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+       ga('create', 'UA-52437272-1');
+       ga('send', 'pageview');
+    </script>
+
+    <script src="bower_components/jquery/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/raven-js/dist/raven.js"></script>
+    <script src="bower_components/lodash/dist/lodash.js"></script>
+    <script src="bower_components/bacon/dist/Bacon.min.js"></script>
+    <script src="bower_components/eve-api/dist/eve-api.js"></script>
+
+        <script src="scripts/50055ac9.plugins.js"></script>
+
+        <script src="scripts/2c64d103.scripts.js"></script>
+
+        <script src="scripts/bd4154dd.templates.js"></script>
+
+</body>
+</html>

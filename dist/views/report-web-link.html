@@ -1,0 +1,38 @@
+<h3 translate>Report details</h3>
+<div class="panel panel-info">
+  <div class="panel-heading">
+    <a ng-bind="report.texts[0].original" ng-href="{{report.original.url}}" target="_blank">
+    </a>
+  </div>
+  <div class="panel-body break-long-words">
+    <p id="text lead" ng-bind="report.texts[1].original"></p>
+  </div>
+</div>
+<div class="panel panel-info" ng-if="report.media.length">
+  <div class="panel-heading" translate>
+    Media
+  </div>
+  <div class="panel-body">
+    <img class="img-responsive" ng-src="{{report.media[0].link}}">
+  </div>
+  <div class="panel-footer">
+    <button class="btn btn-default" ng-click="toMediaSelection()">
+      <span translate>
+        Select the published image
+      </span>
+    </button>
+  </div>
+</div>
+<div>
+  <dl class="dl-horizontal">
+    <dt translate>Original link</dt>
+    <dd>
+      <a ng-bind="report.original.url" ng-href="{{report.original.url}}" target="_blank"></a>
+    </dd>
+    <dt translate>Citizen card</dt>
+    <dd>
+      <a ng-bind="report.authors[0].identifiers.user_name" ng-href="#/citizen-card/{{report.authors[0].authority}}/{{report.authors[0].identifiers.user_name}}"></a>
+    </dd>
+  </dl>
+</div>
+<div common-report-detail-part></div>

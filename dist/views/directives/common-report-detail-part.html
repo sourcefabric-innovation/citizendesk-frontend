@@ -1,0 +1,117 @@
+<div ng-controller="CommonReportDetailPartCtrl">
+  <div class="alert alert-{{status}}" ng-hide="alert==''" ng-bind="alert"></div>
+  <!-- the verification block follows, disabled for local reports,
+       like the mobile session summaries for example -->
+  <div ng-hide="report.local">
+    <h4 translate>Verification checklist</h4>
+    <div class="container">
+      <form id="tasks" class="form-horizontal" ng-repeat="step in report.steps">
+        <div class="form-group">
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" ng-model="step.done" ng-change="changeStep(step.done)">
+              {{step.description}}
+              <span ng-if="step.mandatory" ng-hide="step.done" class="glyphicon glyphicon-exclamation-sign"></span>
+            </label>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div ng-switch="largeScreen">
+      <div ng-switch-when="true">
+        <p class="btn-group btn-group-justified">
+          <label class="btn btn-default" ng-model="report.status" ng-class="{'btn-success': report.status=='verified'}" ng-disabled="disabled || verificationDisabled" btn-radio="'verified'">
+            <span class="glyphicon glyphicon-ok"></span>
+            <span translate>
+              Verified!
+            </span>
+          </label>
+          <label class="btn btn-default" ng-model="report.status" ng-disabled="disabled" btn-radio="''">
+            <span translate>
+              Unknown
+            </span>
+          </label>
+          <label class="btn btn-default" ng-model="report.status" ng-class="{'btn-danger': report.status=='debunked'}" ng-disabled="disabled" btn-radio="'debunked'">
+            <span class="glyphicon glyphicon-warning-sign"></span>
+            <span translate>
+              This is false
+            </span>
+          </label>
+        </p>
+      </div>
+      <div ng-switch-default>
+        <p class="btn-group btn-group-justified">
+          <label class="btn btn-default" ng-model="report.status" ng-class="{'btn-danger': report.status=='debunked'}" ng-disabled="disabled" btn-radio="'debunked'">
+            <span translate>
+              This is false
+            </span>
+          </label>
+        </p>
+        <p class="btn-group btn-group-justified">
+          <label class="btn btn-default" ng-model="report.status" ng-disabled="disabled" btn-radio="''">
+            <span translate>
+              Unknown
+            </span>
+          </label>
+        </p>
+        <p class="btn-group btn-group-justified">
+          <label class="btn btn-default" ng-model="report.status" ng-class="{'btn-success': report.status=='verified'}" ng-disabled="disabled || verificationDisabled" btn-radio="'verified'">
+            <span translate>
+              Verified!
+            </span>
+          </label>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div class="form-group">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" ng-model="comment">
+          <span translate>Add a comment to show on publish</span>
+        </label>
+      </div>
+    </div>
+    <div class="row" ng-show="isPublished && onBehalf">
+      <div class="col-md-12">
+        <h5>
+          <span translate>Published by {{onBehalf.username}}</span>
+        </h5>
+      </div>
+    </div>
+    <div class="form-group" ng-show="comment">
+      <div ng-hide="isPublished">
+        <textarea class="form-control" rows="2" ng-model="report.notices_outer[0]" ng-model-options="{ debounce: 1000 }"></textarea>
+      </div>
+      <div ng-show="isPublished" class="clearfix">
+        <textarea class="form-control" rows="2" ng-model="report.notices_outer[0]"></textarea>
+        <span class="pull-right">
+          <button class="btn btn-default" ng-click="report.notices_outer[0] = commentCopy" ng-disabled="disabled">
+            <span translate>Cancel</span>
+          </button>
+          <button class="btn btn-primary" ng-click="save()" ng-disabled="disabled">
+            <span translate>Save</span>
+          </button>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4 col-xs-4">
+      <button class="btn btn-warning" ng-if="!isPublished" ng-disabled="disablePublish || (!selectedCoverage)" ng-click="publish()">
+        <span translate>Publish</span>
+        <span class="glyphicon glyphicon-send"></span>
+      </button>
+      <button class="btn btn-warning" ng-if="isPublished" ng-disabled="disablePublish" ng-click="unpublish()">
+        <span translate>Unpublish</span>
+        <span class="glyphicon glyphicon-remove"></span>
+      </button>
+    </div>
+    <div class="col-md-8 col-xs-8">
+      <select class="form-control" ng-model="selectedCoverage" ng-options="coverage.title for coverage in coverages" ng-disabled="isPublished">
+      </select>
+    </div>
+  </div>
+  <p>&nbsp;</p>
+</div>

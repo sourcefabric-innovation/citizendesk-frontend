@@ -1,0 +1,21 @@
+<div data-id="{{report._id}}" class="panel panel-default">
+  <div class="panel-heading clearfix">
+    <h5>
+      <report-author author="report.authors[0]"></report-author>
+      <div>
+        <small ng-bind="report.produced | date:'medium'"></small>
+      </div>
+    </h5>
+    <span class="label pull-right" ng-bind="report.authors[0].alias.tags[0].name" ng-class="report.authors[0].alias.tags[0].variation">
+    </span>
+  </div>
+  <div class="panel-body break-long-words">
+    <p ng-repeat="text in report.texts" ng-bind="text.original"></p>
+  </div>
+  <div class="panel-footer clearfix">
+    <div class="panel" ng-if="report.media[0]">
+      <img class="img-responsive center-block" ng-src="{{report.media[0].link}}">
+    </div>
+    <span report-summary-buttons></span>
+  </div>
+</div>

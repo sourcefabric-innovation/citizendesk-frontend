@@ -1,0 +1,75 @@
+<ol class="breadcrumb">
+  <li><a href="#/configure" translate>Configure</a></li>
+  <li class="active" translate>Twitter monitor key</li>
+</ol>
+<form ng-show="key" class="form-horizontal">
+  <fieldset ng-disabled="disabled">
+    <div class="form-group">
+      <label class="col-md-2">
+        API key
+      </label>
+      <div class="col-md-10">
+        <input type="text" class="col-md-10 form-control" placeholder="aBcDeFgHiLmNoPqRsTuVz" ng-model="key.spec.consumer_key" required>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-md-2">
+        API secret
+      </label>
+      <div class="col-md-10">
+        <input type="text" class="col-md-10 form-control" placeholder="aBcDeFgHiLmNoPqRsTuVz" ng-model="key.spec.consumer_secret" required>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-md-2">
+        Access token
+      </label>
+      <div class="col-md-10">
+        <input type="text" class="col-md-10 form-control" placeholder="aBcDeFgHiLmNoPqRsTuVz" ng-model="key.spec.access_token_key">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-md-2">
+        Access token secret
+      </label>
+      <div class="col-md-10">
+        <input type="text" class="form-control" placeholder="aBcDeFgHiLmNoPqRsTuVz" ng-model="key.spec.access_token_secret" required>
+      </div>
+    </div>
+    <div class="col-md-10 col-md-offset-2" ng-if="editing">
+      <button class="btn btn-primary" ng-click="save()">
+        <span translate>
+          Save
+        </span>
+      </button>
+      <button class="btn btn-default" ng-click="cancelEdit()">
+        <span translate>
+          Cancel editing
+        </span>
+      </button>
+    </div>
+  </fieldset>
+</form>
+<div class="col-md-10 col-md-offset-2" ng-if="!editing && !noKey">
+  <button class="btn btn-primary" ng-click="edit()">
+    <span translate>
+      Edit
+    </span>
+  </button>
+</div>
+<div ng-show="noKey">
+  <p translate>
+    There are no Twitter monitor keys set up for you. You need to add
+    one in order to be able to define Twitter monitors
+  </p>
+  <p class="text-center">
+    <button class="btn btn-primary" ng-click="add()">
+      <span translate>Add a key</span>
+    </button>
+  </p>
+  <p>
+    <a target="_blank" href="http://iag.me/socialmedia/how-to-create-a-twitter-app-in-8-easy-steps/" translate>
+      How do I get a key? (tutorial in English)
+    </a>
+  </p>
+</div>

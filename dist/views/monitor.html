@@ -1,0 +1,6 @@
+<div queue-selection></div>
+<p ng-if="monitor">
+  {{monitor.user_id.username}} is monitoring {{monitor.filter.spec.track|arrayToText}}
+</p>
+<div ng-repeat="report in reports" tweet-summary>
+</div>

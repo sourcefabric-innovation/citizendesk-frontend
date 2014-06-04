@@ -1,0 +1,49 @@
+<ol class="breadcrumb">
+  <li><a href="#/configure" translate>Configure</a></li>
+  <li class="active" translate>Coverages</li>
+</ol>
+<p>
+  <span translate>
+    Changing these settings will not change reports already published
+    to existing coverages
+  </span>
+</p>
+<div ng-repeat="coverage in coverages">
+  <div class="form-group">
+    <label class="col-md-2" translate>Title</label>
+    <div class="col-md-10">
+      <input type="text" class="col-md-10 form-control" ng-model="coverage.title">
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-md-10 col-md-offset-2">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" ng-model="coverage.active">
+          <span translate>Active</span>
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-md-10 col-md-offset-2">
+      <button class="btn btn-primary" ng-click="save(coverage)" ng-disabled="disabled">
+        <span translate>Save</span>
+      </button>
+      <button class="btn btn-danger" ng-click="remove(coverage)" ng-disabled="disabled">
+        <span translate>Delete</span>
+      </button>
+    </div>
+  </div>
+  <!-- had troubles applying ng-repeat directly to `p`, so i add an
+  empty `p` in order to have the bottom padding -->
+  <p>
+    &nbsp;
+  </p>
+</div>
+<p class="col-md-10 col-md-offset-2">
+  <button class="btn btn-warning" ng-click="add()">
+    <span translate>Add</span>
+  </button>
+</p>
+<div class="clearfix"></div>
