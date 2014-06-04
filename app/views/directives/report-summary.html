@@ -5,11 +5,23 @@
   <div class="panel-body" ng-bind="report.texts[0].original"></div>
   <div class="panel-footer clearfix">
     Created: <span ng-bind="report.produced | date:'medium'"></span>
-    <a href="#/reports/{{report._id}}"
-       class="btn btn-primary pull-right"
-       translate
-       >
-      Verify
-    </a>
+    <span ng-switch="report.verified">
+      <a href="#/reports/{{report._id}}"
+         class="btn btn-info pull-right"
+         ng-switch-when="true"
+         >
+        <span translate>
+          Details
+        </span>
+      </a>
+      <a href="#/reports/{{report._id}}"
+         class="btn btn-primary pull-right"
+         ng-switch-default
+         >
+        <span translate>
+          Verify
+        </span>
+      </a>
+    </span>
   </div>
 </div>
