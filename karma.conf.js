@@ -57,9 +57,14 @@ module.exports = function(config) {
     // if true, it capture browsers, run tests and exit
     singleRun: false,
 
-    // karma preprocessor for templates in code
     preprocessors: {
-      '**/*.html': ['ng-html2js']
+      '**/*.html': ['ng-html2js'], // for templates in tests
+      'app/scripts/**/*.js': 'coverage' // for coverage
+    },
+    reporters: ['coverage'],
+    coverageReporter: {
+      type: 'lcov',
+      dir: 'coverage/'
     },
     ngHtml2JsPreprocessor: {
       // in order to match the location in the directives `templateUrl`
