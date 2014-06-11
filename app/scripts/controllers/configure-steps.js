@@ -2,11 +2,11 @@
 /* jshint newcap: false */
 
 angular.module('citizendeskFrontendApp')
-  .controller('ConfigureStepsCtrl', ['$scope', 'resource', 'prefix', function ($scope, resource, prefix) {
+  .controller('ConfigureStepsCtrl', ['$scope', 'resource', 'prefix', 'api', function ($scope, resource, prefix, api) {
     var res = resource(prefix + '/steps/:id');
-    res
+    api
+      .steps
       .query()
-      .$promise
       .then(function(data) {
         $scope.steps = data;
       });

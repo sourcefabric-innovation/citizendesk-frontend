@@ -4,9 +4,14 @@ angular
   .module('citizendeskFrontendApp', [
     'ngRoute',
     'ngResource',
-    'gettext'
+    'gettext',
+    'eveApi'
   ])
-  .config(['$routeProvider', 'prefix', '$httpProvider', 'unwrap', function($routeProvider, prefix, $httpProvider, unwrap) {
+  .constant('config', {
+    server: { url: 'http://cd2.sourcefabric.net/citizendesk-interface/' }
+  })
+  .config(['$routeProvider', 'prefix', '$httpProvider', 'unwrap', 'apiProvider', function($routeProvider, prefix, $httpProvider, unwrap, apiProvider) {
+    apiProvider.api('steps', { type:'http', backend: { rel:'steps' }});
     $httpProvider.defaults.transformResponse.push(unwrap);
     $httpProvider.interceptors.push('errorHttpInterceptor');
     $httpProvider.interceptors.push('etagInterceptor');
