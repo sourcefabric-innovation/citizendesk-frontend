@@ -2,9 +2,12 @@
 /* jshint camelcase: false */
 
 angular.module('citizendeskFrontendApp')
-  .service('TwitterSearches', ['$resource', '$q', 'Raven', 'prefix', '$http', 'reportResource', function TwitterSearches($resource, $q, Raven, prefix, $http, reportResource) {
-    var service = this;
-    var Search = $resource(prefix + '/twt-searches');
+  .service('TwitterSearches', ['$resource', '$q', 'Raven', 'prefix', '$http', 'reportResource', 'api', 'lodash', function TwitterSearches($resource, $q, Raven, prefix, $http, reportResource, api, _) {
+
+    var service = this,
+        Search = $resource(prefix + '/twt-searches'),
+        res = api.twtSearches;
+
     this.promise = Search.query().$promise;
     this.list = [];
     // dictionary to keep track of twitter searches whose reports have
@@ -68,5 +71,12 @@ angular.module('citizendeskFrontendApp')
         }
       }
       Raven.raven.captureMessage('twitter search with id ' + id + ' not found');
+    };
+    this.delete = function(queue) {
+      var promise = res.remove(queue);
+      promise.then(function() {
+        _.remove(service.list, queue);
+      });
+      return promise;
     };
   }]);

@@ -13,6 +13,7 @@ angular
   .config(['$routeProvider', 'prefix', '$httpProvider', 'unwrap', 'apiProvider', function($routeProvider, prefix, $httpProvider, unwrap, apiProvider) {
     apiProvider.api('steps', { type:'http', backend: { rel:'steps' }});
     apiProvider.api('reports', { type:'http', backend: { rel:'reports' }});
+    apiProvider.api('twtSearches', { type:'http', backend: { rel:'twt-searces' }});
     $httpProvider.defaults.transformResponse.push(unwrap);
     $httpProvider.interceptors.push('errorHttpInterceptor');
     $httpProvider.interceptors.push('etagInterceptor');

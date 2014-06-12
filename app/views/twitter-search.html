@@ -1,6 +1,42 @@
 <div queue-selection></div>
+<div>
+  <div ng-switch="status">
+    <button class="btn btn-warning btn-xs"
+            ng-switch-when="deleted"
+            disabled
+            >
+      <span translate>Deleted</span>
+    </button>
+    <span
+       ng-switch-when="error"
+       >
+      <span translate>Error deleting</span>
+      <button class="btn btn-warning btn-xs"
+              ng-click="delete()"
+              >
+        <span translate>Try again</span>
+      </button>
+    </span>
+    <button class="btn btn-warning btn-xs"
+            ng-switch-when="deleting"
+            disabled
+            >
+      <span class="fa fa-refresh fa-spin"></span>
+      <span translate>Deleting</span>
+    </button>
+    <button class="btn btn-warning btn-xs"
+            ng-switch-default
+            ng-click="delete()"
+            >
+      <span translate>Delete search</span>
+    </button>
+  </div>
+</div>
 <div
    ng-repeat="report in queue.reports"
    report-summary
    >
+</div>
+<div ng-hide="queue.reports.length" translate>
+  No reports match your search criteria
 </div>

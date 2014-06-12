@@ -12,4 +12,11 @@ angular.module('citizendeskFrontendApp')
         QueueSelection.description = $scope.queue.description;
       }
     });
+    $scope.delete = function() {
+      $scope.status = 'deleting';
+      TwitterSearches
+        .delete($scope.queue)
+        .then(function() { $scope.status = 'deleted'; })
+        .catch(function() { $scope.status = 'error'; });
+    };
   }]);
