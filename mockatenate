@@ -1,0 +1,4 @@
+#!/bin/bash -x
+cd test
+../node_modules/.bin/mockatenate mocks
+cd -

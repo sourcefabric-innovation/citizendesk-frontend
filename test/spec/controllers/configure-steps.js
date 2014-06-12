@@ -6,17 +6,26 @@ describe('Controller: ConfigureStepsCtrl', function () {
   beforeEach(module('citizendeskFrontendApp'));
 
   var ConfigureStepsCtrl,
-    scope;
+      scope,
+      $httpBackend;
 
   // Initialize the controller and a mock scope
-  beforeEach(inject(function ($controller, $rootScope) {
+  beforeEach(inject(function ($controller, $rootScope, _$httpBackend_) {
     scope = $rootScope.$new();
     ConfigureStepsCtrl = $controller('ConfigureStepsCtrl', {
       $scope: scope
     });
+    $httpBackend = _$httpBackend_;
+    $httpBackend
+      .expectGET(globals.root)
+      .respond(mocks.root);
+    $httpBackend
+      .expectGET(globals.root + 'steps')
+      .respond(mocks.steps.list);
   }));
 
-  xit('attaches a list of steps to the scope', function () {
+  it('attaches a list of steps to the scope', function () {
+    $httpBackend.flush();
     expect(scope.steps.length).toBe(3);
   });
   xit('adds a step', function() {

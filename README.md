@@ -19,3 +19,10 @@ interface][interface] component, and you have to write its address in
 the file `app/scripts/services/prefix.js`.
 
 [interface]: https://github.com/sourcefabric-innovation/citizendesk-interface
+
+#### Development notes
+
+Tests use a `mocks` object built with a tool called
+[mockatenate](https://github.com/danse/mockatenate). In order to
+update the file, run the './mockatenate' command from the root repository
+folder

@@ -62,7 +62,11 @@ module.exports = function(config) {
       '**/*.html': ['ng-html2js'], // for templates in tests
       'app/scripts/**/*.js': 'coverage' // for coverage
     },
+    /* Comment the following in order to have better debug
+    informations when karma tests are failing, uncomment in order to
+    have coverage reports *
     reporters: ['coverage'],
+    /**/
     coverageReporter: {
       type: 'lcov',
       dir: 'coverage/'
