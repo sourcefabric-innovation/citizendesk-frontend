@@ -1,7 +1,8 @@
 <div queue-selection></div>
 <div>
-  <div ng-switch="status">
-    <button class="btn btn-warning btn-xs"
+  <p ng-switch="status" class="clearfix">
+    <span class="pull-right">
+    <button class="btn btn-warning btn-xs pull-right"
             ng-switch-when="deleted"
             disabled
             >
@@ -30,7 +31,8 @@
             >
       <span translate>Delete search</span>
     </button>
-  </div>
+    </span>
+  </p>
 </div>
 <div
    ng-repeat="report in queue.reports"
