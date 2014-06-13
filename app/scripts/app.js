@@ -5,7 +5,10 @@ angular
     'ngRoute',
     'ngResource',
     'gettext',
-    'eveApi'
+    'eveApi',
+    'mgcrea.ngStrap.helpers.dimensions',
+    'mgcrea.ngStrap.helpers.debounce',
+    'mgcrea.ngStrap.affix'
   ])
   .constant('config', {
     server: { url: 'http://cd2.sourcefabric.net/citizendesk-interface/' }
