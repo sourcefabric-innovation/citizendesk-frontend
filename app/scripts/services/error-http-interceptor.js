@@ -3,11 +3,16 @@
 /* see also http://bahmutov.calepin.co/catch-all-errors-in-angular-app.html */
 
 angular.module('citizendeskFrontendApp')
-  .factory('errorHttpInterceptor', ['Raven', '$q', function (Raven, $q) {
+  .factory('errorHttpInterceptor', ['Raven', '$q', 'Application', function (Raven, $q, Application) {
+    function notify(error) {
+      Application.connectionError = error;
+    }
     return {
       // HTTP level error handling
       responseError: function (rejection) {
-        Raven.raven.captureException(new Error('HTTP response error'), {
+        var error = 'HTTP response error';
+        notify(error);
+        Raven.raven.captureException(new Error(error), {
           extra: {
             config: rejection.config,
             status: rejection.status
@@ -18,13 +23,16 @@ angular.module('citizendeskFrontendApp')
       // application level error handling (expecting Eve error format)
       response: function(response) {
         if (response.data._status === 'ERR') {
-          Raven.raven.captureException(new Error('Eve response error'), {
+          var error = 'Server side application error';
+          notify(error);
+          Raven.raven.captureException(new Error(error), {
             extra: {
               responseData: response.data
             }
           });
-          return $q.reject('Eve error');
+          return $q.reject(error);
         } else {
+          notify();
           return response;
         }
       }
