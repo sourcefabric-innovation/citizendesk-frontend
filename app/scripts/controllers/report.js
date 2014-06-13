@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('citizendeskFrontendApp')
-  .controller('ReportCtrl', ['$scope', '$routeParams', 'Raven', 'Resources', 'prefix', function ($scope, $routeParams, Raven, Resources) {
+  .controller('ReportCtrl', ['$scope', '$routeParams', 'Raven', 'Resources', 'prefix', '$location', '$anchorScroll', function ($scope, $routeParams, Raven, Resources, prefix, $location, $anchorScroll) {
     var id = $routeParams.id;
 
     function watchSteps() {
@@ -67,5 +67,14 @@ angular.module('citizendeskFrontendApp')
         alert('A validation step should never be unchecked, if you are unchecking now this means that the validation process was poor. Please be sure to avoid this in the future');
       }
       $scope.save();
+    };
+
+    // see https://github.com/mgcrea/angular-strap/issues/573
+    $scope.scrollTo = function (id){
+      // set the location.hash to the id of
+      // the element you wish to scroll to.
+      $location.hash(id);
+      // call $anchorScroll()
+      $anchorScroll();
     };
   }]);

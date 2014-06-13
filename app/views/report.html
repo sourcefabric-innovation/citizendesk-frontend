@@ -1,16 +1,31 @@
-<div class="well">
-  <p
-     ng-bind="report.texts[0].original"
-     ></p>
-  <p
-     >
-    Created: <span ng-bind="report.created | date:'medium'"></span>
-  </p>
+<div class="col-md-2 hidden-sm hidden-xs">
+  <div class="bs-sidebar">
+    <ul class="nav">
+      <li bs-scrollspy>
+        <a ng-click="scrollTo('text')">Text</a>
+      </li>
+      <li bs-scrollspy>
+        <a ng-click="scrollTo('tasks')">Tasks</a>
+      </li>
+    </ul>
+  </div>
 </div>
-<div class="alert alert-{{status}}" ng-hide="alert==''" ng-bind="alert"></div>
-<form class="form-horizontal" ng-repeat="step in report.steps">
-  <div class="form-group">
-    <div class="col-md-offset-2 col-md-10">
+<div class="col-md-10">
+  <div class="well">
+    <p
+       id="text"
+       ng-bind="report.texts[0].original"
+       ></p>
+    <p
+       >
+      Created: <span ng-bind="report.created | date:'medium'"></span>
+    </p>
+  </div>
+  <div class="alert alert-{{status}}"
+       ng-hide="alert==''"
+       ng-bind="alert"></div>
+  <form id="tasks" class="form-horizontal" ng-repeat="step in report.steps">
+    <div class="form-group">
       <div class="checkbox">
         <label>
           <input type="checkbox"
@@ -22,11 +37,9 @@
         </label>
       </div>
     </div>
-  </div>
-</form>
-<form class="form-horizontal">
-  <div class="form-group">
-    <div class="col-md-offset-2 col-md-10">
+  </form>
+  <form class="form-horizontal">
+    <div class="form-group">
       <div class="checkbox">
         <label>
           <input type="checkbox"
@@ -38,5 +51,6 @@
         </label>
       </div>
     </div>
-  </div>
-</form>
+  </form>
+</div>
+<div class="clearfix"></div>

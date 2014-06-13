@@ -8,7 +8,7 @@ angular
     'eveApi',
     'mgcrea.ngStrap.helpers.dimensions',
     'mgcrea.ngStrap.helpers.debounce',
-    'mgcrea.ngStrap.affix'
+    'mgcrea.ngStrap.scrollspy'
   ])
   .constant('config', {
     server: { url: 'http://cd2.sourcefabric.net/citizendesk-interface/' }
