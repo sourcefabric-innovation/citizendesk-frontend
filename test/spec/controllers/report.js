@@ -6,20 +6,33 @@ describe('Controller: ReportCtrl', function () {
   beforeEach(module('citizendeskFrontendApp'));
 
   var ReportCtrl,
-  scope;
+      scope,
+      $httpBackend;
 
   // Initialize the controller and a mock scope
-  beforeEach(inject(function ($controller, $rootScope) {
+  beforeEach(inject(function ($controller, $rootScope, _$httpBackend_) {
     scope = $rootScope.$new();
     ReportCtrl = $controller('ReportCtrl', {
-      $scope: scope
+      $scope: scope,
+      $routeParams: {id: 'abcdef'}
     });
+    $httpBackend = _$httpBackend_;
+    $httpBackend
+      .expectGET(globals.root)
+      .respond(mocks.root);
+    $httpBackend
+      .expectGET(globals.root + 'reports/abcdef')
+      .respond(mocks.reports['538df48f9c616729ad000035']);
+    $httpBackend
+      .expectGET(globals.root + 'steps')
+      .respond(mocks.steps.list);
+    $httpBackend.flush();
   }));
 
-  xit('attaches a report to the scope', function () {
+  it('attaches a report to the scope', function () {
     expect(scope.report).toBeDefined();
   });
-  xit('disables report verification', function() {
+  it('disables report verification', function() {
     scope.$apply();
     expect(scope.wait).toBe(true);
   });
@@ -30,7 +43,7 @@ describe('Controller: ReportCtrl', function () {
       });
       scope.$apply();
     });
-    xit('enables report verification', function() {
+    it('enables report verification', function() {
       expect(scope.wait).toBe(false);
     });
   });
@@ -38,10 +51,18 @@ describe('Controller: ReportCtrl', function () {
     beforeEach(inject(function ($controller, $rootScope) {
       scope = $rootScope.$new();
       ReportCtrl = $controller('ReportCtrl', {
+        $routeParams: {id: 'abcdef'},
         $scope: scope
       });
+      $httpBackend
+        .expectGET(globals.root + 'reports/abcdef')
+        .respond(mocks.reports['538df48f9c616729ad000035']);
+      $httpBackend
+        .expectGET(globals.root + 'steps')
+        .respond(mocks.steps.list);
+      $httpBackend.flush();
     }));
-    xit('disables report verification', function() {
+    it('disables report verification', function() {
       scope.$apply();
       expect(scope.wait).toBe(true);
     });
@@ -52,7 +73,7 @@ describe('Controller: ReportCtrl', function () {
         });
         scope.$apply();
       });
-      xit('enables report verification', function() {
+      it('enables report verification', function() {
         expect(scope.wait).toBe(false);
       });
     });

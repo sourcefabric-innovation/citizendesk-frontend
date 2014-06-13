@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('citizendeskFrontendApp')
-  .controller('ReportCtrl', ['$scope', '$routeParams', 'Raven', 'Resources', 'prefix', '$location', '$anchorScroll', function ($scope, $routeParams, Raven, Resources, prefix, $location, $anchorScroll) {
+  .controller('ReportCtrl', ['$scope', '$routeParams', 'Raven', 'api', '$location', '$anchorScroll', function ($scope, $routeParams, Raven, api, $location, $anchorScroll) {
     var id = $routeParams.id;
 
     function watchSteps() {
@@ -16,8 +16,7 @@ angular.module('citizendeskFrontendApp')
       if ('steps' in report) {
         watchSteps();
       } else {
-        Resources.steps.query()
-          .$promise
+        api.steps.query()
           .then(function(data) {
             if (data.length === 0) {
               Raven.raven.captureMessage('no validation steps for report detail');
@@ -32,9 +31,8 @@ angular.module('citizendeskFrontendApp')
       }
     }
 
-    Resources.reports
-      .get({id:id})
-      .$promise
+    api.reports
+      .getById(id)
       .then(function(data) {
         $scope.report = data;
         addSteps($scope.report);
@@ -50,8 +48,7 @@ angular.module('citizendeskFrontendApp')
       $scope.status = 'info';
       $scope.alert = 'saving';
 
-      $scope.report
-        .$save()
+      api.reports.save($scope.report)
         .then(function () {
           $scope.status = 'success';
           $scope.alert = 'saved';
