@@ -14,14 +14,26 @@
           Details
         </span>
       </a>
-      <a href="#/reports/{{report._id}}"
-         class="btn btn-primary pull-right"
+      <span
+         class="pull-right"
          ng-switch-default
          >
-        <span translate>
-          Verify
-        </span>
-      </a>
+        <a href="#"
+           class="btn btn-warning"
+           disabled
+           >
+          <span translate>
+            Dismiss
+          </span>
+        </a>
+        <a href="#/reports/{{report._id}}"
+           class="btn btn-primary"
+           >
+          <span translate>
+            Verify
+          </span>
+        </a>
+      </span>
     </span>
   </div>
 </div>
