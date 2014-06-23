@@ -25,10 +25,6 @@ angular
         templateUrl: 'views/new-report.html',
         controller: 'NewReportCtrl'
       })
-      .when('/list-reports/:group', {
-        templateUrl: 'views/list-reports.html',
-        controller: 'ReportListCtrl'
-      })
       .when('/verified-reports', {
         templateUrl: 'views/verified-reports.html',
         controller: 'VerifiedReportsCtrl'
