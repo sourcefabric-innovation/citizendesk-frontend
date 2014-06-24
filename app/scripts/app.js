@@ -17,9 +17,11 @@ angular
     apiProvider.api('steps', { type:'http', backend: { rel:'steps' }});
     apiProvider.api('reports', { type:'http', backend: { rel:'reports' }});
     apiProvider.api('twtSearches', { type:'http', backend: { rel:'twt-searces' }});
+    apiProvider.api('users', { type:'http', backend: { rel:'users' }});
     $httpProvider.defaults.transformResponse.push(unwrap);
     $httpProvider.interceptors.push('errorHttpInterceptor');
     $httpProvider.interceptors.push('etagInterceptor');
+    $httpProvider.interceptors.push('AuthInterceptor');
     $routeProvider
       .when('/new-report', {
         templateUrl: 'views/new-report.html',
@@ -91,8 +93,10 @@ angular
       .otherwise({
         redirectTo: '/verified-reports'
       });
-  }]).run(['gettextCatalog', 'Raven', function(gettextCatalog, Raven){
+  }]).run(['gettextCatalog', 'Raven', 'initAuth', 'auth', function(gettextCatalog, Raven, initAuth, auth){
     //gettextCatalog.currentLanguage = 'it_IT';
     gettextCatalog.debug = true;
     Raven.install();
+    auth.login('francesco', 'francesco');
+    initAuth();
   }]);

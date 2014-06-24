@@ -26,6 +26,7 @@ module.exports = function(config) {
       'app/scripts/**/*.js',
       'test/globals.js',
       'test/mock.js',
+      'test/auth-service-mock.js',
       'test/spec/**/*.js',
       // for karma markup preprocessor
       'app/views/**/*.html'
@@ -67,7 +68,7 @@ module.exports = function(config) {
     },
     /* Comment the following in order to have better debug
     informations when karma tests are failing, uncomment in order to
-    have coverage reports */
+    have coverage reports *
     reporters: ['coverage'],
     /**/
     coverageReporter: {
