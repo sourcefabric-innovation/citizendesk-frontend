@@ -11,7 +11,7 @@
     "sass-bootstrap": "~3.0.2",
     "raven-js": "~1.1.13",
     "angular-gettext": "~0.2.8",
-    "eve-api": "git@github.com:sourcefabric-innovation/eve-api.git#0.0.0",
+    "eve-api": "https://github.com/sourcefabric-innovation/eve-api.git#0.0.0",
     "angular-strap": "~2.0.3"
   },
   "devDependencies": {
