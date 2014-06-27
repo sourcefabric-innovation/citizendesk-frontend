@@ -4,11 +4,13 @@ angular
   .module('citizendeskFrontendApp', [
     'ngRoute',
     'ngResource',
+    'ngMessages',
     'gettext',
     'eveApi',
     'mgcrea.ngStrap.helpers.dimensions',
     'mgcrea.ngStrap.helpers.debounce',
-    'mgcrea.ngStrap.scrollspy'
+    'mgcrea.ngStrap.scrollspy',
+    'mgcrea.ngStrap.modal',
   ])
   .constant('config', {
     server: { url: 'http://cd2.sourcefabric.net/citizendesk-interface/' }
@@ -93,10 +95,9 @@ angular
       .otherwise({
         redirectTo: '/verified-reports'
       });
-  }]).run(['gettextCatalog', 'Raven', 'initAuth', 'auth', function(gettextCatalog, Raven, initAuth, auth){
+  }]).run(function(gettextCatalog, Raven, initAuth){
     //gettextCatalog.currentLanguage = 'it_IT';
     gettextCatalog.debug = true;
     Raven.install();
-    auth.login('francesco', 'francesco');
     initAuth();
-  }]);
+  });

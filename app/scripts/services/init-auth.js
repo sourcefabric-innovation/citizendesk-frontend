@@ -5,21 +5,6 @@ angular.module('citizendeskFrontendApp')
 
     return function() {
 
-      $rootScope.logout = function() {
-
-        function replace() {
-          session.clear();
-          $window.location.replace('/'); // reset page for new user
-        }
-
-        var sessionHref = session.getSessionHref();
-        if (sessionHref) {
-          $http['delete'](sessionHref).then(replace, replace);
-        } else {
-          replace();
-        }
-      };
-
       // populate current user
       $rootScope.$watch(function() {
         return session.identity;
