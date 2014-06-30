@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('citizendeskFrontendApp')
-  .controller('NewReportCtrl', ['$scope', 'reportResource', '$log', function ($scope, reportResource, $log) {
+  .controller('NewReportCtrl', function ($scope, reportResource, $log, $filter) {
     $scope.content = '';
     $scope.submit = function() {
       reportResource.save(
@@ -12,7 +12,7 @@ angular.module('citizendeskFrontendApp')
           channels: [{
             type: 'web'
           }],
-          produced: (new Date()).toGMTString()
+          produced: $filter('date')(new Date(), 'yyyy-MM-ddTHH:mm:ss+0000')
         },
         function() {
           $log.debug('report posted');
@@ -22,4 +22,4 @@ angular.module('citizendeskFrontendApp')
           $log.error('error posting report');
         });
     };
-  }]);
+  });
