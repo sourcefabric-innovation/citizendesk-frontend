@@ -11,11 +11,63 @@
   </div>
 </div>
 <div class="col-md-10">
-  <div class="well">
-    <p
-       id="text"
-       ng-bind="report.texts[0].original"
-       ></p>
+  <div class="panel panel-info">
+    <div class="panel-heading" translate>
+      Text
+    </div>
+    <div class="panel-body">
+      <div ng-show="hasTranscript || transcriptCandidate">
+        <div ng-show="editingTranscript" class="form-group">
+          <textarea ng-model="transcriptCandidate" class="form-control"
+                    rows="5"
+                    ></textarea>
+          <button type="button" class="btn btn-default btn-sm" translate
+                  ng-click="saveTranscript()"
+                  ng-disabled="disableTranscript"
+                  >
+            Save
+          </button>
+          <button type="button" class="btn btn-default btn-sm" translate
+                  ng-click="cancelTranscriptEditing()"
+                  ng-disabled="disableTranscript"
+                  >
+            Cancel
+          </button>
+        </div>
+        <div ng-hide="editingTranscript">
+          <p
+             class="lead"
+             id="text"
+             ng-bind="report.texts[0].transcript"
+             ></p>
+          <button type="button" class="btn btn-default btn-sm" translate
+                  ng-click="startTranscript()"
+                  >
+            Edit
+          </button>
+          <button type="button" class="btn btn-default btn-sm" translate
+                  ng-click="discardTranscript()"
+                  >
+            Discard
+          </button>
+        </div>
+        <hr>
+      </div>
+      <h5 ng-show="hasTranscript || transcriptCandidate" translate>
+        Original text:
+      </h5>
+      <p
+         id="text"
+         ng-bind="report.texts[0].original"
+         ng-class="{lead: !hasTranscript}"
+         ></p>
+      <button type="button" class="btn btn-default btn-sm" translate
+              ng-click="startTranscript()"
+              ng-hide="hasTranscript || transcriptCandidate"
+              >
+        Edit
+      </button>
+    </div>
   </div>
   <form class="form-horizontal">
     <div class="form-group">

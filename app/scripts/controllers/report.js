@@ -31,17 +31,23 @@ angular.module('citizendeskFrontendApp')
       }
     }
 
+
     api.reports
       .getById(id)
       .then(function(data) {
         $scope.report = data;
         addSteps($scope.report);
+
         $scope.$watch('report.verified', function(newValue, oldValue) {
           if (oldValue === true && newValue === false) {
             alert('this report was marked as verified, and now it is marked as unverified again! this is a very bad practice, and should be avoided');
           }
           $scope.stepsDisabled = $scope.report.verified;
         });
+
+        $scope.$watch('report.texts', function(newValue, oldValue) {
+          $scope.hasTranscript = $scope.report.texts[0].transcript;
+        }, true);
       });
 
     $scope.save = function() {
@@ -74,4 +80,46 @@ angular.module('citizendeskFrontendApp')
       // call $anchorScroll()
       $anchorScroll();
     };
+
+    $scope.startTranscript = function() {
+      var initial;
+      if ($scope.hasTranscript) {
+        initial = $scope.report.texts[0].transcript;
+      } else {
+        initial = angular
+          .copy($scope.report.texts[0].original);
+      }
+      $scope.transcriptCandidate = initial;
+      $scope.editingTranscript = true;
+    };
+
+    $scope.cancelTranscriptEditing = function() {
+      $scope.editingTranscript = false;
+    };
+
+    $scope.saveTranscript = function() {
+      $scope.disableTranscript = true;
+      var texts = angular.copy($scope.report.texts);
+      texts[0].transcript = $scope.transcriptCandidate;
+      api.reports
+        .update($scope.report, {texts: texts})
+        .then(function(report) {
+          $scope.disableTranscript = false;
+          $scope.editingTranscript = false;
+          $scope.report = report;
+        })
+    };
+
+    $scope.discardTranscript = function() {
+      $scope.disableTranscript = true;
+      var texts = angular.copy($scope.report.texts);
+      texts[0].transcript = undefined;
+      api.reports
+        .update($scope.report, {texts: texts})
+        .then(function(report) {
+          $scope.disableTranscript = false;
+          $scope.report = report;
+        })
+    };
+
   }]);
