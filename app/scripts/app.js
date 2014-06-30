@@ -22,7 +22,6 @@ angular
     apiProvider.api('users', { type:'http', backend: { rel:'users' }});
     $httpProvider.defaults.transformResponse.push(unwrap);
     $httpProvider.interceptors.push('errorHttpInterceptor');
-    $httpProvider.interceptors.push('etagInterceptor');
     $httpProvider.interceptors.push('AuthInterceptor');
     $routeProvider
       .when('/new-report', {
