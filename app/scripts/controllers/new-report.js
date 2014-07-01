@@ -10,7 +10,7 @@ angular.module('citizendeskFrontendApp')
             original: $scope.content
           }],
           channels: [{
-            type: 'web'
+            type: 'frontend'
           }],
           produced: $filter('date')(new Date(), 'yyyy-MM-ddTHH:mm:ss+0000')
         },
