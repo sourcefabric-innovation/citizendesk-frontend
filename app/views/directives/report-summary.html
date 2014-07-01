@@ -4,7 +4,10 @@
    >
   <div class="panel-body" ng-bind="report.texts[0].original"></div>
   <div class="panel-footer clearfix">
-    Created: <span ng-bind="report.produced | date:'medium'"></span>
+    <p>
+      Created on <span ng-bind="report.produced | date:'medium'"></span>
+      by <span ng-bind="report.authors[0].identifiers.user_name"></span>
+    </p>
     <span ng-switch="report.verified">
       <a href="#/reports/{{report._id}}"
          class="btn btn-info pull-right"

@@ -69,15 +69,22 @@
       </button>
     </div>
   </div>
-  <form class="form-horizontal">
-    <div class="form-group">
-      <label class="col-sm-2 control-label">Created</label>
-      <div class="col-sm-10">
-        <p class="form-control-static"
-           ng-bind="report.produced | date:'medium'"></p>
+  <div>
+    <div class="row">
+      <div class="col-sm-6">
+        <dl>
+          <dt translate>Author</dt>
+          <dd ng-bind="report.authors[0].identifiers.user_name"></dd>
+        </dl>
+      </div>
+      <div class="col-sm-6">
+        <dl>
+          <dt translate>Created</dt>
+          <dd ng-bind="report.produced | date:'medium'"></dd>
+        </dl>
       </div>
     </div>
-  </form>
+  </div>
   <div class="alert alert-{{status}}"
        ng-hide="alert==''"
        ng-bind="alert"></div>
