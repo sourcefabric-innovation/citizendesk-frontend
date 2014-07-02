@@ -8,6 +8,6 @@ angular.module('citizendeskFrontendApp')
         where: '{"feed_type":"sms"}'
       })
       .then(function(reports) {
-        $scope.reports = reports;
+        $scope.reports = reports._items;
       });
   }]);

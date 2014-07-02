@@ -15,7 +15,7 @@ describe('Controller: QueueSelectionCtrl', function () {
       $scope: scope,
       TwitterSearches: {
         promise: {
-          then: function(f) { f([]); }
+          then: function(f) { f({_items:[]}); }
         }
       }
     });

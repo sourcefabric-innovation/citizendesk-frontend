@@ -2,19 +2,19 @@
 /* jshint camelcase: false */
 
 angular.module('citizendeskFrontendApp')
-  .service('TwitterSearches', ['$resource', '$q', 'Raven', 'prefix', '$http', 'reportResource', 'api', 'lodash', function TwitterSearches($resource, $q, Raven, prefix, $http, reportResource, api, _) {
+  .service('TwitterSearches', function($resource, $q, Raven, prefix, $http, api, lodash) {
 
     var service = this,
-        Search = $resource(prefix + '/twt-searches'),
-        res = api.twtSearches;
+        res = api.twtSearches,
+        _ = lodash;
 
-    this.promise = Search.query().$promise;
+    this.promise = res.query();
     this.list = [];
     // dictionary to keep track of twitter searches whose reports have
     // already been fetched
     this.fetched = {};
-    this.promise.then(function(searches) {
-      service.list = searches;
+    this.promise.then(function(response) {
+      service.list = response._items;
     });
     /*
      create the search, get the id from the database, use it in order
@@ -24,13 +24,12 @@ angular.module('citizendeskFrontendApp')
       var query = {
         contains: [terms]
       };
-      var newSearch = new Search({
-        description: terms,
-        query: query
-      });
       var deferred = $q.defer();
-      newSearch
-        .$save()
+      res
+        .create({
+          description: terms,
+          query: query
+        })
         .then(function(queue) {
           $http
             .post(prefix + '/proxy/start-twitter-search/', {
@@ -55,11 +54,10 @@ angular.module('citizendeskFrontendApp')
         var query = JSON.stringify({
           'channels.request': id
         });
-        reportResource
+        api.reports
           .query({ where: query })
-          .$promise
-          .then(function(reports) {
-            queue.reports = reports;
+          .then(function(response) {
+            queue.reports = response._items;
             service.fetched[id] = true;
           });
         }
@@ -79,4 +77,4 @@ angular.module('citizendeskFrontendApp')
       });
       return promise;
     };
-  }]);
+  });

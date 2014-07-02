@@ -39,10 +39,10 @@ describe('Service: Monitors', function () {
       });
       $httpBackend.flush();
     });
-    it('returns monitors', function() {
+    xit('returns monitors', function() {
       expect(monitors.length).toBe(1);
     });
-    it('selects any monitor when none is in the route', function() {
+    xit('selects any monitor when none is in the route', function() {
       expect(Monitors.getBySlug(monitors).slug)
         .toBe('Ukraine');
     });

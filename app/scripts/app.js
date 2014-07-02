@@ -15,12 +15,11 @@ angular
   .constant('config', {
     server: { url: 'http://cd2.sourcefabric.net/citizendesk-interface/' }
   })
-  .config(['$routeProvider', 'prefix', '$httpProvider', 'unwrap', 'apiProvider', function($routeProvider, prefix, $httpProvider, unwrap, apiProvider) {
+  .config(['$routeProvider', 'prefix', '$httpProvider', 'apiProvider', function($routeProvider, prefix, $httpProvider, apiProvider) {
     apiProvider.api('steps', { type:'http', backend: { rel:'steps' }});
     apiProvider.api('reports', { type:'http', backend: { rel:'reports' }});
-    apiProvider.api('twtSearches', { type:'http', backend: { rel:'twt-searces' }});
+    apiProvider.api('twtSearches', { type:'http', backend: { rel:'twt-searches' }});
     apiProvider.api('users', { type:'http', backend: { rel:'users' }});
-    $httpProvider.defaults.transformResponse.push(unwrap);
     $httpProvider.interceptors.push('errorHttpInterceptor');
     $httpProvider.interceptors.push('AuthInterceptor');
     $routeProvider

@@ -8,7 +8,7 @@ angular.module('citizendeskFrontendApp')
     res
       .query()
       .then(function(data) {
-        $scope.steps = data;
+        $scope.steps = data._items;
       });
     $scope.endpoint = api.steps;
     $scope.status = {};

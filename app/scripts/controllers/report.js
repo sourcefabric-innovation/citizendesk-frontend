@@ -17,7 +17,8 @@ angular.module('citizendeskFrontendApp')
         watchSteps();
       } else {
         api.steps.query()
-          .then(function(data) {
+          .then(function(response) {
+            var data = response._items;
             if (data.length === 0) {
               Raven.raven.captureMessage('no validation steps for report detail');
             } else {
@@ -45,7 +46,7 @@ angular.module('citizendeskFrontendApp')
           $scope.stepsDisabled = $scope.report.verified;
         });
 
-        $scope.$watch('report.texts', function(newValue, oldValue) {
+        $scope.$watch('report.texts', function() {
           $scope.hasTranscript = $scope.report.texts[0].transcript;
         }, true);
       });
@@ -107,7 +108,7 @@ angular.module('citizendeskFrontendApp')
           $scope.disableTranscript = false;
           $scope.editingTranscript = false;
           $scope.report = report;
-        })
+        });
     };
 
     $scope.discardTranscript = function() {
@@ -119,7 +120,7 @@ angular.module('citizendeskFrontendApp')
         .then(function(report) {
           $scope.disableTranscript = false;
           $scope.report = report;
-        })
+        });
     };
 
   }]);
