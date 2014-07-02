@@ -20,9 +20,11 @@ angular.module('citizendeskFrontendApp')
         });
         return $q.reject(rejection);
       },
-      // application level error handling (expecting Eve error format)
+      // application level error handling, if an Eve error format is available
       response: function(response) {
-        if (response.data._status === 'ERR') {
+        if (response.data &&
+            response.data._status &&
+            response.data._status === 'ERR') {
           var error = 'Server side application error';
           notify(error);
           Raven.raven.captureException(new Error(error), {

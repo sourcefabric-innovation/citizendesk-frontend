@@ -74,7 +74,11 @@
       <div class="col-sm-6">
         <dl>
           <dt translate>Author</dt>
-          <dd ng-bind="report.authors[0].identifiers.user_name"></dd>
+          <dd>
+            <a ng-bind="report.authors[0].identifiers.user_name"
+               ng-href="#/citizen-card/{{report.authors[0].authority}}/{{report.authors[0].identifiers.user_name}}"
+               ></a>
+          </dd>
         </dl>
       </div>
       <div class="col-sm-6">

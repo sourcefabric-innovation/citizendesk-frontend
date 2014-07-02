@@ -20,6 +20,7 @@ angular
     apiProvider.api('reports', { type:'http', backend: { rel:'reports' }});
     apiProvider.api('twtSearches', { type:'http', backend: { rel:'twt-searches' }});
     apiProvider.api('users', { type:'http', backend: { rel:'users' }});
+    apiProvider.api('citizen_aliases', { type:'http', backend: { rel:'citizen_aliases' }});
     $httpProvider.interceptors.push('errorHttpInterceptor');
     $httpProvider.interceptors.push('AuthInterceptor');
     $routeProvider
@@ -42,6 +43,10 @@ angular
       .when('/twitter-search/:id?', {
         templateUrl: 'views/twitter-search.html',
         controller: 'TwitterSearchCtrl'
+      })
+      .when('/citizen-card/:authority/:name', {
+        templateUrl: 'views/citizen-card.html',
+        controller: 'CitizenCardCtrl'
       })
       .when('/mobile-queue/', {
         templateUrl: 'views/mobile-queue.html',

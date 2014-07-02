@@ -6,7 +6,10 @@
   <div class="panel-footer clearfix">
     <p>
       Created on <span ng-bind="report.produced | date:'medium'"></span>
-      by <span ng-bind="report.authors[0].identifiers.user_name"></span>
+      by
+      <a ng-bind="report.authors[0].identifiers.user_name"
+         ng-href="#/citizen-card/{{report.authors[0].authority}}/{{report.authors[0].identifiers.user_name}}"
+            ></a>
     </p>
     <span ng-switch="report.verified">
       <a href="#/reports/{{report._id}}"
