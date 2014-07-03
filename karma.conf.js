@@ -57,7 +57,13 @@ module.exports = function(config) {
     // - Safari (only Mac)
     // - PhantomJS
     // - IE (only Windows)
-    browsers: ['PhantomJS', 'Chrome'],
+    browsers: [
+      'PhantomJS',
+      // can't test Chrome with Travis, but feel free to uncomment
+      // this from time to time for a local test
+      //'Chrome',
+      'Firefox'
+    ],
 
 
     // Continuous Integration mode
