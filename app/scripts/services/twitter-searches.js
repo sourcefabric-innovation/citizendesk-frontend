@@ -2,7 +2,7 @@
 /* jshint camelcase: false */
 
 angular.module('citizendeskFrontendApp')
-  .service('TwitterSearches', function($resource, $q, Raven, prefix, $http, api, lodash) {
+  .service('TwitterSearches', function($resource, $q, Raven, prefix, $http, api, lodash, addNewValues) {
 
     var service = this,
         res = api.twtSearches,
@@ -10,12 +10,19 @@ angular.module('citizendeskFrontendApp')
 
     this.promise = res.query();
     this.list = [];
-    // dictionary to keep track of twitter searches whose reports have
-    // already been fetched
-    this.fetched = {};
     this.promise.then(function(response) {
       service.list = response._items;
     });
+    this.start = function(queue) {
+      return $http
+        .post(prefix + '/proxy/start-twitter-search/', {
+          user_id: '1',
+          request_id: queue._id,
+          search_spec: {
+            query: queue.query
+          }
+        });
+    };
     /*
      create the search, get the id from the database, use it in order
      to trigger an actual search action
@@ -31,14 +38,8 @@ angular.module('citizendeskFrontendApp')
           query: query
         })
         .then(function(queue) {
-          $http
-            .post(prefix + '/proxy/start-twitter-search/', {
-              user_id: '1',
-              request_id: queue._id,
-              search_spec: {
-                query: query
-              }
-            })
+          service
+            .start(queue)
             .then(function() {
               deferred.resolve(queue._id);
               service.list.push(queue);
@@ -48,19 +49,27 @@ angular.module('citizendeskFrontendApp')
       return deferred.promise;
     };
     this.fetchResults = function(queue) {
-      var id = queue._id;
-      if (id in service.fetched) {
-      } else {
-        var query = JSON.stringify({
-          'channels.request': id
-        });
-        api.reports
-          .query({ where: query })
-          .then(function(response) {
-            queue.reports = response._items;
-            service.fetched[id] = true;
+      var query = JSON.stringify({
+            'channels.request': queue._id
           });
-        }
+      if (!('reports' in queue)) {
+        queue.reports = [];
+      }
+      function fetch(page) {
+        api.reports
+          .query({
+            where: query,
+            sort:'[("produced", -1)]',
+            page: page
+          })
+          .then(function(response) {
+            addNewValues(queue.reports, response._items);
+            if (response._links.next) {
+              fetch(page + 1);
+            }
+          });
+      }
+      fetch(1);
     };
     this.byId = function(id) {
       for (var i=0; i<service.list.length; i++) {
