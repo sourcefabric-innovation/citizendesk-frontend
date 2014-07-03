@@ -14,14 +14,22 @@ angular.module('citizendeskFrontendApp')
       service.list = response._items;
     });
     this.start = function(queue) {
-      return $http
-        .post(prefix + '/proxy/start-twitter-search/', {
-          user_id: '1',
-          request_id: queue._id,
-          search_spec: {
-            query: queue.query
-          }
-        });
+      if ('reports' in queue) {
+        return $q.when();
+      } else {
+        queue.reports = [];
+        return $http
+          .post(prefix + '/proxy/start-twitter-search/', {
+            user_id: '1',
+            request_id: queue._id,
+            search_spec: {
+              query: queue.query
+            }
+          })
+          .then(function() {
+            service.fetchResults(queue);
+          });
+      }
     };
     /*
      create the search, get the id from the database, use it in order
@@ -38,13 +46,8 @@ angular.module('citizendeskFrontendApp')
           query: query
         })
         .then(function(queue) {
-          service
-            .start(queue)
-            .then(function() {
-              deferred.resolve(queue._id);
-              service.list.push(queue);
-              service.fetchResults(queue);
-            });
+          service.list.push(queue);
+          deferred.resolve(queue._id);
         });
       return deferred.promise;
     };
@@ -52,9 +55,6 @@ angular.module('citizendeskFrontendApp')
       var query = JSON.stringify({
             'channels.request': queue._id
           });
-      if (!('reports' in queue)) {
-        queue.reports = [];
-      }
       function fetch(page) {
         api.reports
           .query({

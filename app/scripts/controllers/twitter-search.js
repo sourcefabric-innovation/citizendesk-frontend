@@ -8,11 +8,7 @@ angular.module('citizendeskFrontendApp')
       if (!$scope.queue) {
         $location.url('/error-no-searches');
       } else {
-        TwitterSearches
-          .start($scope.queue)
-          .then(function() {
-            TwitterSearches.fetchResults($scope.queue);
-          });
+        TwitterSearches.start($scope.queue);
         QueueSelection.description = $scope.queue.description;
       }
     });
