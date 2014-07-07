@@ -1,1 +1,152 @@
-{"_updated": "Thu, 01 Jan 1970 00:00:00 GMT", "channels": [{"filter": {"query": {"contains": ["Ukraine"]}}, "reasons": {"track": ["Ukraine"], "follow": []}, "request": "538df48e9c616728af2d2a76", "value": 1, "type": "search"}], "_etag": "b0d98f5f5ff06de1e73e6d443c289cb9590c1e36", "produced": "Mon, 02 Jun 2014 18:04:57 GMT", "texts": [{"transcript": null, "original": "Russia. Ukraine. Venezuela .........., now France?!!!!! #fight Fascism #fightdiscrimination #fightlynchmobmentality http://instagram.com/p/ov7X-2GEQX/"}], "_links": {"self": {"href": "http://cd2.sourcefabric.net/citizendesk-interface/reports/538df48f9c616729ad000035", "title": "Report"}, "parent": {"href": "http://cd2.sourcefabric.net/citizendesk-interface", "title": "home"}, "collection": {"href": "http://cd2.sourcefabric.net/citizendesk-interface/reports", "title": "reports"}}, "authors": [{"identifiers": [{"type": "user_id", "value": "512700138"}, {"type": "user_name", "value": "Madonna"}], "authority": "twitter"}], "_created": "Thu, 01 Jan 1970 00:00:00 GMT", "_id": "538df48f9c616729ad000035", "original": {"contributors": null, "truncated": false, "text": "Russia. Ukraine. Venezuela .........., now France?!!!!! #fight Fascism #fightdiscrimination #fightlynchmobmentality http://t.co/IAYa9M5aaf", "in_reply_to_status_id": null, "id": 473525694090444801, "favorite_count": 365, "source": "<a href=\"http://twitter.com/download/iphone\" rel=\"nofollow\">Twitter for iPhone</a>", "retweeted": false, "coordinates": null, "entities": {"symbols": [], "user_mentions": [], "hashtags": [{"indices": [56, 62], "text": "fight"}, {"indices": [71, 91], "text": "fightdiscrimination"}, {"indices": [92, 115], "text": "fightlynchmobmentality"}], "urls": [{"url": "http://t.co/IAYa9M5aaf", "indices": [116, 138], "expanded_url": "http://instagram.com/p/ov7X-2GEQX/", "display_url": "instagram.com/p/ov7X-2GEQX/"}]}, "in_reply_to_screen_name": null, "in_reply_to_user_id": null, "retweet_count": 641, "id_str": "473525694090444801", "favorited": false, "user": {"follow_request_sent": false, "profile_use_background_image": true, "contributors_enabled": false, "id": 512700138, "verified": true, "profile_text_color": "333333", "profile_image_url_https": "https://pbs.twimg.com/profile_images/378800000544321667/db0797d74ea29f5ba3536c12031c3852_normal.jpeg", "profile_sidebar_fill_color": "DDEEF6", "entities": {"url": {"urls": [{"url": "http://t.co/0pBzjSjuja", "indices": [0, 22], "expanded_url": "http://www.madonna.com", "display_url": "madonna.com"}]}, "description": {"urls": [{"url": "http://t.co/JIbifnyG9s", "indices": [21, 43], "expanded_url": "http://www.artforfreedom.com", "display_url": "artforfreedom.com"}]}}, "followers_count": 382856, "profile_sidebar_border_color": "000000", "location": "", "default_profile_image": false, "id_str": "512700138", "is_translation_enabled": false, "utc_offset": 7200, "statuses_count": 473, "description": "Join the Revolution! http://t.co/JIbifnyG9s - #artforfreedom", "friends_count": 0, "profile_link_color": "FF0000", "profile_image_url": "http://pbs.twimg.com/profile_images/378800000544321667/db0797d74ea29f5ba3536c12031c3852_normal.jpeg", "notifications": false, "geo_enabled": false, "profile_background_color": "000000", "profile_banner_url": "https://pbs.twimg.com/profile_banners/512700138/1398300469", "profile_background_image_url": "http://pbs.twimg.com/profile_background_images/378800000087447599/ca0e86a30bdeed8ac74aa1bafe69aa97.jpeg", "screen_name": "Madonna", "lang": "en", "following": false, "profile_background_tile": false, "favourites_count": 0, "name": "Madonna", "url": "http://t.co/0pBzjSjuja", "created_at": "Sat Mar 03 02:37:57 +0000 2012", "profile_background_image_url_https": "https://pbs.twimg.com/profile_background_images/378800000087447599/ca0e86a30bdeed8ac74aa1bafe69aa97.jpeg", "time_zone": "Amsterdam", "protected": false, "default_profile": false, "is_translator": false, "listed_count": 1997}, "geo": null, "in_reply_to_user_id_str": null, "possibly_sensitive": false, "lang": "en", "created_at": "Mon Jun 02 18:04:57 +0000 2014", "in_reply_to_status_id_str": null, "place": null, "text_expanded": "Russia. Ukraine. Venezuela .........., now France?!!!!! #fight Fascism #fightdiscrimination #fightlynchmobmentality http://instagram.com/p/ov7X-2GEQX/", "metadata": {"iso_language_code": "en", "result_type": "popular"}}}
+{
+  "produced": "2014-07-07T10:14:04+0000",
+  "verified": true,
+  "authors": [
+    {
+      "authority": "twitter",
+      "identifiers": {
+        "user_name": "DrumChronicles",
+        "user_id_search": "2148553704",
+        "user_name_search": "drumchronicles",
+        "user_id": "2148553704"
+      }
+    }
+  ],
+  "_id": "53ba73019c6167462300068b",
+  "_etag": "f68343af461e246e1771dd7bcdbec6878d302614",
+  "_updated": "2014-07-07T14:50:21+0000",
+  "channels": [
+    {
+      "type": "search",
+      "filter": {
+        "query": {
+          "contains": [
+            "Mozambique"
+          ]
+        }
+      },
+      "value": 1,
+      "request": "53b5853d9c61675bf4d6ac46",
+      "reasons": {
+        "track": [
+          "Mozambique"
+        ],
+        "follow": []
+      }
+    }
+  ],
+  "_created": "1970-01-01T00:00:00+0000",
+  "_links": {
+    "parent": {
+      "href": "http://cd2.sourcefabric.net/citizendesk-interface",
+      "title": "home"
+    },
+    "collection": {
+      "href": "http://cd2.sourcefabric.net/citizendesk-interface/reports",
+      "title": "reports"
+    },
+    "self": {
+      "href": "http://cd2.sourcefabric.net/citizendesk-interface/reports/53ba73019c6167462300068b",
+      "title": "Report"
+    }
+  },
+  "texts": [
+    {
+      "transcript": null,
+      "original": "#Mozambique Council of State is discussing the military conflict that has killed dozens &amp; forced many to flee central district of #Muxungue"
+    }
+  ],
+  "original": {
+    "in_reply_to_status_id_str": null,
+    "geo": null,
+    "id": 486090764825657340,
+    "created_at": "Mon Jul 07 10:14:04 +0000 2014",
+    "source": "<a href=\"http://twitter.com\" rel=\"nofollow\">Twitter Web Client</a>",
+    "user": {
+      "profile_sidebar_fill_color": "DDEEF6",
+      "default_profile_image": false,
+      "friends_count": 66,
+      "protected": false,
+      "contributors_enabled": false,
+      "following": false,
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/378800000632113562/4f40dc7fbabc534f9f5801c325d3e77d_normal.jpeg",
+      "profile_background_tile": false,
+      "verified": false,
+      "is_translator": false,
+      "statuses_count": 5119,
+      "screen_name": "DrumChronicles",
+      "id": 2148553704,
+      "url": null,
+      "description": "Filtering News Noise - 30 years covering Africa - Africa Wins Again - Africa Rising for the Rich - Sinking for the Poor -  RTs are NOT endorsements",
+      "profile_link_color": "0084B4",
+      "location": "",
+      "created_at": "Tue Oct 22 07:48:06 +0000 2013",
+      "geo_enabled": false,
+      "notifications": false,
+      "default_profile": true,
+      "profile_background_image_url": "http://abs.twimg.com/images/themes/theme1/bg.png",
+      "lang": "en",
+      "profile_background_image_url_https": "https://abs.twimg.com/images/themes/theme1/bg.png",
+      "id_str": "2148553704",
+      "profile_use_background_image": true,
+      "utc_offset": 7200,
+      "favourites_count": 0,
+      "followers_count": 287,
+      "time_zone": "Pretoria",
+      "is_translation_enabled": false,
+      "entities": {
+        "description": {
+          "urls": []
+        }
+      },
+      "follow_request_sent": false,
+      "name": "Evelyn Tremble",
+      "profile_text_color": "333333",
+      "profile_sidebar_border_color": "C0DEED",
+      "listed_count": 9,
+      "profile_image_url": "http://pbs.twimg.com/profile_images/378800000632113562/4f40dc7fbabc534f9f5801c325d3e77d_normal.jpeg",
+      "profile_background_color": "C0DEED"
+    },
+    "contributors": null,
+    "retweeted": false,
+    "in_reply_to_screen_name": null,
+    "coordinates": null,
+    "favorite_count": 0,
+    "in_reply_to_user_id_str": null,
+    "lang": "en",
+    "text_expanded": "#Mozambique Council of State is discussing the military conflict that has killed dozens &amp; forced many to flee central district of #Muxungue",
+    "favorited": false,
+    "text": "#Mozambique Council of State is discussing the military conflict that has killed dozens &amp; forced many to flee central district of #Muxungue",
+    "in_reply_to_user_id": null,
+    "entities": {
+      "symbols": [],
+      "urls": [],
+      "user_mentions": [],
+      "hashtags": [
+        {
+          "indices": [
+            0,
+            11
+          ],
+          "text": "Mozambique"
+        },
+        {
+          "indices": [
+            134,
+            143
+          ],
+          "text": "Muxungue"
+        }
+      ]
+    },
+    "id_str": "486090764825657344",
+    "retweet_count": 0,
+    "truncated": false,
+    "place": null,
+    "in_reply_to_status_id": null,
+    "metadata": {
+      "result_type": "recent",
+      "iso_language_code": "en"
+    }
+  }
+}

@@ -13,8 +13,8 @@ angular.module('citizendeskFrontendApp')
           restSplit = rest.split('+'),
           timeString = restSplit[0],
           timeSplit = timeString.split(':');
-      if (restSplit[1] != '0000') {
-        throw Error('Date ' + s + ' is probably not in UTC time, or not in the expected format');
+      if (restSplit[1] !== '0000') {
+        throw new Error('Date ' + s + ' is probably not in UTC time, or not in the expected format');
       }
       function p(s) {
         return parseInt(s, 10);

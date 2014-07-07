@@ -48,6 +48,11 @@ angular
         templateUrl: 'views/citizen-card.html',
         controller: 'CitizenCardCtrl'
       })
+      // session identifiers may contain slashes, thus the eager match
+      .when('/session/:session*', {
+        templateUrl: 'views/session.html',
+        controller: 'SessionCtrl'
+      })
       .when('/mobile-queue/', {
         templateUrl: 'views/mobile-queue.html',
         controller: 'MobileQueueCtrl'

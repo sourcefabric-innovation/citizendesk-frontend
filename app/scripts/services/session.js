@@ -1,6 +1,8 @@
 /* jshint latedef: nofunc */
 'use strict';
 
+/* authentication session. do not confuse with reports session */
+
 angular.module('citizendeskFrontendApp')
   .service('session', ['lodash', '$q', '$rootScope', 'storage', function Session(lodash, $q, $rootScope, storage) {
 

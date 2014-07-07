@@ -30,7 +30,7 @@ describe('Controller: ReportCtrl', function () {
   }));
 
   it('has the correct link to the endpoint', function() {
-    expect(scope.report._links.self.href).toBe('http://cd2.sourcefabric.net/citizendesk-interface/reports/538df48f9c616729ad000035');
+    expect(scope.report._links.self.href).toBe('http://cd2.sourcefabric.net/citizendesk-interface/reports/53ba73019c6167462300068b');
   });
   it('attaches a report to the scope', function () {
     expect(scope.report).toBeDefined();
@@ -95,7 +95,7 @@ describe('Controller: ReportCtrl', function () {
       expect(scope.editingTranscript).toBe(true);
     });
     it('copies the original content', function() {
-      expect(scope.transcriptCandidate).toBe('Russia. Ukraine. Venezuela .........., now France?!!!!! #fight Fascism #fightdiscrimination #fightlynchmobmentality http://instagram.com/p/ov7X-2GEQX/');
+      expect(scope.transcriptCandidate).toBe('#Mozambique Council of State is discussing the military conflict that has killed dozens &amp; forced many to flee central district of #Muxungue');
     });
     describe('when discarding', function() {
       beforeEach(function() {
@@ -111,7 +111,7 @@ describe('Controller: ReportCtrl', function () {
         var response = angular.copy(scope.report);
         response.texts[0].transcript = 'edited';
         $httpBackend
-          .expect('PATCH', 'http://cd2.sourcefabric.net/citizendesk-interface/reports/538df48f9c616729ad000035')
+          .expect('PATCH', 'http://cd2.sourcefabric.net/citizendesk-interface/reports/53ba73019c6167462300068b')
           .respond(response);
         scope.saveTranscript();
         scope.$digest();

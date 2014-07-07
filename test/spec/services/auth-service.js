@@ -18,7 +18,7 @@ describe('Service: AuthService', function () {
       var defer = $q.defer();
 
       if (username === 'admin' && password === 'admin') {
-        defer.resolve({token: SESSION, user: '1', _links: {self: {href: 'delete_session_url'}}});
+        defer.resolve(mocks.auth.success);
       } else {
         defer.reject();
       }

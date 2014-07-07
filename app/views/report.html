@@ -69,6 +69,20 @@
       </button>
     </div>
   </div>
+  <p ng-show="report.feed_type=='sms'">
+    <!--a class="btn btn-primary"
+       ng-href="#/session/{{encodedSession}}/{{report._id}}"
+       translate
+       >
+      Reply
+    </a-->
+    <a class="btn btn-default"
+       ng-href="#/session/{{encodedSession}}"
+       translate
+       >
+      Session
+    </a>
+  </p>
   <div>
     <div class="row">
       <div class="col-sm-6">

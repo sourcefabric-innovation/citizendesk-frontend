@@ -37,6 +37,7 @@ angular.module('citizendeskFrontendApp')
       .getById(id)
       .then(function(data) {
         $scope.report = data;
+        $scope.encodedSession = encodeURIComponent($scope.report.session);
         addSteps($scope.report);
 
         $scope.$watch('report.verified', function(newValue, oldValue) {

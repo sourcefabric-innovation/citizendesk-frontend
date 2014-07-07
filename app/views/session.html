@@ -1,0 +1,62 @@
+<div ng-repeat="report in reports">
+  <div class="row">
+    <div ng-show="report.authors[0].identifiers.user_id == identity.user"
+         class="col-md-9 col-md-offset-3">
+      <div class="panel panel-info">
+           <div class="panel-heading">
+             <span ng-if="report.authors.length === 0">
+               <span ng-if="report.local === true">
+                 <span translate>
+                   Sent by Citizendesk
+                 </span>
+               </span>
+               <span ng-if="report.local !== true">
+                 <span translate>
+                   Unknown sender
+                 </span>
+               </span>
+             </span>
+             <span ng-repeat="author in report.authors"
+                   ng-bind="author.identifiers.user_name">
+             </span>
+           </div>
+           <div class="panel-body" ng-bind="report.texts[0].original">
+           </div>
+    </div>
+  </div>
+  <div ng-hide="report.authors[0].identifiers.user_id == identity.user"
+       class="col-md-9">
+    <div class="panel panel-primary">
+      <div class="panel-heading"
+           ng-bind="report.authors[0].identifiers.user_name">
+      </div>
+      <div class="panel-body" ng-bind="report.texts[0].original">
+      </div>
+      <div class="panel-footer">
+        <div ng-show="editingId == report._id">
+          <form>
+            <div class="form-group">
+              <textarea class="form-control" rows="3" ng-model="reply">
+              </textarea>
+            </div>
+            <button class="btn btn-primary" translate
+                    ng-click="sendReply({report_id: report._id, message: reply})"
+                    type="submit">
+              Send
+            </button>
+            <button class="btn btn-default" translate
+                    ng-click="cancelReply()">
+              Cancel
+            </button>
+          </form>
+        </div>
+        <div ng-hide="editingId == report._id">
+          <button class="btn btn-default" translate
+                  ng-click="startReply(report._id)">
+            Reply
+          </button>
+        </div>
+      </div>
+  </div>    </div>
+</div>
+</div>
