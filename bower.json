@@ -11,7 +11,7 @@
     "sass-bootstrap": "~3.0.2",
     "raven-js": "~1.1.13",
     "angular-gettext": "~0.2.8",
-    "eve-api": "https://github.com/sourcefabric-innovation/eve-api.git#0.2.0",
+    "eve-api": "https://github.com/sourcefabric-innovation/eve-api.git#0.3.1",
     "angular-strap": "~2.0.3",
     "angular-messages": "https://github.com/angular/bower-angular-messages.git#v1.3.0-build.2880+sha.1a9cb0a",
     "bootstrap": "https://github.com/sourcefabric-innovation/citizendesk-style.git#citizendesk"
