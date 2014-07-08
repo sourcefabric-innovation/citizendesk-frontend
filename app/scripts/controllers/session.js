@@ -30,6 +30,7 @@ angular.module('citizendeskFrontendApp')
           where: JSON.stringify({
             'session': $routeParams.session
           }),
+          sort:'[("produced", -1)]',
           page: page
         })
         .then(function(response) {
