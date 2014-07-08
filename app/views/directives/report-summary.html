@@ -10,7 +10,8 @@
     <small ng-bind="report.produced | date:'medium'"></small>
     </h5>
   </div>
-  <div class="panel-body" ng-bind="report.texts[0].original"></div>
+  <div class="panel-body break-long-words"
+       ng-bind="report.texts[0].original"></div>
   <div class="panel-footer clearfix">
     <span ng-switch="report.verified">
       <a href="#/reports/{{report._id}}"
