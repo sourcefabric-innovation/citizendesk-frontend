@@ -2,15 +2,16 @@
    data-id="{{report._id}}"
    class="panel panel-default"
    >
+  <div class="panel-heading">
+    <h5>
+      <a ng-bind="report.authors[0].identifiers.user_name"
+       ng-href="#/citizen-card/{{report.authors[0].authority}}/{{report.authors[0].identifiers.user_name}}"
+       ></a>
+    <small ng-bind="report.produced | date:'medium'"></small>
+    </h5>
+  </div>
   <div class="panel-body" ng-bind="report.texts[0].original"></div>
   <div class="panel-footer clearfix">
-    <p>
-      Created on <span ng-bind="report.produced | date:'medium'"></span>
-      by
-      <a ng-bind="report.authors[0].identifiers.user_name"
-         ng-href="#/citizen-card/{{report.authors[0].authority}}/{{report.authors[0].identifiers.user_name}}"
-            ></a>
-    </p>
     <span ng-switch="report.verified">
       <a href="#/reports/{{report._id}}"
          class="btn btn-info pull-right"
