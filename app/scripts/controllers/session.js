@@ -31,7 +31,8 @@ angular.module('citizendeskFrontendApp')
             'session': $routeParams.session
           }),
           sort:'[("produced", 1)]',
-          page: page
+          page: page,
+          cacheBust: Date() // this page gets refreshed often
         })
         .then(function(response) {
           addNewValues($scope.reports, response._items);
