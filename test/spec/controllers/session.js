@@ -19,7 +19,7 @@ describe('Controller: SessionCtrl', function () {
       .expectGET(globals.root)
       .respond(mocks.root);
     $httpBackend
-      .expectGET(globals.root + 'reports?cacheBust=now&page=1&sort=%5B(%22produced%22,+1)%5D&where=%7B%22session%22:%22test-session-id%22%7D')
+      .expectGET(globals.root + 'reports?page=1&sort=%5B(%22produced%22,+1)%5D&where=%7B%22session%22:%22test-session-id%22%7D')
       .respond(mocks.reports['list-not-paginated']);
     SessionCtrl = $controller('SessionCtrl', {
       $scope: scope,
@@ -62,7 +62,7 @@ describe('Controller: SessionCtrl', function () {
         var reports = angular.copy(mocks.reports['list-not-paginated']);
         reports._items.push({id_:'new report'});
         $httpBackend
-          .expectGET(globals.root + 'reports?cacheBust=now&page=1&sort=%5B(%22produced%22,+1)%5D&where=%7B%22session%22:%22test-session-id%22%7D')
+          .expectGET(globals.root + 'reports?page=1&sort=%5B(%22produced%22,+1)%5D&where=%7B%22session%22:%22test-session-id%22%7D')
           .respond(reports);
         scope.sendReply({
           report_id: 'test-report-id',

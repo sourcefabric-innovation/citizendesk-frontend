@@ -23,6 +23,7 @@ angular
     apiProvider.api('citizen_aliases', { type:'http', backend: { rel:'citizen_aliases' }});
     $httpProvider.interceptors.push('errorHttpInterceptor');
     $httpProvider.interceptors.push('AuthInterceptor');
+    $httpProvider.interceptors.push('cacheBuster');
     $routeProvider
       .when('/new-report', {
         templateUrl: 'views/new-report.html',

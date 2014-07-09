@@ -2,7 +2,7 @@
 /* jshint camelcase: false */
 
 angular.module('citizendeskFrontendApp')
-  .controller('SessionCtrl', function ($scope, api, $routeParams, $http, config, session, addNewValues, PagePolling, now) {
+  .controller('SessionCtrl', function ($scope, api, $routeParams, $http, config, session, addNewValues, PagePolling) {
     $scope.reports = [];
     $scope.replies = {};
     $scope.editingId = $routeParams.editingId;
@@ -31,8 +31,7 @@ angular.module('citizendeskFrontendApp')
             'session': $routeParams.session
           }),
           sort:'[("produced", 1)]',
-          page: page,
-          cacheBust: now() // this page gets refreshed often
+          page: page
         })
         .then(function(response) {
           addNewValues($scope.reports, response._items);

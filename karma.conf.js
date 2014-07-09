@@ -28,7 +28,7 @@ module.exports = function(config) {
       'app/scripts/**/*.js',
       'test/globals.js',
       'test/mock.js',
-      'test/auth-service-mock.js',
+      'test/angular-mocks.js',
       'test/spec/**/*.js',
       // for karma markup preprocessor
       'app/views/**/*.html'
