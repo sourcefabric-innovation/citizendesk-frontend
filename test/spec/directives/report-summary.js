@@ -19,6 +19,6 @@ describe('Directive: reportSummary', function () {
     element = angular.element('<div report-summary></div>');
     element = $compile(element)(scope);
     scope.$digest();
-    expect(element.text()).toMatch('Created');
+    expect(element.text()).toMatch('Check');
   }));
 });
