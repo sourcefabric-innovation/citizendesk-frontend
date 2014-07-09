@@ -4,6 +4,8 @@
          class="col-md-9 col-md-offset-3">
       <div class="panel panel-info">
            <div class="panel-heading">
+             <small class="pull-right" ng-bind="report.produced | date:'medium'">
+             </small>
              <span ng-if="report.authors.length === 0">
                <span ng-if="report.local === true">
                  <span translate>
@@ -27,8 +29,11 @@
   <div ng-hide="report.authors[0].identifiers.user_id == identity.user"
        class="col-md-9">
     <div class="panel panel-primary">
-      <div class="panel-heading"
-           ng-bind="report.authors[0].identifiers.user_name">
+      <div class="panel-heading">
+        <small class="pull-right" ng-bind="report.produced | date:'medium'">
+        </small>
+        <span ng-bind="report.authors[0].identifiers.user_name">
+        </span>
       </div>
       <div class="panel-body" ng-bind="report.texts[0].original">
       </div>
