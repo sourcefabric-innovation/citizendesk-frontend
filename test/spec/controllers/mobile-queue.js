@@ -20,9 +20,8 @@ describe('Controller: MobileQueueCtrl', function () {
       .expectGET(globals.root)
       .respond(mocks.root);
     $httpBackend
-      .expectGET(globals.root +
-                 'reports?where=%7B%22feed_type%22:%22sms%22%7D')
-      .respond(mocks.reports.list);
+      .expectGET(globals.root + 'reports?page=1&sort=%5B(%22produced%22,+-1)%5D&where=%7B%22feed_type%22:%22sms%22%7D')
+      .respond(mocks.reports['list-not-paginated']);
   }));
 
   afterEach(function() {
@@ -32,6 +31,6 @@ describe('Controller: MobileQueueCtrl', function () {
 
   it('should attach a list of reports to the scope', function () {
     $httpBackend.flush();
-    expect(scope.reports.length).toBe(25);
+    expect(scope.reports.length).toBe(1);
   });
 });
