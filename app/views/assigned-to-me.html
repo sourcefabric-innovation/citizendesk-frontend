@@ -1,0 +1,17 @@
+<h3 translate>
+  Items assigned to you
+</h3>
+<p>
+  <div class="input-group">
+    <div class="input-group-addon">
+      <span class="glyphicon glyphicon-search"></span>
+    </div>
+    <input class="form-control" type="search" ng-model="q" />
+  </div>
+</p>
+<div
+   ng-repeat="report in reports | filter:q"
+   report-summary
+   >
+</div>
+<div ng-hide="reports.length" translate>No reports in this queue</div>

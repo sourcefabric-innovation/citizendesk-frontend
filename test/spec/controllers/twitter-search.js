@@ -6,7 +6,10 @@ describe('Controller: TwitterSearchCtrl', function () {
   beforeEach(module('citizendeskFrontendApp'));
 
   var TwitterSearchCtrl,
-    scope;
+      scope,
+      PageBroker = {
+        load: jasmine.createSpy()
+      };
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
@@ -15,10 +18,19 @@ describe('Controller: TwitterSearchCtrl', function () {
       $scope: scope,
       $routeParams: {
       },
+      PageBroker: PageBroker
     });
   }));
 
   it('attaches a queue to the scope', function () {
     expect(scope.queue).toBeDefined();
+  });
+  it('assigns', function() {
+    var report = { _id: 'report id' }
+    scope.assign(report);
+    expect(PageBroker.load.mostRecentCall.args).toEqual([
+      '/assign/',
+      { report: report }
+    ]);
   });
 });

@@ -1,0 +1,71 @@
+{
+  "_items": [
+    {
+      "_id": "53b146149c616733d6e8c7d4",
+      "_updated": "1970-01-01T00:00:00+0000",
+      "_links": {
+        "self": {
+          "href": "http://cd2.sourcefabric.net/citizendesk-interface/users/53b146149c616733d6e8c7d4",
+          "title": "User"
+        }
+      },
+      "_created": "1970-01-01T00:00:00+0000",
+      "_etag": "ae4843d4ad0f530f1922941b774b28034a42e897",
+      "username": "Doug"
+    },
+    {
+      "_id": "53b146149c616733d6e8c7d5",
+      "_updated": "1970-01-01T00:00:00+0000",
+      "_links": {
+        "self": {
+          "href": "http://cd2.sourcefabric.net/citizendesk-interface/users/53b146149c616733d6e8c7d5",
+          "title": "User"
+        }
+      },
+      "_created": "1970-01-01T00:00:00+0000",
+      "_etag": "884e6b538a940ab6db93382657bbb1e9abc63677",
+      "username": "Francesco"
+    },
+    {
+      "_id": "53b146149c616733d6e8c7d6",
+      "_updated": "1970-01-01T00:00:00+0000",
+      "_links": {
+        "self": {
+          "href": "http://cd2.sourcefabric.net/citizendesk-interface/users/53b146149c616733d6e8c7d6",
+          "title": "User"
+        }
+      },
+      "_created": "1970-01-01T00:00:00+0000",
+      "_etag": "ce0accb4801081a616e1ebd12388be9714bf76c6",
+      "username": "Martin"
+    },
+    {
+      "_id": "53ba81835b598f939ae01b7f",
+      "_updated": "1970-01-01T00:00:00+0000",
+      "_links": {
+        "self": {
+          "href": "http://cd2.sourcefabric.net/citizendesk-interface/users/53ba81835b598f939ae01b7f",
+          "title": "User"
+        }
+      },
+      "_created": "1970-01-01T00:00:00+0000",
+      "_etag": "2b3a6997e87b06d841c482ab1d5b3aeac54d51dd",
+      "username": "francesco"
+    }
+  ],
+  "_meta": {
+    "page": 1,
+    "max_results": 100,
+    "total": 4
+  },
+  "_links": {
+    "self": {
+      "href": "http://cd2.sourcefabric.net/citizendesk-interface/users",
+      "title": "users"
+    },
+    "parent": {
+      "href": "http://cd2.sourcefabric.net/citizendesk-interface",
+      "title": "home"
+    }
+  }
+}

@@ -26,3 +26,12 @@ Tests use a `mocks` object built with a tool called
 [mockatenate](https://github.com/danse/mockatenate). In order to
 update the file, run the './mockatenate' command from the root repository
 folder
+
+##### Test troubleshooting
+
+There are some details in maintaining the tests that, if you do not
+pay attention, makes you waste a lot of time. If your tests are
+failing and you really do not know what is going on, check this list:
+
+ - make sure that your mocks are updated using the `./mockatenate` script
+ - make sure that the API endpoint you are using (throug `eve-api`) is in the root mock

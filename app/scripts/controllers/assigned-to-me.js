@@ -1,20 +1,16 @@
 'use strict';
 
 angular.module('citizendeskFrontendApp')
-  .controller('MobileQueueCtrl', function ($scope, api, QueueSelection, PageBroker) {
-    QueueSelection.description = 'Reports coming from mobile phones';
+  .controller('AssignedToMeCtrl', function ($scope, api, session) {
     $scope.reports = [];
-    $scope.assign = function(report) {
-      PageBroker.load('/assign/', {
-        report: report
-      });
-    };
     function fetch(page) {
       api.reports
         .query({
-          where: '{"feed_type":"sms"}',
-          sort: '[("produced", -1)]',
-          page: page
+          where: JSON.stringify({
+            'assignments.user_id': session.identity._id
+          }),
+          page: page,
+          sort: '[("produced", -1)]'
         })
         .then(function(response) {
           $scope.reports = $scope.reports.concat(response._items);

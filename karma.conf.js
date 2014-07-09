@@ -77,7 +77,7 @@ module.exports = function(config) {
     /* Comment the following in order to have better debug
     informations when karma tests are failing, uncomment in order to
     have coverage reports *
-    reporters: ['coverage'],
+    reporters: ['dots', 'coverage'],
     /**/
     coverageReporter: {
       type: 'lcov',

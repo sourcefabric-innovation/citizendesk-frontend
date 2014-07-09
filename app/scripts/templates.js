@@ -6,36 +6,28 @@ angular.module('citizendeskFrontendApp').run(['$templateCache', function($templa
     "  <span class=\"glyphicon glyphicon-user\"></span>\n" +
     "  <span translate>Assign to:</span>\n" +
     "</h3>\n" +
-    "<div class=\"btn-group btn-group-justified\">\n" +
-    "  <div class=\"btn-group\">\n" +
-    "    <button type=\"button\" class=\"btn btn-info\" translate\n" +
-    "            ng-click=\"assignTo(identity._id)\"\n" +
-    "            ng-disabled=\"disabled\"\n" +
-    "            >\n" +
-    "      Me\n" +
-    "    </button>\n" +
-    "  </div>\n" +
-    "</div>\n" +
-    "<div class=\"btn-group btn-group-justified\"\n" +
-    "     ng-repeat=\"user in users\"\n" +
-    "     ng-hide=\"user._id === identity._id\"\n" +
-    "     >\n" +
-    "  <div class=\"btn-group\">\n" +
-    "    <button type=\"button\" class=\"btn btn-default\"\n" +
-    "            ng-click=\"assignTo(user._id)\"\n" +
-    "            ng-disabled=\"disabled\"\n" +
-    "            >\n" +
-    "      <span ng-bind=\"user.username\"></span>\n" +
-    "    </button>\n" +
-    "  </div>\n" +
-    "</div>\n"
+    "<p>\n" +
+    "  <button type=\"button\" class=\"btn btn-info btn-lg btn-block\" translate\n" +
+    "          ng-click=\"assignTo(identity._id)\"\n" +
+    "          ng-disabled=\"disabled\"\n" +
+    "          >\n" +
+    "    Me\n" +
+    "  </button>\n" +
+    "</p>\n" +
+    "<p ng-repeat=\"user in users\" ng-hide=\"user._id === identity._id\">\n" +
+    "  <button type=\"button\" class=\"btn btn-default btn-lg btn-block\"\n" +
+    "          ng-click=\"assignTo(user._id)\"\n" +
+    "          ng-disabled=\"disabled\"\n" +
+    "          ng-bind=\"user.username\">\n" +
+    "  </button>\n" +
+    "</p>\n"
   );
 
 
   $templateCache.put('views/assigned-to-me.html',
-    "<h2 translate>\n" +
-    "  Items assigned to you:\n" +
-    "</h2>\n" +
+    "<h3 translate>\n" +
+    "  Items assigned to you\n" +
+    "</h3>\n" +
     "<p>\n" +
     "  <div class=\"input-group\">\n" +
     "    <div class=\"input-group-addon\">\n" +

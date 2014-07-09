@@ -57,10 +57,18 @@
           </div>
           <div class="collapse navbar-collapse" id="navbar-collapse">
             <ul class="nav navbar-nav navbar-left">
-              <li><a ng-href="#/new-report">New Report</a></li>
-              <li><a ng-href="#/twitter-search">Queues</a></li>
-              <li><a ng-href="#/verified-reports">Verified</a></li>
-              <li><a ng-href="#/configure">Configure</a></li>
+              <li><a ng-href="#/new-report" translate>
+                  New Report
+              </a></li>
+              <li><a ng-href="#/twitter-search" translate>
+                  Queues
+              </a></li>
+              <li><a ng-href="#/assigned-to-me" translate>
+                  Your reports
+              </a></li>
+              <li><a ng-href="#/configure" translate>
+                  Configure
+              </a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right"
                 ng-controller="LoginCtrl">
@@ -175,10 +183,14 @@
         <script src="scripts/services/page-polling.js"></script>
         <script src="scripts/services/now.js"></script>
         <script src="scripts/services/cache-buster.js"></script>
+        <script src="scripts/services/assign.js"></script>
+        <script src="scripts/controllers/assign.js"></script>
+        <script src="scripts/services/page-broker.js"></script>
         <!-- endbuild -->
 
         <!-- build:js scripts/templates.js -->
         <script src="scripts/templates.js"></script>
+        <script src="scripts/controllers/assigned-to-me.js"></script>
         <!-- endbuild -->
 
 </body>

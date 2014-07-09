@@ -7,13 +7,17 @@ describe('Controller: MobileQueueCtrl', function () {
 
   var MobileQueueCtrl,
       scope,
-      $httpBackend;
+      $httpBackend,
+      PageBroker = {
+        load: jasmine.createSpy()
+      };
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope, _$httpBackend_) {
     scope = $rootScope.$new();
     MobileQueueCtrl = $controller('MobileQueueCtrl', {
-      $scope: scope
+      $scope: scope,
+      PageBroker: PageBroker
     });
     $httpBackend = _$httpBackend_;
     $httpBackend
@@ -22,6 +26,7 @@ describe('Controller: MobileQueueCtrl', function () {
     $httpBackend
       .expectGET(globals.root + 'reports?page=1&sort=%5B(%22produced%22,+-1)%5D&where=%7B%22feed_type%22:%22sms%22%7D')
       .respond(mocks.reports['list-not-paginated']);
+    $httpBackend.flush();
   }));
 
   afterEach(function() {
@@ -29,8 +34,15 @@ describe('Controller: MobileQueueCtrl', function () {
     $httpBackend.verifyNoOutstandingExpectation();
   });
 
+  it('assigns', function() {
+    var report = { _id: 'report id' }
+    scope.assign(report);
+    expect(PageBroker.load.mostRecentCall.args).toEqual([
+      '/assign/',
+      { report: report }
+    ]);
+  });
   it('should attach a list of reports to the scope', function () {
-    $httpBackend.flush();
     expect(scope.reports.length).toBe(1);
   });
 });

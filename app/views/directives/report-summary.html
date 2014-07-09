@@ -26,12 +26,12 @@
          class="pull-right"
          ng-switch-default
          >
-        <a href="#"
-           class="btn btn-warning"
-           disabled
+        <a class="btn btn-warning"
+           ng-show="assign"
+           ng-click="assign(report)"
            >
           <span translate>
-            Dismiss
+            Assign
           </span>
         </a>
         <a href="#/reports/{{report._id}}"

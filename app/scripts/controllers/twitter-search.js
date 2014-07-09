@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('citizendeskFrontendApp')
-  .controller('TwitterSearchCtrl', ['$scope', 'TwitterSearches', '$routeParams', '$location', 'QueueSelection', function ($scope, TwitterSearches, $routeParams, $location, QueueSelection) {
+  .controller('TwitterSearchCtrl', function ($scope, TwitterSearches, $routeParams, $location, QueueSelection, PageBroker) {
     $scope.queue = {};
     $scope.limit = 50;
     TwitterSearches.promise.then(function() {
@@ -20,4 +20,9 @@ angular.module('citizendeskFrontendApp')
         .then(function() { $scope.status = 'deleted'; })
         .catch(function() { $scope.status = 'error'; });
     };
-  }]);
+    $scope.assign = function(report) {
+      PageBroker.load('/assign/', {
+        report: report
+      });
+    };
+  });
