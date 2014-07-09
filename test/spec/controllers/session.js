@@ -20,7 +20,7 @@ describe('Controller: SessionCtrl', function () {
       .respond(mocks.root);
     $httpBackend
       .expectGET(globals.root + 'reports?page=1&sort=%5B(%22produced%22,+1)%5D&where=%7B%22session%22:%22test-session-id%22%7D')
-      .respond(mocks.reports['list-not-paginated']);
+      .respond(mocks.reports['list-not-paginated-session']);
     SessionCtrl = $controller('SessionCtrl', {
       $scope: scope,
       $routeParams: {
@@ -39,47 +39,44 @@ describe('Controller: SessionCtrl', function () {
   }));
 
   it('gets the reports in the session', function() {
-    expect(scope.reports.length).toBe(1);
+    expect(scope.reports.length).toBe(5);
+  });
+  it('finds the last report to use for reply', function() {
+    /* my humble opinion is that it is silly and unsafe to have this
+     logic on the client side, and that it should be possible to send
+     replies using the session id instead of a report id */
+    scope.$digest();
+    expect(scope.replyReport._id).toBe('53bd65389c61672e3d00000c');
   });
 
-  describe('when starting a reply', function() {
+  describe('when a reply is sent', function() {
     beforeEach(function() {
-      scope.startReply('a-message-id');
+      $httpBackend
+        .expectPOST(globals.root + 'proxy/mobile-reply/', {
+          "report_id":"test-report-id"
+          ,"message":"Please, tell us where you are!"
+          ,"sensitive":false
+          ,"language":"en"
+        })
+        .respond(200);
+      var reports = angular
+            .copy(mocks.reports['list-not-paginated-session']);
+      reports._items.push({id_:'new report'});
+      $httpBackend
+        .expectGET(globals.root + 'reports?page=1&sort=%5B(%22produced%22,+1)%5D&where=%7B%22session%22:%22test-session-id%22%7D')
+        .respond(reports);
+      scope.sendReply({
+        report_id: 'test-report-id',
+        message: 'Please, tell us where you are!'
+      });
+      $httpBackend.flush();
     });
-    it('registers the editing status', function() {
-      expect(scope.editingId).toBe('a-message-id');
+    it('adds the sent report to the session', function() {
+      expect(scope.reports.length).toBe(6);
     });
-    describe('when a reply is sent', function() {
-      beforeEach(function() {
-        $httpBackend
-          .expectPOST(globals.root + 'proxy/mobile-reply/', {
-            "report_id":"test-report-id"
-            ,"message":"Please, tell us where you are!"
-            ,"sensitive":false
-            ,"language":"en"
-          })
-          .respond(200);
-        var reports = angular.copy(mocks.reports['list-not-paginated']);
-        reports._items.push({id_:'new report'});
-        $httpBackend
-          .expectGET(globals.root + 'reports?page=1&sort=%5B(%22produced%22,+1)%5D&where=%7B%22session%22:%22test-session-id%22%7D')
-          .respond(reports);
-        scope.sendReply({
-          report_id: 'test-report-id',
-          message: 'Please, tell us where you are!'
-        });
-        $httpBackend.flush();
-      });
-      it('adds the sent report to the session', function() {
-        expect(scope.reports.length).toBe(2);
-      });
-      it('sends a message reply', function () {
-        $httpBackend.verifyNoOutstandingRequest();
-        $httpBackend.verifyNoOutstandingExpectation();
-      });
-      it('is not in editing status anymore', function() {
-        expect(scope.editingId).toBeNull();
-      });
+    it('sends a message reply', function () {
+      $httpBackend.verifyNoOutstandingRequest();
+      $httpBackend.verifyNoOutstandingExpectation();
     });
   });
 });

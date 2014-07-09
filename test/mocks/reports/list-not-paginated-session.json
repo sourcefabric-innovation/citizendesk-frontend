@@ -1,0 +1,224 @@
+{
+  "_links": {
+    "parent": {
+      "href": "http://cd2.sourcefabric.net/citizendesk-interface",
+      "title": "home"
+    },
+    "self": {
+      "href": "http://cd2.sourcefabric.net/citizendesk-interface/reports",
+      "title": "reports"
+    }
+  },
+  "_meta": {
+    "page": 1,
+    "max_results": 100,
+    "total": 5
+  },
+  "_items": [
+    {
+      "texts": [
+        {
+          "original": "LAMHVA",
+          "transcript": null
+        }
+      ],
+      "produced": "2014-07-08T13:03:46+0000",
+      "feed_type": "sms",
+      "original": {
+        "message": "LAMHVA"
+      },
+      "_updated": "1970-01-01T00:00:00+0000",
+      "local": false,
+      "_links": {
+        "self": {
+          "href": "http://cd2.sourcefabric.net/citizendesk-interface/reports/53bbec329c61672e3d000007",
+          "title": "Report"
+        }
+      },
+      "_created": "1970-01-01T00:00:00+0000",
+      "_id": "53bbec329c61672e3d000007",
+      "_etag": "a45cd6ae550b1e5ade04f1f1fcd5b9cdb59c4b7b",
+      "authors": [
+        {
+          "identifiers": {
+            "user_id": "4915781658281",
+            "user_name_search": "4915781658281",
+            "user_id_search": "4915781658281",
+            "user_name": "4915781658281"
+          },
+          "authority": "telco"
+        }
+      ],
+      "session": "sms||sms|received|2014-07-08T13:03:46.578351|6497fdc8a21be530",
+      "channels": [
+        {
+          "reasons": null,
+          "value": "received",
+          "request": null,
+          "type": "sms",
+          "filter": null
+        }
+      ]
+    },
+    {
+      "texts": [
+        {
+          "original": "Thank you for your report. Let us know more about it by telling us: 1) Your name 2) Your location. A reporter may contact you directly.",
+          "transcript": null
+        }
+      ],
+      "produced": "2014-07-08T13:03:46+0000",
+      "feed_type": "sms",
+      "original": {
+        "message": "Thank you for your report. Let us know more about it by telling us: 1) Your name 2) Your location. A reporter may contact you directly."
+      },
+      "_updated": "1970-01-01T00:00:00+0000",
+      "local": true,
+      "_links": {
+        "self": {
+          "href": "http://cd2.sourcefabric.net/citizendesk-interface/reports/53bbec329c61672e3d000008",
+          "title": "Report"
+        }
+      },
+      "_created": "1970-01-01T00:00:00+0000",
+      "_id": "53bbec329c61672e3d000008",
+      "_etag": "f7188ea17cf6f4736656bb96567d2487ae59b8b4",
+      "authors": [],
+      "session": "sms||sms|received|2014-07-08T13:03:46.578351|6497fdc8a21be530",
+      "channels": [
+        {
+          "request": null,
+          "value": "sent",
+          "reasons": null,
+          "type": "sms",
+          "filter": null
+        }
+      ]
+    },
+    {
+      "texts": [
+        {
+          "original": "Petra Schilling Pforzheim",
+          "transcript": null
+        }
+      ],
+      "produced": "2014-07-08T13:05:05+0000",
+      "feed_type": "sms",
+      "original": {
+        "message": "Petra Schilling Pforzheim"
+      },
+      "_updated": "1970-01-01T00:00:00+0000",
+      "local": false,
+      "_links": {
+        "self": {
+          "href": "http://cd2.sourcefabric.net/citizendesk-interface/reports/53bbec819c61672e3d000009",
+          "title": "Report"
+        }
+      },
+      "_created": "1970-01-01T00:00:00+0000",
+      "_id": "53bbec819c61672e3d000009",
+      "_etag": "b16cf899c155a6cf4fa673f7d046d9a119a85625",
+      "authors": [
+        {
+          "identifiers": {
+            "user_id": "4915781658281",
+            "user_name_search": "4915781658281",
+            "user_id_search": "4915781658281",
+            "user_name": "4915781658281"
+          },
+          "authority": "telco"
+        }
+      ],
+      "session": "sms||sms|received|2014-07-08T13:03:46.578351|6497fdc8a21be530",
+      "channels": [
+        {
+          "reasons": null,
+          "value": "received",
+          "request": null,
+          "type": "sms",
+          "filter": null
+        }
+      ]
+    },
+    {
+      "texts": [
+        {
+          "original": "Who is this person?",
+          "transcript": null
+        }
+      ],
+      "produced": "2014-07-09T13:55:32+0000",
+      "feed_type": "sms",
+      "original": {
+        "message": "Who is this person?"
+      },
+      "_updated": "1970-01-01T00:00:00+0000",
+      "local": true,
+      "_links": {
+        "self": {
+          "href": "http://cd2.sourcefabric.net/citizendesk-interface/reports/53bd49d49c61672e17000020",
+          "title": "Report"
+        }
+      },
+      "_created": "1970-01-01T00:00:00+0000",
+      "_id": "53bd49d49c61672e17000020",
+      "_etag": "1c1e102911bf7eaa58341f905fb19047a4620a8c",
+      "authors": [],
+      "session": "sms||sms|received|2014-07-08T13:03:46.578351|6497fdc8a21be530",
+      "channels": [
+        {
+          "request": null,
+          "value": "sent",
+          "reasons": null,
+          "type": "sms",
+          "filter": null
+        }
+      ]
+    },
+    {
+      "texts": [
+        {
+          "original": "Forget it",
+          "transcript": null
+        }
+      ],
+      "produced": "2014-07-09T15:52:24+0000",
+      "feed_type": "sms",
+      "original": {
+        "message": "Forget it"
+      },
+      "_updated": "1970-01-01T00:00:00+0000",
+      "local": false,
+      "_links": {
+        "self": {
+          "href": "http://cd2.sourcefabric.net/citizendesk-interface/reports/53bd65389c61672e3d00000c",
+          "title": "Report"
+        }
+      },
+      "_created": "1970-01-01T00:00:00+0000",
+      "_id": "53bd65389c61672e3d00000c",
+      "_etag": "328eaa8b916de896ee50acac068bcf57e610b6bf",
+      "authors": [
+        {
+          "identifiers": {
+            "user_id": "4915781658281",
+            "user_name_search": "4915781658281",
+            "user_id_search": "4915781658281",
+            "user_name": "4915781658281"
+          },
+          "authority": "telco"
+        }
+      ],
+      "session": "sms||sms|received|2014-07-08T13:03:46.578351|6497fdc8a21be530",
+      "channels": [
+        {
+          "reasons": null,
+          "value": "received",
+          "request": null,
+          "type": "sms",
+          "filter": null
+        }
+      ]
+    }
+  ]
+}
