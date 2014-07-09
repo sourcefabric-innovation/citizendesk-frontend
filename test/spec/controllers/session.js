@@ -19,7 +19,7 @@ describe('Controller: SessionCtrl', function () {
       .expectGET(globals.root)
       .respond(mocks.root);
     $httpBackend
-      .expectGET(globals.root + 'reports?page=1&sort=%5B(%22produced%22,+1)%5D&where=%7B%22session%22:%22test-session-id%22%7D')
+      .expectGET(globals.root + 'reports?embedded=%7B%22user_id%22:1%7D&page=1&sort=%5B(%22produced%22,+1)%5D&where=%7B%22session%22:%22test-session-id%22%7D')
       .respond(mocks.reports['list-not-paginated-session']);
     SessionCtrl = $controller('SessionCtrl', {
       $scope: scope,
@@ -39,7 +39,7 @@ describe('Controller: SessionCtrl', function () {
   }));
 
   it('gets the reports in the session', function() {
-    expect(scope.reports.length).toBe(5);
+    expect(scope.reports.length).toBe(6);
   });
   it('finds the last report to use for reply', function() {
     /* my humble opinion is that it is silly and unsafe to have this
@@ -63,7 +63,7 @@ describe('Controller: SessionCtrl', function () {
             .copy(mocks.reports['list-not-paginated-session']);
       reports._items.push({id_:'new report'});
       $httpBackend
-        .expectGET(globals.root + 'reports?page=1&sort=%5B(%22produced%22,+1)%5D&where=%7B%22session%22:%22test-session-id%22%7D')
+        .expectGET(globals.root + 'reports?embedded=%7B%22user_id%22:1%7D&page=1&sort=%5B(%22produced%22,+1)%5D&where=%7B%22session%22:%22test-session-id%22%7D')
         .respond(reports);
       scope.sendReply({
         report_id: 'test-report-id',
@@ -72,7 +72,7 @@ describe('Controller: SessionCtrl', function () {
       $httpBackend.flush();
     });
     it('adds the sent report to the session', function() {
-      expect(scope.reports.length).toBe(6);
+      expect(scope.reports.length).toBe(7);
     });
     it('sends a message reply', function () {
       $httpBackend.verifyNoOutstandingRequest();

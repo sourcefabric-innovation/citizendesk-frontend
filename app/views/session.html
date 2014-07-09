@@ -6,20 +6,21 @@
         <div class="panel-heading">
           <small class="pull-right" ng-bind="report.produced | date:'medium'">
           </small>
-          <span ng-if="report.authors.length === 0">
-            <span ng-if="report.local === true">
+          <span ng-if="report.local">
+            <span ng-if="report.user_id.username">
+              <span ng-bind="report.user_id.username">
+              </span>
+            </span>
+            <span ng-if="!report.user_id.username">
               <span translate>
                 Sent by Citizendesk
               </span>
             </span>
-            <span ng-if="report.local !== true">
-              <span translate>
-                Unknown sender
-              </span>
-            </span>
           </span>
-          <span ng-repeat="author in report.authors"
-                ng-bind="author.identifiers.user_name">
+          <span ng-if="!report.local">
+            <span ng-repeat="author in report.authors"
+                  ng-bind="author.identifiers.user_name">
+            </span>
           </span>
         </div>
         <div class="panel-body" ng-bind="report.texts[0].original">

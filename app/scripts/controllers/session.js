@@ -9,7 +9,7 @@ angular.module('citizendeskFrontendApp')
       // scan the list of reports from the last (most recent) to the first
       for(var i=($scope.reports.length-1); i >= 0; i--) {
         // choose the first report with an author
-        if ($scope.reports[i].authors.length != 0) {
+        if (!($scope.reports[i].local)) {
           $scope.replyReport = $scope.reports[i];
           return;
         }
@@ -42,7 +42,8 @@ angular.module('citizendeskFrontendApp')
             'session': $routeParams.session
           }),
           sort:'[("produced", 1)]',
-          page: page
+          page: page,
+          embedded: '{"user_id":1}'
         })
         .then(function(response) {
           addNewValues($scope.reports, response._items);
