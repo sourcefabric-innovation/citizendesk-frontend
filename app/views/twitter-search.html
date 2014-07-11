@@ -34,8 +34,16 @@
     </span>
   </p>
 </div>
+<p>
+  <div class="input-group">
+    <div class="input-group-addon">
+      <span class="glyphicon glyphicon-search"></span>
+    </div>
+    <input class="form-control" type="search" ng-model="q" />
+  </div>
+</p>
 <div
-   ng-repeat="report in queue.reports"
+   ng-repeat="report in queue.reports | filter:q"
    report-summary
    >
 </div>
