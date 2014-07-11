@@ -3,6 +3,7 @@
 angular.module('citizendeskFrontendApp')
   .controller('TwitterSearchCtrl', ['$scope', 'TwitterSearches', '$routeParams', '$location', 'QueueSelection', function ($scope, TwitterSearches, $routeParams, $location, QueueSelection) {
     $scope.queue = {};
+    $scope.limit = 50;
     TwitterSearches.promise.then(function() {
       $scope.queue  = TwitterSearches.byId($routeParams.id);
       if (!$scope.queue) {

@@ -43,10 +43,19 @@
   </div>
 </p>
 <div
-   ng-repeat="report in queue.reports | filter:q"
+   ng-repeat="report in queue.reports | filter:q | limitTo:limit"
    report-summary
    >
 </div>
+<p ng-show="queue.reports.length > limit">
+  <button class="btn btn-default btn-lg btn-block"
+          ng-click="limit = limit + 50"
+          >
+    <span translate>
+      See more reports
+    </span>
+  </button>
+</p>
 <div ng-hide="queue.reports.length" translate>
   No reports match your search criteria
 </div>

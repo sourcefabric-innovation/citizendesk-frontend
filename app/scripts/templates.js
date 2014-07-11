@@ -32,6 +32,27 @@ angular.module('citizendeskFrontendApp').run(['$templateCache', function($templa
   );
 
 
+  $templateCache.put('views/assigned-to-me.html',
+    "<h2 translate>\n" +
+    "  Items assigned to you:\n" +
+    "</h2>\n" +
+    "<p>\n" +
+    "  <div class=\"input-group\">\n" +
+    "    <div class=\"input-group-addon\">\n" +
+    "      <span class=\"glyphicon glyphicon-search\"></span>\n" +
+    "    </div>\n" +
+    "    <input class=\"form-control\" type=\"search\" ng-model=\"q\" />\n" +
+    "  </div>\n" +
+    "</p>\n" +
+    "<div\n" +
+    "   ng-repeat=\"report in reports | filter:q\"\n" +
+    "   report-summary\n" +
+    "   >\n" +
+    "</div>\n" +
+    "<div ng-hide=\"reports.length\" translate>No reports in this queue</div>\n"
+  );
+
+
   $templateCache.put('views/citizen-card.html',
     "<div ng-switch=\"alias.authority\">\n" +
     "  <div ng-switch-when=\"twitter\">\n" +
@@ -936,10 +957,19 @@ angular.module('citizendeskFrontendApp').run(['$templateCache', function($templa
     "  </div>\n" +
     "</p>\n" +
     "<div\n" +
-    "   ng-repeat=\"report in queue.reports | filter:q\"\n" +
+    "   ng-repeat=\"report in queue.reports | filter:q | limitTo:limit\"\n" +
     "   report-summary\n" +
     "   >\n" +
     "</div>\n" +
+    "<p ng-show=\"queue.reports.length > limit\">\n" +
+    "  <button class=\"btn btn-default btn-lg btn-block\"\n" +
+    "          ng-click=\"limit = limit + 50\"\n" +
+    "          >\n" +
+    "    <span translate>\n" +
+    "      See more reports\n" +
+    "    </span>\n" +
+    "  </button>\n" +
+    "</p>\n" +
     "<div ng-hide=\"queue.reports.length\" translate>\n" +
     "  No reports match your search criteria\n" +
     "</div>\n"
