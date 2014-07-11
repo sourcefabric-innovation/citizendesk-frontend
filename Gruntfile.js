@@ -40,6 +40,10 @@ module.exports = function (grunt) {
         files: ['<%= yeoman.app %>/styles/{,*/}*.css'],
         tasks: ['newer:copy:styles', 'autoprefixer']
       },
+      templates: {
+        files: ['<%= yeoman.app %>/views/*{,*/}*.html'],
+        tasks: ['ngtemplates']
+      },
       gruntfile: {
         files: ['Gruntfile.js']
       },
@@ -93,7 +97,8 @@ module.exports = function (grunt) {
     jshint: {
       options: {
         jshintrc: '.jshintrc',
-        reporter: require('jshint-stylish')
+        reporter: require('jshint-stylish'),
+        ignores: '<%= yeoman.app %>/scripts/templates.js'
       },
       all: [
         'Gruntfile.js',
@@ -333,6 +338,14 @@ module.exports = function (grunt) {
           'app/scripts/translations.js': ['po/*.po']
         }
       }
+    },
+    // templates bundle https://github.com/ericclemmons/grunt-angular-templates
+    ngtemplates: {
+      citizendeskFrontendApp: {
+        cwd: 'app',
+        src: 'views/**/*.html',
+        dest: 'app/scripts/templates.js'
+      }
     }
   });
 
@@ -366,6 +379,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
+    'ngtemplates',
     'useminPrepare',
     'concurrent:dist',
     'autoprefixer',
