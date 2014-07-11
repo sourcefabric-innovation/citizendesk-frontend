@@ -1,1 +1,17 @@
-{"token": "RIr89qFZlvvtTIpe8PiPtcs2YL4g1X80cDBCdUlR", "username": "Francesco", "user": "53b146149c616733d6e8c7d5", "_id": "53bab5339c61671f63bc3788", "_created": "2014-07-07T14:56:51+0000", "_links": {"self": {"href": "http://cd2.sourcefabric.net/citizendesk-interface/auth/53bab5339c61671f63bc3788", "title": "Auth"}}, "_status": "OK", "password": "no", "_updated": "2014-07-07T14:56:51+0000", "_etag": "668e7db8cc1ee3d363aee48bd0a59cabb6a7997b"}
+{
+  "token": "RIr89qFZlvvtTIpe8PiPtcs2YL4g1X80cDBCdUlR",
+  "username": "Francesco",
+  "user": "53b146149c616733d6e8c7d5",
+  "_id": "53bab5339c61671f63bc3788",
+  "_created": "2014-07-07T14:56:51+0000",
+  "_links": {
+    "self": {
+      "href": "http://cd2.sourcefabric.net/citizendesk-interface/auth/53bab5339c61671f63bc3788",
+      "title": "Auth"
+    }
+  },
+  "_status": "OK",
+  "password": "no",
+  "_updated": "2014-07-07T14:56:51+0000",
+  "_etag": "668e7db8cc1ee3d363aee48bd0a59cabb6a7997b"
+}
