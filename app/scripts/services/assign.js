@@ -1,10 +1,12 @@
 'use strict';
 
 angular.module('citizendeskFrontendApp')
-  .service('Assign', function Assign(api) {
-    var service = this;
+  .service('Assign', function Assign(api, $q) {
+    var service = this,
+        usersDeferred = $q.defer();
     this.users = [];
-    this.update = function(page) {
+    this.totals = {};
+    this.updateUsers = function(page) {
       api.users
         .query({
           page: page
@@ -17,9 +19,30 @@ angular.module('citizendeskFrontendApp')
             service.users.push(user);
           });
           if (response._links.next) {
-            service.update(page + 1);
+            service.updateUsers(page + 1);
+          } else {
+            usersDeferred.resolve();
           }
         });
     };
-    this.update(1);
+    /* update the total counts of reports assigned to every user */
+    this.updateTotals = function() {
+      usersDeferred.promise.then(function() {
+        service.users.forEach(function(user) {
+          api.reports
+            .query({
+              where: JSON.stringify({
+                'assignments.user_id': user._id
+              })
+            })
+            .then(function(response) {
+              if('_meta' in response) {
+                service.totals[user._id] = response._meta.total;
+              }
+            });
+        });
+      });
+    };
+    /* the users list is fetched just once when the service is created */
+    this.updateUsers(1);
   });

@@ -4,6 +4,7 @@
 angular.module('citizendeskFrontendApp')
   .controller('AssignCtrl', function ($scope, Assign, PageBroker, $window, api, $http, session) {
     $scope.users = Assign.users;
+    $scope.totals = Assign.totals;
     $scope.identity = session.identity;
     $scope.disabled = false;
     PageBroker
@@ -11,6 +12,7 @@ angular.module('citizendeskFrontendApp')
       .then(function(data) {
         $scope.report = data.report;
       });
+    Assign.updateTotals();
     $scope.assignTo = function(user_id) {
       $scope.disabled = true;
       api.reports

@@ -102,6 +102,10 @@ angular
         templateUrl: 'views/assign.html',
         controller: 'AssignCtrl'
       })
+      .when('/assigned/', {
+        templateUrl: 'views/assigned.html',
+        controller: 'AssignedCtrl'
+      })
       // static pages, without controllers
       .when('/error-no-monitors', {
         templateUrl: 'views/error-no-monitors.html'

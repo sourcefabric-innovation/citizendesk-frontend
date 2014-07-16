@@ -46,7 +46,8 @@ describe('Controller: AssignCtrl', function () {
         report_id: 'test-report-id'
       },
       Assign: { // this is the assign service
-        users: angular.copy(mocks.users.list._items)
+        users: angular.copy(mocks.users.list._items),
+        updateTotals: jasmine.createSpy()
       },
       $window: $window,
       PageBroker: pageBroker,

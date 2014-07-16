@@ -13,9 +13,11 @@ describe('Service: Assign', function () {
 
   // instantiate service
   var Assign,
-      $httpBackend;
-  beforeEach(inject(function (_$httpBackend_) {
+      $httpBackend,
+      $rootScope;
+  beforeEach(inject(function (_$httpBackend_, _$rootScope_) {
     $httpBackend = _$httpBackend_;
+    $rootScope = _$rootScope_;
     $httpBackend
       .expectGET(globals.root)
       .respond(mocks.root);
@@ -30,6 +32,21 @@ describe('Service: Assign', function () {
 
   it('fetches the users', function () {
     expect(Assign.users.length).toBe(4);
+  });
+  it('(asynchronously) fetches the list of assigned reports for every user', function() {
+    Assign.updateTotals();
+    var response = angular.copy(mocks.reports.list);
+    response._meta = {
+      "total": 10,
+      "page": 1,
+      "max_results": 25
+    };
+    $httpBackend
+      .expectGET(globals.root + 'reports?where=%7B%22assignments.user_id%22:%2253b146149c616733d6e8c7d4%22%7D')
+      .respond(response);
+    $httpBackend.flush();
+    $rootScope.$digest(); // for $q
+    expect(Assign.totals['53b146149c616733d6e8c7d4']).toBe(10);
   });
 
 });

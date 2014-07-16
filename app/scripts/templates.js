@@ -7,18 +7,29 @@ angular.module('citizendeskFrontendApp').run(['$templateCache', function($templa
     "  <span translate>Assign to:</span>\n" +
     "</h3>\n" +
     "<p>\n" +
-    "  <button type=\"button\" class=\"btn btn-info btn-lg btn-block\" translate\n" +
+    "  <button type=\"button\" class=\"btn btn-info btn-lg btn-block\"\n" +
     "          ng-click=\"assignTo(identity._id)\"\n" +
     "          ng-disabled=\"disabled\"\n" +
     "          >\n" +
-    "    Me\n" +
+    "    <span translate>\n" +
+    "      Me\n" +
+    "    </span>\n" +
+    "    (\n" +
+    "    <span ng-bind=\"totals[identity._id]\"></span>\n" +
+    "    )\n" +
     "  </button>\n" +
     "</p>\n" +
     "<p ng-repeat=\"user in users\" ng-hide=\"user._id === identity._id\">\n" +
     "  <button type=\"button\" class=\"btn btn-default btn-lg btn-block\"\n" +
     "          ng-click=\"assignTo(user._id)\"\n" +
     "          ng-disabled=\"disabled\"\n" +
-    "          ng-bind=\"user.username\">\n" +
+    "          >\n" +
+    "    <span\n" +
+    "          ng-bind=\"user.username\"\n" +
+    "       ></span>\n" +
+    "    (\n" +
+    "    <span ng-bind=\"totals[user._id]\"></span>\n" +
+    "    )\n" +
     "  </button>\n" +
     "</p>\n"
   );
@@ -42,6 +53,19 @@ angular.module('citizendeskFrontendApp').run(['$templateCache', function($templa
     "   >\n" +
     "</div>\n" +
     "<div ng-hide=\"reports.length\" translate>No reports in this queue</div>\n"
+  );
+
+
+  $templateCache.put('views/assigned.html',
+    "<h3 translate>\n" +
+    "  Number of reports assigned for every user\n" +
+    "</h3>\n" +
+    "<ul class=\"list-group\">\n" +
+    "  <li class=\"list-group-item\" ng-repeat=\"user in users\">\n" +
+    "    <span class=\"badge\" ng-bind=\"totals[user._id]\"></span>\n" +
+    "    <span ng-bind=\"user.username\"></span>\n" +
+    "  </li>\n" +
+    "</ul>\n"
   );
 
 
@@ -519,7 +543,7 @@ angular.module('citizendeskFrontendApp').run(['$templateCache', function($templa
     "          <span ng-switch-default>\n" +
     "            <a class=\"btn btn-info\"\n" +
     "               ng-show=\"assign\"\n" +
-    "               disabled\n" +
+    "               ng-href=\"#/assigned/\"\n" +
     "               >\n" +
     "              <span translate>\n" +
     "                Assigned\n" +
