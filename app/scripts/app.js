@@ -106,6 +106,10 @@ angular
         templateUrl: 'views/assigned.html',
         controller: 'AssignedCtrl'
       })
+      .when('/queues/', {
+        templateUrl: 'views/queues.html',
+        controller: 'QueuesCtrl'
+      })
       // static pages, without controllers
       .when('/error-no-monitors', {
         templateUrl: 'views/error-no-monitors.html'
@@ -114,7 +118,7 @@ angular
         templateUrl: 'views/error-no-searches.html'
       })
       .otherwise({
-        redirectTo: '/assigned-to-me'
+        redirectTo: '/queues'
       });
   }]).run(['gettextCatalog', 'Raven', 'initAuth', function(gettextCatalog, Raven, initAuth){ // these annotations are currently not automatically managed by the building process, others are
     //gettextCatalog.currentLanguage = 'it_IT';

@@ -733,6 +733,35 @@ angular.module('citizendeskFrontendApp').run(['$templateCache', function($templa
   );
 
 
+  $templateCache.put('views/queues.html',
+    "<ul class=\"list-group\">\n" +
+    "  <a class=\"list-group-item list-group-item-info\"\n" +
+    "     ng-href=\"#/mobile-queue\">\n" +
+    "    <span translate>Mobile reports</span>\n" +
+    "  </a>\n" +
+    "  <a class=\"list-group-item list-group-item-warning\"\n" +
+    "     ng-href=\"#/new-twitter-search\">\n" +
+    "    <span translate>New Twitter search</span>\n" +
+    "  </a>\n" +
+    "  <a ng-repeat=\"queue in searches\" class=\"list-group-item\"\n" +
+    "     ng-href=\"#/twitter-search/{{queue._id}}\">\n" +
+    "    <span ng-bind=\"queue.description\"></span>\n" +
+    "    <span class=\"badge\" ng-bind=\"queue.reports.length\"></span>\n" +
+    "  </a>\n" +
+    "  <a ng-repeat=\"queue in monitors\" class=\"list-group-item\"\n" +
+    "     ng-href=\"#/monitor/{{queue.slug}}\">\n" +
+    "    <span ng-bind=\"queue.description\"></span>\n" +
+    "    <span class=\"badge\" ng-bind=\"queue.reports.length\"></span>\n" +
+    "  </a>\n" +
+    "  <!--li class=\"list-group-item\">\n" +
+    "      <a ng-href=\"#/web-queue\">\n" +
+    "        <span>From the web</span>\n" +
+    "      </a>\n" +
+    "  </li-->\n" +
+    "</ul>\n"
+  );
+
+
   $templateCache.put('views/report.html',
     "<div class=\"col-md-2 hidden-sm hidden-xs\">\n" +
     "  <div class=\"bs-sidebar\">\n" +
