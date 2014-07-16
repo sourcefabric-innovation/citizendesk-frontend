@@ -727,7 +727,7 @@ angular.module('citizendeskFrontendApp').run(['$templateCache', function($templa
     "    <div class=\"panel-heading\" translate>\n" +
     "      Text\n" +
     "    </div>\n" +
-    "    <div class=\"panel-body\">\n" +
+    "    <div class=\"panel-body break-long-words\">\n" +
     "      <div ng-show=\"hasTranscript || transcriptCandidate\">\n" +
     "        <div ng-show=\"editingTranscript\" class=\"form-group\">\n" +
     "          <textarea ng-model=\"transcriptCandidate\" class=\"form-control\"\n" +
