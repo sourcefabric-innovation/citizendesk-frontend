@@ -26,14 +26,28 @@
          class="pull-right"
          ng-switch-default
          >
-        <a class="btn btn-warning"
-           ng-show="assign"
-           ng-click="assign(report)"
-           >
-          <span translate>
-            Assign
+        <span ng-switch="report.assignments.length">
+          <span ng-switch-when="0">
+            <a class="btn btn-warning"
+               ng-show="assign"
+               ng-click="assign(report)"
+               >
+              <span translate>
+                Assign
+              </span>
+            </a>
           </span>
-        </a>
+          <span ng-switch-default>
+            <a class="btn btn-info"
+               ng-show="assign"
+               disabled
+               >
+              <span translate>
+                Assigned
+              </span>
+            </a>
+          </span>
+        </span>
         <a href="#/reports/{{report._id}}"
            class="btn btn-primary"
            >

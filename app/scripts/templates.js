@@ -505,14 +505,28 @@ angular.module('citizendeskFrontendApp').run(['$templateCache', function($templa
     "         class=\"pull-right\"\n" +
     "         ng-switch-default\n" +
     "         >\n" +
-    "        <a class=\"btn btn-warning\"\n" +
-    "           ng-show=\"assign\"\n" +
-    "           ng-click=\"assign(report)\"\n" +
-    "           >\n" +
-    "          <span translate>\n" +
-    "            Assign\n" +
+    "        <span ng-switch=\"report.assignments.length\">\n" +
+    "          <span ng-switch-when=\"0\">\n" +
+    "            <a class=\"btn btn-warning\"\n" +
+    "               ng-show=\"assign\"\n" +
+    "               ng-click=\"assign(report)\"\n" +
+    "               >\n" +
+    "              <span translate>\n" +
+    "                Assign\n" +
+    "              </span>\n" +
+    "            </a>\n" +
     "          </span>\n" +
-    "        </a>\n" +
+    "          <span ng-switch-default>\n" +
+    "            <a class=\"btn btn-info\"\n" +
+    "               ng-show=\"assign\"\n" +
+    "               disabled\n" +
+    "               >\n" +
+    "              <span translate>\n" +
+    "                Assigned\n" +
+    "              </span>\n" +
+    "            </a>\n" +
+    "          </span>\n" +
+    "        </span>\n" +
     "        <a href=\"#/reports/{{report._id}}\"\n" +
     "           class=\"btn btn-primary\"\n" +
     "           >\n" +
