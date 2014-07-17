@@ -10,9 +10,7 @@
     <span translate>
       Me
     </span>
-    (
-    <span ng-bind="totals[identity._id]"></span>
-    )
+    <span ng-show="totals[identity._id]">({{totals[identity._id]}})</span>
   </button>
 </p>
 <p ng-repeat="user in users" ng-hide="user._id === identity._id">
@@ -23,8 +21,15 @@
     <span
           ng-bind="user.username"
        ></span>
-    (
-    <span ng-bind="totals[user._id]"></span>
-    )
+    <span ng-show="totals[user._id]">({{totals[user._id]}})</span>
+  </button>
+</p>
+<p>
+  <button type="button" class="btn btn-warning btn-lg btn-block"
+          ng-click="back()"
+          ng-disabled="disabled"
+          >
+    <span class="glyphicon glyphicon-arrow-left"></span>
+    <span translate>Go back</span>
   </button>
 </p>
