@@ -1,6 +1,9 @@
 <div class="col-md-2 hidden-sm hidden-xs">
   <div class="bs-sidebar">
     <ul class="nav">
+      <li ng-show="report.original.entities.media.length" bs-scrollspy>
+        <a ng-click="scrollTo('media')">Media</a>
+      </li>
       <li bs-scrollspy>
         <a ng-click="scrollTo('text')">Text</a>
       </li>
@@ -11,6 +14,15 @@
   </div>
 </div>
 <div class="col-md-10">
+  <div class="panel panel-info"
+       ng-repeat="medium in report.original.entities.media">
+    <div class="panel-heading" translate>
+      Media
+    </div>
+    <div class="panel-body">
+      <img class="img-responsive" ng-src="{{medium.media_url}}">
+    </div>
+  </div>
   <div class="panel panel-info">
     <div class="panel-heading" translate>
       Text

@@ -13,6 +13,8 @@
   <div class="panel-body break-long-words"
        ng-bind="report.texts[0].original"></div>
   <div class="panel-footer clearfix">
+    <span ng-show="report.original.entities.media.length"
+          class="glyphicon glyphicon-picture"></span>
     <span ng-switch="report.verified">
       <a href="#/reports/{{report._id}}"
          class="btn btn-info pull-right"
