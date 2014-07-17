@@ -4,12 +4,15 @@ angular.module('citizendeskFrontendApp')
   .controller('TwitterSearchCtrl', function ($scope, TwitterSearches, $routeParams, $location, QueueSelection, PageBroker) {
     $scope.queue = {};
     $scope.limit = 50;
+    $scope.loading = true;
     TwitterSearches.promise.then(function() {
       $scope.queue  = TwitterSearches.byId($routeParams.id);
       if (!$scope.queue) {
         $location.url('/error-no-searches');
       } else {
-        TwitterSearches.start($scope.queue);
+        TwitterSearches.start($scope.queue).then(function() {
+          $scope.loading = false;
+        });
         QueueSelection.description = $scope.queue.description;
       }
     });

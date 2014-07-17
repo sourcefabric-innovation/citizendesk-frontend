@@ -56,6 +56,14 @@
     </span>
   </button>
 </p>
-<div ng-hide="queue.reports.length" translate>
-  No reports match your search criteria
+<div ng-show="loading">
+  <p>
+    <h5 class="text-center" translate>Loading...</h5>
+    <div class="text-center">
+      <span class="fa fa-refresh fa-spin"></span>
+    </div>
+  </p>
 </div>
+<p ng-hide="loading || queue.reports.length" translate>
+  No reports match your search criteria
+</p>
