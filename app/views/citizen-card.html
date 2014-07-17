@@ -16,7 +16,7 @@
           <p ng-bind="alias.description">
           </p>
           <p>
-            <dl class="dl-horizontal">
+            <dl class="dl-horizontal" ng-show="alias.time_zone">
               <dt translate>Time Zone</dt>
               <dd ng-bind="alias.time_zone"></dd>
             </dl>
