@@ -2,8 +2,6 @@
   <li><a href="#/configure">Configure</a></li>
   <li class="active">Validation steps</li>
 </ol>
-<div class="alert alert-{{status}}" ng-hide="alert==''" ng-bind="alert">
-</div>
 <p>
   <span translate>
     Changing these settings will not affect reports that already started
@@ -13,8 +11,7 @@
 <form class="form-horizontal"
       ng-repeat="step in steps"
       >
-  <fieldset ng-disabled="status[step._id] == 'disabled'"
-            >
+  <fieldset ng-disabled="disabled">
     <div class="form-group">
       <label class="col-md-2"></label>
       <div class="col-md-10">

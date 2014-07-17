@@ -22,18 +22,21 @@ describe('Controller: ConfigureStepsCtrl', function () {
     $httpBackend
       .expectGET(globals.root + 'steps')
       .respond(mocks.steps.list);
+    $httpBackend.flush();
   }));
 
   it('attaches a list of steps to the scope', function () {
-    $httpBackend.flush();
     expect(scope.steps.length).toBe(3);
   });
-  xit('adds a step', function() {
+  it('adds a step', function() {
     scope.add();
     expect(scope.steps.length).toBe(4);
+    expect(scope.disabled).toBe(false);
   });
-  // commented when removing sails
-  xit('saves a step', function() {
+  it('saves a step', function() {
     scope.save(scope.steps[1]);
+  });
+  it('deletes a step', function() {
+    scope.remove(scope.steps[1]);
   });
 });
