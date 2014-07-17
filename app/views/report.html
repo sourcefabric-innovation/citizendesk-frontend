@@ -106,11 +106,17 @@
                ></a>
           </dd>
         </dl>
-      </div>
-      <div class="col-sm-6">
         <dl>
           <dt translate>Created</dt>
           <dd ng-bind="report.produced | date:'medium'"></dd>
+        </dl>
+        <dl ng-repeat="url in report.original.entities.urls">
+          <dt translate>External link</dt>
+          <dd>
+            <a target="_blank" ng-href="{{url.url}}"
+               ng-bind="url.display_url">
+            </a>
+          </dd>
         </dl>
       </div>
     </div>
