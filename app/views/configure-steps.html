@@ -4,6 +4,12 @@
 </ol>
 <div class="alert alert-{{status}}" ng-hide="alert==''" ng-bind="alert">
 </div>
+<p>
+  <span translate>
+    Changing these settings will not affect reports that already started
+    the verification process
+  </span>
+</p>
 <form class="form-horizontal"
       ng-repeat="step in steps"
       >
@@ -30,6 +36,7 @@
     </div>
   </fieldset>
 </form>
+<br>
 <div class="col-md-10 col-md-offset-2">
   <button class="btn btn-warning" ng-click="add()">
     Add
