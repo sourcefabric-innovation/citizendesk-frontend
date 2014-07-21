@@ -18,7 +18,7 @@
     <span ng-show="report.original.entities.urls.length"
           class="glyphicon glyphicon-link"></span>
     <span ng-switch="report.verified">
-      <a href="#/reports/{{report._id}}"
+      <a href="#/report-{{report.feed_type}}/{{report._id}}"
          class="btn btn-info pull-right"
          ng-switch-when="true"
          >
@@ -52,7 +52,7 @@
             </a>
           </span>
         </span>
-        <a href="#/reports/{{report._id}}"
+        <a href="#/report-{{report.feed_type}}/{{report._id}}"
            class="btn btn-primary"
            >
           <span translate>

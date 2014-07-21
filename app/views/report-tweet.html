@@ -1,0 +1,156 @@
+<div class="col-md-2 hidden-sm hidden-xs">
+  <div class="bs-sidebar">
+    <ul class="nav">
+      <li ng-show="report.original.entities.media.length" bs-scrollspy>
+        <a ng-click="scrollTo('media')">Media</a>
+      </li>
+      <li bs-scrollspy>
+        <a ng-click="scrollTo('text')">Text</a>
+      </li>
+      <li bs-scrollspy>
+        <a ng-click="scrollTo('tasks')">Tasks</a>
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="col-md-10">
+  <div class="panel panel-info"
+       ng-repeat="medium in report.original.entities.media">
+    <div class="panel-heading" translate>
+      Media
+    </div>
+    <div class="panel-body">
+      <img class="img-responsive" ng-src="{{medium.media_url}}">
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading" translate>
+      Text
+    </div>
+    <div class="panel-body break-long-words">
+      <div ng-show="hasTranscript || transcriptCandidate">
+        <div ng-show="editingTranscript" class="form-group">
+          <textarea ng-model="transcriptCandidate" class="form-control"
+                    rows="5"
+                    ></textarea>
+          <button type="button" class="btn btn-default btn-sm" translate
+                  ng-click="saveTranscript()"
+                  ng-disabled="disableTranscript"
+                  >
+            Save
+          </button>
+          <button type="button" class="btn btn-default btn-sm" translate
+                  ng-click="cancelTranscriptEditing()"
+                  ng-disabled="disableTranscript"
+                  >
+            Cancel
+          </button>
+        </div>
+        <div ng-hide="editingTranscript">
+          <p
+             class="lead"
+             id="text"
+             ng-bind="report.texts[0].transcript"
+             ></p>
+          <button type="button" class="btn btn-default btn-sm" translate
+                  ng-click="startTranscript()"
+                  >
+            Edit
+          </button>
+          <button type="button" class="btn btn-default btn-sm" translate
+                  ng-click="discardTranscript()"
+                  >
+            Discard
+          </button>
+        </div>
+        <hr>
+      </div>
+      <h5 ng-show="hasTranscript || transcriptCandidate" translate>
+        Original text:
+      </h5>
+      <p
+         id="text"
+         ng-bind="report.texts[0].original"
+         ng-class="{lead: !hasTranscript}"
+         ></p>
+      <button type="button" class="btn btn-default btn-sm" translate
+              ng-click="startTranscript()"
+              ng-hide="hasTranscript || transcriptCandidate"
+              >
+        Edit
+      </button>
+    </div>
+  </div>
+  <p ng-show="report.feed_type=='sms'">
+    <!--a class="btn btn-primary"
+       ng-href="#/session/{{encodedSession}}/{{report._id}}"
+       translate
+       >
+      Reply
+    </a-->
+    <a class="btn btn-default"
+       ng-href="#/session/{{encodedSession}}"
+       translate
+       >
+      Session
+    </a>
+  </p>
+  <div>
+    <div class="row">
+      <div class="col-sm-6">
+        <dl>
+          <dt translate>Author</dt>
+          <dd>
+            <a ng-bind="report.authors[0].identifiers.user_name"
+               ng-href="#/citizen-card/{{report.authors[0].authority}}/{{report.authors[0].identifiers.user_name}}"
+               ></a>
+          </dd>
+        </dl>
+        <dl>
+          <dt translate>Created</dt>
+          <dd ng-bind="report.produced | date:'medium'"></dd>
+        </dl>
+        <dl ng-repeat="url in report.original.entities.urls">
+          <dt translate>External link</dt>
+          <dd>
+            <a target="_blank" ng-href="{{url.url}}"
+               ng-bind="url.display_url">
+            </a>
+          </dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+  <div class="alert alert-{{status}}"
+       ng-hide="alert==''"
+       ng-bind="alert"></div>
+  <form id="tasks" class="form-horizontal" ng-repeat="step in report.steps">
+    <div class="form-group">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox"
+                 ng-model="step.done"
+                 ng-change="changeStep(step.done)"
+                 ng-disabled="stepsDisabled"
+                 >
+          {{step.description}}
+        </label>
+      </div>
+    </div>
+  </form>
+  <form class="form-horizontal">
+    <div class="form-group">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox"
+                 ng-model="report.verified"
+                 ng-change="save()"
+                 ng-disabled="wait"
+                 >
+          <strong translate>This report is verified</strong>
+        </label>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="clearfix"></div>

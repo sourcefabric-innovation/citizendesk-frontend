@@ -33,9 +33,13 @@ angular
         templateUrl: 'views/verified-reports.html',
         controller: 'VerifiedReportsCtrl'
       })
-      .when('/reports/:id', {
-        templateUrl: 'views/report.html',
-        controller: 'ReportCtrl'
+      .when('/report-sms/:id', {
+        templateUrl: 'views/report-sms.html',
+        controller: 'ReportSmsCtrl'
+      })
+      .when('/report-tweet/:id', {
+        templateUrl: 'views/report-tweet.html',
+        controller: 'ReportTweetCtrl'
       })
       .when('/monitor/:id?', {
         templateUrl: 'views/monitor.html',

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('citizendeskFrontendApp')
-  .controller('ReportCtrl', ['$scope', '$routeParams', 'Raven', 'api', '$location', '$anchorScroll', function ($scope, $routeParams, Raven, api, $location, $anchorScroll) {
+  .controller('ReportTweetCtrl', ['$scope', '$routeParams', 'Raven', 'api', '$location', '$anchorScroll', function ($scope, $routeParams, Raven, api, $location, $anchorScroll) {
     var id = $routeParams.id;
 
     function watchSteps() {

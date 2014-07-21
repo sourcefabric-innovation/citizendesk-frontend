@@ -12,7 +12,7 @@ describe('Controller: ReportCtrl', function () {
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope, _$httpBackend_) {
     scope = $rootScope.$new();
-    ReportCtrl = $controller('ReportCtrl', {
+    ReportCtrl = $controller('ReportTweetCtrl', {
       $scope: scope,
       $routeParams: {id: 'abcdef'}
     });
@@ -53,7 +53,7 @@ describe('Controller: ReportCtrl', function () {
   describe('starting with existent steps', function() {
     beforeEach(inject(function ($controller, $rootScope) {
       scope = $rootScope.$new();
-      ReportCtrl = $controller('ReportCtrl', {
+      ReportCtrl = $controller('ReportTweetCtrl', {
         $routeParams: {id: 'abcdef'},
         $scope: scope
       });
