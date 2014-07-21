@@ -21,6 +21,7 @@ angular
     apiProvider.api('twtSearches', { type:'http', backend: { rel:'twt-searches' }});
     apiProvider.api('users', { type:'http', backend: { rel:'users' }});
     apiProvider.api('citizen_aliases', { type:'http', backend: { rel:'citizen_aliases' }});
+    apiProvider.api('coverages', { type:'http', backend: { rel:'coverages' }});
     $httpProvider.interceptors.push('errorHttpInterceptor');
     $httpProvider.interceptors.push('AuthInterceptor');
     $httpProvider.interceptors.push('cacheBuster');

@@ -58,11 +58,11 @@ module.exports = function(config) {
     // - PhantomJS
     // - IE (only Windows)
     browsers: [
-      'PhantomJS',
+      'PhantomJS'
       // can't test Chrome with Travis, but feel free to uncomment
       // this from time to time for a local test
-      //'Chrome',
-      'Firefox'
+      //,'Chrome'
+      //,'Firefox'
     ],
 
 
@@ -77,7 +77,11 @@ module.exports = function(config) {
     /* Comment the following in order to have better debug
     informations when karma tests are failing, uncomment in order to
     have coverage reports */
-    reporters: ['dots', 'coverage', 'html'],
+    reporters: [
+      'dots'
+      //,'coverage'
+      ,'html'
+    ],
     /**/
     coverageReporter: {
       type: 'lcov',

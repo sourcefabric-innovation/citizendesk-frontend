@@ -1,21 +1,12 @@
 'use strict';
+/* jshint camelcase: false */
 
 angular.module('citizendeskFrontendApp')
-  .controller('ReportTweetCtrl', ['$scope', '$routeParams', 'Raven', 'api', '$location', '$anchorScroll', function ($scope, $routeParams, Raven, api, $location, $anchorScroll) {
+  .controller('ReportTweetCtrl', function ($scope, $routeParams, Raven, api, $location, $anchorScroll, Coverages, Report) {
     var id = $routeParams.id;
 
-    function watchSteps() {
-      $scope.$watch('report.steps', function() {
-        $scope.wait = $scope.report.steps.some(function(step) {
-          return !step.done;
-        });
-      }, true);
-    }
-
     function addSteps(report) {
-      if ('steps' in report) {
-        watchSteps();
-      } else {
+      if (!('steps' in report)) {
         api.steps.query()
           .then(function(response) {
             var data = response._items;
@@ -26,19 +17,38 @@ angular.module('citizendeskFrontendApp')
                 step.done = false;
                 return step;
               });
-              watchSteps();
             }
           });
       }
     }
 
+    function updateReport() {
+      var promise = api.reports.getById(id);
+      promise.then(function(report) {
+        $scope.report = report;
+        $scope.selectedCoverage = Report
+          .getSelectedCoverage(report, $scope.coverages);
+        if (report.on_behalf_id) {
+          api.users.getById(report.on_behalf_id)
+            .then(function(user) {
+              $scope.onBehalf = user;
+            });
+        }
+      });
+      return promise;
+    }
 
-    api.reports
-      .getById(id)
-      .then(function(data) {
-        $scope.report = data;
-        $scope.encodedSession = encodeURIComponent($scope.report.session);
+    updateReport()
+      .then(function() {
         addSteps($scope.report);
+
+        $scope.$watch(function() {
+          $scope.isPublished = Report.checkPublished($scope.report);
+        }, true);
+
+        $scope.$watch('report.session', function(newValue) {
+          $scope.encodedSession = encodeURIComponent(newValue);
+        });
 
         $scope.$watch('report.verified', function(newValue, oldValue) {
           if (oldValue === true && newValue === false) {
@@ -50,6 +60,15 @@ angular.module('citizendeskFrontendApp')
         $scope.$watch('report.texts', function() {
           $scope.hasTranscript = $scope.report.texts[0].transcript;
         }, true);
+
+        $scope.$watch('report.steps', function() {
+          if($scope.report.steps) {
+            $scope.wait = $scope.report.steps.some(function(step) {
+              return !step.done;
+            });
+          }
+        }, true);
+
       });
 
     $scope.save = function() {
@@ -124,4 +143,28 @@ angular.module('citizendeskFrontendApp')
         });
     };
 
-  }]);
+    Coverages.promise.then(function(coverages) {
+      $scope.coverages = coverages;
+    });
+
+    $scope.publish = function() {
+      $scope.disablePublish = true;
+      Report
+        .publish($scope.report, $scope.selectedCoverage)
+        .then(function() {
+          updateReport();
+          $scope.disablePublish = false;
+      });
+    };
+
+    $scope.unpublish = function() {
+      $scope.disablePublish = true;
+      Report
+        .unpublish($scope.report, $scope.selectedCoverage)
+        .then(function() {
+          updateReport();
+          $scope.disablePublish = false;
+        });
+    };
+
+  });

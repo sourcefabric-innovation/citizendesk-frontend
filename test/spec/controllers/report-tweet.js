@@ -7,15 +7,20 @@ describe('Controller: ReportCtrl', function () {
 
   var ReportCtrl,
       scope,
-      $httpBackend;
+      $httpBackend,
+      Report = {},
+      Coverages = { promise: { then: function(){} } },
+      dependencies = {
+        $routeParams: {id: 'abcdef'},
+        Report: Report,
+        Coverages: Coverages
+      };
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope, _$httpBackend_) {
     scope = $rootScope.$new();
-    ReportCtrl = $controller('ReportTweetCtrl', {
-      $scope: scope,
-      $routeParams: {id: 'abcdef'}
-    });
+    dependencies.$scope = scope;
+    ReportCtrl = $controller('ReportTweetCtrl', dependencies);
     $httpBackend = _$httpBackend_;
     $httpBackend
       .expectGET(globals.root)
@@ -53,10 +58,8 @@ describe('Controller: ReportCtrl', function () {
   describe('starting with existent steps', function() {
     beforeEach(inject(function ($controller, $rootScope) {
       scope = $rootScope.$new();
-      ReportCtrl = $controller('ReportTweetCtrl', {
-        $routeParams: {id: 'abcdef'},
-        $scope: scope
-      });
+      dependencies.$scope = scope;
+      ReportCtrl = $controller('ReportTweetCtrl', dependencies);
       $httpBackend
         .expectGET(globals.root + 'reports/abcdef')
         .respond(mocks.reports['538df48f9c616729ad000035']);
