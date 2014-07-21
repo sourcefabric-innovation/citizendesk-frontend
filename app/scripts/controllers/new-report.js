@@ -1,9 +1,10 @@
 'use strict';
 
 angular.module('citizendeskFrontendApp')
-  .controller('NewReportCtrl', function ($scope, reportResource, $log, $filter) {
+  .controller('NewReportCtrl', function ($scope/*, $filter*/) {
     $scope.content = '';
     $scope.submit = function() {
+    /*
       reportResource.save(
         {
           texts: [{
@@ -15,11 +16,11 @@ angular.module('citizendeskFrontendApp')
           produced: $filter('date')(new Date(), 'yyyy-MM-ddTHH:mm:ss+0000')
         },
         function() {
-          $log.debug('report posted');
           $scope.content = '';
         },
         function() {
           $log.error('error posting report');
         });
+     */
     };
   });
