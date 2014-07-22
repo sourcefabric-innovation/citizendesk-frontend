@@ -3,7 +3,7 @@
 /* see also http://bahmutov.calepin.co/catch-all-errors-in-angular-app.html */
 
 angular.module('citizendeskFrontendApp')
-  .factory('errorHttpInterceptor', ['Raven', '$q', 'Application', function (Raven, $q, Application) {
+  .factory('errorHttpInterceptor', function (Raven, $q, Application, $location, session) {
     function notify(error) {
       Application.connectionError = error;
     }
@@ -29,7 +29,12 @@ angular.module('citizendeskFrontendApp')
           notify(error);
           Raven.raven.captureException(new Error(error), {
             extra: {
-              responseData: response.data
+              responseData: response.data,
+              // being a "get" request we cannot send too much stuff
+              request50char: JSON.stringify(response.config.data).slice(0, 50),
+              requestMethod: response.config.method,
+              location: $location.url(),
+              username: session.identity.username
             }
           });
           return $q.reject(error);
@@ -39,4 +44,4 @@ angular.module('citizendeskFrontendApp')
         }
       }
     };
-  }]);
+  });
