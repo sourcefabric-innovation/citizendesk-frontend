@@ -5,6 +5,7 @@ angular.module('citizendeskFrontendApp')
   .controller('MobileQueueCtrl', function ($scope, api, QueueSelection, PageBroker) {
     QueueSelection.description = 'Reports coming from mobile phones';
     $scope.reports = [];
+    $scope.loading = true;
     $scope.assign = function(report) {
       PageBroker.load('/assign/', {
         report: report
@@ -27,6 +28,7 @@ angular.module('citizendeskFrontendApp')
           if (response._links.next) {
             fetch(page + 1);
           }
+          $scope.loading = false;
         });
     }
     fetch(1);
