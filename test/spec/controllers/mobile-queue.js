@@ -24,7 +24,7 @@ describe('Controller: MobileQueueCtrl', function () {
       .expectGET(globals.root)
       .respond(mocks.root);
     $httpBackend
-      .expectGET(globals.root + 'reports?page=1&sort=%5B(%22produced%22,+-1)%5D&where=%7B%22feed_type%22:%22sms%22%7D')
+      .expectGET(globals.root + 'reports?page=1&sort=%5B(%22produced%22,+-1)%5D&where=%7B%22$and%22:%5B%7B%22feed_type%22:%22sms%22%7D,%7B%22automatic%22:%7B%22$ne%22:true%7D%7D%5D%7D')
       .respond(mocks.reports['list-not-paginated']);
     $httpBackend.flush();
   }));

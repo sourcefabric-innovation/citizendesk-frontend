@@ -1,4 +1,5 @@
 'use strict';
+/* jshint camelcase: false */
 
 angular.module('citizendeskFrontendApp')
   .controller('MobileQueueCtrl', function ($scope, api, QueueSelection, PageBroker) {
@@ -12,7 +13,12 @@ angular.module('citizendeskFrontendApp')
     function fetch(page) {
       api.reports
         .query({
-          where: '{"feed_type":"sms"}',
+          where: JSON.stringify({
+            $and: [
+              {feed_type: 'sms'},
+              {automatic: {$ne: true}}
+            ]
+          }),
           sort: '[("produced", -1)]',
           page: page
         })
