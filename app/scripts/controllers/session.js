@@ -5,6 +5,7 @@ angular.module('citizendeskFrontendApp')
   .controller('SessionCtrl', function ($scope, api, $routeParams, $http, config, session, addNewValues, PagePolling) {
     $scope.reports = [];
     $scope.replies = {};
+    $scope.users = {};
     $scope.$watch('reports', function() {
       // scan the list of reports from the last (most recent) to the first
       for(var i=($scope.reports.length-1); i >= 0; i--) {
@@ -42,8 +43,7 @@ angular.module('citizendeskFrontendApp')
             'session': $routeParams.session
           }),
           sort:'[("produced", 1)]',
-          page: page,
-          embedded: '{"user_id":1}'
+          page: page
         })
         .then(function(response) {
           addNewValues($scope.reports, response._items);
@@ -54,4 +54,19 @@ angular.module('citizendeskFrontendApp')
     }
     fetch(1);
     PagePolling.setInterval(function() { fetch(1); }, 10 * 1000);
+
+    function fetchUsers(page) {
+      api.users
+        .query({ page: page })
+        .then(function(response) {
+          response._items.map(function(user) {
+            $scope.users[user._id] = user;
+          });
+          if (response._links.next) {
+            fetchUsers(page + 1);
+          }
+        });
+    }
+    fetchUsers(1);
+    
   });

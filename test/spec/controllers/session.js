@@ -9,18 +9,30 @@ describe('Controller: SessionCtrl', function () {
 
   var SessionCtrl,
       scope,
-      $httpBackend;
+      $httpBackend,
+      detailsFetcher = jasmine.createSpy(),
+      api = {
+        reports: {},
+        users: {}
+      },
+      reportsQueryDeferred,
+      usersQueryDeferred;
 
   // Initialize the controller and a mock scope
-  beforeEach(inject(function ($controller, $rootScope, _$httpBackend_) {
+  beforeEach(inject(function ($controller, $rootScope, _$httpBackend_, $q) {
     $httpBackend = _$httpBackend_;
     scope = $rootScope.$new();
-    $httpBackend
-      .expectGET(globals.root)
-      .respond(mocks.root);
-    $httpBackend
-      .expectGET(globals.root + 'reports?embedded=%7B%22user_id%22:1%7D&page=1&sort=%5B(%22produced%22,+1)%5D&where=%7B%22session%22:%22test-session-id%22%7D')
-      .respond(mocks.reports['list-not-paginated-session']);
+
+    api.reports.query = function(){};
+    reportsQueryDeferred = $q.defer();
+    spyOn(api.reports, 'query').andReturn(reportsQueryDeferred.promise);
+    reportsQueryDeferred.resolve(mocks.reports['list-not-paginated-session']);
+
+    api.users.query = function(){};
+    usersQueryDeferred = $q.defer();
+    spyOn(api.users, 'query').andReturn(usersQueryDeferred.promise);
+    usersQueryDeferred.resolve({_items:[], _links:{}});
+
     SessionCtrl = $controller('SessionCtrl', {
       $scope: scope,
       $routeParams: {
@@ -33,9 +45,11 @@ describe('Controller: SessionCtrl', function () {
       },
       now: function() {
         return 'now';
-      }
+      },
+      detailsFetcher: detailsFetcher,
+      api: api
     });
-    $httpBackend.flush();
+    scope.$digest();
   }));
 
   it('gets the reports in the session', function() {
@@ -50,7 +64,7 @@ describe('Controller: SessionCtrl', function () {
   });
 
   describe('when a reply is sent', function() {
-    beforeEach(function() {
+    beforeEach(inject(function($q) {
       $httpBackend
         .expectPOST(globals.root + 'proxy/mobile-reply/', {
           "report_id":"test-report-id"
@@ -62,15 +76,19 @@ describe('Controller: SessionCtrl', function () {
       var reports = angular
             .copy(mocks.reports['list-not-paginated-session']);
       reports._items.push({id_:'new report'});
-      $httpBackend
-        .expectGET(globals.root + 'reports?embedded=%7B%22user_id%22:1%7D&page=1&sort=%5B(%22produced%22,+1)%5D&where=%7B%22session%22:%22test-session-id%22%7D')
-        .respond(reports);
+
+      api.reports.query = function(){};
+      reportsQueryDeferred = $q.defer();
+      spyOn(api.reports, 'query').andReturn(reportsQueryDeferred.promise);
+      reportsQueryDeferred.resolve(reports);
+
       scope.sendReply({
         report_id: 'test-report-id',
         message: 'Please, tell us where you are!'
       });
       $httpBackend.flush();
-    });
+      scope.$digest();
+    }));
     it('adds the sent report to the session', function() {
       expect(scope.reports.length).toBe(7);
     });

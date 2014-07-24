@@ -6,12 +6,15 @@
         <div class="panel-heading">
           <small class="pull-right" ng-bind="report.produced | date:'medium'">
           </small>
+          <!-- since fetching details about the actual sender happens
+              asynchronously, the markup must support the lack of
+              details -->
           <span ng-if="report.local">
-            <span ng-if="report.user_id.username">
-              <span ng-bind="report.user_id.username">
+            <span ng-if="users[report.user_id]">
+              <span ng-bind="users[report.user_id].username">
               </span>
             </span>
-            <span ng-if="!report.user_id.username">
+            <span ng-if="!users[report.user_id]">
               <span translate>
                 Sent by Citizendesk
               </span>

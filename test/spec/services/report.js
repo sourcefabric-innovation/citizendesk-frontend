@@ -8,12 +8,11 @@ describe('Service: Report', function () {
   var Report,
       $httpBackend,
       $rootScope,
-      api = {
-        reports: globals.mockEndpoint({}, 'save', {})
-      },
+      api = { reports: {}},
       coverage = {
         _id: 'coverage id'
-      };
+      },
+      reportsSaveDeferred;
   // load the service's module
   beforeEach(module('citizendeskFrontendApp'));
   // mock dependencies
@@ -25,10 +24,13 @@ describe('Service: Report', function () {
     });
     $provide.value('api', api);
   }));
-  beforeEach(inject(function (_Report_, _$httpBackend_, _$rootScope_) {
+  beforeEach(inject(function (_Report_, _$httpBackend_, _$rootScope_, $q) {
     Report = _Report_;
     $httpBackend = _$httpBackend_;
     $rootScope = _$rootScope_;
+    reportsSaveDeferred = $q.defer();
+    api.reports.save = function(){};
+    spyOn(api.reports, 'save').andReturn(reportsSaveDeferred.promise);
   }));
 
   it('can check whether a report is published or not', function() {
@@ -45,7 +47,6 @@ describe('Service: Report', function () {
           .copy(mocks.reports['53cd05a09c616712c900052d']),
         promise;
     beforeEach(function() {
-      spyOn(api.reports, 'save').andCallThrough();
       promise = Report.publish(toBePublished, coverage);
     });
     it('asks to set the behalf property', function () {
@@ -54,13 +55,14 @@ describe('Service: Report', function () {
     });
     describe('when the behalf property is saved', function() {
       beforeEach(function() {
-        api.reports.flush();
         $httpBackend
           .expectPOST(globals.root+'proxy/publish', {
             report: '53cd05a09c616712c900052d',
             coverage: 'coverage id'
           })
           .respond(201);
+        reportsSaveDeferred.resolve({});
+        $rootScope.$digest();
       });
       it('asks for publishing to the backend', function() {
         $httpBackend.verifyNoOutstandingExpectation();
