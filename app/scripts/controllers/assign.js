@@ -19,7 +19,8 @@ angular.module('citizendeskFrontendApp')
         .update($scope.report, {
           assignments: [{
             user_id: user_id
-          }]
+          }],
+          proto: false
         })
         .then(function() {
           $window.history.back();

@@ -13,7 +13,10 @@ describe('Controller: AssignCtrl', function () {
           back: jasmine.createSpy()
         }
       },
-      $rootScope;
+      $rootScope,
+      api = {
+        reports: {}
+      };
 
   // very nested mock structure!
   var reportMock = {
@@ -53,7 +56,8 @@ describe('Controller: AssignCtrl', function () {
       PageBroker: pageBroker,
       session: {
         identity: mocks.auth.success
-      }
+      },
+      api: api
     });
   }));
 
@@ -68,17 +72,22 @@ describe('Controller: AssignCtrl', function () {
     expect(scope.report._links.self.href)
       .toBe('/test-report-self-link/');
   });
-  it('assigns to an user', function() {
-    $httpBackend
-      .expect('PATCH', '/test-report-self-link/', {
-          assignments: [{user_id: 'test-user-id'}]
-        })
-      .respond(201);
+  it('assigns to an user', inject(function($q) {
+    var deferred = $q.defer();
+    api.reports.update = function(){};
+    spyOn(api.reports, 'update').andReturn(deferred.promise);
+
     scope.assignTo('test-user-id');
+    expect(api.reports.update).toHaveBeenCalled();
+    expect(api.reports.update.mostRecentCall.args[1])
+      .toEqual({
+        assignments: [{user_id: 'test-user-id'}],
+        proto: false
+      });
     expect(scope.disabled).toBe(true);
-    $httpBackend.verifyNoOutstandingExpectation();
-    $httpBackend.flush();
-    $httpBackend.verifyNoOutstandingRequest();
+
+    deferred.resolve({});
+    $rootScope.$digest();
     expect($window.history.back).toHaveBeenCalled();
-  });
+  }));
 });
