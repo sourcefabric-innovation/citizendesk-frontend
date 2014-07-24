@@ -1,1 +1,268 @@
-{"_meta": {"page": 1, "total": 6, "max_results": 100}, "_items": [{"_id": "53bbec329c61672e3d000007", "original": {"message": "LAMHVA"}, "user_id": null, "_created": "1970-01-01T00:00:00+0000", "channels": [{"value": "received", "reasons": null, "type": "sms", "request": null, "filter": null}], "_updated": "1970-01-01T00:00:00+0000", "local": false, "session": "sms||sms|received|2014-07-08T13:03:46.578351|6497fdc8a21be530", "authors": [{"authority": "telco", "identifiers": {"user_name_search": "4915781658281", "user_id_search": "4915781658281", "user_id": "4915781658281", "user_name": "4915781658281"}}], "_links": {"self": {"href": "http://cd2.sourcefabric.net/citizendesk-interface/reports/53bbec329c61672e3d000007", "title": "Report"}}, "texts": [{"original": "LAMHVA", "transcript": null}], "_etag": "e10192af2117207952ab50a25a6cedadbe207340", "produced": "2014-07-08T13:03:46+0000", "feed_type": "sms"}, {"_id": "53bbec329c61672e3d000008", "original": {"message": "Thank you for your report. Let us know more about it by telling us: 1) Your name 2) Your location. A reporter may contact you directly."}, "user_id": null, "_created": "1970-01-01T00:00:00+0000", "channels": [{"value": "sent", "reasons": null, "request": null, "type": "sms", "filter": null}], "_updated": "1970-01-01T00:00:00+0000", "local": true, "session": "sms||sms|received|2014-07-08T13:03:46.578351|6497fdc8a21be530", "authors": [], "_links": {"self": {"href": "http://cd2.sourcefabric.net/citizendesk-interface/reports/53bbec329c61672e3d000008", "title": "Report"}}, "texts": [{"original": "Thank you for your report. Let us know more about it by telling us: 1) Your name 2) Your location. A reporter may contact you directly.", "transcript": null}], "_etag": "41fff5b5afaf415364246d4a8608cef2a8cb0491", "produced": "2014-07-08T13:03:46+0000", "feed_type": "sms"}, {"_id": "53bbec819c61672e3d000009", "original": {"message": "Petra Schilling Pforzheim"}, "user_id": null, "_created": "1970-01-01T00:00:00+0000", "channels": [{"value": "received", "reasons": null, "type": "sms", "request": null, "filter": null}], "_updated": "1970-01-01T00:00:00+0000", "local": false, "session": "sms||sms|received|2014-07-08T13:03:46.578351|6497fdc8a21be530", "authors": [{"authority": "telco", "identifiers": {"user_name_search": "4915781658281", "user_id_search": "4915781658281", "user_id": "4915781658281", "user_name": "4915781658281"}}], "_links": {"self": {"href": "http://cd2.sourcefabric.net/citizendesk-interface/reports/53bbec819c61672e3d000009", "title": "Report"}}, "texts": [{"original": "Petra Schilling Pforzheim", "transcript": null}], "_etag": "e143f2f451ae6ef80122364e9068b65f76a62a14", "produced": "2014-07-08T13:05:05+0000", "feed_type": "sms"}, {"_id": "53bd49d49c61672e17000020", "original": {"message": "Who is this person?"}, "user_id": {"_id": "53b146149c616733d6e8c7d5", "username": "Francesco"}, "_created": "1970-01-01T00:00:00+0000", "channels": [{"value": "sent", "reasons": null, "request": null, "type": "sms", "filter": null}], "_updated": "1970-01-01T00:00:00+0000", "local": true, "session": "sms||sms|received|2014-07-08T13:03:46.578351|6497fdc8a21be530", "authors": [], "_links": {"self": {"href": "http://cd2.sourcefabric.net/citizendesk-interface/reports/53bd49d49c61672e17000020", "title": "Report"}}, "texts": [{"original": "Who is this person?", "transcript": null}], "_etag": "fcf796b075281d6cb08e46930b7f456476298c71", "produced": "2014-07-09T13:55:32+0000", "feed_type": "sms"}, {"_id": "53bd65389c61672e3d00000c", "original": {"message": "Forget it"}, "user_id": null, "_created": "1970-01-01T00:00:00+0000", "channels": [{"value": "received", "reasons": null, "type": "sms", "request": null, "filter": null}], "_updated": "1970-01-01T00:00:00+0000", "local": false, "session": "sms||sms|received|2014-07-08T13:03:46.578351|6497fdc8a21be530", "authors": [{"authority": "telco", "identifiers": {"user_name_search": "4915781658281", "user_id_search": "4915781658281", "user_id": "4915781658281", "user_name": "4915781658281"}}], "_links": {"self": {"href": "http://cd2.sourcefabric.net/citizendesk-interface/reports/53bd65389c61672e3d00000c", "title": "Report"}}, "texts": [{"original": "Forget it", "transcript": null}], "_etag": "54046c83ab760fd5c0046fb093c9dc633f49ae1a", "produced": "2014-07-09T15:52:24+0000", "feed_type": "sms"}, {"_id": "53bd74e59c61672e17000022", "original": {"message": "test 24"}, "user_id": {"_id": "53b146149c616733d6e8c7d5", "username": "Francesco"}, "_created": "1970-01-01T00:00:00+0000", "channels": [{"value": "sent", "reasons": null, "request": null, "type": "sms", "filter": null}], "_updated": "1970-01-01T00:00:00+0000", "local": true, "session": "sms||sms|received|2014-07-08T13:03:46.578351|6497fdc8a21be530", "authors": [], "_links": {"self": {"href": "http://cd2.sourcefabric.net/citizendesk-interface/reports/53bd74e59c61672e17000022", "title": "Report"}}, "texts": [{"original": "test 24", "transcript": null}], "_etag": "9eeb81380007ed4968c6be46041b7ccded67b44d", "produced": "2014-07-09T16:59:17+0000", "feed_type": "sms"}], "_links": {"parent": {"href": "http://cd2.sourcefabric.net/citizendesk-interface", "title": "home"}, "self": {"href": "http://cd2.sourcefabric.net/citizendesk-interface/reports", "title": "reports"}}}
+{
+  "_meta": {
+    "page": 1,
+    "total": 6,
+    "max_results": 100
+  },
+  "_items": [
+    {
+      "_id": "53bbec329c61672e3d000007",
+      "original": {
+        "message": "LAMHVA"
+      },
+      "user_id": null,
+      "_created": "1970-01-01T00:00:00+0000",
+      "channels": [
+        {
+          "value": "received",
+          "reasons": null,
+          "type": "sms",
+          "request": null,
+          "filter": null
+        }
+      ],
+      "_updated": "1970-01-01T00:00:00+0000",
+      "local": false,
+      "session": "sms||sms|received|2014-07-08T13:03:46.578351|6497fdc8a21be530",
+      "authors": [
+        {
+          "authority": "telco",
+          "identifiers": {
+            "user_name_search": "4915781658281",
+            "user_id_search": "4915781658281",
+            "user_id": "4915781658281",
+            "user_name": "4915781658281"
+          }
+        }
+      ],
+      "_links": {
+        "self": {
+          "href": "http://cd2.sourcefabric.net/citizendesk-interface/reports/53bbec329c61672e3d000007",
+          "title": "Report"
+        }
+      },
+      "texts": [
+        {
+          "original": "LAMHVA",
+          "transcript": null
+        }
+      ],
+      "_etag": "e10192af2117207952ab50a25a6cedadbe207340",
+      "produced": "2014-07-08T13:03:46+0000",
+      "feed_type": "sms"
+    },
+    {
+      "_id": "53bbec329c61672e3d000008",
+      "original": {
+        "message": "Thank you for your report. Let us know more about it by telling us: 1) Your name 2) Your location. A reporter may contact you directly."
+      },
+      "user_id": null,
+      "_created": "1970-01-01T00:00:00+0000",
+      "channels": [
+        {
+          "value": "sent",
+          "reasons": null,
+          "request": null,
+          "type": "sms",
+          "filter": null
+        }
+      ],
+      "_updated": "1970-01-01T00:00:00+0000",
+      "local": true,
+      "session": "sms||sms|received|2014-07-08T13:03:46.578351|6497fdc8a21be530",
+      "authors": [],
+      "_links": {
+        "self": {
+          "href": "http://cd2.sourcefabric.net/citizendesk-interface/reports/53bbec329c61672e3d000008",
+          "title": "Report"
+        }
+      },
+      "texts": [
+        {
+          "original": "Thank you for your report. Let us know more about it by telling us: 1) Your name 2) Your location. A reporter may contact you directly.",
+          "transcript": null
+        }
+      ],
+      "_etag": "41fff5b5afaf415364246d4a8608cef2a8cb0491",
+      "produced": "2014-07-08T13:03:46+0000",
+      "feed_type": "sms"
+    },
+    {
+      "_id": "53bbec819c61672e3d000009",
+      "original": {
+        "message": "Petra Schilling Pforzheim"
+      },
+      "user_id": null,
+      "_created": "1970-01-01T00:00:00+0000",
+      "channels": [
+        {
+          "value": "received",
+          "reasons": null,
+          "type": "sms",
+          "request": null,
+          "filter": null
+        }
+      ],
+      "_updated": "1970-01-01T00:00:00+0000",
+      "local": false,
+      "session": "sms||sms|received|2014-07-08T13:03:46.578351|6497fdc8a21be530",
+      "authors": [
+        {
+          "authority": "telco",
+          "identifiers": {
+            "user_name_search": "4915781658281",
+            "user_id_search": "4915781658281",
+            "user_id": "4915781658281",
+            "user_name": "4915781658281"
+          }
+        }
+      ],
+      "_links": {
+        "self": {
+          "href": "http://cd2.sourcefabric.net/citizendesk-interface/reports/53bbec819c61672e3d000009",
+          "title": "Report"
+        }
+      },
+      "texts": [
+        {
+          "original": "Petra Schilling Pforzheim",
+          "transcript": null
+        }
+      ],
+      "_etag": "e143f2f451ae6ef80122364e9068b65f76a62a14",
+      "produced": "2014-07-08T13:05:05+0000",
+      "feed_type": "sms"
+    },
+    {
+      "_id": "53bd49d49c61672e17000020",
+      "original": {
+        "message": "Who is this person?"
+      },
+      "user_id": "53b146149c616733d6e8c7d5",
+      "_created": "1970-01-01T00:00:00+0000",
+      "channels": [
+        {
+          "value": "sent",
+          "reasons": null,
+          "request": null,
+          "type": "sms",
+          "filter": null
+        }
+      ],
+      "_updated": "1970-01-01T00:00:00+0000",
+      "local": true,
+      "session": "sms||sms|received|2014-07-08T13:03:46.578351|6497fdc8a21be530",
+      "authors": [],
+      "_links": {
+        "self": {
+          "href": "http://cd2.sourcefabric.net/citizendesk-interface/reports/53bd49d49c61672e17000020",
+          "title": "Report"
+        }
+      },
+      "texts": [
+        {
+          "original": "Who is this person?",
+          "transcript": null
+        }
+      ],
+      "_etag": "fcf796b075281d6cb08e46930b7f456476298c71",
+      "produced": "2014-07-09T13:55:32+0000",
+      "feed_type": "sms"
+    },
+    {
+      "_id": "53bd65389c61672e3d00000c",
+      "original": {
+        "message": "Forget it"
+      },
+      "user_id": null,
+      "_created": "1970-01-01T00:00:00+0000",
+      "channels": [
+        {
+          "value": "received",
+          "reasons": null,
+          "type": "sms",
+          "request": null,
+          "filter": null
+        }
+      ],
+      "_updated": "1970-01-01T00:00:00+0000",
+      "local": false,
+      "session": "sms||sms|received|2014-07-08T13:03:46.578351|6497fdc8a21be530",
+      "authors": [
+        {
+          "authority": "telco",
+          "identifiers": {
+            "user_name_search": "4915781658281",
+            "user_id_search": "4915781658281",
+            "user_id": "4915781658281",
+            "user_name": "4915781658281"
+          }
+        }
+      ],
+      "_links": {
+        "self": {
+          "href": "http://cd2.sourcefabric.net/citizendesk-interface/reports/53bd65389c61672e3d00000c",
+          "title": "Report"
+        }
+      },
+      "texts": [
+        {
+          "original": "Forget it",
+          "transcript": null
+        }
+      ],
+      "_etag": "54046c83ab760fd5c0046fb093c9dc633f49ae1a",
+      "produced": "2014-07-09T15:52:24+0000",
+      "feed_type": "sms"
+    },
+    {
+      "_id": "53bd74e59c61672e17000022",
+      "original": {
+        "message": "test 24"
+      },
+      "user_id": {
+        "_id": "53b146149c616733d6e8c7d5",
+        "username": "Francesco"
+      },
+      "_created": "1970-01-01T00:00:00+0000",
+      "channels": [
+        {
+          "value": "sent",
+          "reasons": null,
+          "request": null,
+          "type": "sms",
+          "filter": null
+        }
+      ],
+      "_updated": "1970-01-01T00:00:00+0000",
+      "local": true,
+      "session": "sms||sms|received|2014-07-08T13:03:46.578351|6497fdc8a21be530",
+      "authors": [],
+      "_links": {
+        "self": {
+          "href": "http://cd2.sourcefabric.net/citizendesk-interface/reports/53bd74e59c61672e17000022",
+          "title": "Report"
+        }
+      },
+      "texts": [
+        {
+          "original": "test 24",
+          "transcript": null
+        }
+      ],
+      "_etag": "9eeb81380007ed4968c6be46041b7ccded67b44d",
+      "produced": "2014-07-09T16:59:17+0000",
+      "feed_type": "sms"
+    }
+  ],
+  "_links": {
+    "parent": {
+      "href": "http://cd2.sourcefabric.net/citizendesk-interface",
+      "title": "home"
+    },
+    "self": {
+      "href": "http://cd2.sourcefabric.net/citizendesk-interface/reports",
+      "title": "reports"
+    }
+  }
+}
