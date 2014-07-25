@@ -10,14 +10,25 @@ describe('Controller: ReportCtrl', function () {
       $httpBackend,
       Report = {},
       Coverages = { promise: { then: function(){} } },
+      $window = {
+        history: {
+          back: function(){}
+        }
+      },
       dependencies = {
         $routeParams: {id: 'abcdef'},
         Report: Report,
-        Coverages: Coverages
-      };
+        Coverages: Coverages,
+        $window: $window
+      },
+      def = {
+        reports: {}
+      },
+      $q;
 
   // Initialize the controller and a mock scope
-  beforeEach(inject(function ($controller, $rootScope, _$httpBackend_) {
+  beforeEach(inject(function ($controller, $rootScope, _$httpBackend_, _$q_) {
+    $q = _$q_;
     scope = $rootScope.$new();
     dependencies.$scope = scope;
     ReportCtrl = $controller('ReportSmsCtrl', dependencies);
@@ -144,5 +155,17 @@ describe('Controller: ReportCtrl', function () {
         });
       });
     });
+  });
+  it('deletes a summary', function(){
+    def.reports.remove = $q.defer();
+    spyOn(scope.api.reports, 'remove')
+      .andReturn(def.reports.remove.promise);
+    spyOn($window.history, 'back');
+    scope.deleteSummary();
+    expect(scope.api.reports.remove).toHaveBeenCalled();
+    expect(scope.deleteSummaryDisabled).toBe(true);
+    def.reports.remove.resolve({});
+    scope.$digest();
+    expect($window.history.back).toHaveBeenCalled();
   });
 });

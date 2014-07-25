@@ -180,5 +180,28 @@
       </button>
     </div>
   </div>
+  <div class="row" ng-if="report.summary">
+    <h4 translate>Session summary</h4>
+    <p translate>
+      This report was generated as the summary of a session, so you
+      can perform specific actions like deleting this summary
+    </p>
+    <p>
+      <a ng-href="#/session/{{report.session}}">
+        <span translate>Go to the corresponding session</span>
+      </a>
+    </p>
+    <p ng-show="isPublished">
+      <span translate>
+        The summary cannot be deleted as long as it is published
+      </span>
+    </p>
+    <p ng-hide="isPublished">
+      <button class="btn btn-danger" ng-click="deleteSummary()"
+              ng-disabled="deleteSummaryDisabled">
+        <span translate>Delete this summary</span>
+      </button>
+    </p>
+  </div>
 </div>
 <div class="clearfix"></div>

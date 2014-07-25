@@ -2,10 +2,11 @@
 /* jshint camelcase: false */
 
 angular.module('citizendeskFrontendApp')
-  .controller('SessionCtrl', function ($scope, api, $routeParams, $http, config, session, addNewValues, PagePolling, Body) {
+  .controller('SessionCtrl', function ($scope, api, $routeParams, $http, config, session, addNewValues, PagePolling, Body, $filter, $location) {
     Body.glue = true;
     $scope.body = Body;
     $scope.reports = [];
+    $scope.summaries = [];
     $scope.replies = {};
     $scope.users = {};
     $scope.$watch('reports', function() {
@@ -34,28 +35,55 @@ angular.module('citizendeskFrontendApp')
         .post(config.server.url + 'proxy/mobile-reply/', data)
         .then(function() {
           $scope.reset();
-          fetch(1);
+          fetchReports();
         });
     };
 
-    function fetch(page) {
+    function fetchAll(originalQuery, handler, page) {
+      var query = angular.copy(originalQuery);
+      query.page = page || 1;
       api.reports
-        .query({
-          where: JSON.stringify({
-            'session': $routeParams.session
-          }),
-          sort:'[("produced", 1)]',
-          page: page
-        })
+        .query(query)
         .then(function(response) {
-          addNewValues($scope.reports, response._items);
+          handler(response);
           if (response._links.next) {
-            fetch(page + 1);
+            fetchAll(page + 1, query, handler);
           }
         });
     }
-    fetch(1);
-    PagePolling.setInterval(function() { fetch(1); }, 10 * 1000);
+    function fetchSummaries() {
+      var query = {
+        where: JSON.stringify({
+          $and: [{
+            session: $routeParams.session
+          }, {
+            summary: true
+          }]
+        }),
+        sort:'[("produced", 1)]'
+      };
+      fetchAll(query, function(response) {
+        addNewValues($scope.summaries, response._items);
+      });
+    }
+    function fetchReports() {
+      var query = {
+        where: JSON.stringify({
+          $and: [{
+            session: $routeParams.session
+          }, {
+            summary: false
+          }]
+        }),
+        sort:'[("produced", 1)]'
+      };
+      fetchAll(query, function(response) {
+        addNewValues($scope.reports, response._items);
+      });
+    }
+    fetchReports();
+    fetchSummaries();
+    PagePolling.setInterval(function() { fetchReports(); }, 10 * 1000);
 
     function fetchUsers(page) {
       api.users
@@ -70,5 +98,30 @@ angular.module('citizendeskFrontendApp')
         });
     }
     fetchUsers(1);
-    
+
+    $scope.submitSummary = function() {
+      api.reports
+        .save({
+          texts: [{
+            original: $scope.summaryContent
+          }],
+          summary: true,
+          session: $routeParams.session,
+          channels: [{
+            type: 'frontend'
+          }],
+          produced: $filter('date')(new Date(), 'yyyy-MM-ddTHH:mm:ss+0000'),
+          created: $filter('date')(new Date(), 'yyyy-MM-ddTHH:mm:ss+0000'),
+          authors: [{
+            authority: 'citizen_desk',
+            identifiers: session._id
+          }]
+        })
+        .then(function() {
+          fetchSummaries();
+        });
+    };
+    $scope.goToSummary = function(){
+      $location.url('/report-sms/'+$scope.summaries[0]._id);
+    };
   });

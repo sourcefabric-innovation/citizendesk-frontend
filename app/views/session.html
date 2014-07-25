@@ -45,27 +45,78 @@
     </div>
   </div>
 </div>
-<form>
-  <div class="form-group">
-    <label translate>
-      Reply to {{replyReport.authors[0].identifiers.user_name}}
-    </label>
-    <textarea class="form-control" rows="3" ng-model="reply">
-    </textarea>
-  </div>
-  <button class="btn btn-primary" translate
-          ng-click="sendReply({report_id: replyReport._id, message: reply})"
-          type="submit">
-    Send
-  </button>
-  <button class="btn btn-default" translate
-          ng-click="reset()">
-    Reset
-  </button>
-  <div class="checkbox">
-    <label>
-      <input type="checkbox" ng-model="body.glue">
-      <span translate>Stick to the bottom</span>
-    </label>
-  </div>
-</form>
+<tabset>
+  <tab>
+    <tab-heading>
+      <span translate>Reply</span>
+    </tab-heading>
+    <p>
+      <form>
+        <div class="form-group">
+          <label translate>
+            Reply to {{replyReport.authors[0].identifiers.user_name}}
+          </label>
+          <textarea class="form-control" rows="3" ng-model="reply">
+          </textarea>
+        </div>
+        <button class="btn btn-primary" translate
+                ng-click="sendReply({report_id: replyReport._id, message: reply})"
+                type="submit">
+          Send
+        </button>
+        <button class="btn btn-default" translate
+                ng-click="reset()">
+          Reset
+        </button>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" ng-model="body.glue">
+            <span translate>Stick to the bottom</span>
+          </label>
+        </div>
+      </form>
+    </p>
+  </tab>
+  <tab>
+    <tab-heading>
+      <span translate>Summary</span>
+    </tab-heading>
+    <p>
+      <form>
+        <div class="form-group">
+          <label>Session summary:</label>
+          <div ng-hide="summaries.length">
+            <textarea class="form-control" ng-model="$parent.summaryContent"
+                      required
+                      rows="3">
+            </textarea>
+          </div>
+          <div ng-show="summaries.length">
+            <textarea class="form-control"
+                      ng-model="summaries[0].texts[0].original"
+                      rows="3" disabled>
+            </textarea>
+          </div>
+        </div>
+        <button class="btn btn-primary" ng-click="submitSummary()"
+                ng-if="!summaries.length">
+          <span translate>
+            Create a session summary
+          </span>
+        </button>
+        <button class="btn btn-primary" ng-click="goToSummary()"
+                ng-if="summaries.length">
+          <span translate>
+            See summary details
+          </span>
+        </button>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" ng-model="body.glue">
+            <span translate>Stick to the bottom</span>
+          </label>
+        </div>
+      </form>
+    </p>
+  </tab>
+</tabset>

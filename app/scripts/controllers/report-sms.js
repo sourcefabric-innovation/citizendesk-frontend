@@ -2,7 +2,7 @@
 /* jshint camelcase: false */
 
 angular.module('citizendeskFrontendApp')
-  .controller('ReportSmsCtrl', function ($scope, $routeParams, Raven, api, $location, $anchorScroll, Report, Coverages) {
+  .controller('ReportSmsCtrl', function ($scope, $routeParams, Raven, api, $location, $anchorScroll, Report, Coverages, $window) {
     var id = $routeParams.id;
 
     function addSteps(report) {
@@ -68,6 +68,8 @@ angular.module('citizendeskFrontendApp')
         $scope.hasTranscript = $scope.report.texts[0].transcript;
       }, true);
     });
+
+    $scope.api = api; // expose for mocking in tests
     
     $scope.save = function() {
       $scope.status = 'info';
@@ -164,5 +166,14 @@ angular.module('citizendeskFrontendApp')
           $scope.disablePublish = false;
         });
     };
-
+    $scope.deleteSummary = function(){
+      // no need to set it to false again. we will either have an
+      // error or go back in the browser history
+      $scope.deleteSummaryDisabled = true;
+      api.reports
+        .remove($scope.report)
+        .then(function(){
+          $window.history.back();
+        });
+    };
   });
