@@ -11,7 +11,7 @@ angular
     'mgcrea.ngStrap.helpers.dimensions',
     'mgcrea.ngStrap.helpers.debounce',
     'mgcrea.ngStrap.scrollspy',
-    'mgcrea.ngStrap.modal',
+    'ui.bootstrap',
     'luegg.directives'
   ])
   .constant('config', {
