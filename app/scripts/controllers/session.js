@@ -4,6 +4,7 @@
 angular.module('citizendeskFrontendApp')
   .controller('SessionCtrl', function ($scope, api, $routeParams, $http, config, session, addNewValues, PagePolling, Body) {
     Body.glue = true;
+    $scope.body = Body;
     $scope.reports = [];
     $scope.replies = {};
     $scope.users = {};
