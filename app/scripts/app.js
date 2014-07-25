@@ -11,6 +11,7 @@ angular
     'mgcrea.ngStrap.helpers.debounce',
     'mgcrea.ngStrap.scrollspy',
     'mgcrea.ngStrap.modal',
+    'luegg.directives'
   ])
   .constant('config', {
     server: { url: 'http://cd2.sourcefabric.net/citizendesk-interface/' }

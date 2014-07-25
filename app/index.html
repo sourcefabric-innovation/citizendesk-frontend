@@ -17,7 +17,8 @@
         <link rel="stylesheet" href="styles/main.css">
         <!-- endbuild -->
 </head>
-  <body ng-app="citizendeskFrontendApp">
+  <body ng-app="citizendeskFrontendApp" ng-controller="BodyCtrl"
+        scroll-glue ng-model="service.glue">
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -124,6 +125,7 @@
         <script src="bower_components/sass-bootstrap/js/tab.js"></script>
         <script src="bower_components/sass-bootstrap/js/tooltip.js"></script>
         <script src="bower_components/sass-bootstrap/js/popover.js"></script>
+        <script src="bower_components/angularjs-scroll-glue/src/scrollglue.js"></script>
         <!-- endbuild -->
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
@@ -193,6 +195,8 @@
         <script src="scripts/services/coverages.js"></script>
         <script src="scripts/services/report.js"></script>
         <script src="scripts/services/details-fetcher.js"></script>
+        <script src="scripts/services/body.js"></script>
+        <script src="scripts/controllers/body.js"></script>
         <!-- endbuild -->
 
 </body>

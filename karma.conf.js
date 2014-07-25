@@ -24,6 +24,7 @@ module.exports = function(config) {
       'app/bower_components/angular-strap/dist/modules/dimensions.js',
       'app/bower_components/angular-strap/dist/modules/scrollspy.js',
       'app/bower_components/angular-strap/dist/modules/modal.js',
+      'app/bower_components/angularjs-scroll-glue/src/scrollglue.js',
       'app/scripts/*.js',
       'app/scripts/**/*.js',
       'test/globals.js',
@@ -71,7 +72,7 @@ module.exports = function(config) {
     singleRun: false,
 
     preprocessors: {
-      '**/*.html': ['ng-html2js'], // for templates in tests
+      'app/views/**/*.html': ['ng-html2js'], // for templates in tests
       'app/scripts/**/*.js': 'coverage' // for coverage
     },
     /* Comment the following in order to have better debug

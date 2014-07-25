@@ -2,7 +2,8 @@
 /* jshint camelcase: false */
 
 angular.module('citizendeskFrontendApp')
-  .controller('SessionCtrl', function ($scope, api, $routeParams, $http, config, session, addNewValues, PagePolling) {
+  .controller('SessionCtrl', function ($scope, api, $routeParams, $http, config, session, addNewValues, PagePolling, Body) {
+    Body.glue = true;
     $scope.reports = [];
     $scope.replies = {};
     $scope.users = {};
