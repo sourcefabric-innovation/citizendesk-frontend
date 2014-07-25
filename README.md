@@ -34,4 +34,6 @@ pay attention, makes you waste a lot of time. If your tests are
 failing and you really do not know what is going on, check this list:
 
  - make sure that your mocks are updated using the `./mockatenate` script
- - make sure that the API endpoint you are using (throug `eve-api`) is in the root mock
+ - if your are directly mocking HTTP, make sure that the API endpoint you are using (throug `eve-api`) is in the root mock
+
+There is currently some instability in the tests. Sometimes the Phantom driver will be slower and the Phantom server timeout will elapse. Until we are able to fix this, just try again in this case.

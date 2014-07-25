@@ -62,7 +62,7 @@ module.exports = function(config) {
       // can't test Chrome with Travis, but feel free to uncomment
       // this from time to time for a local test
       //,'Chrome'
-      //,'Firefox'
+      ,'Firefox'
     ],
 
 
@@ -79,7 +79,7 @@ module.exports = function(config) {
     have coverage reports */
     reporters: [
       'dots'
-      //,'coverage'
+      ,'coverage'
       ,'html'
     ],
     /**/
