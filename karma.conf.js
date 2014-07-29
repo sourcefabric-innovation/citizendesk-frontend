@@ -30,7 +30,14 @@ module.exports = function(config) {
       'test/globals.js',
       'test/mock.js',
       'test/angular-mocks.js',
+
+      /* comment the following when you want to be more specific */
       'test/spec/**/*.js',
+      /* uncomment one of the following when you want to be more specific */
+      //'test/spec/services/date-fetcher-factory.js',
+      //'test/spec/services/monitors.js',
+      //'test/spec/controllers/my-monitor.js',
+
       // for karma markup preprocessor
       'app/views/**/*.html'
     ],
@@ -59,11 +66,11 @@ module.exports = function(config) {
     // - PhantomJS
     // - IE (only Windows)
     browsers: [
-      'PhantomJS'
+      //'PhantomJS'
       // can't test Chrome with Travis, but feel free to uncomment
       // this from time to time for a local test
       //,'Chrome'
-      ,'Firefox'
+      'Firefox'
     ],
 
 
@@ -80,7 +87,7 @@ module.exports = function(config) {
     have coverage reports */
     reporters: [
       'dots'
-      ,'coverage'
+      //,'coverage'
       ,'html'
     ],
     /**/

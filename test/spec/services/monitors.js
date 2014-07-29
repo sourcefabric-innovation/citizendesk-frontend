@@ -7,45 +7,78 @@ describe('Service: Monitors', function () {
   beforeEach(module('citizendeskFrontendApp'));
 
   // instantiate service
-  var Monitors, $httpBackend, promise;
-  beforeEach(inject(function(_$httpBackend_, prefix) {
-    $httpBackend = _$httpBackend_;
-    $httpBackend
-      .expectGET(prefix + '/twt_filters')
-      .respond(mocks.twt_filters.list);
-    $httpBackend
-      .expectGET(prefix + '/twt_streams')
-      .respond(mocks.twt_streams.list);
-    $httpBackend
-      .expectGET(prefix + '/twt_oauths')
-      .respond(mocks.twt_oauths.list);
+  var Monitors,
+      $httpBackend,
+      deferreds = {},
+      $q,
+      $rootScope,
+      api = {
+        twt_streams: {
+          query: function(){}
+        },
+        twt_filters: {
+          query: function(){}
+        }
+      };
+  beforeEach(module(function($provide) {
+    $provide.value('api', api);
+  }));
+  beforeEach(inject(function(_$httpBackend_, _$q_, _$rootScope_) {
+    $q = _$q_;
+    $rootScope = _$rootScope_;
+    deferreds.twt_streams_query = $q.defer();
+    spyOn(api.twt_streams, 'query')
+      .andReturn(deferreds.twt_streams_query.promise);
+    deferreds.twt_filters_query = $q.defer();
+    spyOn(api.twt_filters, 'query')
+      .andReturn(deferreds.twt_filters_query.promise);
   }));
   beforeEach(inject(function (_Monitors_) {
     Monitors = _Monitors_;
   }));
 
-  it('returns a promise for monitors', function() {
-    promise = Monitors.getMonitors();
-    expect('then' in promise).toBe(true);
+  it('asks for monitors', function() {
+    expect(api.twt_streams.query).toHaveBeenCalled();
   });
-  it('has resources with proper methods', function() {
-    expect(typeof Monitors.resources.filter.save).toBe('function');
+  it('asks again when update is called', function() {
+    Monitors.update();
+    expect(api.twt_streams.query.calls.length).toBe(2);
   });
   describe('got monitors from the server', function() {
-    var monitors;
     beforeEach(function() {
-      Monitors.getMonitors().then(function(m) {
-        monitors = m;
+      deferreds.twt_streams_query.resolve({
+        _items: [{
+          user_id: '1',
+          spec: { filter_id: 'a' }
+        }, {
+          user_id: '2',
+          spec: { filter_id: 'b' }
+        }]
       });
-      $httpBackend.flush();
     });
-    xit('returns monitors', function() {
-      expect(monitors.length).toBe(1);
-    });
-    xit('selects any monitor when none is in the route', function() {
-      expect(Monitors.getBySlug(monitors).slug)
-        .toBe('Ukraine');
+    describe('got filters from the server', function() {
+      beforeEach(function() {
+        deferreds.twt_filters_query.resolve({
+          _items: [{
+            _id: 'a'
+          }, {
+            _id: 'b'
+          }]
+        });
+      });
+      it('can get by user id', function() {
+        /* the monitors could not be there yet when this method is called,
+         so it has to return a promise. at the same time, in this test we
+         know that monitors are already there, it is just a matter of
+         shaking the scopes a bit */
+        var result;
+        Monitors.getByUserId('1')
+          .then(function(_result) {
+            result = _result;
+          });
+        $rootScope.$digest();
+        expect(result.user_id).toBe('1');
+      });
     });
   });
-
 });

@@ -1,23 +1,20 @@
 'use strict';
+/* jshint camelcase: false */
 
 angular.module('citizendeskFrontendApp')
-  .controller('MonitorCtrl', ['$scope', 'Queues', 'Monitors', '$routeParams', '$location', function ($scope, Queues, Monitors, $routeParams, $location) {
-    $scope.queues = [];
-    $scope.monitor = {};
-    Queues.promise.then(function(queues) {
-      $scope.queues = queues;
-      $scope.monitor = Monitors
-        .getBySlug($scope.queues, $routeParams.id);
-      if (!$scope.monitor) {
-        $location.url('/new-twitter-search');
-      }
-    });
-    $scope.resetNewTrack = function() {
-      $scope.newTrack = angular.copy($scope.monitor.filter.spec.track);
-    };
-    $scope.save = function() {
-      Monitors
-        .retrack($scope.monitor, $scope.newTrack)
-        .then(function() { $scope.editing = false; });
-    };
-  }]);
+  .controller('MonitorCtrl', function ($scope, $routeParams, api, Monitors, QueueSelection) {
+    api.reports
+      .query({
+        when: JSON.stringify({
+          'channels.value': $routeParams.id
+        }),
+        sort:'[("produced", -1)]'
+      })
+      .then(function(response) {
+        $scope.reports = response._items;
+      });
+    Monitors.getById($routeParams.id)
+      .then(function(monitor) {
+        QueueSelection.description = monitor.user_id.username + '\'s monitor';
+      });
+  });

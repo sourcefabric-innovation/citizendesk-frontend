@@ -6,28 +6,36 @@ describe('Controller: MonitorCtrl', function () {
   beforeEach(module('citizendeskFrontendApp'));
 
   var MonitorCtrl,
-      scope;
+      scope,
+      $q,
+      api = {
+        reports: {
+          query: function(){}
+        }
+      },
+      deferred;
 
   // Initialize the controller and a mock scope
-  beforeEach(inject(function ($controller, $rootScope) {
+  beforeEach(inject(function ($controller, $rootScope, _$q_) {
+    $q = _$q_;
+    deferred = $q.defer();
+    spyOn(api.reports, 'query').andReturn(deferred.promise);
     scope = $rootScope.$new();
     MonitorCtrl = $controller('MonitorCtrl', {
       $scope: scope,
       $routeParams: {
+        id: 'monitor id'
       },
-      Monitors: {},
-      Queues: {
-        promise: {
-          then: function() {}
-        }
-      }
+      api: api
     });
   }));
 
-  it('attaches a monitor to the scope', function () {
-    expect(scope.monitor).toBeDefined();
+  it('asks for reports', function () {
+    expect(api.reports.query).toHaveBeenCalled();
   });
-  it('attaches queues to the scope', function() {
-    expect(scope.queues.length).toBe(0);
+  it('attaches reports to the scope', function() {
+    deferred.resolve({_items:[{}]});
+    scope.$digest();
+    expect(scope.reports.length).toBe(1);
   });
 });

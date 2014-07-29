@@ -23,6 +23,9 @@ angular
     apiProvider.api('users', { type:'http', backend: { rel:'users' }});
     apiProvider.api('citizen_aliases', { type:'http', backend: { rel:'citizen_aliases' }});
     apiProvider.api('coverages', { type:'http', backend: { rel:'coverages' }});
+    apiProvider.api('twt_oauths', { type:'http', backend: { rel:'twt_oauths' }});
+    apiProvider.api('twt_streams', { type:'http', backend: { rel:'twt_streams' }});
+    apiProvider.api('twt_filters', { type:'http', backend: { rel:'twt_filters' }});
     $httpProvider.interceptors.push('errorHttpInterceptor');
     $httpProvider.interceptors.push('AuthInterceptor');
     $httpProvider.interceptors.push('cacheBuster');
@@ -115,6 +118,10 @@ angular
       .when('/queues/', {
         templateUrl: 'views/queues.html',
         controller: 'QueuesCtrl'
+      })
+      .when('/my-monitor/', {
+        templateUrl: 'views/my-monitor.html',
+        controller: 'MyMonitorCtrl'
       })
       // static pages, without controllers
       .when('/error-no-monitors', {

@@ -1,35 +1,6 @@
 <div queue-selection></div>
-<form ng-hide="editing" class="form-inline">
-  <div class="form-group">
-    <button class="btn btn-default"
-            type="button"
-            ng-click="resetNewTrack(); editing=true"
-            ><span class="glyphicon glyphicon-pencil"
-                   ></span>
-    </button>
-  </div>
-</form>
-<form ng-show="editing" class="form-inline" ng-submit="save()">
-  <div class="form-group">
-    <button class="btn btn-default"
-            type="button"
-            ng-click="resetNewTrack(); editing=false"
-            ><span class="glyphicon glyphicon-remove"
-                   ></span>
-    </button>
-    <button class="btn btn-default"
-            type="submit"
-            ><span class="glyphicon glyphicon-floppy-disk"></span>
-    </button>
-  </div>
-  <div class="form-group">
-    <input class="form-control"
-           ng-model="newTrack"
-           ng-list>
-  </div>
-</form>
 <div
-   ng-repeat="report in monitor.reports"
+   ng-repeat="report in reports"
    report-summary
    >
 </div>

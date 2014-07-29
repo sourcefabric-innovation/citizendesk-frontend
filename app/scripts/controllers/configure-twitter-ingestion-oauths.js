@@ -1,8 +1,47 @@
 'use strict';
+/* jshint camelcase: false */
 
 angular.module('citizendeskFrontendApp')
-  //.controller('ConfigureTwitterIngestionOauthsCtrl', ['$scope', function ($scope) {
-  .controller('ConfigureTwitterIngestionOauthsCtrl', ['resource', 'prefix', '$scope', function (resource, prefix, $scope) {
-    var res = resource(prefix + '/twt_oauths/:id');
-    $scope.twtOauths = res.query();
-  }]);
+  .controller('ConfigureTwitterIngestionOauthsCtrl', function (api, $scope, session) {
+    api.twt_oauths
+      .query({
+        where: JSON.stringify({
+          user_id: session.identity._id
+        })
+      })
+      .then(function(response) {
+        $scope.key = response._items.pop();
+        if (!$scope.key) {
+          $scope.noKey = true;
+        }
+      });
+    $scope.add = function() {
+      $scope.key = {
+        user_id: session.identity._id,
+        spec: {}
+      };
+      $scope.noKey = false;
+      $scope.editing = true;
+    };
+    $scope.edit = function() {
+      $scope.copy = angular.copy($scope.key);
+      $scope.editing = true;
+      /* we cannot reuse the displayed data when the user wants to edit,
+       because they are masked. so that section of the document has to be
+       reset */
+      $scope.key.spec = {};
+    };
+    $scope.cancelEdit = function() {
+      $scope.editing = false;
+      $scope.key = $scope.copy;
+    };
+    $scope.save = function() {
+      $scope.disabled = true;
+      api.twt_oauths
+        .save($scope.key)
+        .then(function() {
+          $scope.disabled = false;
+          $scope.editing = false;
+        });
+    };
+  });

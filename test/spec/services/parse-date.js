@@ -1,5 +1,7 @@
 'use strict';
 
+/* deprecated in favour of superdeskDate */
+
 /*
  * date parsing may vary a lot depending on the browser
  */
