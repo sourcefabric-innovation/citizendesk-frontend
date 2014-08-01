@@ -27,7 +27,7 @@ angular.module('citizendeskFrontendApp')
     this.getByUserId = function(user_id) {
       return deferred.promise.then(function(monitors) {
         return _.find(monitors, function(monitor) {
-          return monitor.user_id === user_id;
+          return monitor.user_id._id === user_id;
         });
       });
     };

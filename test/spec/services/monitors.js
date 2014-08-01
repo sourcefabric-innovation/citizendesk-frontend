@@ -48,10 +48,14 @@ describe('Service: Monitors', function () {
     beforeEach(function() {
       deferreds.twt_streams_query.resolve({
         _items: [{
-          user_id: '1',
+          user_id: {
+            _id: '1'
+          },
           spec: { filter_id: 'a' }
         }, {
-          user_id: '2',
+          user_id: {
+            _id: '2'
+          },
           spec: { filter_id: 'b' }
         }]
       });
@@ -77,7 +81,7 @@ describe('Service: Monitors', function () {
             result = _result;
           });
         $rootScope.$digest();
-        expect(result.user_id).toBe('1');
+        expect(result.user_id._id).toBe('1');
       });
     });
   });

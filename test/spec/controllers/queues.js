@@ -24,8 +24,7 @@ describe('Controller: QueuesCtrl', function () {
   it('attaches twitter searches to the scope', function () {
     expect(scope.searches).toBeDefined();
   });
-  describe('after receiving monitors', function() {
-    it('puts your monitor in a special place', function() {
-    });
+  it('proxies session', function() {
+    expect(scope.session).toBeDefined();
   });
 });
