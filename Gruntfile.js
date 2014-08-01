@@ -387,7 +387,7 @@ module.exports = function (grunt) {
     'concat',
     'ngmin',
     'copy:dist',
-    'cdnify',
+    //'cdnify', // was causing building errors so i disabled it
     'cssmin',
     'uglify',
     'rev',
