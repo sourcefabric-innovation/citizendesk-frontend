@@ -4,40 +4,36 @@
 
 angular.module('citizendeskFrontendApp')
   .factory('errorHttpInterceptor', function (Raven, $q, Application, $location, session) {
-    function notify(error) {
-      Application.connectionError = error;
+    function notify(message) {
+      Application.connectionError = message;
+    }
+    function error(response, message) {
+      notify(message);
+      Raven.raven.captureException(new Error(message), {
+        extra: {
+          responseData: response.data,
+          responseStatus: response.status,
+          // being a "get" request we cannot send too much stuff
+          requestLocation: response.config.url,
+          request50char: JSON.stringify(response.config.data).slice(0, 50),
+          requestMethod: response.config.method,
+          location: $location.url(),
+          username: session.identity.username
+        }
+      });
+      return $q.reject(message);
     }
     return {
       // HTTP level error handling
       responseError: function (rejection) {
-        var error = 'HTTP response error';
-        notify(error);
-        Raven.raven.captureException(new Error(error), {
-          extra: {
-            config: rejection.config,
-            status: rejection.status
-          }
-        });
-        return $q.reject(rejection);
+        return error(rejection, 'HTTP response error');
       },
       // application level error handling, if an Eve error format is available
       response: function(response) {
         if (response.data &&
             response.data._status &&
             response.data._status === 'ERR') {
-          var error = 'Server side application error';
-          notify(error);
-          Raven.raven.captureException(new Error(error), {
-            extra: {
-              responseData: response.data,
-              // being a "get" request we cannot send too much stuff
-              request50char: JSON.stringify(response.config.data).slice(0, 50),
-              requestMethod: response.config.method,
-              location: $location.url(),
-              username: session.identity.username
-            }
-          });
-          return $q.reject(error);
+          return error(response, 'Server side application error');
         } else {
           notify();
           return response;
