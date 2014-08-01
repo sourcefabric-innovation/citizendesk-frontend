@@ -11,6 +11,7 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      'app/bower_components/bacon/dist/Bacon.min.js',
       'app/bower_components/angular/angular.js',
       'app/bower_components/angular-route/angular-route.js',
       'app/bower_components/angular-sanitize/angular-sanitize.js',
@@ -50,6 +51,7 @@ module.exports = function(config) {
       //'test/spec/controllers/configure-steps.js',
       //'test/spec/controllers/citizen-card.js',
       //'test/spec/controllers/report-tweet.js',
+      //'test/spec/services/bacon.js',
 
       // for karma markup preprocessor
       'app/views/**/*.html'
