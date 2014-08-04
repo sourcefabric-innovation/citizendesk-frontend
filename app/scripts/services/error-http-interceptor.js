@@ -4,11 +4,8 @@
 
 angular.module('citizendeskFrontendApp')
   .factory('errorHttpInterceptor', function (Raven, $q, Application, $location, session) {
-    function notify(message) {
-      Application.connectionError = message;
-    }
     function error(response, message) {
-      notify(message);
+      Application.connectionError = message;
       Raven.raven.captureException(new Error(message), {
         extra: {
           responseData: response.data,
@@ -35,7 +32,6 @@ angular.module('citizendeskFrontendApp')
             response.data._status === 'ERR') {
           return error(response, 'Server side application error');
         } else {
-          notify();
           return response;
         }
       }
