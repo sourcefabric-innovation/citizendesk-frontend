@@ -1,4 +1,5 @@
 'use strict';
+/* jshint camelcase: false */
 
 angular
   .module('citizendeskFrontendApp', [
@@ -17,15 +18,22 @@ angular
     server: { url: 'http://cd2.sourcefabric.net/citizendesk-interface/' }
   })
   .config(['$routeProvider', 'prefix', '$httpProvider', 'apiProvider', function($routeProvider, prefix, $httpProvider, apiProvider) {
-    apiProvider.api('steps', { type:'http', backend: { rel:'steps' }});
-    apiProvider.api('reports', { type:'http', backend: { rel:'reports' }});
-    apiProvider.api('twtSearches', { type:'http', backend: { rel:'twt-searches' }});
-    apiProvider.api('users', { type:'http', backend: { rel:'users' }});
-    apiProvider.api('citizen_aliases', { type:'http', backend: { rel:'citizen_aliases' }});
-    apiProvider.api('coverages', { type:'http', backend: { rel:'coverages' }});
-    apiProvider.api('twt_oauths', { type:'http', backend: { rel:'twt_oauths' }});
-    apiProvider.api('twt_streams', { type:'http', backend: { rel:'twt_streams' }});
-    apiProvider.api('twt_filters', { type:'http', backend: { rel:'twt_filters' }});
+    [
+      'steps',
+      'reports',
+      'users',
+      'citizen_aliases',
+      'coverages',
+      'twt_oauths',
+      'twt_streams',
+      'twt_filters',
+      'core_config'
+    ].forEach(function(entity) {
+      apiProvider.api(entity, { type:'http', backend: { rel:entity }});
+    });
+    apiProvider.api('twtSearches', {
+      type:'http', backend: { rel:'twt-searches' }
+    });
     $httpProvider.interceptors.push('errorHttpInterceptor');
     $httpProvider.interceptors.push('AuthInterceptor');
     $httpProvider.interceptors.push('cacheBuster');

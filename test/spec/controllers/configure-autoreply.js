@@ -6,19 +6,38 @@ describe('Controller: ConfigureAutoreplyCtrl', function () {
   beforeEach(module('citizendeskFrontendApp'));
 
   var ConfigureAutoreplyCtrl,
-    scope;
+      scope,
+      deferreds = {},
+      $q,
+      api;
 
   // Initialize the controller and a mock scope
-  beforeEach(inject(function ($controller, $rootScope) {
+  beforeEach(inject(function ($controller, $rootScope, _$q_, _api_) {
+    $q = _$q_;
+    api = _api_;
     scope = $rootScope.$new();
+    
+    deferreds.query = $q.defer();
+    deferreds.save = $q.defer();
+    spyOn(api.core_config, 'save').andReturn(deferreds.save.promise);
+    spyOn(api.core_config, 'query').andReturn(deferreds.query.promise);
+
     ConfigureAutoreplyCtrl = $controller('ConfigureAutoreplyCtrl', {
-      $scope: scope
+      $scope: scope,
+      api: api
     });
   }));
 
-  xit('should initialise the settings values', function () {
-    expect(scope.enabled.value).toBe(true);
-    expect(scope.text.value).toBe('thanks');
-    expect(scope.timeout.value).toBe(5);
+  it('fetches the config', function () {
+    expect(api.core_config.query).toHaveBeenCalled();
+  });
+  describe('after a response', function() {
+    beforeEach(function(){
+      deferreds.query.resolve({_items:[{}]});
+      scope.$digest();
+    });
+    it('exposes the config in the scope', function(){
+      expect(scope.config).toBeDefined();
+    });
   });
 });

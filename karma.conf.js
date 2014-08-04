@@ -37,6 +37,7 @@ module.exports = function(config) {
       //'test/spec/services/date-fetcher-factory.js',
       //'test/spec/services/monitors.js',
       //'test/spec/controllers/my-monitor.js',
+      //'test/spec/controllers/configure-autoreply.js',
 
       // for karma markup preprocessor
       'app/views/**/*.html'
