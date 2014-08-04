@@ -10,11 +10,17 @@ describe('Service: PageBroker', function () {
   beforeEach(module('citizendeskFrontendApp'));
 
   var $location = {
-    url: jasmine.createSpy()
+    url: function(){}
+  };
+  var $window = {
+    history: {
+      back: function(){}
+    }
   };
   // mock dependencies
   beforeEach(module(function($provide) {
     $provide.value('$location', $location);
+    $provide.value('$window', $window);
   }));
 
   // instantiate service
@@ -23,6 +29,8 @@ describe('Service: PageBroker', function () {
   beforeEach(inject(function (_PageBroker_, _$rootScope_) {
     PageBroker = _PageBroker_;
     $rootScope = _$rootScope_;
+    spyOn($location, 'url');
+    spyOn($window.history, 'back');
   }));
 
   describe('after a page is requested for loading', function() {
@@ -84,6 +92,31 @@ describe('Service: PageBroker', function () {
         $rootScope.$digest();
         expect(res.data).toBe('data content');
       });
+    });
+  });
+  /* this is a different usage of the page broker: go back to a page
+  transmitting some data. in this case we cannot simply use the
+  `$route` service and navigate, we want to go back in the navigation
+  history. for example, in order to keep the scrolling position in a
+  long list. in this case we do not need a route fallback */
+  describe('when used for a back action', function() {
+    beforeEach(function(){
+      PageBroker.back({ data: 'data' });
+    });
+    it('goes back in navigation', function(){
+      expect($window.history.back).toHaveBeenCalled();
+    });
+    it('offers data without the need for a fallback', function(){
+      expect(PageBroker.getReturnedData()).toEqual({ data:'data' });
+    });
+    it('keeps data after a single page change', function(){
+      $rootScope.$broadcast('$locationChangeSuccess');
+      expect(PageBroker.getReturnedData()).toEqual({ data:'data' });
+    });
+    it('deletes data after a double page change', function(){
+      $rootScope.$broadcast('$locationChangeSuccess');
+      $rootScope.$broadcast('$locationChangeSuccess');
+      expect(PageBroker.getReturnedData()).toBeNull();
     });
   });
 });

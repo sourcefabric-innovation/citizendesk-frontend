@@ -5,17 +5,27 @@ angular.module('citizendeskFrontendApp')
     $scope.queue = {};
     $scope.limit = 50;
     $scope.loading = true;
-    TwitterSearches.promise.then(function() {
-      $scope.queue  = TwitterSearches.byId($routeParams.id);
-      if (!$scope.queue) {
-        $location.url('/error-no-searches');
-      } else {
-        TwitterSearches.start($scope.queue).then(function() {
-          $scope.loading = false;
-        });
-        QueueSelection.description = $scope.queue.description;
+    function checkUpdate() {
+      var returned = PageBroker.getReturnedData();
+      if (returned && returned.updateId) {
+        TwitterSearches.refreshReport($routeParams.id, returned.updateId);
       }
-    });
+    }
+    TwitterSearches
+      .byId($routeParams.id)
+      .then(function(queue) {
+        $scope.queue  = queue;
+        if (queue) {
+          QueueSelection.description = $scope.queue.description;
+          checkUpdate();
+          return TwitterSearches.start(queue);
+        } else {
+          $location.url('/error-no-searches');
+        }
+      })
+      .then(function() {
+        $scope.loading = false;
+      });
     $scope.delete = function() {
       $scope.status = 'deleting';
       TwitterSearches

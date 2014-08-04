@@ -23,7 +23,7 @@ angular.module('citizendeskFrontendApp')
           proto: false
         })
         .then(function() {
-          $window.history.back();
+          PageBroker.back({ updateId: $scope.report._id });
         });
     };
     $scope.back = function() {

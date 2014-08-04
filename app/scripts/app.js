@@ -31,7 +31,7 @@ angular
     ].forEach(function(entity) {
       apiProvider.api(entity, { type:'http', backend: { rel:entity }});
     });
-    apiProvider.api('twtSearches', {
+    apiProvider.api('twt_searches', {
       type:'http', backend: { rel:'twt-searches' }
     });
     $httpProvider.interceptors.push('errorHttpInterceptor');

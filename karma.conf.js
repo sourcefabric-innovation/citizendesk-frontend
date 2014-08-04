@@ -36,8 +36,12 @@ module.exports = function(config) {
       /* uncomment one of the following when you want to be more specific */
       //'test/spec/services/date-fetcher-factory.js',
       //'test/spec/services/monitors.js',
+      //'test/spec/services/twitter-searches.js',
+      //'test/spec/services/page-broker.js',
       //'test/spec/controllers/my-monitor.js',
       //'test/spec/controllers/configure-autoreply.js',
+      //'test/spec/controllers/assign.js',
+      //'test/spec/controllers/twitter-search.js',
 
       // for karma markup preprocessor
       'app/views/**/*.html'

@@ -10,7 +10,7 @@ describe('Controller: AssignCtrl', function () {
       $httpBackend,
       $window = {
         history: {
-          back: jasmine.createSpy()
+          back: jasmine.createSpy('history back')
         }
       },
       $rootScope,
@@ -32,10 +32,11 @@ describe('Controller: AssignCtrl', function () {
           f({report: reportMock});
         }
       },
-      pageBroker = {
+      PageBroker = {
         getData: function() {
           return promiseMock;
-        }
+        },
+        back: function(){}
       };
 
   // Initialize the controller and a mock scope
@@ -43,6 +44,7 @@ describe('Controller: AssignCtrl', function () {
     $httpBackend = _$httpBackend_;
     $rootScope = _$rootScope_;
     scope = $rootScope.$new();
+    spyOn(PageBroker, 'back');
     AssignCtrl = $controller('AssignCtrl', {
       $scope: scope,
       $routeParams: {
@@ -53,7 +55,7 @@ describe('Controller: AssignCtrl', function () {
         updateTotals: jasmine.createSpy()
       },
       $window: $window,
-      PageBroker: pageBroker,
+      PageBroker: PageBroker,
       session: {
         identity: mocks.auth.success
       },
@@ -88,6 +90,7 @@ describe('Controller: AssignCtrl', function () {
 
     deferred.resolve({});
     $rootScope.$digest();
-    expect($window.history.back).toHaveBeenCalled();
+    expect(PageBroker.back.mostRecentCall.args)
+      .toEqual([{ updateId : 'test-report-id' }]);
   }));
 });
