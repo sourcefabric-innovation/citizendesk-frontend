@@ -6,10 +6,11 @@ angular.module('citizendeskFrontendApp')
   .factory('errorHttpInterceptor', function (Raven, $q, Application, $location, session) {
     function error(response, message) {
       Application.connectionError = message;
+      var request50char;
       if(response.config.data) {
-        var request50char = JSON.stringify(response.config.data).slice(0, 50);
+        request50char = JSON.stringify(response.config.data).slice(0, 50);
       } else {
-        var request50char = 'the corresponding request had no data';
+        request50char = 'the corresponding request had no data';
       }
       Raven.raven.captureException(new Error(message), {
         extra: {
