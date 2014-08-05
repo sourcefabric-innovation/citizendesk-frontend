@@ -15,7 +15,7 @@
  */
 
 angular.module('citizendeskFrontendApp')
-  .controller('MyMonitorCtrl', function ($scope, api, $http, Monitors, session, Raven, config, addNewValues, dateFetcherFactory, PagePolling, QueueSelection, $filter) {
+  .controller('MyMonitorCtrl', function ($scope, api, $http, Monitors, session, Raven, config, addNewValues, dateFetcherFactory, PagePolling, QueueSelection, $filter, linkTweetEntities, PageBroker) {
     $scope.missing = {
       monitor: false,
       key: false
@@ -57,6 +57,13 @@ angular.module('citizendeskFrontendApp')
       }
     };
 
+    function processReport(report) {
+      try {
+        report.linkedText = linkTweetEntities(report);
+      } catch (e) {
+        Raven.raven.captureException(e);
+      }
+    }
     function fetchReports(page) {
       return api.reports.query({
         page: page,
@@ -70,6 +77,7 @@ angular.module('citizendeskFrontendApp')
       $scope.page = 1;
       fetchReports($scope.page).then(function(response) {
         $scope.reports = response._items;
+        $scope.reports.forEach(processReport);
 
         var dateFetcher = dateFetcherFactory({
           endpoint: api.reports,
@@ -82,6 +90,7 @@ angular.module('citizendeskFrontendApp')
             .queryWhere({'channels.value': $scope.monitor._id})
             .then(function(response) {
               $scope.updating = false;
+              response._items.forEach(processReport);
               addNewValues($scope.newReports, response._items);
             });
         }, 10 * 1000);
@@ -178,5 +187,10 @@ angular.module('citizendeskFrontendApp')
           $scope.editing = false;
           initReports();
         });
+    };
+    $scope.assign = function(report) {
+      PageBroker.load('/assign/', {
+        report: report
+      });
     };
   });

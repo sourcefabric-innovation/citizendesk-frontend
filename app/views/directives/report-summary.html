@@ -3,10 +3,6 @@
    class="panel panel-default"
    >
   <div class="panel-heading clearfix">
-    <span class="label label-info pull-right"
-          ng-if="report.assignments.length">
-      <span translate>Assigned</span>
-    </span>
     <h5>
       <a ng-bind="report.authors[0].identifiers.user_name"
        ng-href="#/citizen-card/{{report.authors[0].authority}}/{{report.authors[0].identifiers.user_name}}"

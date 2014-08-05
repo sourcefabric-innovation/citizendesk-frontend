@@ -1,0 +1,226 @@
+{
+  "authors": [
+    {
+      "identifiers": {
+        "user_id_search": "17672825",
+        "user_id": "17672825",
+        "user_name_search": "astroehlein",
+        "user_name": "astroehlein"
+      },
+      "authority": "twitter"
+    }
+  ],
+  "_links": {
+    "self": {
+      "href": "http://cd2.sourcefabric.net/citizendesk-interface/reports/53e101769c61677c18dfa0e4",
+      "title": "Report"
+    },
+    "collection": {
+      "href": "http://cd2.sourcefabric.net/citizendesk-interface/reports",
+      "title": "reports"
+    },
+    "parent": {
+      "href": "http://cd2.sourcefabric.net/citizendesk-interface",
+      "title": "home"
+    }
+  },
+  "_etag": "a72e2445e55ca05503025f484c30d5c9b05d8553",
+  "summary": false,
+  "feed_type": "tweet",
+  "user_id": null,
+  "session": "tweet||496688853865226241",
+  "_id": "53e101769c61677c18dfa0e4",
+  "local": false,
+  "_updated": "1970-01-01T00:00:00+0000",
+  "assignments": [],
+  "texts": [
+    {
+      "transcript": null,
+      "original": "Number fleeing war in east #Ukraine now over 270,000 in total - @TomBurridgebbc reports http://bbc.in/1oor8RQ http://twitter.com/astroehlein/status/496688853865226241/photo/1"
+    }
+  ],
+  "produced": "2014-08-05T16:07:05+0000",
+  "original": {
+    "in_reply_to_user_id": null,
+    "contributors": null,
+    "coordinates": null,
+    "metadata": {
+      "iso_language_code": "en",
+      "result_type": "recent"
+    },
+    "truncated": false,
+    "user": {
+      "is_translator": false,
+      "profile_sidebar_border_color": "FFFFFF",
+      "description": "European Media Director, @HRW: tweeting #humanrights, international news, media & conflict, some EU & US stuff, & the odd Belgian #beer.",
+      "profile_background_tile": false,
+      "time_zone": "Brussels",
+      "geo_enabled": false,
+      "url": "http://t.co/QYtLfgLAte",
+      "profile_use_background_image": true,
+      "lang": "en",
+      "followers_count": 15684,
+      "profile_text_color": "030303",
+      "profile_image_url_https": "https://pbs.twimg.com/profile_images/378800000231105851/d7fa7ecd8858d2f79d9ce4d0618f99bd_normal.jpeg",
+      "location": "Brussels, Belgium",
+      "utc_offset": 7200,
+      "friends_count": 2580,
+      "default_profile_image": false,
+      "profile_background_image_url_https": "https://pbs.twimg.com/profile_background_images/662891972/wv4qa90i3acgv4abigxc.jpeg",
+      "created_at": "Thu Nov 27 08:01:19 +0000 2008",
+      "verified": false,
+      "listed_count": 683,
+      "profile_background_image_url": "http://pbs.twimg.com/profile_background_images/662891972/wv4qa90i3acgv4abigxc.jpeg",
+      "id": 17672825,
+      "favourites_count": 1341,
+      "profile_background_color": "000000",
+      "contributors_enabled": false,
+      "is_translation_enabled": false,
+      "profile_link_color": "F2100C",
+      "screen_name": "astroehlein",
+      "name": "Andrew Stroehlein",
+      "follow_request_sent": false,
+      "following": false,
+      "profile_image_url": "http://pbs.twimg.com/profile_images/378800000231105851/d7fa7ecd8858d2f79d9ce4d0618f99bd_normal.jpeg",
+      "id_str": "17672825",
+      "entities": {
+        "description": {
+          "urls": []
+        },
+        "url": {
+          "urls": [
+            {
+              "indices": [
+                0,
+                22
+              ],
+              "url": "http://t.co/QYtLfgLAte",
+              "display_url": "andrewstroehlein.com",
+              "expanded_url": "http://www.andrewstroehlein.com"
+            }
+          ]
+        }
+      },
+      "profile_banner_url": "https://pbs.twimg.com/profile_banners/17672825/1367272487",
+      "profile_sidebar_fill_color": "A39A68",
+      "protected": false,
+      "notifications": false,
+      "default_profile": false,
+      "statuses_count": 21073
+    },
+    "lang": "en",
+    "entities": {
+      "symbols": [],
+      "user_mentions": [
+        {
+          "id": 242985834,
+          "name": "Tom Burridge",
+          "indices": [
+            64,
+            79
+          ],
+          "screen_name": "TomBurridgebbc",
+          "id_str": "242985834"
+        }
+      ],
+      "urls": [
+        {
+          "indices": [
+            88,
+            110
+          ],
+          "url": "http://t.co/duECwMfNy7",
+          "display_url": "bbc.in/1oor8RQ",
+          "expanded_url": "http://bbc.in/1oor8RQ"
+        }
+      ],
+      "media": [
+        {
+          "media_url": "http://pbs.twimg.com/media/BuSX4URIAAA1Fb5.jpg",
+          "id_str": "496688852686602240",
+          "sizes": {
+            "medium": {
+              "h": 395,
+              "resize": "fit",
+              "w": 600
+            },
+            "large": {
+              "h": 411,
+              "resize": "fit",
+              "w": 624
+            },
+            "thumb": {
+              "h": 150,
+              "resize": "crop",
+              "w": 150
+            },
+            "small": {
+              "h": 223,
+              "resize": "fit",
+              "w": 340
+            }
+          },
+          "id": 496688852686602240,
+          "media_url_https": "https://pbs.twimg.com/media/BuSX4URIAAA1Fb5.jpg",
+          "indices": [
+            111,
+            133
+          ],
+          "type": "photo",
+          "display_url": "pic.twitter.com/kKSCUmCEND",
+          "url": "http://t.co/kKSCUmCEND",
+          "expanded_url": "http://twitter.com/astroehlein/status/496688853865226241/photo/1"
+        }
+      ],
+      "hashtags": [
+        {
+          "indices": [
+            27,
+            35
+          ],
+          "text": "Ukraine"
+        }
+      ]
+    },
+    "text_expanded": "Number fleeing war in east #Ukraine now over 270,000 in total - @TomBurridgebbc reports http://bbc.in/1oor8RQ http://twitter.com/astroehlein/status/496688853865226241/photo/1",
+    "possibly_sensitive": false,
+    "retweeted": false,
+    "place": null,
+    "in_reply_to_user_id_str": null,
+    "favorite_count": 0,
+    "in_reply_to_status_id_str": null,
+    "in_reply_to_status_id": null,
+    "id": 496688853865226240,
+    "created_at": "Tue Aug 05 16:07:05 +0000 2014",
+    "text": "Number fleeing war in east #Ukraine now over 270,000 in total - @TomBurridgebbc reports http://t.co/duECwMfNy7 http://t.co/kKSCUmCEND",
+    "favorited": false,
+    "in_reply_to_screen_name": null,
+    "id_str": "496688853865226241",
+    "geo": null,
+    "source": "<a href=\"https://about.twitter.com/products/tweetdeck\" rel=\"nofollow\">TweetDeck</a>",
+    "retweet_count": 1
+  },
+  "channels": [
+    {
+      "request": "53dfacdc9c61676f161daed1",
+      "value": 1,
+      "type": "search",
+      "filter": {
+        "query": {
+          "contains": [
+            "Ukraine"
+          ]
+        }
+      },
+      "reasons": {
+        "follow": [],
+        "track": [
+          "ukraine"
+        ]
+      }
+    }
+  ],
+  "_created": "1970-01-01T00:00:00+0000",
+  "created": "2014-08-05T16:08:22+0000",
+  "proto": true
+}

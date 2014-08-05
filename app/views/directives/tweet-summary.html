@@ -1,0 +1,113 @@
+<div
+   data-id="{{report._id}}"
+   class="panel panel-default"
+   >
+  <div class="panel-body break-long-words">
+    <p>
+      <div class="row">
+        <!-- avatar -->
+        <div class="col-md-2 col-xs-2">
+          <a target="_blank"
+             ng-href="//twitter.com/{{report.original.user.screen_name}}">
+            <img class="media-object"
+                 ng-src="{{report.original.user.profile_image_url}}">
+          </a>
+        </div>
+        <div class="col-md-10 col-xs-10">
+          <div>
+            <span ng-bind="report.created | date:'short'"
+                  class="text-muted pull-right">
+            </span>
+            <!-- full name -->
+            <a target="_blank"
+               ng-href="//twitter.com/{{report.original.user.screen_name}}">
+              <strong ng-bind="report.original.user.name"></strong>
+            </a>
+            <!-- Twitter user name -->
+            <a target="_blank"
+               ng-href="//twitter.com/{{report.original.user.screen_name}}">
+              <span ng-bind="'@'+report.original.user.screen_name"
+                    class="text-muted">
+              </span>
+            </a>
+          </div>
+          <!-- middle part of the tweet -->
+          <p id="text"
+             ng-bind-html="report.linkedText"
+             ng-class="lead"
+             >
+          </p>
+          <!-- lower part of the tweet -- actions -->
+          <div>
+            <a ng-href="https://twitter.com/intent/favorite?tweet_id={{report.original.id_str}}"
+               target="_blank">
+              <img
+                 src="//si0.twimg.com/images/dev/cms/intents/icons/favorite.png">
+            </a>
+            <a ng-href="https://twitter.com/intent/tweet?in_reply_to={{report.original.id_str}}"
+               target="_blank">
+              <img
+                 src="//si0.twimg.com/images/dev/cms/intents/icons/reply.png">
+            </a>
+            <a ng-href="https://twitter.com/intent/retweet?tweet_id={{report.original.id_str}}"
+               target="_blank">
+              <img
+                 src="//si0.twimg.com/images/dev/cms/intents/icons/retweet.png">
+            </a>
+          </div>
+        </div>
+      </div>
+    </p>
+  </div>
+  <div class="panel-footer clearfix">
+    <span ng-show="report.original.entities.media.length"
+          class="glyphicon glyphicon-picture"></span>
+    <span ng-show="report.original.entities.urls.length"
+          class="glyphicon glyphicon-link"></span>
+    <span ng-switch="report.verified">
+      <a
+         ng-switch-when="true"
+         href="#/report-{{report.feed_type}}/{{report._id}}"
+         class="btn btn-info pull-right"
+         >
+        <span translate>
+          Details
+        </span>
+      </a>
+      <span
+         class="pull-right"
+         ng-switch-default
+         >
+        <span ng-switch="report.assignments.length">
+          <span ng-switch-when="0">
+            <a class="btn btn-warning"
+               ng-show="assign"
+               ng-click="assign(report)"
+               >
+              <span translate>
+                Assign
+              </span>
+            </a>
+          </span>
+          <span ng-switch-default>
+            <a class="btn btn-info"
+               ng-show="assign"
+               ng-href="#/assigned/"
+               >
+              <span translate>
+                Assigned
+              </span>
+            </a>
+          </span>
+        </span>
+        <a href="#/report-{{report.feed_type}}/{{report._id}}"
+           class="btn btn-primary"
+           >
+          <span translate>
+            Check
+          </span>
+        </a>
+      </span>
+    </span>
+  </div>
+</div>

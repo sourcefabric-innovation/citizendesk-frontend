@@ -207,11 +207,14 @@ describe('Controller: MyMonitorCtrl', function () {
     });
     describe('first reports are received', function() {
       beforeEach(function() {
-        deferreds.reports_query.resolve({_items:[{}]});
+        deferreds.reports_query.resolve(mocks.reports['list-not-paginated']);
         scope.$digest();
       });
       it('adds the reports to the scope', function(){
         expect(scope.reports.length).toBe(1);
+      });
+      it('adds the linked text to the reports', function(){
+        expect(scope.reports[0].linkedText).toBeDefined();
       });
       it('starts polling for reports', function() {
         expect(PagePolling.setInterval).toHaveBeenCalled();

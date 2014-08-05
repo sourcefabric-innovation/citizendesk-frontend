@@ -11,7 +11,9 @@
 </p>
 <div
    ng-repeat="report in reports | filter:q"
-   report-summary
+   ng-switch on="report.feed_type"
    >
+  <div ng-switch-when="tweet" tweet-summary></div>
+  <div ng-switch-default      report-summary></div>
 </div>
 <div ng-hide="reports.length" translate>No reports in this queue</div>

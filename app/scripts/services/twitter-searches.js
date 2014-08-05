@@ -14,9 +14,11 @@ angular.module('citizendeskFrontendApp')
         service.list = response._items;
         return service.list;
       });
+    /* restart a search and get the contents, or just return the
+    contents if they are already there */
     this.start = function(queue) {
       if ('reports' in queue) {
-        return $q.when();
+        return $q.when(queue);
       } else {
         queue.reports = [];
         return $http
@@ -28,7 +30,7 @@ angular.module('citizendeskFrontendApp')
             }
           })
           .then(function() {
-            service.fetchResults(queue);
+            return service.fetchResults(queue);
           });
       }
     };
@@ -52,12 +54,14 @@ angular.module('citizendeskFrontendApp')
         });
       return deferred.promise;
     };
+    /* returns the queue in a promise after the first page is fetched,
+    keep updating the queue in the closure with the other pages */
     this.fetchResults = function(queue) {
       var query = JSON.stringify({
             'channels.request': queue._id
           });
       function fetch(page) {
-        api.reports
+        return api.reports
           .query({
             where: query,
             sort:'[("produced", -1)]',
@@ -68,19 +72,27 @@ angular.module('citizendeskFrontendApp')
             if (response._links.next) {
               fetch(page + 1);
             }
+            return queue;
           });
       }
-      fetch(1);
+      return fetch(1);
     };
     this.byId = function(id) {
-      return service.promise.then(function(searches) {
-        for (var i=0; i<searches.length; i++) {
-          if (typeof id === 'undefined' || searches[i]._id === id) {
-            return searches[i];
+      return service.promise
+        .then(function(searches) {
+          var found = false;
+          for (var i=0; i<searches.length; i++) {
+            if (typeof id === 'undefined' || searches[i]._id === id) {
+              found = searches[i];
+            }
           }
-        }
-        Raven.raven.captureMessage('twitter search with id ' + id + ' not found');
-      });
+          if (found) {
+            return service.start(found);
+          } else {
+            Raven.raven
+              .captureMessage('twitter search with id ' + id + ' not found');
+          }
+        });
     };
     this.delete = function(queue) {
       var promise = api.twt_searches.remove(queue);

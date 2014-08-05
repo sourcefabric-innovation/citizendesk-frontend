@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('citizendeskFrontendApp')
-  .controller('TwitterSearchCtrl', function ($scope, TwitterSearches, $routeParams, $location, QueueSelection, PageBroker) {
+  .controller('TwitterSearchCtrl', function ($scope, TwitterSearches, $routeParams, $location, QueueSelection, PageBroker, linkTweetEntities) {
     $scope.queue = {};
     $scope.limit = 50;
     $scope.loading = true;
@@ -11,14 +11,17 @@ angular.module('citizendeskFrontendApp')
         TwitterSearches.refreshReport($routeParams.id, returned.updateId);
       }
     }
+    function processReport(report) {
+      report.linkedText = linkTweetEntities(report);
+    }
     TwitterSearches
       .byId($routeParams.id)
       .then(function(queue) {
-        $scope.queue  = queue;
         if (queue) {
-          QueueSelection.description = $scope.queue.description;
           checkUpdate();
-          return TwitterSearches.start(queue);
+          QueueSelection.description = queue.description;
+          queue.reports.forEach(processReport);
+          $scope.queue  = queue;
         } else {
           $location.url('/error-no-searches');
         }

@@ -55,10 +55,11 @@ describe('Controller: TwitterSearchCtrl', function () {
       { report: report }
     ]);
   });
-  describe('after it got the search', function(){
+  describe('after it got a search with reports', function(){
     beforeEach(function(){
       def.TwitterSearches.byId.resolve({
-        _id: 'search id'
+        _id: 'search id',
+        reports: angular.copy(mocks.reports['list-not-paginated']._items)
       });
       spyOn(PageBroker, 'getReturnedData').andReturn({
         updateId: 'update id'
@@ -73,8 +74,11 @@ describe('Controller: TwitterSearchCtrl', function () {
       expect(TwitterSearches.refreshReport.mostRecentCall.args)
         .toEqual([ 'search id', 'update id' ]);
     });
-    it('asks to start the search', function(){
-      expect(TwitterSearches.start).toHaveBeenCalled();
+    it('gets reports', function(){
+      expect(scope.queue.reports.length).toBeGreaterThan(0);
+    });
+    it('calculates the linked text for every report', function(){
+      expect(scope.queue.reports[0].linkedText).toBeDefined();
     });
   });
 });

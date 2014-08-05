@@ -54,32 +54,30 @@ describe('Service: TwitterSearches', function () {
           _id: 'search id'
         }]
       });
-      $rootScope.$digest();
+      $httpBackend
+        .expectPOST(globals.root + 'proxy/start-twitter-search/')
+        .respond();
+      deferreds.reports.query = $q.defer();
+      spyOn(api.reports, 'query').andReturn(deferreds.reports.query.promise);
+      spyOn(TwitterSearches, 'start').andCallThrough();
+      $rootScope.$digest(); // return the searches
+      $httpBackend.flush(); // respond start request
     });
     describe('and some specific reports', function(){
-      var started;
       beforeEach(function(){
-        $httpBackend
-          .expectPOST(globals.root + 'proxy/start-twitter-search/')
-          .respond();
-        deferreds.reports.query = $q.defer();
-        spyOn(api.reports, 'query').andReturn(deferreds.reports.query.promise);
-        TwitterSearches
-          .start(queue)
-          .then(function(_queue_) {
-            started = true;
-          });
         deferreds.reports.query.resolve({
           _items: [{
             _id: 'to be refreshed'
           }],
           _links: {}
         });
-        $httpBackend.flush();
-        $rootScope.$digest();
+        $rootScope.$digest(); // return the reports
+      });
+      it('got the queue', function(){
+        expect(queue).toBeDefined();
       });
       it('started the queue', function(){
-        expect(started).toBe(true);
+        expect(TwitterSearches.start).toHaveBeenCalled();
       });
       describe('refreshing a report', function(){
         var result;

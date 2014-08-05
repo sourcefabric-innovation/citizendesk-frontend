@@ -6,6 +6,7 @@ angular
     'ngRoute',
     'ngResource',
     'ngMessages',
+    'ngSanitize',
     'gettext',
     'eveApi',
     'mgcrea.ngStrap.helpers.dimensions',

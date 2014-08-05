@@ -2,7 +2,7 @@
 /* jshint camelcase: false */
 
 angular.module('citizendeskFrontendApp')
-  .controller('ReportTweetCtrl', function ($scope, $routeParams, Raven, api, $location, $anchorScroll, Coverages, Report) {
+  .controller('ReportTweetCtrl', function ($scope, $routeParams, Raven, api, $location, $anchorScroll, Coverages, Report, linkTweetEntities) {
     var id = $routeParams.id;
 
     function addSteps(report) {
@@ -28,6 +28,7 @@ angular.module('citizendeskFrontendApp')
         $scope.report = report;
         $scope.selectedCoverage = Report
           .getSelectedCoverage(report, $scope.coverages);
+        $scope.linkedText = linkTweetEntities(report);
         if (report.on_behalf_id) {
           api.users.getById(report.on_behalf_id)
             .then(function(user) {

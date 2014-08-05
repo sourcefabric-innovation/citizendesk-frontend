@@ -13,6 +13,7 @@ module.exports = function(config) {
     files: [
       'app/bower_components/angular/angular.js',
       'app/bower_components/angular-route/angular-route.js',
+      'app/bower_components/angular-sanitize/angular-sanitize.js',
       'app/bower_components/angular-resource/angular-resource.js',
       'app/bower_components/angular-messages/angular-messages.js',
       'app/bower_components/angular-mocks/angular-mocks.js',
@@ -38,6 +39,7 @@ module.exports = function(config) {
       //'test/spec/services/monitors.js',
       //'test/spec/services/twitter-searches.js',
       //'test/spec/services/page-broker.js',
+      //'test/spec/services/link-tweet-entities.js',
       //'test/spec/controllers/my-monitor.js',
       //'test/spec/controllers/configure-autoreply.js',
       //'test/spec/controllers/assign.js',

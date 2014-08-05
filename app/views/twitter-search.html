@@ -1,36 +1,40 @@
 <div queue-selection></div>
 <div>
   <p ng-switch="status" class="clearfix">
+    <a href="https://twitter.com" target="_blank">
+      <img src="https://dev.twitter.com/sites/default/files/images_documentation/bird_blue_16.png"
+           width="14" height="11">
+    </a>
     <span class="pull-right">
-    <button class="btn btn-warning btn-xs pull-right"
-            ng-switch-when="deleted"
-            disabled
-            >
-      <span translate>Deleted</span>
-    </button>
-    <span
-       ng-switch-when="error"
-       >
-      <span translate>Error deleting</span>
+      <button class="btn btn-warning btn-xs pull-right"
+              ng-switch-when="deleted"
+              disabled
+              >
+        <span translate>Deleted</span>
+      </button>
+      <span
+         ng-switch-when="error"
+         >
+        <span translate>Error deleting</span>
+        <button class="btn btn-warning btn-xs"
+                ng-click="delete()"
+                >
+          <span translate>Try again</span>
+        </button>
+      </span>
       <button class="btn btn-warning btn-xs"
+              ng-switch-when="deleting"
+              disabled
+              >
+        <span class="fa fa-refresh fa-spin"></span>
+        <span translate>Deleting</span>
+      </button>
+      <button class="btn btn-warning btn-xs"
+              ng-switch-default
               ng-click="delete()"
               >
-        <span translate>Try again</span>
+        <span translate>Delete search</span>
       </button>
-    </span>
-    <button class="btn btn-warning btn-xs"
-            ng-switch-when="deleting"
-            disabled
-            >
-      <span class="fa fa-refresh fa-spin"></span>
-      <span translate>Deleting</span>
-    </button>
-    <button class="btn btn-warning btn-xs"
-            ng-switch-default
-            ng-click="delete()"
-            >
-      <span translate>Delete search</span>
-    </button>
     </span>
   </p>
 </div>
@@ -44,7 +48,7 @@
 </p>
 <div
    ng-repeat="report in queue.reports | filter:q | limitTo:limit"
-   report-summary
+   tweet-summary
    >
 </div>
 <p ng-show="queue.reports.length > limit">

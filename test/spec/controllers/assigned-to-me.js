@@ -28,18 +28,21 @@ describe('Controller: AssignedToMeCtrl', function () {
         identity: mocks.auth.success
       }
     });
+    scope.$digest();
   }));
 
-  it('should attach reports to the scope', function () {
-    scope.$digest();
-    expect(scope.reports.length).toBe(1);
-  });
-  it('should query for the assigned reports list', function() {
+  it('queries for the assigned reports list', function() {
     expect(api.reports.query.mostRecentCall.args[0])
       .toEqual({
         where : '{"assignments.user_id":"53bab5339c61671f63bc3788"}',
         page : 1,
         sort : '[("produced", -1)]'
       });
+  });
+  it('attaches reports to the scope', function () {
+    expect(scope.reports.length).toBe(1);
+  });
+  it('builds the linked text for every report', function(){
+    expect(scope.reports[0].linkedText).toBeDefined();
   });
 });
