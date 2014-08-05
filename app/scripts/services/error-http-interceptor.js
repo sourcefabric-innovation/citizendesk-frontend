@@ -6,13 +6,18 @@ angular.module('citizendeskFrontendApp')
   .factory('errorHttpInterceptor', function (Raven, $q, Application, $location, session) {
     function error(response, message) {
       Application.connectionError = message;
+      if(response.config.data) {
+        var request50char = JSON.stringify(response.config.data).slice(0, 50);
+      } else {
+        var request50char = 'the corresponding request had no data';
+      }
       Raven.raven.captureException(new Error(message), {
         extra: {
           responseData: response.data,
           responseStatus: response.status,
           // being a "get" request we cannot send too much stuff
           requestLocation: response.config.url,
-          request50char: JSON.stringify(response.config.data).slice(0, 50),
+          request50char: request50char,
           requestMethod: response.config.method,
           location: $location.url(),
           username: session.identity.username
