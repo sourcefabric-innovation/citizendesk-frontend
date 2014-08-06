@@ -18,4 +18,17 @@ angular.module('citizendeskFrontendApp')
         return a;
       }
     }
+  })
+/* this was not bringing problems before, but after a dependency
+update i see the error 'Raven has already been configured' for every
+test, even if the tests pass. i think that Karma cannot reload all the
+files for every test, thus the service is installed again and again */
+  .factory('Raven', function() {
+    return {
+      raven: {
+        captureException: function(){}
+      },
+      install: function() {
+      }
+    }
   });
