@@ -88,6 +88,10 @@ angular
         templateUrl: 'views/configure-steps.html',
         controller: 'ConfigureStepsCtrl'
       })
+      .when('/configure-coverages', {
+        templateUrl: 'views/configure-coverages.html',
+        controller: 'ConfigureCoveragesCtrl'
+      })
       .when('/configure-twitter-ingestion', {
         templateUrl: 'views/configure-twitter-ingestion.html',
         controller: 'ConfigureTwitterIngestionCtrl'

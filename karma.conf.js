@@ -46,6 +46,7 @@ module.exports = function(config) {
       //'test/spec/controllers/twitter-search.js',
       //'test/spec/controllers/session.js',
       //'test/spec/controllers/report-sms.js',
+      //'test/spec/controllers/configure-coverages.js',
 
       // for karma markup preprocessor
       'app/views/**/*.html'
