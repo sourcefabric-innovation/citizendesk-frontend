@@ -6,11 +6,16 @@ angular.module('citizendeskFrontendApp')
   .factory('errorHttpInterceptor', function (Raven, $q, Application, $location, session) {
     function error(response, message) {
       Application.connectionError = message;
-      var request50char;
+      var request50char, username;
       if(response.config.data) {
         request50char = JSON.stringify(response.config.data).slice(0, 50);
       } else {
         request50char = 'the corresponding request had no data';
+      }
+      if(session.identity) {
+        username = session.identity.username;
+      } else {
+        username = 'username not available because of missing identity';
       }
       Raven.raven.captureException(new Error(message), {
         extra: {
@@ -21,7 +26,7 @@ angular.module('citizendeskFrontendApp')
           request50char: request50char,
           requestMethod: response.config.method,
           location: $location.url(),
-          username: session.identity.username
+          username: username
         }
       });
       return $q.reject(message);

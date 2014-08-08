@@ -150,7 +150,8 @@ describe('Controller: SessionCtrl', function () {
         .resolve({
           _items: [{
             _id: 'summary report'
-          }]
+          }],
+          _links: {}
         });
       scope.$digest();
     });

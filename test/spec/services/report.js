@@ -12,7 +12,8 @@ describe('Service: Report', function () {
       coverage = {
         _id: 'coverage id'
       },
-      reportsSaveDeferred;
+      reportsSaveDeferred,
+      initAuth = function(){};
   // load the service's module
   beforeEach(module('citizendeskFrontendApp'));
   // mock dependencies
@@ -22,6 +23,10 @@ describe('Service: Report', function () {
         _id: 'test user id'
       }
     });
+    /* playing with `$http` triggers somehow `$locationChangeStart`,
+    which triggers the authentication and raises an error. replacing
+    the autenthication with this empty function */
+    $provide.value('initAuth', initAuth);
     $provide.value('api', api);
   }));
   beforeEach(inject(function (_Report_, _$httpBackend_, _$rootScope_, $q) {

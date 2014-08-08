@@ -34,7 +34,15 @@ describe('Controller: MonitorCtrl', function () {
     expect(api.reports.query).toHaveBeenCalled();
   });
   it('attaches reports to the scope', function() {
-    deferred.resolve({_items:[{}]});
+    deferred.resolve({_items:[{
+      original: {
+        entities: {
+          user_mentions: [],
+          hashtags: [],
+          urls: []
+        }
+      }
+    }]});
     scope.$digest();
     expect(scope.reports.length).toBe(1);
   });
