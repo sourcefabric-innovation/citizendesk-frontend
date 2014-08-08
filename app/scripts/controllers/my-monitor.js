@@ -15,7 +15,7 @@
  */
 
 angular.module('citizendeskFrontendApp')
-  .controller('MyMonitorCtrl', function ($scope, api, $http, Monitors, session, Raven, config, addNewValues, dateFetcherFactory, PagePolling, QueueSelection, $filter, linkTweetEntities, PageBroker) {
+  .controller('MyMonitorCtrl', function ($scope, api, $http, Monitors, session, Raven, config, addNewValues, dateFetcherFactory, PagePolling, QueueSelection, $filter, linkTweetEntities, PageBroker, AliasesInLists) {
     $scope.missing = {
       monitor: false,
       key: false
@@ -63,6 +63,7 @@ angular.module('citizendeskFrontendApp')
       } catch (e) {
         Raven.raven.captureException(e);
       }
+      AliasesInLists.embedAuthorAlias(report);
     }
     function fetchReports(page) {
       return api.reports.query({

@@ -26,7 +26,8 @@ angular
       'twt_oauths',
       'twt_streams',
       'twt_filters',
-      'core_config'
+      'core_config',
+      'citizen_lists'
     ].forEach(function(entity) {
       apiProvider.api(entity, { type:'http', backend: { rel:entity }});
     });
@@ -105,6 +106,18 @@ angular
       .when('/configure-twitter-ingestion-streams', {
         templateUrl: 'views/configure-twitter-ingestion-streams.html',
         controller: 'ConfigureTwitterIngestionStreamsCtrl'
+      })
+      .when('/configure-lists', {
+        templateUrl: 'views/configure-lists.html',
+        controller: 'ConfigureListsCtrl'
+      })
+      .when('/configure-lists-specific', {
+        templateUrl: 'views/configure-lists-specific.html',
+        controller: 'ConfigureListsSpecificCtrl'
+      })
+      .when('/edit-user-lists', {
+        templateUrl: 'views/edit-user-lists.html',
+        controller: 'EditUserListsCtrl'
       })
       .when('/new-twitter-search', {
         templateUrl: 'views/new-twitter-search.html',

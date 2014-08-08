@@ -52,31 +52,7 @@ describe('Service: PageBroker', function () {
       $rootScope.$digest();
       expect(res.data).toBe('data content');
     });
-    describe('after a location change', function() {
-      beforeEach(function() {
-        $location.url = function() {
-          return '/different-route/';
-        };
-        spyOn($location, 'url').andCallThrough();
-        $rootScope.$broadcast('$locationChangeSuccess');
-      });
-      /* if a page relies on data being in the page broker, this may
-       lead to an error when the user jumps to the page directly, for
-       example from the location. in this case the page broker does not
-       resolve the promise, but instead it redirects the user to the
-       fallback page */
-      it('has no data anymore', function() {
-        var res;
-        PageBroker
-          .getData('/fallback-route/')
-          .then(function(_res_) {
-            res = _res_;
-          });
-        expect($location.url).toHaveBeenCalledWith('/fallback-route/');
-      });
-    });
-    /* the page broker can keep its data just for one location change,
-    and precisely the change that it is supposed to trigger */
+    /* the page broker can keep its data just for one location change */
     describe('after the expected location change', function() {
       beforeEach(function() {
         $location.url = function() {
@@ -94,6 +70,29 @@ describe('Service: PageBroker', function () {
           });
         $rootScope.$digest();
         expect(res.data).toBe('data content');
+      });
+      describe('after a second location change', function() {
+        beforeEach(function() {
+          $location.url = function() {
+            return '/different-route/';
+          };
+          spyOn($location, 'url').andCallThrough();
+          $rootScope.$broadcast('$locationChangeSuccess');
+        });
+        /* if a page relies on data being in the page broker, this may
+         lead to an error when the user jumps to the page directly, for
+         example from the location. in this case the page broker does not
+         resolve the promise, but instead it redirects the user to the
+         fallback page */
+        it('has no data anymore', function() {
+          var res;
+          PageBroker
+            .getData('/fallback-route/')
+            .then(function(_res_) {
+              res = _res_;
+            });
+          expect($location.url).toHaveBeenCalledWith('/fallback-route/');
+        });
       });
     });
   });

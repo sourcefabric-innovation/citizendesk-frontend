@@ -64,6 +64,11 @@
           class="glyphicon glyphicon-picture"></span>
     <span ng-show="report.original.entities.urls.length"
           class="glyphicon glyphicon-link"></span>
+    <!-- i use ng repeat below, but i am currently developing in a way
+         to have just one tag for every user -->
+    <span ng-repeat="tag in report.authors[0].alias.tags"
+          class="label" ng-bind="tag.name" ng-class="tag.variation">
+    </span>
     <span ng-switch="report.verified">
       <a
          ng-switch-when="true"

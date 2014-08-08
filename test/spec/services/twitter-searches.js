@@ -7,30 +7,14 @@ describe('Service: TwitterSearches', function () {
 
   // instantiate service
   var TwitterSearches,
-      api = {
-        twt_searches: {
-          query: function(){}
-        },
-        reports: {
-          query: function(){},
-          getById: function(){}
-        }
-      },
       $q,
       $rootScope,
       $httpBackend,
-      deferreds = {
-        twt_searches: {},
-        reports: {}
-      };
-  beforeEach(module(function($provide) {
-    $provide.value('api', api);
-  }));
-  beforeEach(inject(function(_$q_) {
+      api;
+  beforeEach(inject(function(_$q_, _api_) {
     $q = _$q_;
-    deferreds.twt_searches.query = $q.defer();
-    spyOn(api.twt_searches, 'query')
-      .andReturn(deferreds.twt_searches.query.promise);
+    api = _api_;
+    spyOn(api.twt_searches, 'query').andCallThrough();
   }));
   beforeEach(inject(function (_TwitterSearches_, _$rootScope_, _$httpBackend_) {
     $rootScope = _$rootScope_;
@@ -49,7 +33,7 @@ describe('Service: TwitterSearches', function () {
         .then(function(_queue_) {
           queue = _queue_;
         });
-      deferreds.twt_searches.query.resolve({
+      api.twt_searches.def.query.resolve({
         _items: [{
           _id: 'search id'
         }]
@@ -57,15 +41,14 @@ describe('Service: TwitterSearches', function () {
       $httpBackend
         .expectPOST(globals.root + 'proxy/start-twitter-search/')
         .respond();
-      deferreds.reports.query = $q.defer();
-      spyOn(api.reports, 'query').andReturn(deferreds.reports.query.promise);
+      spyOn(api.reports, 'query').andCallThrough();
       spyOn(TwitterSearches, 'start').andCallThrough();
       $rootScope.$digest(); // return the searches
       $httpBackend.flush(); // respond start request
     });
     describe('and some specific reports', function(){
       beforeEach(function(){
-        deferreds.reports.query.resolve({
+        api.reports.def.query.resolve({
           _items: [{
             _id: 'to be refreshed'
           }],
@@ -82,9 +65,8 @@ describe('Service: TwitterSearches', function () {
       describe('refreshing a report', function(){
         var result;
         beforeEach(function(){
-          deferreds.reports.getById = $q.defer();
           spyOn(api.reports, 'getById')
-            .andReturn(deferreds.reports.getById.promise);
+            .andCallThrough();
           TwitterSearches
             .refreshReport('search id', 'to be refreshed')
             .then(function(_result_) {
@@ -97,7 +79,7 @@ describe('Service: TwitterSearches', function () {
         });
         describe('got the data', function(){
           beforeEach(function(){
-            deferreds.reports.getById.resolve({
+            api.reports.def.getById.resolve({
               _id: 'to be refreshed',
               refreshed: true
             });

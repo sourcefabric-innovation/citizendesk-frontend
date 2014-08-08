@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('citizendeskFrontendApp')
-  .controller('TwitterSearchCtrl', function ($scope, TwitterSearches, $routeParams, $location, QueueSelection, PageBroker, linkTweetEntities) {
+  .controller('TwitterSearchCtrl', function ($scope, TwitterSearches, $routeParams, $location, QueueSelection, PageBroker, linkTweetEntities, AliasesInLists) {
     $scope.queue = {};
     $scope.limit = 50;
     $scope.loading = true;
@@ -13,6 +13,7 @@ angular.module('citizendeskFrontendApp')
     }
     function processReport(report) {
       report.linkedText = linkTweetEntities(report);
+      AliasesInLists.embedAuthorAlias(report);
     }
     TwitterSearches
       .byId($routeParams.id)

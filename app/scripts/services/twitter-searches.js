@@ -2,7 +2,7 @@
 /* jshint camelcase: false */
 
 angular.module('citizendeskFrontendApp')
-  .service('TwitterSearches', function($resource, $q, Raven, prefix, $http, api, lodash, addNewValues) {
+  .service('TwitterSearches', function($resource, $q, Raven, prefix, $http, api, lodash, addNewValues, AliasesInLists) {
 
     var service = this,
         _ = lodash;
@@ -69,6 +69,7 @@ angular.module('citizendeskFrontendApp')
           })
           .then(function(response) {
             addNewValues(queue.reports, response._items);
+            queue.reports.forEach(AliasesInLists.embedAuthorAlias);
             if (response._links.next) {
               fetch(page + 1);
             }

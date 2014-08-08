@@ -7,16 +7,17 @@
       <a ng-bind="report.authors[0].identifiers.user_name"
        ng-href="#/citizen-card/{{report.authors[0].authority}}/{{report.authors[0].identifiers.user_name}}"
        ></a>
-    <small ng-bind="report.produced | date:'medium'"></small>
+      <small ng-bind="report.produced | date:'medium'"></small>
     </h5>
   </div>
   <div class="panel-body break-long-words"
        ng-bind="report.texts[0].original"></div>
   <div class="panel-footer clearfix">
-    <span ng-show="report.original.entities.media.length"
-          class="glyphicon glyphicon-picture"></span>
-    <span ng-show="report.original.entities.urls.length"
-          class="glyphicon glyphicon-link"></span>
+    <!-- i use ng repeat below, but i am currently developing in a way
+         to have just one tag for every user -->
+    <span ng-repeat="tag in report.authors[0].alias.tags"
+          class="label" ng-bind="tag.name" ng-class="tag.variation">
+    </span>
     <span ng-switch="report.verified">
       <a href="#/report-{{report.feed_type}}/{{report._id}}"
          class="btn btn-info pull-right"

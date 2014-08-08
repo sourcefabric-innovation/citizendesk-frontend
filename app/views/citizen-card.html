@@ -31,10 +31,24 @@
     </h4>
   </div>
 </div>
-<div>
-  <p>
-    <h5 translate> Reports authored by this user </h5>
-  </p>
+<p ng-if="alias">
+  <h5 ng-if="alias.tags.length===0">
+    <span translate>This user is not associated with any list</span>
+  </h5>
+  <h5 ng-if="alias.tags.length===1">
+    <span translate>This user is associated with the list:</span>
+    <label class="label" ng-class="alias.tags[0].variation"
+           ng-bind="alias.tags[0].name">
+    </label>
+  </h5>
+  <button class="btn btn-default" ng-click="editTags()">
+    <span translate>
+      Set the list associated with this user
+    </span>
+  </button>
+</p>
+<p>
+  <h5 translate> Reports authored by this user </h5>
   <div
      ng-repeat="report in reports"
      report-summary
@@ -43,4 +57,4 @@
   <div ng-hide="reports.length" translate>
     No reports here at the moment
   </div>
-</div>
+</p>

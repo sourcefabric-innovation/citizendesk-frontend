@@ -4,22 +4,23 @@ angular.module('citizendeskFrontendApp')
   .service('PageBroker', function PageBroker($location, $rootScope, $q, $window) {
     var data,
         target,
-        goingBack;
+        changing;
     function reset() {
       data = null;
       target = null;
     }
     reset();
     $rootScope.$on('$locationChangeSuccess', function() {
-      if (goingBack) {
-        goingBack = false;
-      } else if ($location.url() !== target) {
+      if (changing) {
+        changing = false;
+      } else {
         reset();
       }
     });
     this.load = function(nextTarget, nextData) {
       data = nextData;
       target = nextTarget;
+      changing = true;
       $location.url(nextTarget);
     };
     this.getData = function(fallback) {
@@ -34,7 +35,7 @@ angular.module('citizendeskFrontendApp')
     };
     this.back = function(nextData) {
       data = nextData;
-      goingBack = true;
+      changing = true;
       $window.history.back();
     };
     this.getReturnedData = function(){

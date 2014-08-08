@@ -39,6 +39,7 @@ module.exports = function(config) {
       //'test/spec/services/twitter-searches.js',
       //'test/spec/services/page-broker.js',
       //'test/spec/services/link-tweet-entities.js',
+      //'test/spec/services/bacon.js',
       //'test/spec/controllers/my-monitor.js',
       //'test/spec/controllers/configure-autoreply.js',
       //'test/spec/controllers/assign.js',
@@ -47,9 +48,8 @@ module.exports = function(config) {
       //'test/spec/controllers/report-sms.js',
       //'test/spec/controllers/configure-coverages.js',
       //'test/spec/controllers/configure-steps.js',
+      'test/spec/controllers/configure-lists-specific.js',
       //'test/spec/controllers/citizen-card.js',
-      //'test/spec/controllers/report-tweet.js',
-      //'test/spec/services/bacon.js',
       //'test/spec/controllers/report-tweet.js',
 
       // for karma markup preprocessor
@@ -84,7 +84,7 @@ module.exports = function(config) {
       // can't test Chrome with Travis, but feel free to uncomment
       // this from time to time for a local test
       //'Chrome',
-      'Firefox'
+      //'Firefox'
     ],
 
 

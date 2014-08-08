@@ -9,7 +9,8 @@ describe('Controller: CitizenCardCtrl', function () {
   var CitizenCardCtrl,
       scope,
       $httpBackend,
-      api;
+      api,
+      PageBroker = {};
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope, _$httpBackend_, _api_) {
@@ -22,7 +23,8 @@ describe('Controller: CitizenCardCtrl', function () {
       $routeParams: {
         name: 'BBCBreaking',
         authority: 'twitter'
-      }
+      },
+      PageBroker: PageBroker
     });
   }));
 
@@ -48,6 +50,15 @@ describe('Controller: CitizenCardCtrl', function () {
     });
     it('adds the alias to the scope', function() {
       expect(scope.alias.locations).toEqual(['London, UK']);
+    });
+    it('brings the user to the lists editing page', function(){
+      PageBroker.load = jasmine.createSpy('page broker load');
+      scope.editTags();
+      expect(PageBroker.load).toHaveBeenCalled();
+      expect(PageBroker.load.mostRecentCall.args[0])
+        .toBe('/edit-user-lists');
+      expect(PageBroker.load.mostRecentCall.args[1])
+        .toEqual(scope.alias);
     });
   });
 

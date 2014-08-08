@@ -2,7 +2,7 @@
 /* jshint camelcase: false */
 
 angular.module('citizendeskFrontendApp')
-  .controller('MobileQueueCtrl', function ($scope, api, QueueSelection, PageBroker) {
+  .controller('MobileQueueCtrl', function ($scope, api, QueueSelection, PageBroker, AliasesInLists) {
     QueueSelection.description = 'Reports coming from mobile phones';
     $scope.reports = [];
     $scope.loading = true;
@@ -24,6 +24,9 @@ angular.module('citizendeskFrontendApp')
           page: page
         })
         .then(function(response) {
+          response._items.forEach(function(report){
+            AliasesInLists.embedAuthorAlias(report);
+          });
           $scope.reports = $scope.reports.concat(response._items);
           if (response._links.next) {
             fetch(page + 1);

@@ -2,7 +2,7 @@
 /* jshint camelcase: false */
 
 angular.module('citizendeskFrontendApp')
-  .controller('MonitorCtrl', function ($scope, $routeParams, api, Monitors, QueueSelection, linkTweetEntities) {
+  .controller('MonitorCtrl', function ($scope, $routeParams, api, Monitors, QueueSelection, linkTweetEntities, AliasesInLists) {
     api.reports
       .query({
         when: JSON.stringify({
@@ -14,6 +14,7 @@ angular.module('citizendeskFrontendApp')
         $scope.reports = response._items;
         $scope.reports.forEach(function(report) {
           report.linkedText = linkTweetEntities(report);
+          AliasesInLists.embedAuthorAlias(report);
         });
       });
     Monitors.getById($routeParams.id)
