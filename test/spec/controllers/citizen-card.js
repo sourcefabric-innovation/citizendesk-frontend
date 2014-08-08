@@ -8,12 +8,15 @@ describe('Controller: CitizenCardCtrl', function () {
 
   var CitizenCardCtrl,
       scope,
-      $httpBackend;
+      $httpBackend,
+      api;
 
   // Initialize the controller and a mock scope
-  beforeEach(inject(function ($controller, $rootScope, _$httpBackend_) {
+  beforeEach(inject(function ($controller, $rootScope, _$httpBackend_, _api_) {
     scope = $rootScope.$new();
     $httpBackend = _$httpBackend_;
+    api = _api_;
+    spyOn(api.citizen_aliases, 'query').andCallThrough();
     CitizenCardCtrl = $controller('CitizenCardCtrl', {
       $scope: scope,
       $routeParams: {
@@ -21,9 +24,6 @@ describe('Controller: CitizenCardCtrl', function () {
         authority: 'twitter'
       }
     });
-    $httpBackend
-      .expectGET(globals.root)
-      .respond(mocks.root);
   }));
 
   afterEach(function() {
@@ -33,10 +33,9 @@ describe('Controller: CitizenCardCtrl', function () {
 
   describe('when an alias is available', function() {
     beforeEach(inject(function($rootScope) {
-      $httpBackend
-        .expectGET(globals.root + 'citizen_aliases?where=%7B%22identifiers.user_name%22:%22BBCBreaking%22,%22authority%22:%22twitter%22%7D')
-        .respond(mocks.citizen_aliases.query_result);
-      $httpBackend.flush();
+      api.citizen_aliases.def.query
+        .resolve(mocks.citizen_aliases.query_result);
+      scope.$digest();
     }));
     it('gets items in the response', function() {
       expect(scope.response._items).toBeDefined();
@@ -54,19 +53,20 @@ describe('Controller: CitizenCardCtrl', function () {
 
   describe('when an alias is not available', function() {
     beforeEach(function() {
-      $httpBackend
-        .expectGET(globals.root + 'citizen_aliases?where=%7B%22identifiers.user_name%22:%22BBCBreaking%22,%22authority%22:%22twitter%22%7D')
-        .respond(mocks.citizen_aliases.empty_query_result);
+      api.citizen_aliases.def.query
+        .resolve(mocks.citizen_aliases.empty_query_result);
       $httpBackend
         .expectPOST(globals.root + 'proxy/fetch-citizen-alias/', {
           name: 'BBCBreaking',
           authority: 'twitter'
         })
         .respond(200);
-      $httpBackend
-        .expectGET(globals.root + 'citizen_aliases?where=%7B%22identifiers.user_name%22:%22BBCBreaking%22,%22authority%22:%22twitter%22%7D')
-        .respond(mocks.citizen_aliases.query_result);
-      $httpBackend.flush();
+      scope.$digest(); // resolve the first promise
+      api.citizen_aliases.reset.query(); // prepare a fresh promise
+      $httpBackend.flush(); // respond to the HTTP request
+      api.citizen_aliases.def.query
+        .resolve(mocks.citizen_aliases.query_result);
+      scope.$digest();
     });
     it('adds the alias to the scope', function() {
       expect(scope.alias.locations).toEqual(['London, UK']);

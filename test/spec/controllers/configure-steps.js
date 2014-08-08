@@ -7,22 +7,20 @@ describe('Controller: ConfigureStepsCtrl', function () {
 
   var ConfigureStepsCtrl,
       scope,
-      $httpBackend;
+      $httpBackend,
+      api;
 
   // Initialize the controller and a mock scope
-  beforeEach(inject(function ($controller, $rootScope, _$httpBackend_) {
+  beforeEach(inject(function ($controller, $rootScope, _$httpBackend_, _api_) {
     scope = $rootScope.$new();
+    api = _api_;
+    spyOn(api.steps, 'query').andCallThrough();
     ConfigureStepsCtrl = $controller('ConfigureStepsCtrl', {
       $scope: scope
     });
     $httpBackend = _$httpBackend_;
-    $httpBackend
-      .expectGET(globals.root)
-      .respond(mocks.root);
-    $httpBackend
-      .expectGET(globals.root + 'steps')
-      .respond(mocks.steps.list);
-    $httpBackend.flush();
+    api.steps.def.query.resolve(mocks.steps.list);
+    scope.$digest();
   }));
 
   it('attaches a list of steps to the scope', function () {

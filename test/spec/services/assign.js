@@ -14,26 +14,25 @@ describe('Service: Assign', function () {
   // instantiate service
   var Assign,
       $httpBackend,
-      $rootScope;
-  beforeEach(inject(function (_$httpBackend_, _$rootScope_) {
+      $rootScope,
+      api;
+  beforeEach(inject(function (_$httpBackend_, _$rootScope_, _api_) {
     $httpBackend = _$httpBackend_;
     $rootScope = _$rootScope_;
-    $httpBackend
-      .expectGET(globals.root)
-      .respond(mocks.root);
-    $httpBackend
-      .expectGET(globals.root + 'users?page=1')
-      .respond(mocks.users.list);
+    api = _api_;
+    spyOn(api.users, 'query').andCallThrough();
+    api.users.def.query.resolve(mocks.users.list);
   }));
   beforeEach(inject(function (_Assign_, $rootScope) {
     Assign = _Assign_;
-    $httpBackend.flush();
+    $rootScope.$digest();
   }));
 
   it('fetches the users', function () {
     expect(Assign.users.length).toBe(4);
   });
   it('(asynchronously) fetches the list of assigned reports for every user', function() {
+    api.reports.reset.query();
     Assign.updateTotals();
     var response = angular.copy(mocks.reports.list);
     response._meta = {
@@ -41,10 +40,7 @@ describe('Service: Assign', function () {
       "page": 1,
       "max_results": 25
     };
-    $httpBackend
-      .expectGET(globals.root + 'reports?where=%7B%22assignments.user_id%22:%2253b146149c616733d6e8c7d4%22%7D')
-      .respond(response);
-    $httpBackend.flush();
+    api.reports.def.query.resolve(response);
     $rootScope.$digest(); // for $q
     expect(Assign.totals['53b146149c616733d6e8c7d4']).toBe(10);
   });

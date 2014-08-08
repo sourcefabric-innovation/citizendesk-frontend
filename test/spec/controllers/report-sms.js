@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Controller: ReportCtrl', function () {
+describe('Controller: ReportSmsCtrl', function () {
 
   // load the controller's module
   beforeEach(module('citizendeskFrontendApp'));
@@ -8,7 +8,10 @@ describe('Controller: ReportCtrl', function () {
   var ReportCtrl,
       scope,
       $httpBackend,
-      Report = {},
+      Report = {
+        getSelectedCoverage: function(){},
+        checkPublished: function(){}
+      },
       Coverages = { promise: { then: function(){} } },
       $window = {
         history: {
@@ -24,25 +27,23 @@ describe('Controller: ReportCtrl', function () {
       def = {
         reports: {}
       },
-      $q;
+      $q,
+      api;
 
   // Initialize the controller and a mock scope
-  beforeEach(inject(function ($controller, $rootScope, _$httpBackend_, _$q_) {
+  beforeEach(inject(function ($controller, $rootScope, _$httpBackend_, _$q_, _api_) {
     $q = _$q_;
+    api = _api_;
     scope = $rootScope.$new();
     dependencies.$scope = scope;
+    spyOn(api.reports, 'getById').andCallThrough();
+    spyOn(api.steps, 'query').andCallThrough();
     ReportCtrl = $controller('ReportSmsCtrl', dependencies);
     $httpBackend = _$httpBackend_;
-    $httpBackend
-      .expectGET(globals.root)
-      .respond(mocks.root);
-    $httpBackend
-      .expectGET(globals.root + 'reports/abcdef')
-      .respond(angular.copy(mocks.reports['538df48f9c616729ad000035']));
-    $httpBackend
-      .expectGET(globals.root + 'steps')
-      .respond(mocks.steps.list);
-    $httpBackend.flush();
+    api.reports.def.getById
+      .resolve(angular.copy(mocks.reports['538df48f9c616729ad000035']));
+    api.steps.def.query.resolve(mocks.steps.list);
+    scope.$digest();
   }));
 
   it('has the correct link to the endpoint', function() {
@@ -70,17 +71,15 @@ describe('Controller: ReportCtrl', function () {
     beforeEach(inject(function ($controller, $rootScope) {
       scope = $rootScope.$new();
       dependencies.$scope = scope;
+      api.reports.reset.getById();
+      api.steps.reset.query();
       ReportCtrl = $controller('ReportSmsCtrl', dependencies);
-      $httpBackend
-        .expectGET(globals.root + 'reports/abcdef')
-        .respond(mocks.reports['538df48f9c616729ad000035']);
-      $httpBackend
-        .expectGET(globals.root + 'steps')
-        .respond(mocks.steps.list);
-      $httpBackend.flush();
+      api.reports.def.getById
+        .resolve(angular.copy(mocks.reports['538df48f9c616729ad000035']));
+      api.steps.def.query.resolve(mocks.steps.list);
+      scope.$digest();
     }));
     it('disables report verification', function() {
-      scope.$apply();
       expect(scope.wait).toBe(true);
     });
     describe('after all steps are done', function() {
@@ -121,21 +120,22 @@ describe('Controller: ReportCtrl', function () {
     });
     describe('when saving', function() {
       beforeEach(function() {
+        spyOn(api.reports, 'update').andCallThrough();
         scope.transcriptCandidate = 'edited';
-        var response = angular.copy(scope.report);
-        response.texts[0].transcript = 'edited';
-        $httpBackend
-          .expect('PATCH', 'http://cd2.sourcefabric.net/citizendesk-interface/reports/53ba73019c6167462300068b')
-          .respond(response);
         scope.saveTranscript();
-        scope.$digest();
+      });
+      it('asks to update', function(){
+        expect(api.reports.update).toHaveBeenCalled();
       });
       it('disables the input', function() {
         expect(scope.disableTranscript).toBe(true);
       });
       describe('when saved', function() {
         beforeEach(function() {
-          $httpBackend.flush();
+          var response = angular.copy(scope.report);
+          response.texts[0].transcript = 'edited';
+          api.reports.def.update.resolve(response);
+          scope.$digest();
         });
         it('updates the model', function() {
           expect(scope.report.texts[0].transcript).toBe('edited');

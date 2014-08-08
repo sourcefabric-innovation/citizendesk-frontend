@@ -10,7 +10,10 @@ describe('Service: PageBroker', function () {
   beforeEach(module('citizendeskFrontendApp'));
 
   var $location = {
-    url: function(){}
+    url: function(){},
+    path: function(){
+      return { search: function(){ return { replace: function(){} }; } };
+    }
   };
   var $window = {
     history: {

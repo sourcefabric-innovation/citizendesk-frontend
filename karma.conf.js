@@ -20,7 +20,7 @@ module.exports = function(config) {
       'app/bower_components/raven-js/dist/raven.js',
       'app/bower_components/angular-gettext/dist/angular-gettext.min.js',
       'app/bower_components/lodash/dist/lodash.min.js',
-      'app/bower_components/eve-api/dist/eve-api.js',
+      'app/bower_components/eve-api/dist/eve-api-mock.js',
       'app/bower_components/angular-strap/dist/modules/debounce.js',
       'app/bower_components/angular-strap/dist/modules/dimensions.js',
       'app/bower_components/angular-strap/dist/modules/scrollspy.js',
@@ -47,6 +47,9 @@ module.exports = function(config) {
       //'test/spec/controllers/session.js',
       //'test/spec/controllers/report-sms.js',
       //'test/spec/controllers/configure-coverages.js',
+      //'test/spec/controllers/configure-steps.js',
+      //'test/spec/controllers/citizen-card.js',
+      //'test/spec/controllers/report-tweet.js',
 
       // for karma markup preprocessor
       'app/views/**/*.html'
