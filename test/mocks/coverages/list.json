@@ -1,1 +1,44 @@
-{"_links": {"self": {"title": "coverages", "href": "http://cd2.sourcefabric.net/citizendesk-interface/coverages"}, "parent": {"title": "home", "href": "http://cd2.sourcefabric.net/citizendesk-interface"}}, "_items": [{"_id": "53c53ab09c61671221000000", "_links": {"self": {"title": "Coverage", "href": "http://cd2.sourcefabric.net/citizendesk-interface/coverages/53c53ab09c61671221000000"}}, "active": true, "title": "1st", "_created": "1970-01-01T00:00:00+0000", "description": "a testing", "_updated": "1970-01-01T00:00:00+0000", "_etag": "9c95f26c9779e36d6b57c2e8bb98b810500f18f0"}, {"_id": "53c53acf9c61671221000001", "_links": {"self": {"title": "Coverage", "href": "http://cd2.sourcefabric.net/citizendesk-interface/coverages/53c53acf9c61671221000001"}}, "active": true, "title": "2nd", "_created": "1970-01-01T00:00:00+0000", "description": "another testing", "_updated": "1970-01-01T00:00:00+0000", "_etag": "a47e99a2c2c35ebc0b43f88e312f2b14b3b864bb"}]}
+{
+  "_links": {
+    "self": {
+      "title": "coverages",
+      "href": "http://cd2.sourcefabric.net/citizendesk-interface/coverages"
+    },
+    "parent": {
+      "title": "home",
+      "href": "http://cd2.sourcefabric.net/citizendesk-interface"
+    }
+  },
+  "_items": [
+    {
+      "_id": "53c53ab09c61671221000000",
+      "_links": {
+        "self": {
+          "title": "Coverage",
+          "href": "http://cd2.sourcefabric.net/citizendesk-interface/coverages/53c53ab09c61671221000000"
+        }
+      },
+      "active": true,
+      "title": "1st",
+      "_created": "1970-01-01T00:00:00+0000",
+      "description": "a testing",
+      "_updated": "1970-01-01T00:00:00+0000",
+      "_etag": "9c95f26c9779e36d6b57c2e8bb98b810500f18f0"
+    },
+    {
+      "_id": "53c53acf9c61671221000001",
+      "_links": {
+        "self": {
+          "title": "Coverage",
+          "href": "http://cd2.sourcefabric.net/citizendesk-interface/coverages/53c53acf9c61671221000001"
+        }
+      },
+      "active": true,
+      "title": "2nd",
+      "_created": "1970-01-01T00:00:00+0000",
+      "description": "another testing",
+      "_updated": "1970-01-01T00:00:00+0000",
+      "_etag": "a47e99a2c2c35ebc0b43f88e312f2b14b3b864bb"
+    }
+  ]
+}

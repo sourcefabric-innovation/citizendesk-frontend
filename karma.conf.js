@@ -52,6 +52,7 @@ module.exports = function(config) {
       //'test/spec/controllers/citizen-card.js',
       //'test/spec/controllers/report-tweet.js',
       //'test/spec/services/bacon.js',
+      //'test/spec/controllers/report-tweet.js',
 
       // for karma markup preprocessor
       'app/views/**/*.html'
@@ -84,7 +85,7 @@ module.exports = function(config) {
       'PhantomJS',
       // can't test Chrome with Travis, but feel free to uncomment
       // this from time to time for a local test
-      //,'Chrome'
+      //'Chrome',
       'Firefox'
     ],
 

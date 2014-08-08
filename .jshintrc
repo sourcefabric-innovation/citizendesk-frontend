@@ -22,6 +22,7 @@
     "angular": false,
     "Raven": false,
     "alert": false,
-    "_": false
+    "_": false,
+    "Bacon": false
   }
 }

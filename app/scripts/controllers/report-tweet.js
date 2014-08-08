@@ -2,8 +2,66 @@
 /* jshint camelcase: false */
 
 angular.module('citizendeskFrontendApp')
-  .controller('ReportTweetCtrl', function ($scope, $routeParams, Raven, api, $location, $anchorScroll, Coverages, Report, linkTweetEntities) {
-    var id = $routeParams.id;
+  .controller('ReportTweetCtrl', function ($scope, $routeParams, Raven, api, $location, $anchorScroll, Coverages, Report, linkTweetEntities, Bacon, $q) {
+    var id = $routeParams.id,
+        properties = {
+          coveragesData: Bacon.constant(Coverages.promise)
+        },
+        streams = {
+          updateReport: new Bacon.Bus()
+        };
+    properties.coveragesData.onValue(function(promise){
+      promise.then(function(coverages) { $scope.coverages = coverages; });
+    });
+    streams.reportData = streams.updateReport.map(function() {
+      return api.reports.getById(id);
+    });
+    streams.reportData.onValue(function(promise) {
+      return promise.then(function(report){
+        addSteps(report); // idempotent
+        $scope.isPublished = Report.checkPublished(report);
+        $scope.report = report;
+        $scope.linkedText = linkTweetEntities(report);
+        if (report.on_behalf_id) {
+          api.users.getById(report.on_behalf_id)
+            .then(function(user) {
+              $scope.onBehalf = user;
+            });
+        }
+      });
+    });
+    streams.reportData.take(1).onValue(function(promise){
+        promise.then(function(){
+          $scope.$watch('report.verified', function(newValue, oldValue) {
+            if (oldValue === true && newValue === false) {
+              alert('this report was marked as verified, and now it is marked as unverified again! this is a very bad practice, and should be avoided');
+            }
+            $scope.stepsDisabled = $scope.report.verified;
+          });
+
+          $scope.$watch('report.steps', function() {
+            if($scope.report.steps) {
+              $scope.wait = $scope.report.steps.some(function(step) {
+                return !step.done;
+              });
+            }
+          }, true);
+        });
+      });
+
+    Bacon
+      .combineAsArray(streams.reportData, properties.coveragesData)
+      .onValue(function(value) {
+        var reportPromise = value[0],
+            coveragesPromise = value[1];
+        $q.all([reportPromise, coveragesPromise])
+          .then(function(results){
+            var report = results[0],
+                coverages = results[1];
+            $scope.selectedCoverage = Report
+              .getSelectedCoverage(report, coverages);
+          });
+      });
 
     function addSteps(report) {
       if (!('steps' in report)) {
@@ -21,56 +79,6 @@ angular.module('citizendeskFrontendApp')
           });
       }
     }
-
-    function updateReport() {
-      var promise = api.reports.getById(id);
-      promise.then(function(report) {
-        $scope.report = report;
-        $scope.selectedCoverage = Report
-          .getSelectedCoverage(report, $scope.coverages);
-        $scope.linkedText = linkTweetEntities(report);
-        if (report.on_behalf_id) {
-          api.users.getById(report.on_behalf_id)
-            .then(function(user) {
-              $scope.onBehalf = user;
-            });
-        }
-      });
-      return promise;
-    }
-
-    updateReport()
-      .then(function() {
-        addSteps($scope.report);
-
-        $scope.$watch(function() {
-          $scope.isPublished = Report.checkPublished($scope.report);
-        }, true);
-
-        $scope.$watch('report.session', function(newValue) {
-          $scope.encodedSession = encodeURIComponent(newValue);
-        });
-
-        $scope.$watch('report.verified', function(newValue, oldValue) {
-          if (oldValue === true && newValue === false) {
-            alert('this report was marked as verified, and now it is marked as unverified again! this is a very bad practice, and should be avoided');
-          }
-          $scope.stepsDisabled = $scope.report.verified;
-        });
-
-        $scope.$watch('report.texts', function() {
-          $scope.hasTranscript = $scope.report.texts[0].transcript;
-        }, true);
-
-        $scope.$watch('report.steps', function() {
-          if($scope.report.steps) {
-            $scope.wait = $scope.report.steps.some(function(step) {
-              return !step.done;
-            });
-          }
-        }, true);
-
-      });
 
     $scope.save = function() {
       $scope.status = 'info';
@@ -103,57 +111,12 @@ angular.module('citizendeskFrontendApp')
       $anchorScroll();
     };
 
-    $scope.startTranscript = function() {
-      var initial;
-      if ($scope.hasTranscript) {
-        initial = $scope.report.texts[0].transcript;
-      } else {
-        initial = angular
-          .copy($scope.report.texts[0].original);
-      }
-      $scope.transcriptCandidate = initial;
-      $scope.editingTranscript = true;
-    };
-
-    $scope.cancelTranscriptEditing = function() {
-      $scope.editingTranscript = false;
-    };
-
-    $scope.saveTranscript = function() {
-      $scope.disableTranscript = true;
-      var texts = angular.copy($scope.report.texts);
-      texts[0].transcript = $scope.transcriptCandidate;
-      api.reports
-        .update($scope.report, {texts: texts})
-        .then(function(report) {
-          $scope.disableTranscript = false;
-          $scope.editingTranscript = false;
-          $scope.report = report;
-        });
-    };
-
-    $scope.discardTranscript = function() {
-      $scope.disableTranscript = true;
-      var texts = angular.copy($scope.report.texts);
-      texts[0].transcript = undefined;
-      api.reports
-        .update($scope.report, {texts: texts})
-        .then(function(report) {
-          $scope.disableTranscript = false;
-          $scope.report = report;
-        });
-    };
-
-    Coverages.promise.then(function(coverages) {
-      $scope.coverages = coverages;
-    });
-
     $scope.publish = function() {
       $scope.disablePublish = true;
       Report
         .publish($scope.report, $scope.selectedCoverage)
         .then(function() {
-          updateReport();
+          streams.updateReport.push('start');
           $scope.disablePublish = false;
       });
     };
@@ -163,9 +126,10 @@ angular.module('citizendeskFrontendApp')
       Report
         .unpublish($scope.report, $scope.selectedCoverage)
         .then(function() {
-          updateReport();
+          streams.updateReport.push('start');
           $scope.disablePublish = false;
         });
     };
 
+    streams.updateReport.push('start');
   });
