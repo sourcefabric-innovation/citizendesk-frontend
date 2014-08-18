@@ -207,7 +207,8 @@ describe('Controller: MyMonitorCtrl', function () {
     });
     describe('first reports are received', function() {
       beforeEach(function() {
-        deferreds.reports_query.resolve(mocks.reports['list-not-paginated']);
+        deferreds.reports_query
+          .resolve(angular.copy(mocks.reports['list-not-paginated']));
         scope.$digest();
       });
       it('adds the reports to the scope', function(){

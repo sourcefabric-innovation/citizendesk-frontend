@@ -132,16 +132,16 @@ describe('Service: Report', function () {
       handler = Report.getVerificationHandler($scope);
     });
     it('complains about changing from verified to unverified', function(){
-      handler(true, false);
+      handler('verified', 'debunked');
       expect($window.alert).toHaveBeenCalled();
     });
     it('complains when marking as verified without doing the steps', function(){
-      handler(false, true);
+      handler('', 'verified');
       expect($window.alert).toHaveBeenCalled();
     });
     it('is happy when everything is regular', function(){
       $scope.report.steps[1].done = true;
-      handler(false, true);
+      handler('', 'verified');
       expect($window.alert).toHaveBeenCalled();
     });
     it('has no problems when the steps are missing', function(){

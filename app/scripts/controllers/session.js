@@ -2,7 +2,7 @@
 /* jshint camelcase: false */
 
 angular.module('citizendeskFrontendApp')
-  .controller('SessionCtrl', function ($scope, api, $routeParams, $http, config, session, addNewValues, PagePolling, Body, $filter, $location) {
+  .controller('SessionCtrl', function ($scope, api, $routeParams, $http, config, session, addNewValues, PagePolling, Body, $filter, $location, superdeskDate) {
     Body.glue = true;
     $scope.body = Body;
     $scope.reports = [];
@@ -110,8 +110,8 @@ angular.module('citizendeskFrontendApp')
           channels: [{
             type: 'frontend'
           }],
-          produced: $filter('date')(new Date(), 'yyyy-MM-ddTHH:mm:ss+0000'),
-          created: $filter('date')(new Date(), 'yyyy-MM-ddTHH:mm:ss+0000'),
+          produced: superdeskDate.render(new Date()),
+          created: superdeskDate.render(new Date()),
           authors: [{
             authority: 'citizen_desk',
             identifiers: session._id

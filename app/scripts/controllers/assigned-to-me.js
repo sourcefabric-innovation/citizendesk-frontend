@@ -3,33 +3,44 @@
 /* jshint camelcase: false */
 
 angular.module('citizendeskFrontendApp')
-  .controller('AssignedToMeCtrl', function ($scope, api, session, linkTweetEntities, Raven) {
+  .controller('AssignedToMeCtrl', function ($scope, api, session, Report, lodash) {
     $scope.reports = [];
+    $scope.disabled = {};
     function fetch(page) {
+      $scope.loading = true;
       api.reports
         .query({
           where: JSON.stringify({
-            'assignments.user_id': session.identity._id
+            $and: [{
+              'assignments.user_id': session.identity._id
+            }, {
+              $or: [{
+                status: '',
+              }, {
+                status: {$exists: false}
+              }, {
+                'coverages.published': { $size: 0 }
+              }]
+            }]
           }),
           page: page,
           sort: '[("produced", -1)]'
         })
         .then(function(response) {
           var reports = response._items;
-          reports.forEach(function(report) {
-            if (report.feed_type === 'tweet') {
-              try {
-                report.linkedText = linkTweetEntities(report);
-              } catch (exception) {
-                Raven.raven.captureException(exception);
-              }
-            }
-          });
+          Report.linkTweetTextsInList(reports);
           $scope.reports = $scope.reports.concat(reports);
           if (response._links.next) {
             fetch(page + 1);
+          } else {
+            $scope.loading = false;
           }
         });
     }
     fetch(1);
+    $scope.dismiss = Report.getDismiss($scope.disabled, function(report) {
+      lodash.remove($scope.reports, function(candidate) {
+        return candidate._id === report._id;
+      });
+    });
   });

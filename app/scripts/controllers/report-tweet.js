@@ -2,7 +2,7 @@
 /* jshint camelcase: false */
 
 angular.module('citizendeskFrontendApp')
-  .controller('ReportTweetCtrl', function ($scope, $routeParams, Raven, api, $location, Coverages, Report, linkTweetEntities, Bacon, $q) {
+  .controller('ReportTweetCtrl', function ($scope, $routeParams, Raven, api, $location, Coverages, Report, linkTweetEntities, Bacon, $q, screenSize) {
     var id = $routeParams.id,
         properties = {
           coveragesData: Bacon.constant(Coverages.promise)
@@ -33,9 +33,15 @@ angular.module('citizendeskFrontendApp')
     streams.reportData.take(1).onValue(function(promise){
         promise.then(function(){
           $scope.$watch(
-            'report.verified',
+            'report.status',
             Report.getVerificationHandler($scope)
           );
+          $scope.$watch('report.status', function(n, o) {
+            if(n === o) {
+              return;
+            }
+            $scope.save();
+          });
         });
       });
 
@@ -70,14 +76,17 @@ angular.module('citizendeskFrontendApp')
       }
     }
 
+    $scope.largeScreen = screenSize.is('md,lg');
     $scope.save = function() {
       $scope.status = 'info';
       $scope.alert = 'saving';
+      $scope.disabled = true;
 
       api.reports.save($scope.report)
         .then(function () {
           $scope.status = 'success';
           $scope.alert = 'saved';
+          $scope.disabled = false;
         })
         .catch(function () {
           $scope.status = 'danger';

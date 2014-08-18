@@ -105,66 +105,7 @@
     </div>
   </div>
 </div>
-<div class="alert alert-{{status}}"
-     ng-hide="alert==''"
-     ng-bind="alert"></div>
-<div class="container">
-  <form id="tasks" class="form-horizontal" ng-repeat="step in report.steps">
-    <div class="form-group">
-      <div class="checkbox">
-        <label>
-          <input type="checkbox"
-                 ng-model="step.done"
-                 ng-change="changeStep(step.done)"
-                 >
-          {{step.description}}
-        </label>
-      </div>
-    </div>
-  </form>
-  <form class="form-horizontal">
-    <div class="form-group">
-      <div class="checkbox">
-        <label>
-          <input type="checkbox"
-                 ng-model="report.verified"
-                 ng-change="save()"
-                 >
-          <strong translate>This report is verified</strong>
-        </label>
-      </div>
-    </div>
-  </form>
-</div>
-<div class="row" ng-show="isPublished && onBehalf">
-  <div class="col-md-12">
-    <h5>
-      <span translate>Published by {{onBehalf.username}}</span>
-    </h5>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-8 col-xs-8">
-    <select class="form-control" ng-model="selectedCoverage"
-            ng-options="coverage.title for coverage in coverages"
-            ng-disabled="isPublished"
-            >
-    </select>
-  </div>
-  <div class="col-md-4 col-xs-4">
-    <button class="btn btn-warning" ng-if="!isPublished"
-            ng-disabled="disablePublish || (!selectedCoverage)"
-            ng-click="publish()">
-      <span translate>Publish</span>
-    </button>
-    <button class="btn btn-warning" ng-if="isPublished"
-            ng-disabled="disablePublish || (!selectedCoverage)"
-            ng-click="unpublish()">
-      <span translate>Unpublish</span>
-    </button>
-  </div>
-</div>
-<p>&nbsp;</p>
+<div common-report-detail-part></div>
 <div ng-if="report.summary">
   <h4 translate>Session summary</h4>
   <p translate>

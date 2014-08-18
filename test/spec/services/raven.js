@@ -11,8 +11,10 @@ describe('Service: Raven', function () {
     Raven = _Raven_;
   }));
 
-  xit('should do something', function () {
-    expect(!!Raven.raven.captureMessage('test')).toBe(true);
+  xit('captures messages', function () {
+    expect(Raven.raven.captureMessage).toBeDefined();
   });
-
+  it('captures exceptions', function(){
+    expect(Raven.raven.captureException).toBeDefined();
+  });
 });

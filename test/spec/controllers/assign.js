@@ -81,11 +81,9 @@ describe('Controller: AssignCtrl', function () {
 
     scope.assignTo('test-user-id');
     expect(api.reports.update).toHaveBeenCalled();
-    expect(api.reports.update.mostRecentCall.args[1])
-      .toEqual({
-        assignments: [{user_id: 'test-user-id'}],
-        proto: false
-      });
+    var updated = api.reports.update.mostRecentCall.args[1];
+    expect(updated.proto).toBe(false);
+    expect(updated.assignments).toEqual([{user_id: 'test-user-id'}]);
     expect(scope.disabled).toBe(true);
 
     deferred.resolve({});

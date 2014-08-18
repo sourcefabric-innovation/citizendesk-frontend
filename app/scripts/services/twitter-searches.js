@@ -58,8 +58,12 @@ angular.module('citizendeskFrontendApp')
     keep updating the queue in the closure with the other pages */
     this.fetchResults = function(queue) {
       var query = JSON.stringify({
-            'channels.request': queue._id
-          });
+        $and: [
+          {'channels.request': queue._id},
+          {status: {$exists: false}},
+          {assignments: {$size: 0}}
+        ]
+      });
       function fetch(page) {
         return api.reports
           .query({

@@ -2,7 +2,7 @@
 /* jshint camelcase: false */
 
 angular.module('citizendeskFrontendApp')
-  .controller('ReportSmsCtrl', function ($scope, $routeParams, Raven, api, $location, Report, Coverages, $window) {
+  .controller('ReportSmsCtrl', function ($scope, $routeParams, Raven, api, $location, Report, Coverages, $window, screenSize) {
     var id = $routeParams.id;
 
     function addSteps(report) {
@@ -49,7 +49,14 @@ angular.module('citizendeskFrontendApp')
         $scope.encodedSession = encodeURIComponent(newValue);
       });
 
-      $scope.$watch('report.verified', Report.getVerificationHandler($scope));
+      $scope.$watch('report.status', Report.getVerificationHandler($scope));
+
+      $scope.$watch('report.status', function(n, o) {
+        if(n === o) {
+          return;
+        }
+        $scope.save();
+      });
 
       $scope.$watch('report.texts', function() {
         $scope.hasTranscript = $scope.report.texts[0].transcript;
@@ -58,14 +65,17 @@ angular.module('citizendeskFrontendApp')
 
     $scope.api = api; // expose for mocking in tests
     
+    $scope.largeScreen = screenSize.is('md,lg');
     $scope.save = function() {
       $scope.status = 'info';
       $scope.alert = 'saving';
+      $scope.disabled = true;
 
       api.reports.save($scope.report)
         .then(function () {
           $scope.status = 'success';
           $scope.alert = 'saved';
+          $scope.disabled = false;
         })
         .catch(function () {
           $scope.status = 'danger';

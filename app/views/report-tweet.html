@@ -16,14 +16,14 @@
     <p>
       <div class="row">
         <!-- avatar -->
-        <div class="col-md-2 col-xs-2">
+        <div class="col-md-2 col-xs-3">
           <a target="_blank"
              ng-href="//twitter.com/{{report.original.user.screen_name}}">
             <img class="media-object"
                  ng-src="{{report.original.user.profile_image_url}}">
           </a>
         </div>
-        <div class="col-md-8 col-xs-8">
+        <div class="col-md-8 col-xs-7">
           <p>
             <!-- full name -->
             <div>
@@ -88,86 +88,26 @@
       translate
       >
       Reply
-    </a-->
-    <a class="btn btn-default"
-       ng-href="#/session/{{encodedSession}}"
-       translate
-       >
-      Session
-    </a>
-  </p>
-  <div>
-    <div class="row">
-      <div class="col-sm-6">
-        <dl>
-          <dt translate>Citizen card</dt>
-          <dd>
-            <a ng-bind="report.authors[0].identifiers.user_name"
-               ng-href="#/citizen-card/{{report.authors[0].authority}}/{{report.authors[0].identifiers.user_name}}"
-               ></a>
-          </dd>
-        </dl>
-      </div>
-    </div>
-  </div>
-  <div class="alert alert-{{status}}"
-       ng-hide="alert==''"
-       ng-bind="alert"></div>
-  <div class="container">
-  <form id="tasks" class="form-horizontal" ng-repeat="step in report.steps">
-    <div class="form-group">
-      <div class="checkbox">
-        <label>
-          <input type="checkbox"
-                 ng-model="step.done"
-                 ng-change="changeStep(step.done)"
-                 >
-          {{step.description}}
-        </label>
-      </div>
-    </div>
-  </form>
-  <form class="form-horizontal">
-    <div class="form-group">
-      <div class="checkbox">
-        <label>
-          <input type="checkbox"
-                 ng-model="report.verified"
-                 ng-change="save()"
-                 >
-          <strong translate>This report is verified</strong>
-        </label>
-      </div>
-    </div>
-  </form>
-  </div>
-  <div class="row" ng-show="isPublished && onBehalf">
-    <div class="col-md-12">
-      <h5>
-        <span translate>Published by {{onBehalf.username}}</span>
-      </h5>
-    </div>
-  </div>
+      </a-->
+  <a class="btn btn-default"
+     ng-href="#/session/{{encodedSession}}"
+     translate
+     >
+    Session
+  </a>
+</p>
+<div>
   <div class="row">
-    <div class="col-md-8 col-xs-8">
-      <select class="form-control" ng-model="selectedCoverage"
-              ng-options="coverage.title for coverage in coverages"
-              ng-disabled="isPublished"
-              >
-      </select>
-    </div>
-    <div class="col-md-4 col-xs-4">
-      <button class="btn btn-warning" ng-if="!isPublished"
-              ng-disabled="disablePublish || (!selectedCoverage)"
-              ng-click="publish()">
-        <span translate>Publish</span>
-      </button>
-      <button class="btn btn-warning" ng-if="isPublished"
-              ng-disabled="disablePublish || (!selectedCoverage)"
-              ng-click="unpublish()">
-        <span translate>Unpublish</span>
-      </button>
+    <div class="col-sm-6">
+      <dl>
+        <dt translate>Citizen card</dt>
+        <dd>
+          <a ng-bind="report.authors[0].identifiers.user_name"
+             ng-href="#/citizen-card/{{report.authors[0].authority}}/{{report.authors[0].identifiers.user_name}}"
+             ></a>
+        </dd>
+      </dl>
     </div>
   </div>
-<p>&nbsp;</p>
-<div class="clearfix"></div>
+</div>
+<div common-report-detail-part></div>

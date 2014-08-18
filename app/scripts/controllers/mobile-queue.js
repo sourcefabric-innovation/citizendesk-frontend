@@ -17,7 +17,9 @@ angular.module('citizendeskFrontendApp')
           where: JSON.stringify({
             $and: [
               {feed_type: 'sms'},
-              {automatic: {$ne: true}}
+              {automatic: {$ne: true}},
+              {status: {$exists: false}},
+              {assignments: {$size: 0}}
             ]
           }),
           sort: '[("produced", -1)]',

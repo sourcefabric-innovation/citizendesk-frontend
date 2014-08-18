@@ -1,0 +1,50 @@
+<span class="pull-right" ng-switch="report.verified">
+  <a href="#/report-{{report.feed_type}}/{{report._id}}"
+     class="btn btn-info"
+     ng-switch-when="true"
+     >
+    <span translate>
+      Details
+    </span>
+  </a>
+  <span ng-switch-default>
+    <span ng-switch="report.assignments.length">
+      <span ng-switch-when="0">
+        <a class="btn btn-warning"
+           ng-show="assign"
+           ng-click="assign(report)"
+           >
+          <span translate>
+            Assign
+          </span>
+        </a>
+      </span>
+      <a class="btn btn-warning"
+         ng-show="dismiss"
+         ng-click="dismiss(report)"
+         ng-disabled="disabled[report._id]"
+         >
+        <span translate>
+          Dismiss
+        </span>
+      </a>
+      <span ng-switch-default>
+        <a class="btn btn-info"
+           ng-show="assign"
+           ng-href="#/assigned/"
+           >
+          <span translate>
+            Assigned
+          </span>
+        </a>
+      </span>
+    </span>
+    <a href="#/report-{{report.feed_type}}/{{report._id}}"
+       class="btn btn-primary"
+       >
+      <span translate>
+        Check
+      </span>
+    </a>
+  </span>
+</span>

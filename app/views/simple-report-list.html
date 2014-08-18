@@ -1,6 +1,4 @@
-<h3 translate>
-  Items assigned to you <small>for verification or publishing</small>
-</h3>
+<h3 ng-bind="description"></h3>
 <p>
   <div class="input-group">
     <div class="input-group-addon">
@@ -24,6 +22,6 @@
     </div>
   </p>
 </div>
-<p ng-hide="loading || reports.length" translate>
+<div ng-hide="loading || reports.length" translate>
   No reports in this queue
-</p>
+</div>

@@ -18,49 +18,6 @@
     <span ng-repeat="tag in report.authors[0].alias.tags"
           class="label" ng-bind="tag.name" ng-class="tag.variation">
     </span>
-    <span ng-switch="report.verified">
-      <a href="#/report-{{report.feed_type}}/{{report._id}}"
-         class="btn btn-info pull-right"
-         ng-switch-when="true"
-         >
-        <span translate>
-          Details
-        </span>
-      </a>
-      <span
-         class="pull-right"
-         ng-switch-default
-         >
-        <span ng-switch="report.assignments.length">
-          <span ng-switch-when="0">
-            <a class="btn btn-warning"
-               ng-show="assign"
-               ng-click="assign(report)"
-               >
-              <span translate>
-                Assign
-              </span>
-            </a>
-          </span>
-          <span ng-switch-default>
-            <a class="btn btn-info"
-               ng-show="assign"
-               ng-href="#/assigned/"
-               >
-              <span translate>
-                Assigned
-              </span>
-            </a>
-          </span>
-        </span>
-        <a href="#/report-{{report.feed_type}}/{{report._id}}"
-           class="btn btn-primary"
-           >
-          <span translate>
-            Check
-          </span>
-        </a>
-      </span>
-    </span>
+    <span report-summary-buttons></span>
   </div>
 </div>

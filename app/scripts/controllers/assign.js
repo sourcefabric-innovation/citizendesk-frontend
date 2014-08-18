@@ -2,7 +2,7 @@
 /* jshint camelcase: false */
 
 angular.module('citizendeskFrontendApp')
-  .controller('AssignCtrl', function ($scope, Assign, PageBroker, $window, api, $http, session) {
+  .controller('AssignCtrl', function ($scope, Assign, PageBroker, $window, api, $http, session, reportStatuses, superdeskDate) {
     $scope.users = Assign.users;
     $scope.totals = Assign.totals;
     $scope.identity = session.identity;
@@ -20,6 +20,8 @@ angular.module('citizendeskFrontendApp')
           assignments: [{
             user_id: user_id
           }],
+          status: reportStatuses(''),
+          status_updated: superdeskDate.render(new Date()),
           proto: false
         })
         .then(function() {

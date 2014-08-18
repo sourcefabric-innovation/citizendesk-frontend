@@ -27,7 +27,8 @@ angular
       'twt_streams',
       'twt_filters',
       'core_config',
-      'citizen_lists'
+      'citizen_lists',
+      'report_statuses'
     ].forEach(function(entity) {
       apiProvider.api(entity, { type:'http', backend: { rel:entity }});
     });
@@ -131,6 +132,22 @@ angular
         templateUrl: 'views/assigned-to-me.html',
         controller: 'AssignedToMeCtrl'
       })
+      .when('/published-list', {
+        templateUrl: 'views/simple-report-list.html',
+        controller: 'PublishedListCtrl'
+      })
+      .when('/dismissed-list', {
+        templateUrl: 'views/simple-report-list.html',
+        controller: 'DismissedListCtrl'
+      })
+      .when('/debunked-list', {
+        templateUrl: 'views/simple-report-list.html',
+        controller: 'DebunkedListCtrl'
+      })
+      .when('/assigned-list', {
+        templateUrl: 'views/simple-report-list.html',
+        controller: 'AssignedListCtrl'
+      })
       .when('/assign/', {
         templateUrl: 'views/assign.html',
         controller: 'AssignCtrl'
@@ -148,6 +165,9 @@ angular
         controller: 'MyMonitorCtrl'
       })
       // static pages, without controllers
+      .when('/processed-queues', {
+        templateUrl: 'views/processed-queues.html'
+      })
       .when('/error-no-monitors', {
         templateUrl: 'views/error-no-monitors.html'
       })

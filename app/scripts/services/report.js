@@ -2,7 +2,7 @@
 /* jshint camelcase: false */
 
 angular.module('citizendeskFrontendApp')
-  .service('Report', function Report(api, session, $q, config, $http, lodash, gettextCatalog, $window) {
+  .service('Report', function Report(api, session, $q, config, $http, lodash, gettextCatalog, $window, linkTweetEntities, Raven, reportStatuses, superdeskDate) {
     var _ = lodash;
     this.publish = function(report, coverage) {
       var modifiedReport = angular.copy(report),
@@ -45,18 +45,47 @@ angular.module('citizendeskFrontendApp')
     // and mocked at the controller level
     this.getVerificationHandler = function($scope) {
       return function(newValue, oldValue){
+        // possibly complain about doing the necessary steps
         if ($scope.report.steps) {
-          var doNotJump = gettextCatalog.getString('This report was marked as verified, and now it is marked as unverified again! This is a very bad practice, and should be avoided');
           var badVerification = gettextCatalog.getString('This report is being marked as verified without going through the planned verification steps');
           var allDone = $scope.report.steps.every(function(step) {
             return step.done;
           });
-          if (newValue === true && allDone === false) {
+          if (newValue === 'verified' && allDone === false) {
             $window.alert(badVerification);
-          } else if (oldValue === true && newValue === false) {
-            $window.alert(doNotJump);
           }
         }
+        // possibly complain about not playing with verification
+        if (oldValue === 'verified') {
+          var doNotJump = gettextCatalog.getString('This report was marked as verified, and now it is marked as unverified again! This is a very bad practice, and should be avoided');
+          $window.alert(doNotJump);
+        }
+      };
+    };
+    this.linkTweetTextsInList = function(list) {
+      list.forEach(function(report) {
+        if (report.feed_type === 'tweet') {
+          try {
+            report.linkedText = linkTweetEntities(report);
+          } catch (exception) {
+            Raven.raven.captureException(exception);
+          }
+        }
+      });
+    };
+    this.getDismiss = function(disabled, callback) {
+      return function(report) {
+        disabled[report._id] = true;
+        return api.reports
+          .update(report, {
+            assignments: [],
+            status: reportStatuses('dismissed'),
+            status_updated: superdeskDate.render(new Date())
+          })
+          .then(function(response) {
+            disabled[report._id] = false;
+            callback(response);
+          });
       };
     };
   });

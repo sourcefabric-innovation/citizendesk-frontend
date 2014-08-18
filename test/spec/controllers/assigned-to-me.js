@@ -11,7 +11,7 @@ describe('Controller: AssignedToMeCtrl', function () {
       api = {
         reports: {
           query: function() {
-            return $q.when(mocks.reports['list-not-paginated']);
+            return $q.when(angular.copy(mocks.reports['list-not-paginated']));
           }
         }
       };
@@ -32,12 +32,9 @@ describe('Controller: AssignedToMeCtrl', function () {
   }));
 
   it('queries for the assigned reports list', function() {
-    expect(api.reports.query.mostRecentCall.args[0])
-      .toEqual({
-        where : '{"assignments.user_id":"53bab5339c61671f63bc3788"}',
-        page : 1,
-        sort : '[("produced", -1)]'
-      });
+    var query = api.reports.query.mostRecentCall.args[0];
+    expect(query.page).toBe(1);
+    expect(query.sort).toBe('[("produced", -1)]');
   });
   it('attaches reports to the scope', function () {
     expect(scope.reports.length).toBe(1);
