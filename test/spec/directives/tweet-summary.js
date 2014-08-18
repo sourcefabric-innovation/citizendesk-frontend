@@ -8,6 +8,9 @@ describe('Directive: tweetSummary', function () {
   // load the directive's module
   beforeEach(module('citizendeskFrontendApp'));
 
+  // load the template
+  beforeEach(module('views/directives/tweet-summary.html'));
+
   var element,
     scope;
 
