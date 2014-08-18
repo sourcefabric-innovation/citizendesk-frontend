@@ -3,14 +3,357 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: app/views/configure-coverages.html
+msgid "Active"
+msgstr ""
+
+#: app/views/configure-coverages.html
+#: app/views/configure-steps.html
+msgid "Add"
+msgstr ""
+
+#: app/views/configure-twitter-ingestion-oauths.html
+msgid "Add a key"
+msgstr ""
+
+#: app/views/assign.html
+msgid "Assign to:"
+msgstr ""
+
+#: app/views/report-sms.html
+msgid "Author"
+msgstr ""
+
 #: app/views/configure.html
 msgid "Autoreply"
 msgstr ""
 
+#: app/views/report-sms.html
+msgid "Cancel"
+msgstr ""
+
+#: app/views/configure-twitter-ingestion-oauths.html
+msgid "Cancel editing"
+msgstr ""
+
+#: app/views/configure-steps.html
+msgid ""
+"Changing these settings will not affect reports that already started\n"
+"    the verification process"
+msgstr ""
+
+#: app/views/configure-coverages.html
+msgid ""
+"Changing these settings will not change reports already published\n"
+"    to existing coverages"
+msgstr ""
+
+#: app/views/configure-coverages.html
+#: app/views/configure-steps.html
+#: app/views/configure-twitter-ingestion-oauths.html
 #: app/views/configure.html
 msgid "Configure"
 msgstr ""
 
+#: app/views/configure-coverages.html
 #: app/views/configure.html
-msgid "Twitter ingestion"
+msgid "Coverages"
+msgstr ""
+
+#: app/views/session.html
+msgid "Create a session summary"
+msgstr ""
+
+#: app/views/report-sms.html
+msgid "Created"
+msgstr ""
+
+#: app/views/configure-coverages.html
+#: app/views/configure-steps.html
+msgid "Delete"
+msgstr ""
+
+#: app/views/twitter-search.html
+msgid "Delete search"
+msgstr ""
+
+#: app/views/report-sms.html
+msgid "Delete this summary"
+msgstr ""
+
+#: app/views/twitter-search.html
+msgid "Deleted"
+msgstr ""
+
+#: app/views/twitter-search.html
+msgid "Deleting"
+msgstr ""
+
+#: app/views/configure-steps.html
+msgid "Description"
+msgstr ""
+
+#: app/views/report-sms.html
+msgid "Discard"
+msgstr ""
+
+#: app/views/configure-twitter-ingestion-oauths.html
+#: app/views/report-sms.html
+msgid "Edit"
+msgstr ""
+
+#: app/views/twitter-search.html
+msgid "Error deleting"
+msgstr ""
+
+#: app/views/report-sms.html
+msgid "External link"
+msgstr ""
+
+#: app/views/assign.html
+msgid "Go back"
+msgstr ""
+
+#: app/views/report-sms.html
+msgid "Go to the corresponding session"
+msgstr ""
+
+#: app/views/configure-twitter-ingestion-oauths.html
+msgid "How do i get a key? (tutorial in English)"
+msgstr ""
+
+#: app/views/my-monitor.html
+msgid ""
+"In order to use a personal monitor, Twitter requires an\n"
+"      application key. You can find more information and add your key in\n"
+"      the"
+msgstr ""
+
+#: app/views/assigned-to-me.html
+msgid "Items assigned to you"
+msgstr ""
+
+#: app/views/mobile-queue.html
+#: app/views/twitter-search.html
+msgid "Loading..."
+msgstr ""
+
+#: app/views/assign.html
+msgid "Me"
+msgstr ""
+
+#: app/views/report-sms.html
+#: app/views/report-tweet.html
+msgid "Media"
+msgstr ""
+
+#: app/views/queues.html
+msgid "Mobile reports"
+msgstr ""
+
+#: app/views/citizen-card.html
+msgid "Mobile user {{alias.identifiers.user_name}}"
+msgstr ""
+
+#: app/views/new-twitter-search.html
+#: app/views/queues.html
+msgid "New Twitter search"
+msgstr ""
+
+#: app/views/citizen-card.html
+msgid "No reports here at the moment"
+msgstr ""
+
+#: app/views/assigned-to-me.html
+msgid "No reports in this queue"
+msgstr ""
+
+#: app/views/mobile-queue.html
+#: app/views/twitter-search.html
+msgid "No reports match your search criteria"
+msgstr ""
+
+#: app/views/assigned.html
+msgid "Number of reports assigned for every user"
+msgstr ""
+
+#: app/views/report-sms.html
+msgid "Original text:"
+msgstr ""
+
+#: app/views/new-twitter-search.html
+msgid "Please specify some search terms"
+msgstr ""
+
+#: app/views/report-sms.html
+#: app/views/report-tweet.html
+msgid "Publish"
+msgstr ""
+
+#: app/views/report-sms.html
+#: app/views/report-tweet.html
+msgid "Published on behalf of {{onBehalf.username}}"
+msgstr ""
+
+#: app/views/session.html
+msgid "Reply"
+msgstr ""
+
+#: app/views/session.html
+msgid "Reply to {{replyReport.authors[0].identifiers.user_name}}"
+msgstr ""
+
+#: app/views/citizen-card.html
+msgid "Reports authored by this user"
+msgstr ""
+
+#: app/views/session.html
+msgid "Reset"
+msgstr ""
+
+#: app/views/configure-autoreply.html
+#: app/views/configure-coverages.html
+#: app/views/configure-steps.html
+#: app/views/configure-twitter-ingestion-oauths.html
+#: app/views/report-sms.html
+msgid "Save"
+msgstr ""
+
+#: app/views/my-monitor.html
+msgid "Search terms"
+msgstr ""
+
+#: app/views/twitter-search.html
+msgid "See more reports"
+msgstr ""
+
+#: app/views/session.html
+msgid "See summary details"
+msgstr ""
+
+#: app/views/session.html
+msgid "Send"
+msgstr ""
+
+#: app/views/session.html
+msgid "Sent by Citizendesk"
+msgstr ""
+
+#: app/views/report-sms.html
+#: app/views/report-tweet.html
+msgid "Session"
+msgstr ""
+
+#: app/views/report-sms.html
+msgid "Session summary"
+msgstr ""
+
+#: app/views/my-monitor.html
+msgid "Start monitoring"
+msgstr ""
+
+#: app/views/my-monitor.html
+msgid "Start your monitor"
+msgstr ""
+
+#: app/views/session.html
+msgid "Stick to the bottom"
+msgstr ""
+
+#: app/views/session.html
+msgid "Summary"
+msgstr ""
+
+#: app/views/report-sms.html
+msgid "Text"
+msgstr ""
+
+#: app/views/report-sms.html
+msgid "The summary cannot be deleted as long as it is published"
+msgstr ""
+
+#: app/views/configure-twitter-ingestion-oauths.html
+msgid ""
+"There are no Twitter monitor keys set up for you. You need to add\n"
+"    one in order to be able to define twitter monitors"
+msgstr ""
+
+#: app/views/error-no-monitors.html
+msgid "There are no monitors defined"
+msgstr ""
+
+#: app/views/error-no-searches.html
+msgid ""
+"There are no twitter searches defined. You\n"
+"  can <a href=\"#/new-twitter-search\">define one</a>"
+msgstr ""
+
+#: app/views/verified-reports.html
+msgid "There are no verified reports yet"
+msgstr ""
+
+#: app/views/report-sms.html
+#: app/views/report-tweet.html
+msgid "This report is verified"
+msgstr ""
+
+#: app/views/report-sms.html
+msgid ""
+"This report was generated as the summary of a session, so you\n"
+"      can perform specific actions like deleting this summary"
+msgstr ""
+
+#: app/views/citizen-card.html
+msgid "Time Zone"
+msgstr ""
+
+#: app/views/configure-coverages.html
+msgid "Title"
+msgstr ""
+
+#: app/views/twitter-search.html
+msgid "Try again"
+msgstr ""
+
+#: app/views/report-tweet.html
+msgid "Tweet"
+msgstr ""
+
+#: app/views/configure-twitter-ingestion-oauths.html
+#: app/views/configure.html
+msgid "Twitter monitor key"
+msgstr ""
+
+#: app/views/report-sms.html
+#: app/views/report-tweet.html
+msgid "Unpublish"
+msgstr ""
+
+#: app/views/configure-steps.html
+#: app/views/configure.html
+msgid "Validation steps"
+msgstr ""
+
+#: app/views/verified-reports.html
+msgid "Verified reports"
+msgstr ""
+
+#: app/views/my-monitor.html
+msgid "Your Twitter key is missing"
+msgstr ""
+
+#: app/views/queues.html
+msgid "Your monitor"
+msgstr ""
+
+#: app/views/my-monitor.html
+msgid "key configuration page"
+msgstr ""
+
+#: app/views/my-monitor.html
+msgid "{{newReports.length}} new reports"
+msgstr ""
+
+#: app/views/queues.html
+msgid "{{queue.user_id.username}}'s monitor"
 msgstr ""
