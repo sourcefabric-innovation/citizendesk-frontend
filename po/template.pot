@@ -192,7 +192,7 @@ msgstr ""
 
 #: app/views/report-sms.html
 #: app/views/report-tweet.html
-msgid "Published on behalf of {{onBehalf.username}}"
+msgid "Published by {{onBehalf.username}}"
 msgstr ""
 
 #: app/views/session.html
