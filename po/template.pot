@@ -236,7 +236,7 @@ msgid "Send"
 msgstr ""
 
 #: app/views/session.html
-msgid "Sent by Citizendesk"
+msgid "Sent by Citizen Desk"
 msgstr ""
 
 #: app/views/report-sms.html
