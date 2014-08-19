@@ -88,19 +88,19 @@
       translate
       >
       Reply
-      </a-->
-  <a class="btn btn-default"
-     ng-href="#/session/{{encodedSession}}"
-     translate
-     >
-    Session
-  </a>
-</p>
-<!--div>
+    </a-->
+    <a class="btn btn-default"
+       ng-href="#/session/{{encodedSession}}"
+       translate
+       >
+      Session
+    </a>
+  </p>
+  <div>
     <div class="row">
       <div class="col-sm-6">
         <dl>
-          <dt translate>Author</dt>
+          <dt translate>Citizen card</dt>
           <dd>
             <a ng-bind="report.authors[0].identifiers.user_name"
                ng-href="#/citizen-card/{{report.authors[0].authority}}/{{report.authors[0].identifiers.user_name}}"
@@ -109,7 +109,7 @@
         </dl>
       </div>
     </div>
-  </div-->
+  </div>
   <div class="alert alert-{{status}}"
        ng-hide="alert==''"
        ng-bind="alert"></div>
