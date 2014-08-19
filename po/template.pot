@@ -119,7 +119,7 @@ msgid "Go to the corresponding session"
 msgstr ""
 
 #: app/views/configure-twitter-ingestion-oauths.html
-msgid "How do i get a key? (tutorial in English)"
+msgid "How do I get a key? (tutorial in English)"
 msgstr ""
 
 #: app/views/my-monitor.html
@@ -275,17 +275,17 @@ msgstr ""
 #: app/views/configure-twitter-ingestion-oauths.html
 msgid ""
 "There are no Twitter monitor keys set up for you. You need to add\n"
-"    one in order to be able to define twitter monitors"
-msgstr ""
-
-#: app/views/error-no-monitors.html
-msgid "There are no monitors defined"
+"    one in order to be able to define Twitter monitors"
 msgstr ""
 
 #: app/views/error-no-searches.html
 msgid ""
-"There are no twitter searches defined. You\n"
+"There are no Twitter searches defined. You\n"
 "  can <a href=\"#/new-twitter-search\">define one</a>"
+msgstr ""
+
+#: app/views/error-no-monitors.html
+msgid "There are no monitors defined"
 msgstr ""
 
 #: app/views/verified-reports.html
