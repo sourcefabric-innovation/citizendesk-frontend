@@ -23,23 +23,23 @@ angular.module('citizendeskFrontendApp')
     }
 
     function updateReport() {
-      var promise = api.reports.getById(id);
-      promise.then(function(report) {
-        $scope.report = report;
-        $scope.selectedCoverage = Report
-          .getSelectedCoverage(report, $scope.coverages);
-        if (report.on_behalf_id) {
-          api.users.getById(report.on_behalf_id)
-            .then(function(user) {
-              $scope.onBehalf = user;
-            });
-        }
-      });
-      return promise;
+      return api.reports
+        .getById(id)
+        .then(function(report) {
+          $scope.report = report;
+          addSteps($scope.report);
+          $scope.selectedCoverage = Report
+            .getSelectedCoverage(report, $scope.coverages);
+          if (report.on_behalf_id) {
+            api.users.getById(report.on_behalf_id)
+              .then(function(user) {
+                $scope.onBehalf = user;
+              });
+          }
+        });
     }
     
     updateReport().then(function() {
-      addSteps($scope.report);
 
       $scope.$watch('report.steps', function() {
         if ($scope.report.steps) {
