@@ -9,9 +9,6 @@ angular
     'ngSanitize',
     'gettext',
     'eveApi',
-    'mgcrea.ngStrap.helpers.dimensions',
-    'mgcrea.ngStrap.helpers.debounce',
-    'mgcrea.ngStrap.scrollspy',
     'ui.bootstrap',
     'luegg.directives'
   ])

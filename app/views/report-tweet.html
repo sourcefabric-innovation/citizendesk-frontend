@@ -1,118 +1,102 @@
-<div class="col-md-2 hidden-sm hidden-xs">
-  <div class="bs-sidebar">
-    <ul class="nav">
-      <li ng-show="report.original.entities.media.length" bs-scrollspy>
-        <a ng-click="scrollTo('media')">Media</a>
-      </li>
-      <li bs-scrollspy>
-        <a ng-click="scrollTo('text')">Text</a>
-      </li>
-      <li bs-scrollspy>
-        <a ng-click="scrollTo('tasks')">Tasks</a>
-      </li>
-    </ul>
+<div class="panel panel-info"
+     ng-repeat="medium in report.original.entities.media">
+  <div class="panel-heading" translate>
+    Media
+  </div>
+  <div class="panel-body">
+    <img class="img-responsive" ng-src="{{medium.media_url}}">
   </div>
 </div>
-<div class="col-md-10">
-  <div class="panel panel-info"
-       ng-repeat="medium in report.original.entities.media">
-    <div class="panel-heading" translate>
-      Media
-    </div>
-    <div class="panel-body">
-      <img class="img-responsive" ng-src="{{medium.media_url}}">
-    </div>
+<div class="panel panel-info">
+  <div class="panel-heading" translate>
+    Tweet
   </div>
-  <div class="panel panel-info">
-    <div class="panel-heading" translate>
-      Tweet
-    </div>
-    <div class="panel-body break-long-words">
-      <!-- upper part of the tweet -->
-      <p>
-        <div class="row">
-          <!-- avatar -->
-          <div class="col-md-2 col-xs-2">
-            <a target="_blank"
-               ng-href="//twitter.com/{{report.original.user.screen_name}}">
-              <img class="media-object"
-                   ng-src="{{report.original.user.profile_image_url}}">
-            </a>
-          </div>
-          <div class="col-md-8 col-xs-8">
-            <p>
-              <!-- full name -->
-              <div>
-                <a target="_blank"
-                   ng-href="//twitter.com/{{report.original.user.screen_name}}">
-                  <strong ng-bind="report.original.user.name"></strong>
-                </a>
-              </div>
-              <!-- Twitter user name -->
-              <div>
-                <a target="_blank"
-                   ng-href="//twitter.com/{{report.original.user.screen_name}}">
-                  <span ng-bind="'@'+report.original.user.screen_name"
-                        class="text-muted">
-                  </span>
-                </a>
-              </div>
-            </p>
-          </div>
-          <!-- logo button -->
-          <div class="col-md-2 col-xs-2">
-            <a href="https://twitter.com" target="_blank" class="pull-right">
-              <img src="https://dev.twitter.com/sites/default/files/images_documentation/bird_blue_16.png"
-                   width="14" height="11">
-            </a>
-          </div>
-        </div>
-      </p>
-      <!-- middle part of the tweet -->
-      <p id="text"
-         ng-bind-html="linkedText"
-         ng-class="lead"
-         >
-      </p>
-      <!-- lower part of the tweet -->
-      <p>
-        <div class="pull-right">
-          <a ng-href="https://twitter.com/intent/favorite?tweet_id={{report.original.id_str}}"
-             target="_blank">
-            <img
-               src="//si0.twimg.com/images/dev/cms/intents/icons/favorite.png">
-          </a>
-          <a ng-href="https://twitter.com/intent/tweet?in_reply_to={{report.original.id_str}}"
-             target="_blank">
-            <img
-               src="//si0.twimg.com/images/dev/cms/intents/icons/reply.png">
-          </a>
-          <a ng-href="https://twitter.com/intent/retweet?tweet_id={{report.original.id_str}}"
-             target="_blank">
-            <img
-               src="//si0.twimg.com/images/dev/cms/intents/icons/retweet.png">
+  <div class="panel-body break-long-words">
+    <!-- upper part of the tweet -->
+    <p>
+      <div class="row">
+        <!-- avatar -->
+        <div class="col-md-2 col-xs-2">
+          <a target="_blank"
+             ng-href="//twitter.com/{{report.original.user.screen_name}}">
+            <img class="media-object"
+                 ng-src="{{report.original.user.profile_image_url}}">
           </a>
         </div>
-        <span ng-bind="report.created | date:'medium'" class="text-muted">
-        </span>
-      </p>
-    </div>
-  </div>
-  <p ng-show="report.feed_type=='sms'">
-    <!--a class="btn btn-primary"
-       ng-href="#/session/{{encodedSession}}/{{report._id}}"
-       translate
+        <div class="col-md-8 col-xs-8">
+          <p>
+            <!-- full name -->
+            <div>
+              <a target="_blank"
+                 ng-href="//twitter.com/{{report.original.user.screen_name}}">
+                <strong ng-bind="report.original.user.name"></strong>
+              </a>
+            </div>
+            <!-- Twitter user name -->
+            <div>
+              <a target="_blank"
+                 ng-href="//twitter.com/{{report.original.user.screen_name}}">
+                <span ng-bind="'@'+report.original.user.screen_name"
+                      class="text-muted">
+                </span>
+              </a>
+            </div>
+          </p>
+        </div>
+        <!-- logo button -->
+        <div class="col-md-2 col-xs-2">
+          <a href="https://twitter.com" target="_blank" class="pull-right">
+            <img src="https://dev.twitter.com/sites/default/files/images_documentation/bird_blue_16.png"
+                 width="14" height="11">
+          </a>
+        </div>
+      </div>
+    </p>
+    <!-- middle part of the tweet -->
+    <p id="text"
+       ng-bind-html="linkedText"
+       ng-class="lead"
        >
+    </p>
+    <!-- lower part of the tweet -->
+    <p>
+      <div class="pull-right">
+        <a ng-href="https://twitter.com/intent/favorite?tweet_id={{report.original.id_str}}"
+           target="_blank">
+          <img
+             src="//si0.twimg.com/images/dev/cms/intents/icons/favorite.png">
+        </a>
+        <a ng-href="https://twitter.com/intent/tweet?in_reply_to={{report.original.id_str}}"
+           target="_blank">
+          <img
+             src="//si0.twimg.com/images/dev/cms/intents/icons/reply.png">
+        </a>
+        <a ng-href="https://twitter.com/intent/retweet?tweet_id={{report.original.id_str}}"
+           target="_blank">
+          <img
+             src="//si0.twimg.com/images/dev/cms/intents/icons/retweet.png">
+        </a>
+      </div>
+      <span ng-bind="report.created | date:'medium'" class="text-muted">
+      </span>
+    </p>
+  </div>
+</div>
+<p ng-show="report.feed_type=='sms'">
+  <!--a class="btn btn-primary"
+      ng-href="#/session/{{encodedSession}}/{{report._id}}"
+      translate
+      >
       Reply
-    </a-->
-    <a class="btn btn-default"
-       ng-href="#/session/{{encodedSession}}"
-       translate
-       >
-      Session
-    </a>
-  </p>
-  <!--div>
+      </a-->
+  <a class="btn btn-default"
+     ng-href="#/session/{{encodedSession}}"
+     translate
+     >
+    Session
+  </a>
+</p>
+<!--div>
     <div class="row">
       <div class="col-sm-6">
         <dl>
@@ -129,6 +113,7 @@
   <div class="alert alert-{{status}}"
        ng-hide="alert==''"
        ng-bind="alert"></div>
+  <div class="container">
   <form id="tasks" class="form-horizontal" ng-repeat="step in report.steps">
     <div class="form-group">
       <div class="checkbox">
@@ -155,6 +140,7 @@
       </div>
     </div>
   </form>
+  </div>
   <div class="row" ng-show="isPublished && onBehalf">
     <div class="col-md-12">
       <h5>
@@ -183,5 +169,5 @@
       </button>
     </div>
   </div>
-</div>
+<p>&nbsp;</p>
 <div class="clearfix"></div>

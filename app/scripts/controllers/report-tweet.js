@@ -2,7 +2,7 @@
 /* jshint camelcase: false */
 
 angular.module('citizendeskFrontendApp')
-  .controller('ReportTweetCtrl', function ($scope, $routeParams, Raven, api, $location, $anchorScroll, Coverages, Report, linkTweetEntities, Bacon, $q) {
+  .controller('ReportTweetCtrl', function ($scope, $routeParams, Raven, api, $location, Coverages, Report, linkTweetEntities, Bacon, $q) {
     var id = $routeParams.id,
         properties = {
           coveragesData: Bacon.constant(Coverages.promise)
@@ -90,15 +90,6 @@ angular.module('citizendeskFrontendApp')
         alert('A validation step should never be unchecked, if you are unchecking now this means that the validation process was poor. Please be sure to avoid this in the future');
       }
       $scope.save();
-    };
-
-    // see https://github.com/mgcrea/angular-strap/issues/573
-    $scope.scrollTo = function (id){
-      // set the location.hash to the id of
-      // the element you wish to scroll to.
-      $location.hash(id);
-      // call $anchorScroll()
-      $anchorScroll();
     };
 
     $scope.publish = function() {
