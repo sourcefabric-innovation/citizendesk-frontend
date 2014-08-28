@@ -136,7 +136,6 @@
           <input type="checkbox"
                  ng-model="step.done"
                  ng-change="changeStep(step.done)"
-                 ng-disabled="stepsDisabled"
                  >
           {{step.description}}
         </label>
@@ -150,7 +149,6 @@
           <input type="checkbox"
                  ng-model="report.verified"
                  ng-change="save()"
-                 ng-disabled="wait"
                  >
           <strong translate>This report is verified</strong>
         </label>

@@ -32,20 +32,10 @@ angular.module('citizendeskFrontendApp')
     });
     streams.reportData.take(1).onValue(function(promise){
         promise.then(function(){
-          $scope.$watch('report.verified', function(newValue, oldValue) {
-            if (oldValue === true && newValue === false) {
-              alert('this report was marked as verified, and now it is marked as unverified again! this is a very bad practice, and should be avoided');
-            }
-            $scope.stepsDisabled = $scope.report.verified;
-          });
-
-          $scope.$watch('report.steps', function() {
-            if($scope.report.steps) {
-              $scope.wait = $scope.report.steps.some(function(step) {
-                return !step.done;
-              });
-            }
-          }, true);
+          $scope.$watch(
+            'report.verified',
+            Report.getVerificationHandler($scope)
+          );
         });
       });
 

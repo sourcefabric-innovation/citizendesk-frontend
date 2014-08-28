@@ -9,9 +9,11 @@ describe('Controller: ReportTweetCtrl', function () {
       scope,
       $httpBackend,
       Coverages = {},
+      $window = {},
       dependencies = {
         $routeParams: {id: 'abcdef'},
-        Coverages: Coverages
+        Coverages: Coverages,
+        $window: $window,
       },
       api,
       $q,
@@ -27,6 +29,7 @@ describe('Controller: ReportTweetCtrl', function () {
     dependencies.$scope = scope;
     spyOn(api.reports, 'getById').andCallThrough();
     spyOn(api.steps, 'query').andCallThrough();
+    spyOn(Report, 'getVerificationHandler');
     ReportCtrl = $controller('ReportTweetCtrl', dependencies);
     $httpBackend = _$httpBackend_;
     api.reports.def.getById
@@ -44,20 +47,10 @@ describe('Controller: ReportTweetCtrl', function () {
   it('attaches a report to the scope', function () {
     expect(scope.report).toBeDefined();
   });
-  it('disables report verification', function() {
-    scope.$apply();
-    expect(scope.wait).toBe(true);
-  });
-  describe('after all steps are done', function() {
-    beforeEach(function() {
-      scope.report.steps.forEach(function(step) {
-        step.done = true;
-      });
-      scope.$apply();
-    });
-    it('enables report verification', function() {
-      expect(scope.wait).toBe(false);
-    });
+  it('checks when marking as verified', function() {
+    scope.verified = true;
+    scope.$digest();
+    expect(Report.getVerificationHandler).toHaveBeenCalled();
   });
   describe('starting with existent steps', function() {
     beforeEach(inject(function ($controller, $rootScope) {
@@ -71,20 +64,10 @@ describe('Controller: ReportTweetCtrl', function () {
       api.steps.def.query.resolve(mocks.steps.list);
       scope.$digest();
     }));
-    it('disables report verification', function() {
-      scope.$apply();
-      expect(scope.wait).toBe(true);
-    });
-    describe('after all steps are done', function() {
-      beforeEach(function() {
-        scope.report.steps.forEach(function(step) {
-          step.done = true;
-        });
-        scope.$apply();
-      });
-      it('enables report verification', function() {
-        expect(scope.wait).toBe(false);
-      });
+    it('checks when verified', function() {
+      scope.verified = true;
+      scope.$digest();
+      expect(Report.getVerificationHandler).toHaveBeenCalled();
     });
   });
   describe('starting assigned to an existent coverage', function() {

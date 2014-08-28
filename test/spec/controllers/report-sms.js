@@ -10,7 +10,8 @@ describe('Controller: ReportSmsCtrl', function () {
       $httpBackend,
       Report = {
         getSelectedCoverage: function(){},
-        checkPublished: function(){}
+        checkPublished: function(){},
+        getVerificationHandler: function(){ return function(){}; }
       },
       Coverages = { promise: { then: function(){} } },
       $window = {
@@ -38,6 +39,7 @@ describe('Controller: ReportSmsCtrl', function () {
     dependencies.$scope = scope;
     spyOn(api.reports, 'getById').andCallThrough();
     spyOn(api.steps, 'query').andCallThrough();
+    spyOn(Report, 'getVerificationHandler').andCallThrough();
     ReportCtrl = $controller('ReportSmsCtrl', dependencies);
     $httpBackend = _$httpBackend_;
     api.reports.def.getById
@@ -52,20 +54,10 @@ describe('Controller: ReportSmsCtrl', function () {
   it('attaches a report to the scope', function () {
     expect(scope.report).toBeDefined();
   });
-  it('disables report verification', function() {
-    scope.$apply();
-    expect(scope.wait).toBe(true);
-  });
-  describe('after all steps are done', function() {
-    beforeEach(function() {
-      scope.report.steps.forEach(function(step) {
-        step.done = true;
-      });
-      scope.$apply();
-    });
-    it('enables report verification', function() {
-      expect(scope.wait).toBe(false);
-    });
+  it('checks when verified', function() {
+    scope.verified = true;
+    scope.$digest();
+    expect(Report.getVerificationHandler).toHaveBeenCalled();
   });
   describe('starting with existent steps', function() {
     beforeEach(inject(function ($controller, $rootScope) {
@@ -79,19 +71,10 @@ describe('Controller: ReportSmsCtrl', function () {
       api.steps.def.query.resolve(mocks.steps.list);
       scope.$digest();
     }));
-    it('disables report verification', function() {
-      expect(scope.wait).toBe(true);
-    });
-    describe('after all steps are done', function() {
-      beforeEach(function() {
-        scope.report.steps.forEach(function(step) {
-          step.done = true;
-        });
-        scope.$apply();
-      });
-      it('enables report verification', function() {
-        expect(scope.wait).toBe(false);
-      });
+    it('checks when verified', function() {
+      scope.verified = true;
+      scope.$digest();
+      expect(Report.getVerificationHandler).toHaveBeenCalled();
     });
   });
   describe('when starting a transcript', function() {

@@ -13,7 +13,8 @@ describe('Service: Report', function () {
         _id: 'coverage id'
       },
       reportsSaveDeferred,
-      initAuth = function(){};
+      initAuth = function(){},
+      $window = {};
   // load the service's module
   beforeEach(module('citizendeskFrontendApp'));
   // mock dependencies
@@ -28,6 +29,7 @@ describe('Service: Report', function () {
     the autenthication with this empty function */
     $provide.value('initAuth', initAuth);
     $provide.value('api', api);
+    $provide.value('$window', $window);
   }));
   beforeEach(inject(function (_Report_, _$httpBackend_, _$rootScope_, $q) {
     Report = _Report_;
@@ -111,6 +113,36 @@ describe('Service: Report', function () {
         $rootScope.$digest();
         expect(spy).toHaveBeenCalled();
       });
+    });
+  });
+  describe('the provided verification handler', function(){
+    var handler,
+        $scope;
+    beforeEach(function(){
+      $window.alert = jasmine.createSpy('window alert');
+      $scope = {
+        report: {
+          steps: [{
+            done: true
+          }, {
+            done: false
+          }]
+        }
+      };
+      handler = Report.getVerificationHandler($scope);
+    });
+    it('complains about changing from verified to unverified', function(){
+      handler(true, false);
+      expect($window.alert).toHaveBeenCalled();
+    });
+    it('complains when marking as verified without doing the steps', function(){
+      handler(false, true);
+      expect($window.alert).toHaveBeenCalled();
+    });
+    it('is happy when everything is regular', function(){
+      $scope.report.steps[1].done = true;
+      handler(false, true);
+      expect($window.alert).toHaveBeenCalled();
     });
   });
 });
