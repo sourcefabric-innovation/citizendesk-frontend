@@ -45,15 +45,17 @@ angular.module('citizendeskFrontendApp')
     // and mocked at the controller level
     this.getVerificationHandler = function($scope) {
       return function(newValue, oldValue){
-        var doNotJump = gettextCatalog.getString('This report was marked as verified, and now it is marked as unverified again! This is a very bad practice, and should be avoided');
-        var badVerification = gettextCatalog.getString('This report is being marked as verified without going through the planned verification steps');
-        var allDone = $scope.report.steps.every(function(step) {
-          return step.done;
-        });
-        if (newValue === true && allDone === false) {
-          $window.alert(badVerification);
-        } else if (oldValue === true && newValue === false) {
-          $window.alert(doNotJump);
+        if ($scope.report.steps) {
+          var doNotJump = gettextCatalog.getString('This report was marked as verified, and now it is marked as unverified again! This is a very bad practice, and should be avoided');
+          var badVerification = gettextCatalog.getString('This report is being marked as verified without going through the planned verification steps');
+          var allDone = $scope.report.steps.every(function(step) {
+            return step.done;
+          });
+          if (newValue === true && allDone === false) {
+            $window.alert(badVerification);
+          } else if (oldValue === true && newValue === false) {
+            $window.alert(doNotJump);
+          }
         }
       };
     };

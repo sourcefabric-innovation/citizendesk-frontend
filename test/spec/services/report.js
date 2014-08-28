@@ -144,5 +144,14 @@ describe('Service: Report', function () {
       handler(false, true);
       expect($window.alert).toHaveBeenCalled();
     });
+    it('has no problems when the steps are missing', function(){
+      $scope = {
+        report: {}
+      };
+      handler = Report.getVerificationHandler($scope);
+      expect(function(){
+        handler(false, true);
+      }).not.toThrow();
+    });
   });
 });
