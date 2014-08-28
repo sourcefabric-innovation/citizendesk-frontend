@@ -24,6 +24,7 @@ module.exports = function(config) {
       'app/bower_components/eve-api/dist/eve-api-mock.js',
       'app/bower_components/angularjs-scroll-glue/src/scrollglue.js',
       'app/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
+      'app/bower_components/angular-bootstrap-media-queries/match-media.js',
       'app/scripts/*.js',
       'app/scripts/**/*.js',
       'test/globals.js',

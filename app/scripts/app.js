@@ -10,7 +10,8 @@ angular
     'gettext',
     'eveApi',
     'ui.bootstrap',
-    'luegg.directives'
+    'luegg.directives',
+    'matchMedia'
   ])
   .constant('config', {
     server: { url: 'http://cd2.sourcefabric.net/citizendesk-interface/' }
