@@ -2,7 +2,7 @@
 /* jshint camelcase: false */
 
 angular.module('citizendeskFrontendApp')
-  .controller('ReportTweetCtrl', function ($scope, $routeParams, Raven, api, $location, Coverages, Report, linkTweetEntities, Bacon, $q, screenSize) {
+  .controller('ReportTweetCtrl', function ($scope, $routeParams, Raven, api, $location, Coverages, Report, linkTweetEntities, Bacon, $q, screenSize, superdeskDate) {
     var id = $routeParams.id,
         properties = {
           coveragesData: Bacon.constant(Coverages.promise)
@@ -40,6 +40,7 @@ angular.module('citizendeskFrontendApp')
             if(n === o) {
               return;
             }
+            $scope.report.status_updated = superdeskDate.render(new Date());
             $scope.save();
           });
         });

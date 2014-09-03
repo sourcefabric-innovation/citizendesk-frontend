@@ -2,7 +2,7 @@
 /* jshint camelcase: false */
 
 angular.module('citizendeskFrontendApp')
-  .controller('ReportSmsCtrl', function ($scope, $routeParams, Raven, api, $location, Report, Coverages, $window, screenSize) {
+  .controller('ReportSmsCtrl', function ($scope, $routeParams, Raven, api, $location, Report, Coverages, $window, screenSize, superdeskDate) {
     var id = $routeParams.id;
 
     function addSteps(report) {
@@ -55,6 +55,7 @@ angular.module('citizendeskFrontendApp')
         if(n === o) {
           return;
         }
+        $scope.report.status_updated = superdeskDate.render(new Date());
         $scope.save();
       });
 
