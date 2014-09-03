@@ -60,7 +60,7 @@ angular.module('citizendeskFrontendApp')
       var query = JSON.stringify({
         $and: [
           {'channels.request': queue._id},
-          {status: {$exists: false}},
+          {status: null},
           {assignments: {$size: 0}}
         ]
       });

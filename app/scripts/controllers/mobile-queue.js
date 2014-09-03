@@ -18,7 +18,7 @@ angular.module('citizendeskFrontendApp')
             $and: [
               {feed_type: 'sms'},
               {automatic: {$ne: true}},
-              {status: {$exists: false}},
+              {status: null},
               {assignments: {$size: 0}}
             ]
           }),
