@@ -45,6 +45,9 @@ angular.module('citizendeskFrontendApp')
     // and mocked at the controller level
     this.getVerificationHandler = function($scope) {
       return function(newValue, oldValue){
+        if(newValue === oldValue) {
+          return;
+        }
         // possibly complain about doing the necessary steps
         if ($scope.report.steps) {
           var badVerification = gettextCatalog.getString('This report is being marked as verified without going through the planned verification steps');
