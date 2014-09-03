@@ -34,7 +34,15 @@
            ng-href="#/assigned/"
            >
           <span translate>
-            Assigned
+            Assigned to {{report.assignments[0].user_id.username}}
+          </span>
+        </a>
+        <a class="btn btn-warning"
+           ng-show="assign"
+           ng-click="assign(report)"
+           >
+          <span translate>
+            Reassing
           </span>
         </a>
       </span>
