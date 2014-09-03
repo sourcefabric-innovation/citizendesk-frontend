@@ -15,12 +15,5 @@ angular.module('citizendeskFrontendApp')
           'coverages.published': { $size: 0 }
         }]
       }]
-    }, {
-      parameters: { embedded: '{"assignments.user_id": true}' }
     });
-    $scope.assign = function(report) {
-      PageBroker.load('/assign/', {
-        report: report
-      });
-    };
   });

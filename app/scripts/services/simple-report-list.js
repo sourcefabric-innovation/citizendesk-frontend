@@ -1,15 +1,21 @@
 'use strict';
 
 angular.module('citizendeskFrontendApp')
-  .service('SimpleReportList', function(api, Report) {
+  .service('SimpleReportList', function(api, Report, PageBroker) {
     this.init = function($scope, query, options) {
       var parameters = {};
       if (options && options.parameters) {
         parameters = options.parameters;
       }
+      $scope.assign = function(report) {
+        PageBroker.load('/assign/', {
+          report: report
+        });
+      };
       $scope.reports = [];
       parameters.where = JSON.stringify(query);
       parameters.sort = '[("produced", -1)]';
+      parameters.embedded = '{"assignments.user_id": true}';
       function fetch(page){
         $scope.loading = true;
         parameters.page = page;
