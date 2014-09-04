@@ -88,6 +88,10 @@ angular
         templateUrl: 'views/configure-steps.html',
         controller: 'ConfigureStepsCtrl'
       })
+      .when('/configure-status-presentation', {
+        templateUrl: 'views/configure-status-presentation.html',
+        controller: 'ConfigureStatusPresentationCtrl'
+      })
       .when('/configure-coverages', {
         templateUrl: 'views/configure-coverages.html',
         controller: 'ConfigureCoveragesCtrl'
