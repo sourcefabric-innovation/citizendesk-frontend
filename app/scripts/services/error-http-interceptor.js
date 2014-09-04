@@ -3,9 +3,9 @@
 /* see also http://bahmutov.calepin.co/catch-all-errors-in-angular-app.html */
 
 angular.module('citizendeskFrontendApp')
-  .factory('errorHttpInterceptor', function (Raven, $q, Application, $location, session) {
+  .factory('errorHttpInterceptor', function (Raven, $q, Body, $location, session) {
     function error(response, message) {
-      Application.connectionError = message;
+      Body.connectionError = message;
       var request50char, username;
       if(response.config.data) {
         request50char = JSON.stringify(response.config.data).slice(0, 50);

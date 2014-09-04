@@ -33,12 +33,11 @@
       <div class="page-header clearfix hidden-xs hidden-sm">
         <h2>Citizen Desk <small>Alpha</small></h2>
       </div>
-      <div ng-controller="ConnectionErrorCtrl"
-           ng-show="application.connectionError"
+      <div ng-show="service.connectionError"
            class="alert alert-danger alert-dismissable"
            >
         <button class="close" data-dismiss="alert">&times;</button>
-        <span ng-bind="application.connectionError"></span>
+        <span ng-bind="service.connectionError"></span>
         <a ng-click="reload()" class="alert-link" translate>
           click to reload the page
         </a>
@@ -175,8 +174,6 @@
         <script src="scripts/controllers/web-queue.js"></script>
         <script src="scripts/services/lodash.js"></script>
         <script src="scripts/controllers/mobile-queue.js"></script>
-        <script src="scripts/services/application.js"></script>
-        <script src="scripts/controllers/connection-error.js"></script>
         <script src="scripts/services/auth-interceptor.js"></script>
         <script src="scripts/services/session.js"></script>
         <script src="scripts/services/storage.js"></script>

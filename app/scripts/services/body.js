@@ -9,4 +9,5 @@ angular.module('citizendeskFrontendApp')
       // new pages are not glued to the bottom by default
       service.glue = false;
     });
+    this.connectionError = null;
   });
