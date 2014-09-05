@@ -65,16 +65,17 @@ angular.module('citizendeskFrontendApp')
         }
       };
     };
-    this.linkTweetTextsInList = function(list) {
-      list.forEach(function(report) {
-        if (report.feed_type === 'tweet') {
-          try {
-            report.linkedText = linkTweetEntities(report);
-          } catch (exception) {
-            Raven.raven.captureException(exception);
-          }
+    this.linkTweetTexts = function(report) {
+      if (report.feed_type === 'tweet') {
+        try {
+          report.linkedText = linkTweetEntities(report);
+        } catch (exception) {
+          Raven.raven.captureException(exception);
         }
-      });
+      }
+    };
+    this.linkTweetTextsInList = function(list) {
+      list.forEach(this.linkTweetTexts);
     };
     this.getDismiss = function(disabled, callback) {
       return function(report) {

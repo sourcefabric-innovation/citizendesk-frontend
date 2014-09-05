@@ -2,7 +2,7 @@
 /* jshint camelcase: false */
 
 angular.module('citizendeskFrontendApp')
-  .service('TwitterSearches', function($resource, $q, Raven, prefix, $http, api, lodash, addNewValues, AliasesInLists) {
+  .service('TwitterSearches', function($resource, $q, Raven, prefix, $http, api, lodash, addNewValues, AliasesInLists, Report) {
 
     var service = this,
         _ = lodash;
@@ -111,11 +111,12 @@ angular.module('citizendeskFrontendApp')
         .byId(queueId)
         .then(function(queue){
           return api.reports
-            .getById(reportId)
+            .getById(reportId, { embedded: '{"assignments.user_id": true }'})
             .then(function(freshReport) {
               var i = _.findIndex(queue.reports, function(candidate) {
                 return candidate._id === reportId;
               });
+              Report.linkTweetTexts(freshReport);
               queue.reports[i] = freshReport;
               return {
                 index: i,
