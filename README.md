@@ -7,6 +7,11 @@
 This is the frontend for Citizendesk. It will serve a web interface
 connected with a [Citizendesk interface][interface] component.
 
+You can try a demo
+[here](http://sourcefabric-innovation.github.io/citizendesk-frontend/dist/),
+picking an username like `User1`, `User2`, `User3`, with password
+`no`.
+
 #### Deployment
 
 This is an Angular application produced with Yeoman, and as such it
