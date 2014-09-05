@@ -101,7 +101,7 @@ module.exports = function(config) {
     have coverage reports */
     reporters: [
       'dots'
-      //,'coverage'
+      ,'coverage'
       ,'html'
     ],
     /**/

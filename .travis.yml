@@ -9,4 +9,4 @@ before_script:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
 after_script:
-  - ./node_modules/.bin/coveralls < coverage/*/lcov.info
+  - ./node_modules/.bin/coveralls < coverage/PhantomJS*/lcov.info
