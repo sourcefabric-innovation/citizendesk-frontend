@@ -8,7 +8,6 @@
     "jquery": "~1.10.2",
     "angular-route": "~1.2.16",
     "angular-resource": "~1.2.16",
-    "sass-bootstrap": "~3.0.2",
     "raven-js": "~1.1.13",
     "angular-gettext": "~0.2.8",
     "eve-api": "https://github.com/sourcefabric-innovation/eve-api.git#0.7.1",
