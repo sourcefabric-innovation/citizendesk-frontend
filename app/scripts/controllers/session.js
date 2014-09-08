@@ -115,7 +115,8 @@ angular.module('citizendeskFrontendApp')
           authors: [{
             authority: 'citizen_desk',
             identifiers: session._id
-          }]
+          }],
+          assignments: []
         })
         .then(function() {
           fetchSummaries();
