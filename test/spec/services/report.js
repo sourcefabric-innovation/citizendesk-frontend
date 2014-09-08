@@ -49,6 +49,12 @@ describe('Service: Report', function () {
       .toBe(true);
   });
 
+  it('creates a report', function() {
+    var newReport = Report.create({
+      session: 'abcde'
+    });
+  });
+
   describe('when asked for publishing', function() {
     var toBePublished = angular
           .copy(mocks.reports['53cd05a09c616712c900052d']),

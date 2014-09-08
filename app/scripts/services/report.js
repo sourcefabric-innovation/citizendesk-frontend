@@ -92,4 +92,28 @@ angular.module('citizendeskFrontendApp')
           });
       };
     };
+    // see
+    // https://github.com/sourcefabric-innovation/citizendesk-frontend/issues/29
+    // for a bit more details about the initial properties
+    this.create = function(parameters) {
+      return {
+        texts: [],
+        summary: false,
+        session: parameters.session,
+        channels: [{
+          type: 'frontend'
+        }],
+        produced: superdeskDate.render(new Date()),
+        user_id: session._id,
+        authors: [{
+          authority: 'citizen_desk',
+          identifiers: session._id
+        }],
+        assignments: [],
+        feed_type: 'plain',
+        automatic: false,
+        local: true,
+        proto: false
+      };
+    };
   });

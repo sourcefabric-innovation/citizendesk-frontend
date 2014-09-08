@@ -2,7 +2,7 @@
 /* jshint camelcase: false */
 
 angular.module('citizendeskFrontendApp')
-  .controller('SessionCtrl', function ($scope, api, $routeParams, $http, config, session, addNewValues, PagePolling, Body, $filter, $location, superdeskDate) {
+  .controller('SessionCtrl', function ($scope, api, $routeParams, $http, config, session, addNewValues, PagePolling, Body, $filter, $location, Report) {
     Body.glue = true;
     $scope.body = Body;
     $scope.reports = [];
@@ -100,24 +100,15 @@ angular.module('citizendeskFrontendApp')
     fetchUsers(1);
 
     $scope.submitSummary = function() {
+      var newReport = Report.create({
+        session: $routeParams.session
+      });
+      newReport.texts = [{
+        original: $scope.summaryContent
+      }];
+      newReport.summary = true;
       api.reports
-        .save({
-          texts: [{
-            original: $scope.summaryContent
-          }],
-          summary: true,
-          session: $routeParams.session,
-          channels: [{
-            type: 'frontend'
-          }],
-          produced: superdeskDate.render(new Date()),
-          created: superdeskDate.render(new Date()),
-          authors: [{
-            authority: 'citizen_desk',
-            identifiers: session._id
-          }],
-          assignments: []
-        })
+        .save(newReport)
         .then(function() {
           fetchSummaries();
         });
