@@ -2,7 +2,7 @@
 /* jshint camelcase: false */
 
 angular.module('citizendeskFrontendApp')
-  .service('TwitterSearches', function($resource, $q, Raven, prefix, $http, api, lodash, addNewValues, AliasesInLists, Report) {
+  .service('TwitterSearches', function($resource, $q, Raven, $http, api, lodash, addNewValues, AliasesInLists, Report, config) {
 
     var service = this,
         _ = lodash;
@@ -22,7 +22,7 @@ angular.module('citizendeskFrontendApp')
       } else {
         queue.reports = [];
         return $http
-          .post(prefix + '/proxy/start-twitter-search/', {
+          .post(config.server.url + 'proxy/start-twitter-search/', {
             user_id: '1',
             request_id: queue._id,
             search_spec: {

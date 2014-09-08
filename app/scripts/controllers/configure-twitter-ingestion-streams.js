@@ -2,10 +2,10 @@
 /* jshint camelcase:false */
 
 angular.module('citizendeskFrontendApp')
-  .controller('ConfigureTwitterIngestionStreamsCtrl', ['$scope', 'prefix', '$http', 'Raven', 'resource', function ($scope, prefix, $http, Raven, resource) {
+  .controller('ConfigureTwitterIngestionStreamsCtrl', function ($scope, config, $http, Raven, resource) {
     var res = {
-      filters: resource(prefix + '/twt_filters/:id'),
-      streams: resource(prefix + '/twt_streams/:id')
+      filters: resource(config.server.url + '/twt_filters/:id'),
+      streams: resource(config.server.url + '/twt_streams/:id')
     };
     $scope.disabled = {};
     $scope.error = {};
@@ -25,7 +25,7 @@ angular.module('citizendeskFrontendApp')
     $scope.restartError = {};
     $scope.restart = function(stream) {
       var id = stream._id;
-      var path = prefix + '/proxy';
+      var path = config.server.url + '/proxy';
       $scope.restartDisabled[id] = true;
       $http
         .get(path + '/stop-stream/'+id)
@@ -48,4 +48,4 @@ angular.module('citizendeskFrontendApp')
           $scope.restartError[id] = true;
         });
     };
-  }]);
+  });

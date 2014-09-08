@@ -2,7 +2,7 @@
 /* jshint expr: true */
 
 angular.module('citizendeskFrontendApp')
-  .service('ReportPolling', ['$timeout', '$http', 'prefix', function ReportPolling($timeout, $http, prefix) {
+  .service('ReportPolling', function ReportPolling($timeout, $http, config) {
     var service = this,
         interval = 5, // seconds
         isPolling = false,
@@ -34,7 +34,7 @@ angular.module('citizendeskFrontendApp')
       var sort = '[("produced", -1)]';
 
       $http
-        .get(prefix + '/reports', {
+        .get(config.server.url + '/reports', {
           params: {
             where: where,
             sort: sort
@@ -69,4 +69,4 @@ angular.module('citizendeskFrontendApp')
       createHandlers.push(handler);
       isPolling || poll();
     };
-  }]);
+  });

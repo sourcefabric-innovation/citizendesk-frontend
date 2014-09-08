@@ -1,5 +1,5 @@
 var globals = {
-  root: 'http://cd2.sourcefabric.net/citizendesk-interface/',
+  root: 'https://cd2.sourcefabric.net/citizendesk-interface/',
   // all controllers sharing the `simple-report-list.html` template
   // have to implement the same interface
   simpleListControllerTest: function(name) {

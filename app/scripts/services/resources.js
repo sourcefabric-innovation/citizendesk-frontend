@@ -3,7 +3,8 @@
 /* collection of resources which are too small to deserve a dedicated file */
 
 angular.module('citizendeskFrontendApp')
-  .service('Resources', ['resource', 'prefix', function Resources(resource, prefix) {
+  .service('Resources', function Resources(resource, config) {
+    var prefix = config.server.url;
     // AngularJS will instantiate a singleton by calling "new" on this function
     this.settings = {
       bool: resource(prefix + '/settings-bool/:id'),
@@ -12,4 +13,4 @@ angular.module('citizendeskFrontendApp')
     };
     this.steps = resource(prefix + '/steps/:id');
     this.reports = resource(prefix + '/reports/:id');
-  }]);
+  });

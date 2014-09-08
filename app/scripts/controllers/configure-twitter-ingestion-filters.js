@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('citizendeskFrontendApp')
-  .controller('ConfigureTwitterIngestionFiltersCtrl', ['$scope', 'prefix', '$resource', 'Raven', function ($scope, prefix, $resource, Raven) {
-    var Resource = $resource(prefix + '/twt_filters');
+  .controller('ConfigureTwitterIngestionFiltersCtrl', function ($scope, config, $resource, Raven) {
+    var Resource = $resource(config.server.url + '/twt_filters');
     $scope.alert = '';
     $scope.disabled = false;
     $scope.canAddFilter = true;
@@ -33,4 +33,4 @@ angular.module('citizendeskFrontendApp')
           $scope.alert = Raven.parseSocketError(response);
         });
     };
-  }]);
+  });

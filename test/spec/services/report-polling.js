@@ -32,10 +32,10 @@ describe('Service: ReportPolling', function () {
   // instantiate service
   var ReportPolling,
       prefix;
-  beforeEach(inject(function (_ReportPolling_, _prefix_) {
+  beforeEach(inject(function (_ReportPolling_, config) {
     ReportPolling = _ReportPolling_;
     ReportPolling.lastDate = (new Date(1401212090951)).toGMTString();
-    prefix = _prefix_;
+    prefix = config.server.url;
   }));
 
   describe('with a create listener', function () {
@@ -45,7 +45,7 @@ describe('Service: ReportPolling', function () {
       ReportPolling.onCreate(listener);
     });
     it('calls the listener if resources are created',
-       inject(function($httpBackend, $timeout, prefix) {
+       inject(function($httpBackend, $timeout) {
          $httpBackend
            .expectGET(prefix + '/reports?sort=%5B(%22produced%22,+-1)%5D&where=%7B%22produced%22:%7B%22$gt%22:%22Tue,+27+May+2014+17:34:50+GMT%22%7D%7D')
            .respond([{
@@ -61,7 +61,7 @@ describe('Service: ReportPolling', function () {
          expect(listener.calls.length).toBe(3);
        }));
     it('does not call the listener if resources are not created',
-       inject(function($httpBackend, $timeout, prefix) {
+       inject(function($httpBackend, $timeout) {
          $httpBackend
            .expectGET(prefix + '/reports?sort=%5B(%22produced%22,+-1)%5D&where=%7B%22produced%22:%7B%22$gt%22:%22Tue,+27+May+2014+17:34:50+GMT%22%7D%7D')
            .respond([]);

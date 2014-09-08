@@ -14,9 +14,9 @@ angular
     'matchMedia'
   ])
   .constant('config', {
-    server: { url: 'http://cd2.sourcefabric.net/citizendesk-interface/' }
+    server: { url: 'https://cd2.sourcefabric.net/citizendesk-interface/' }
   })
-  .config(['$routeProvider', 'prefix', '$httpProvider', 'apiProvider', function($routeProvider, prefix, $httpProvider, apiProvider) {
+  .config(['$routeProvider', '$httpProvider', 'apiProvider', function($routeProvider, $httpProvider, apiProvider) {
     [
       'steps',
       'reports',

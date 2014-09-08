@@ -3,8 +3,8 @@
 describe('Service: BasicAuthAdapter', function () {
 
   /* jshint maxlen:false */
-  var SERVER_URL = 'http://cd2.sourcefabric.net/citizendesk-interface',
-      LOGIN_URL = SERVER_URL + '/auth',
+  var SERVER_URL = globals.root,
+      LOGIN_URL = SERVER_URL + 'auth',
       username = 'admin',
       password = 'admin',
       session = 'xyz';
