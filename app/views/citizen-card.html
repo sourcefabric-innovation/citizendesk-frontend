@@ -1,33 +1,26 @@
+<h3 translate>
+  Info about user {{alias.identifiers.user_name_search}}
+</h3>
 <div ng-switch="alias.authority">
   <div ng-switch-when="twitter">
-    <p>
-      <div class="media">
-        <a class="pull-left"
-           ng-href="//twitter.com/{{alias.identifiers.user_name_search}}"
-           target="_blank"
-           >
-          <img class="media-object" ng-src="{{alias.avatars[0].https}}">
-        </a>
-        <div class="media-body">
-          <h4 class="media-heading"
-              ng-bind="alias.name_full"
-              >
-          </h4>
-          <p ng-bind="alias.description">
-          </p>
-          <p>
-            <dl class="dl-horizontal" ng-show="alias.time_zone">
-              <dt translate>Time Zone</dt>
-              <dd ng-bind="alias.time_zone"></dd>
-            </dl>
-          </p>
-        </div>
+    <div class="media">
+      <a class="pull-left"
+         ng-href="//twitter.com/{{alias.identifiers.user_name_search}}"
+         target="_blank"
+         >
+        <img class="media-object" ng-src="{{alias.avatars[0].https}}">
+      </a>
+      <div class="media-body">
+        <h4 class="media-heading"
+            >
+          Twitter user
+        </h4>
       </div>
-    </p>
+    </div>
   </div>
   <div ng-switch-default>
     <h4 translate>
-      Mobile user {{alias.identifiers.user_name}}
+      Mobile user
     </h4>
   </div>
 </div>
