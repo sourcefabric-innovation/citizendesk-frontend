@@ -20,5 +20,6 @@ angular.module('citizendeskFrontendApp')
     Monitors.getById($routeParams.id)
       .then(function(monitor) {
         QueueSelection.description = monitor.user_id.username + '\'s monitor';
+        $scope.monitor = monitor;
       });
   });
