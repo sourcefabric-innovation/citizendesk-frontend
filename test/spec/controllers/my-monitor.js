@@ -47,12 +47,12 @@ describe('Controller: MyMonitorCtrl', function () {
       PagePolling = {
         setInterval: function(){}
       },
-      QueueSelection = {};
+      QueueSelection = {},
+      $timeout;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope, _$q_) {
     $q = _$q_;
-    scope = $rootScope.$new();
 
     deferreds.Monitors_getByUserId = $q.defer();
     spyOn(Monitors, 'getByUserId')
@@ -63,7 +63,10 @@ describe('Controller: MyMonitorCtrl', function () {
       .andReturn(deferreds.twt_oauths_query.promise);
 
     spyOn(PagePolling, 'setInterval');
+    $timeout = jasmine.createSpy('timeout');
+    $timeout.cancel = function(){};
 
+    scope = $rootScope.$new();
     MyMonitorCtrl = $controller('MyMonitorCtrl', {
       $scope: scope,
       api: api,
@@ -75,7 +78,8 @@ describe('Controller: MyMonitorCtrl', function () {
         }
       },
       PagePolling: PagePolling,
-      QueueSelection: QueueSelection
+      QueueSelection: QueueSelection,
+      $timeout: $timeout
     });
   }));
 
@@ -171,6 +175,12 @@ describe('Controller: MyMonitorCtrl', function () {
               deferreds.$http_get.resolve();
               scope.$digest();
             });
+            it('shows an explanation and hides it after a while', function() {
+              expect(scope.tellToWait).toBeTruthy();
+              expect($timeout).toHaveBeenCalled();
+              $timeout.mostRecentCall.args[0]();
+              expect(scope.tellToWait).toBeFalsy();
+            });
             it('asks for reports', function() {
               expect(api.reports.query).toHaveBeenCalled();
             });
@@ -204,6 +214,9 @@ describe('Controller: MyMonitorCtrl', function () {
     });
     it('asks for reports', function() {
       expect(api.reports.query).toHaveBeenCalled();
+    });
+    it('does not show the wait message', function() {
+      expect($timeout).not.toHaveBeenCalled();
     });
     describe('first reports are received', function() {
       beforeEach(function() {
@@ -251,16 +264,28 @@ describe('Controller: MyMonitorCtrl', function () {
             expect(QueueSelection.description).toBe('changed terms');
           });
           it('restarts the monitor', function() {
-            var stop = globals.root+'/proxy/stop-stream/monitor id',
-                start = globals.root+'/proxy/start-stream/monitor id';
+            var stop = globals.root+'/proxy/stop-stream/monitor id';
             expect($http.get).toHaveBeenCalledWith(stop);
           });
           describe('after the monitor is restarted', function() {
             beforeEach(function(){
+              var start = globals.root+'/proxy/start-stream/monitor id';
+              var stopDeferred = deferreds.get;
+              deferreds.get = $q.defer()
+              stopDeferred.resolve();
+              scope.$digest();
+              expect($http.get.mostRecentCall.args[0]).toBe(start);
               deferreds.get.resolve();
             });
             it('comes back to the starting status', function() {
               expect(scope.disabled).toBe(false);
+              expect(scope.editing).toBe(false);
+            });
+            it('shows an explanation and hides it after a while', function() {
+              expect(scope.tellToWait).toBeTruthy();
+              expect($timeout).toHaveBeenCalled();
+              $timeout.mostRecentCall.args[0]();
+              expect(scope.tellToWait).toBeFalsy();
             });
           });
         });

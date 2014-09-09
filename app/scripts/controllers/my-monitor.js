@@ -15,7 +15,7 @@
  */
 
 angular.module('citizendeskFrontendApp')
-  .controller('MyMonitorCtrl', function ($scope, api, $http, Monitors, session, Raven, config, addNewValues, dateFetcherFactory, PagePolling, QueueSelection, $filter, linkTweetEntities, PageBroker, AliasesInLists) {
+  .controller('MyMonitorCtrl', function ($scope, api, $http, Monitors, session, Raven, config, addNewValues, dateFetcherFactory, PagePolling, QueueSelection, $filter, linkTweetEntities, PageBroker, AliasesInLists, $timeout) {
     $scope.missing = {
       monitor: false,
       key: false
@@ -56,6 +56,7 @@ angular.module('citizendeskFrontendApp')
         return $http.get(config.server.url+'/proxy/stop-stream/'+m._id);
       }
     };
+    var timeoutPromise;
 
     function processReport(report) {
       try {
@@ -96,6 +97,13 @@ angular.module('citizendeskFrontendApp')
             });
         }, 10 * 1000);
       });
+    }
+    function explainUser() {
+      $timeout.cancel(timeoutPromise);
+      $scope.tellToWait = true;
+      timeoutPromise = $timeout(function() {
+        $scope.tellToWait = false;
+      }, 10 * 1000);
     }
     $scope.moreReports = function() {
       $scope.page += 1;
@@ -164,7 +172,10 @@ angular.module('citizendeskFrontendApp')
           Monitors.update();
           return monitor.start(createdMonitor);
         })
-        .then(initReports);
+        .then(function() {
+          explainUser();
+          initReports();
+        });
     };
     $scope.edit = function() {
       $scope.editing = true;
@@ -186,6 +197,7 @@ angular.module('citizendeskFrontendApp')
         })
         .then(function() {
           $scope.editing = false;
+          explainUser();
           initReports();
         });
     };
