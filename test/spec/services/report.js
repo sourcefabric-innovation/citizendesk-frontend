@@ -121,7 +121,38 @@ describe('Service: Report', function () {
       });
     });
   });
-  describe('the provided verification handler', function(){
+  describe('the step change handler', function() {
+    var handler,
+        $scope = {
+          report: {
+            steps: [{
+              done: false,
+              mandatory: true
+            }, {
+              done: true,
+              mandatory: false
+            }]
+          }
+        };
+    beforeEach(function() {
+      handler = Report.getStepsHandler($scope);
+    });
+    it('disables verification when a mandatory step is missing', function() {
+      handler();
+      expect($scope.verificationDisabled).toBe(true);
+    });
+    it('enables verification when an optional step is missing', function() {
+      $scope.report.steps[0].done = true;
+      handler();
+      expect($scope.verificationDisabled).toBe(false);
+    });
+    it('works even when steps are not given', function() {
+      $scope.report.steps = undefined;
+      handler();
+      expect($scope.verificationDisabled).toBe(false);
+    });
+  });
+  describe('the status change handler', function(){
     var handler,
         $scope;
     beforeEach(function(){

@@ -30,6 +30,7 @@ describe('Controller: ReportTweetCtrl', function () {
     spyOn(api.reports, 'getById').andCallThrough();
     spyOn(api.steps, 'query').andCallThrough();
     spyOn(Report, 'getVerificationHandler');
+    spyOn(Report, 'getStepsHandler').andCallThrough();
     ReportCtrl = $controller('ReportTweetCtrl', dependencies);
     $httpBackend = _$httpBackend_;
     api.reports.def.getById

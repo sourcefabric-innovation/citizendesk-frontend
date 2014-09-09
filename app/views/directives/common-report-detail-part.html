@@ -28,7 +28,7 @@
     <p class="btn-group btn-group-justified">
       <label class="btn btn-default" ng-model="report.status"
              ng-class="{'btn-success': report.status=='verified'}"
-             ng-disabled="disabled"
+             ng-disabled="disabled || verificationDisabled"
              btn-radio="'verified'">
         <span translate>
           Verified!
@@ -74,7 +74,7 @@
     <p class="btn-group btn-group-justified">
       <label class="btn btn-default" ng-model="report.status"
              ng-class="{'btn-success': report.status=='verified'}"
-             ng-disabled="disabled"
+             ng-disabled="disabled || verificationDisabled"
              btn-radio="'verified'">
         <span translate>
           Verified!

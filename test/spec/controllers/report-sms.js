@@ -11,7 +11,9 @@ describe('Controller: ReportSmsCtrl', function () {
       Report = {
         getSelectedCoverage: function(){},
         checkPublished: function(){},
-        getVerificationHandler: function(){ return function(){}; }
+        getVerificationHandler: function(){ return function(){}; },
+        addSteps: function(){},
+        getStepsHandler: function(){ return function(){}; }
       },
       Coverages = { promise: { then: function(){} } },
       $window = {

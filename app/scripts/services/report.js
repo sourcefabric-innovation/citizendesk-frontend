@@ -65,6 +65,18 @@ angular.module('citizendeskFrontendApp')
         }
       };
     };
+    this.getStepsHandler = function($scope) {
+      return function() {
+        if ($scope.report && $scope.report.steps) {
+          $scope.verificationDisabled = $scope.report.steps
+            .some(function(step) {
+              return step.mandatory && (!step.done);
+            });
+        } else {
+          return false;
+        }
+      };
+    };
     this.linkTweetTexts = function(report) {
       if (report.feed_type === 'tweet') {
         try {
@@ -115,5 +127,21 @@ angular.module('citizendeskFrontendApp')
         local: true,
         proto: false
       };
+    };
+    this.addSteps = function(report) {
+      if (!('steps' in report)) {
+        api.steps.query()
+          .then(function(response) {
+            var data = response._items;
+            if (data.length === 0) {
+              Raven.raven.captureMessage('no validation steps for report detail');
+            } else {
+              report.steps = data.map(function(step) {
+                step.done = false;
+                return step;
+              });
+            }
+          });
+      }
     };
   });

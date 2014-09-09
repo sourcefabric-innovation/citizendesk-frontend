@@ -18,7 +18,7 @@ angular.module('citizendeskFrontendApp')
     });
     streams.reportData.onValue(function(promise) {
       return promise.then(function(report){
-        addSteps(report); // idempotent
+        Report.addSteps(report); // idempotent
         $scope.isPublished = Report.checkPublished(report);
         $scope.report = report;
         $scope.linkedText = linkTweetEntities(report);
@@ -35,6 +35,10 @@ angular.module('citizendeskFrontendApp')
           $scope.$watch(
             'report.status',
             Report.getVerificationHandler($scope)
+          );
+          $scope.$watch(
+            'report.steps',
+            Report.getStepsHandler($scope)
           );
           $scope.$watch('report.status', function(n, o) {
             if(n === o) {
@@ -59,23 +63,6 @@ angular.module('citizendeskFrontendApp')
               .getSelectedCoverage(report, coverages);
           });
       });
-
-    function addSteps(report) {
-      if (!('steps' in report)) {
-        api.steps.query()
-          .then(function(response) {
-            var data = response._items;
-            if (data.length === 0) {
-              Raven.raven.captureMessage('no validation steps for report detail');
-            } else {
-              report.steps = data.map(function(step) {
-                step.done = false;
-                return step;
-              });
-            }
-          });
-      }
-    }
 
     $scope.largeScreen = screenSize.is('md,lg');
     $scope.save = function() {

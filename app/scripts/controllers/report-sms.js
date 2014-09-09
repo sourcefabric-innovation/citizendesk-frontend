@@ -5,29 +5,12 @@ angular.module('citizendeskFrontendApp')
   .controller('ReportSmsCtrl', function ($scope, $routeParams, Raven, api, $location, Report, Coverages, $window, screenSize, superdeskDate) {
     var id = $routeParams.id;
 
-    function addSteps(report) {
-      if (!('steps' in report)) {
-        api.steps.query()
-          .then(function(response) {
-            var data = response._items;
-            if (data.length === 0) {
-              Raven.raven.captureMessage('no validation steps for report detail');
-            } else {
-              report.steps = data.map(function(step) {
-                step.done = false;
-                return step;
-              });
-            }
-          });
-      }
-    }
-
     function updateReport() {
       return api.reports
         .getById(id)
         .then(function(report) {
           $scope.report = report;
-          addSteps($scope.report);
+          Report.addSteps($scope.report);
           $scope.selectedCoverage = Report
             .getSelectedCoverage(report, $scope.coverages);
           if (report.on_behalf_id) {
@@ -50,6 +33,7 @@ angular.module('citizendeskFrontendApp')
       });
 
       $scope.$watch('report.status', Report.getVerificationHandler($scope));
+      $scope.$watch('report.steps', Report.getStepsHandler($scope));
 
       $scope.$watch('report.status', function(n, o) {
         if(n === o) {
