@@ -2,7 +2,7 @@
 /* jshint camelcase: false */
 
 angular.module('citizendeskFrontendApp')
-  .controller('MobileQueueCtrl', function ($scope, api, QueueSelection, PageBroker, AliasesInLists) {
+  .controller('MobileQueueCtrl', function ($scope, api, QueueSelection, PageBroker, AliasesInLists, reportStatuses) {
     QueueSelection.description = 'Reports coming from mobile phones';
     $scope.reports = [];
     $scope.loading = true;
@@ -18,7 +18,7 @@ angular.module('citizendeskFrontendApp')
             $and: [
               {feed_type: 'sms'},
               {automatic: {$ne: true}},
-              {status: null},
+              {status: reportStatuses('')},
               {assignments: {$size: 0}}
             ]
           }),

@@ -2,7 +2,7 @@
 /* jshint camelcase: false */
 
 angular.module('citizendeskFrontendApp')
-  .service('TwitterSearches', function($resource, $q, Raven, $http, api, lodash, addNewValues, AliasesInLists, Report, config) {
+  .service('TwitterSearches', function($resource, $q, Raven, $http, api, lodash, addNewValues, AliasesInLists, Report, config, reportStatuses) {
 
     var service = this,
         _ = lodash;
@@ -60,7 +60,7 @@ angular.module('citizendeskFrontendApp')
       var query = JSON.stringify({
         $and: [
           {'channels.request': queue._id},
-          {status: null},
+          {status: reportStatuses('')},
           {assignments: {$size: 0}}
         ]
       });
