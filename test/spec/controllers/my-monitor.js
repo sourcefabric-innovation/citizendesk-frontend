@@ -251,7 +251,10 @@ describe('Controller: MyMonitorCtrl', function () {
         });
         describe('after the filter is updated', function() {
           beforeEach(function() {
-            deferreds.save.resolve();
+            var response = angular
+                  .copy(api.twt_filters.save.mostRecentCall.args[0]);
+            response._etag = 'new etag';
+            deferreds.save.resolve(response);
             deferreds.get = $q.defer();
             spyOn(Monitors, 'update');
             spyOn($http, 'get').andReturn(deferreds.get.promise);
@@ -259,9 +262,10 @@ describe('Controller: MyMonitorCtrl', function () {
           });
           it('updates the filter in the scope', function(){
             expect(scope.monitor.filter.spec.track).toEqual(newSearch);
+            expect(scope.monitor.filter._etag).toEqual('new etag');
           });
           it('updates the description', function(){
-            expect(QueueSelection.description).toBe('changed terms');
+            expect(QueueSelection.description).toBe('changed, terms');
           });
           it('restarts the monitor', function() {
             var stop = globals.root+'/proxy/stop-stream/monitor id';

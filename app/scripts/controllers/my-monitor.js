@@ -44,7 +44,7 @@ angular.module('citizendeskFrontendApp')
       if ($scope.monitor) {
         var track = $scope.monitor.filter.spec.track;
         $scope.search = track;
-        QueueSelection.description = track.join(' ');
+        QueueSelection.description = track.join(', ');
       }
     }, true); // object equality
 
@@ -188,8 +188,8 @@ angular.module('citizendeskFrontendApp')
       candidate.spec.track = $scope.search;
       api.twt_filters
         .save(candidate)
-        .then(function() {
-          $scope.monitor.filter = candidate;
+        .then(function(response) {
+          $scope.monitor.filter = response;
           return monitor.stop($scope.monitor);
         })
         .then(function() {
