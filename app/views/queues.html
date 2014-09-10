@@ -7,11 +7,25 @@
      ng-href="#/new-twitter-search">
     <span translate>New Twitter search</span>
   </a>
-  <a ng-repeat="queue in searches" class="list-group-item"
-     ng-href="#/twitter-search/{{queue._id}}">
-    <span ng-bind="queue.description"></span>
-    <span class="badge" ng-bind="queue.reports.length"></span>
+  <a class="list-group-item list-group-item-warning"
+     ng-click="collapseSearches = !collapseSearches">
+    <span ng-switch="collapseSearches">
+      <span ng-switch-when="true">
+        <span translate>Show twitter searches</span>
+      </span>
+      <span ng-switch-default>
+        <span translate>Hide twitter searches</span>
+      </span>
+    </span>
   </a>
+  <div collapse="collapseSearches">
+    <a ng-repeat="queue in searches" class="list-group-item"
+       ng-href="#/twitter-search/{{queue._id}}"
+       >
+      <span ng-bind="queue.description"></span>
+      <span class="badge" ng-bind="queue.reports.length"></span>
+    </a>
+  </div>
   <a ng-repeat="queue in monitors"
      class="list-group-item list-group-item-success"
      ng-href="#/monitor/{{queue._id}}"
