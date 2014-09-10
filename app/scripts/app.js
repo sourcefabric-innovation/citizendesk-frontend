@@ -182,7 +182,7 @@ angular
         templateUrl: 'views/help-tweet-queues.html'
       })
       .otherwise({
-        redirectTo: '/queues'
+        redirectTo: '/assigned-to-me'
       });
   }]).run(['gettextCatalog', 'Raven', 'initAuth', function(gettextCatalog, Raven, initAuth){ // these annotations are currently not automatically managed by the building process, others are
     //gettextCatalog.currentLanguage = 'it_IT';
