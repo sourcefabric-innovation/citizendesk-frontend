@@ -178,6 +178,9 @@ angular
       .when('/error-no-searches', {
         templateUrl: 'views/error-no-searches.html'
       })
+      .when('/help-tweet-queues', {
+        templateUrl: 'views/help-tweet-queues.html'
+      })
       .otherwise({
         redirectTo: '/queues'
       });
