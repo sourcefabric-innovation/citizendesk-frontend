@@ -1,1 +1,1 @@
-git rebase && grunt build && git add --all dist/ && git commit -am fix && git push --force origin gh-pages && git status
+git checkout gh-pages && git rebase && grunt build && git add --all dist/ && git commit -am fix && git push --force origin gh-pages && git status && git checkout master
