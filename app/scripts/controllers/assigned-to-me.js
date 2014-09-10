@@ -3,7 +3,7 @@
 /* jshint camelcase: false */
 
 angular.module('citizendeskFrontendApp')
-  .controller('AssignedToMeCtrl', function ($scope, api, session, Report, lodash) {
+  .controller('AssignedToMeCtrl', function ($scope, api, session, Report, lodash, AliasesInLists) {
     $scope.reports = [];
     $scope.disabled = {};
     function fetch(page) {
@@ -29,6 +29,7 @@ angular.module('citizendeskFrontendApp')
         .then(function(response) {
           var reports = response._items;
           Report.linkTweetTextsInList(reports);
+          reports.map(AliasesInLists.embedAuthorAlias);
           $scope.reports = $scope.reports.concat(reports);
           if (response._links.next) {
             fetch(page + 1);

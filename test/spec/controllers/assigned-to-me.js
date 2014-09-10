@@ -14,6 +14,11 @@ describe('Controller: AssignedToMeCtrl', function () {
             return $q.when(angular.copy(mocks.reports['list-not-paginated']));
           }
         }
+      },
+      AliasesInLists = {
+        embedAuthorAlias: function(report) {
+          report.authors[0].alias = 'whatever';
+        }
       };
 
   // Initialize the controller and a mock scope
@@ -26,7 +31,8 @@ describe('Controller: AssignedToMeCtrl', function () {
       api: api,
       session: {
         identity: mocks.auth.success
-      }
+      },
+      AliasesInLists: AliasesInLists
     });
     scope.$digest();
   }));
@@ -41,5 +47,8 @@ describe('Controller: AssignedToMeCtrl', function () {
   });
   it('builds the linked text for every report', function(){
     expect(scope.reports[0].linkedText).toBeDefined();
+  });
+  it('embeds author aliases', function() {
+    expect(scope.reports[0].authors[0].alias).toBeDefined();
   });
 });

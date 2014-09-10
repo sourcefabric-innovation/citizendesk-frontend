@@ -43,4 +43,13 @@ describe('Controller: MobileQueueCtrl', function () {
   it('should attach a list of reports to the scope', function () {
     expect(scope.reports.length).toBe(1);
   });
+  it('dismisses', function() {
+    var id = scope.reports[0]._id;
+    spyOn(api.reports, 'update').andCallThrough();
+    scope.dismiss(scope.reports[0]);
+    expect(api.reports.update).toHaveBeenCalled();
+    api.reports.def.update.resolve({ _id: id });
+    scope.$digest();
+    expect(scope.reports.length).toBe(0);
+  });
 });
