@@ -35,6 +35,7 @@
     <span translate>New Twitter search</span>
   </a>
   <a class="list-group-item list-group-item-warning"
+     ng-show="searches.length"
      ng-click="collapseSearches = !collapseSearches">
     <span ng-switch="collapseSearches">
       <span ng-switch-when="true">

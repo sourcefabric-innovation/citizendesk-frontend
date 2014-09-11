@@ -6,13 +6,16 @@ describe('Controller: NewTwitterSearchCtrl', function () {
   beforeEach(module('citizendeskFrontendApp'));
 
   var NewTwitterSearchCtrl,
-    scope;
+      scope,
+      TwitterSearches = {
+      };
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
     NewTwitterSearchCtrl = $controller('NewTwitterSearchCtrl', {
-      $scope: scope
+      $scope: scope,
+      TwitterSearches: TwitterSearches
     });
   }));
 

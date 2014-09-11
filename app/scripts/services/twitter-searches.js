@@ -2,14 +2,18 @@
 /* jshint camelcase: false */
 
 angular.module('citizendeskFrontendApp')
-  .service('TwitterSearches', function($resource, $q, Raven, $http, api, lodash, addNewValues, AliasesInLists, Report, config, reportStatuses) {
+  .service('TwitterSearches', function($resource, $q, Raven, $http, api, lodash, addNewValues, AliasesInLists, Report, config, reportStatuses, session) {
 
     var service = this,
         _ = lodash;
 
     this.list = [];
     this.promise = api.twt_searches
-      .query()
+      .query({
+        where: JSON.stringify({
+          creator: session.identity._id
+        })
+      })
       .then(function(response) {
         service.list = response._items;
         return service.list;
@@ -39,20 +43,18 @@ angular.module('citizendeskFrontendApp')
      to trigger an actual search action
      */
     this.create = function(terms) {
-      var query = {
-        contains: [terms]
-      };
-      var deferred = $q.defer();
-      api.twt_searches
+      return api.twt_searches
         .create({
           description: terms,
-          query: query
+          query: {
+            contains: [terms]
+          },
+          creator: session.identity._id
         })
         .then(function(queue) {
           service.list.push(queue);
-          deferred.resolve(queue._id);
+          return queue._id;
         });
-      return deferred.promise;
     };
     /* returns the queue in a promise after the first page is fetched,
     keep updating the queue in the closure with the other pages */

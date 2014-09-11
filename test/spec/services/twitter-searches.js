@@ -10,11 +10,24 @@ describe('Service: TwitterSearches', function () {
       $q,
       $rootScope,
       $httpBackend,
-      api;
+      api,
+      session = {
+        identity: {
+          _id: 'test user id'
+        },
+      };
+  beforeEach(module(function($provide) {
+    $provide.value('session', session);
+    /* playing with `$http` triggers somehow `$locationChangeStart`,
+    which triggers the authentication and an endless digest
+    cycle. replacing the autenthication with this empty function */
+    $provide.value('initAuth', function(){});
+  }));
   beforeEach(inject(function(_$q_, _api_) {
     $q = _$q_;
     api = _api_;
     spyOn(api.twt_searches, 'query').andCallThrough();
+    session.getIdentity = function() { return $q.when(); };
   }));
   beforeEach(inject(function (_TwitterSearches_, _$rootScope_, _$httpBackend_) {
     $rootScope = _$rootScope_;
@@ -22,8 +35,12 @@ describe('Service: TwitterSearches', function () {
     TwitterSearches = _TwitterSearches_;
   }));
 
-  it('has a create method', function () {
-    expect(TwitterSearches.create).toBeDefined();
+  it('creates a new search', function () {
+    spyOn(api.twt_searches, 'create').andCallThrough();
+    TwitterSearches.create('a test query');
+    expect(api.twt_searches.create).toHaveBeenCalled();
+    expect(api.twt_searches.create.mostRecentCall.args[0].creator)
+      .toBe('test user id');
   });
   describe('after downloading searches', function(){
     var queue;
