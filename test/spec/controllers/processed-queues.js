@@ -18,7 +18,7 @@ describe('Controller: ProcessedQueuesCtrl', function () {
   beforeEach(inject(function ($controller, $rootScope, Bacon) {
     requests = [];
     ProcessedQueues.requests = new Bacon.Bus();
-    ['assigned', 'dismissed'].forEach(function (key) {
+    ['published_assigned', 'not_published_dismissed'].forEach(function (key) {
       var stream = new Bacon.Bus();
       allResponses.streams[key] = stream;
       allResponses.properties[key] = stream.toProperty();
@@ -42,24 +42,24 @@ describe('Controller: ProcessedQueuesCtrl', function () {
     });
   }));
   it('pushes requests on initialisation', function() {
-    expect(requests).toEqual([ 'published', 'dismissed', 'debunked', 'assigned' ]);
+    expect(requests.length).toBe(8);
   });
   describe('after some responses came', function() {
     beforeEach(function() {
-      allResponses.streams.assigned.push({
+      allResponses.streams.published_assigned.push({
         _meta: {
           total: 3
         }
       });
-      allResponses.streams.dismissed.push({
+      allResponses.streams.not_published_dismissed.push({
         _meta: {
           total: 4
         }
       });
     });
     it('saves the responses', function() {
-      expect(scope.totals.assigned).toBe(3);
-      expect(scope.totals.dismissed).toBe(4);
+      expect(scope.totals.published_assigned).toBe(3);
+      expect(scope.totals.not_published_dismissed).toBe(4);
     });
     it('has the values after a new initialisation', inject(function($controller, $rootScope) {
       scope = $rootScope.$new();
@@ -67,8 +67,8 @@ describe('Controller: ProcessedQueuesCtrl', function () {
         $scope: scope,
         ProcessedQueues: ProcessedQueues
       });
-      expect(scope.totals.assigned).toBe(3);
-      expect(scope.totals.dismissed).toBe(4);
+      expect(scope.totals.published_assigned).toBe(3);
+      expect(scope.totals.not_published_dismissed).toBe(4);
     }));
   });
 });

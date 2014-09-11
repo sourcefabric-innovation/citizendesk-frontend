@@ -67,6 +67,10 @@ angular
         templateUrl: 'views/citizen-card.html',
         controller: 'CitizenCardCtrl'
       })
+      .when('/generic-report-list/:query', {
+        templateUrl: 'views/simple-report-list.html',
+        controller: 'GenericReportListCtrl'
+      })
       // session identifiers may contain slashes, thus the eager match
       .when('/session/:session*', {
         templateUrl: 'views/session.html',
@@ -135,22 +139,6 @@ angular
       .when('/assigned-to-me', {
         templateUrl: 'views/assigned-to-me.html',
         controller: 'AssignedToMeCtrl'
-      })
-      .when('/published-list', {
-        templateUrl: 'views/simple-report-list.html',
-        controller: 'PublishedListCtrl'
-      })
-      .when('/dismissed-list', {
-        templateUrl: 'views/simple-report-list.html',
-        controller: 'DismissedListCtrl'
-      })
-      .when('/debunked-list', {
-        templateUrl: 'views/simple-report-list.html',
-        controller: 'DebunkedListCtrl'
-      })
-      .when('/assigned-list', {
-        templateUrl: 'views/simple-report-list.html',
-        controller: 'AssignedListCtrl'
       })
       .when('/assign/', {
         templateUrl: 'views/assign.html',
