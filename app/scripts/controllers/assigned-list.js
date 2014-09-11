@@ -1,19 +1,7 @@
 'use strict';
 
 angular.module('citizendeskFrontendApp')
-  .controller('AssignedListCtrl', function ($scope, SimpleReportList, gettextCatalog) {
+  .controller('AssignedListCtrl', function ($scope, SimpleReportList, gettextCatalog, SavedQueries) {
     $scope.description = gettextCatalog.getString('Assigned reports');
-    SimpleReportList.init($scope, {
-      $and: [{
-        'assignments.user_id': { $exists: true }
-      }, {
-        $or: [{
-          status: '',
-        }, {
-          status: {$exists: false}
-        }, {
-          'coverages.published': { $size: 0 }
-        }]
-      }]
-    });
+    SimpleReportList.init($scope, SavedQueries.getWhere('assigned'));
   });

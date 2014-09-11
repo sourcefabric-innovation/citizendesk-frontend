@@ -1,15 +1,7 @@
 'use strict';
 
 angular.module('citizendeskFrontendApp')
-  .controller('PublishedListCtrl', function ($scope, SimpleReportList, gettextCatalog) {
+  .controller('PublishedListCtrl', function ($scope, SimpleReportList, gettextCatalog, SavedQueries) {
     $scope.description = gettextCatalog.getString('Published reports');
-    var query = {
-      'coverages.published': {
-        // in order to specify a not empty array
-        $elemMatch: {
-          $exists: true
-        }
-      }
-    };
-    SimpleReportList.init($scope, query);
+    SimpleReportList.init($scope, SavedQueries.getWhere('published'));
   });

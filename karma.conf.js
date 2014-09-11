@@ -48,9 +48,10 @@ module.exports = function(config) {
       //'test/spec/controllers/report-sms.js',
       //'test/spec/controllers/configure-coverages.js',
       //'test/spec/controllers/configure-steps.js',
-      'test/spec/controllers/configure-lists-specific.js',
+      //'test/spec/controllers/configure-lists-specific.js',
       //'test/spec/controllers/citizen-card.js',
       //'test/spec/controllers/report-tweet.js',
+      //'test/spec/controllers/processed-queries.js',
 
       // for karma markup preprocessor
       'app/views/**/*.html'

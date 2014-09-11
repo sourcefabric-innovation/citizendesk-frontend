@@ -168,10 +168,11 @@ angular
         templateUrl: 'views/my-monitor.html',
         controller: 'MyMonitorCtrl'
       })
-      // static pages, without controllers
       .when('/processed-queues', {
-        templateUrl: 'views/processed-queues.html'
+        templateUrl: 'views/processed-queues.html',
+        controller: 'ProcessedQueuesCtrl'
       })
+      // static pages, without controllers
       .when('/error-no-monitors', {
         templateUrl: 'views/error-no-monitors.html'
       })

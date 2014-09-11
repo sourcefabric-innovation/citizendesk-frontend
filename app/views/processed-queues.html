@@ -5,18 +5,22 @@
       <a class="list-group-item"
          ng-href="#/published-list">
         <span translate>Published</span>
+        <span class="badge" ng-bind="totals.published"></span>
       </a>
       <a class="list-group-item text-center"
          ng-href="#/dismissed-list">
         <span translate>Dismissed</span>
+        <span class="badge" ng-bind="totals.dismissed"></span>
       </a>
       <a class="list-group-item text-center"
          ng-href="#/debunked-list">
         <span translate>Debunked</span>
+        <span class="badge" ng-bind="totals.debunked"></span>
       </a>
       <a class="list-group-item text-center"
          ng-href="#/assigned-list">
         <span translate>Assigned</span>
+        <span class="badge" ng-bind="totals.assigned"></span>
       </a>
     </ul>
   </div>

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('citizendeskFrontendApp')
-  .controller('DismissedListCtrl', function ($scope, SimpleReportList, reportStatuses, gettextCatalog) {
+  .controller('DismissedListCtrl', function ($scope, SimpleReportList, gettextCatalog, SavedQueries) {
     $scope.description = gettextCatalog.getString('Dismissed reports');
-    SimpleReportList.init($scope, { status: reportStatuses('dismissed') });
+    SimpleReportList.init($scope, SavedQueries.getWhere('dismissed'));
   });
