@@ -33,7 +33,15 @@
           </div>
           <!-- middle part of the tweet -->
           <p id="text"
+             ng-if="report.linkedText"
              ng-bind-html="report.linkedText"
+             ng-class="lead"
+             >
+          </p>
+          <!-- this in case we do not have a linked text -->
+          <p id="text"
+             ng-if="!report.linkedText"
+             ng-bind-html="report.texts[0].original"
              ng-class="lead"
              >
           </p>
