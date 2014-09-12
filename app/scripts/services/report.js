@@ -13,7 +13,7 @@ angular.module('citizendeskFrontendApp')
           $http
             .post(config.server.url + 'proxy/publish', {
               report: report._id,
-              coverage: coverage._id
+              coverage: coverage.uuid
             })
             .then(function() {
               deferred.resolve();
@@ -24,7 +24,7 @@ angular.module('citizendeskFrontendApp')
     this.unpublish = function(report, coverage) {
       return $http.post(config.server.url + 'proxy/unpublish', {
         report: report._id,
-        coverage: coverage._id
+        coverage: coverage.uuid
       });
     };
     this.checkPublished = function(report) {

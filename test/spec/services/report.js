@@ -10,7 +10,8 @@ describe('Service: Report', function () {
       $rootScope,
       api = { reports: {}},
       coverage = {
-        _id: 'coverage id'
+        _id: 'coverage id',
+        uuid: 'coverage unique id'
       },
       reportsSaveDeferred,
       initAuth = function(){},
@@ -43,7 +44,7 @@ describe('Service: Report', function () {
   it('can check whether a report is published or not', function() {
     expect(Report.checkPublished({
       coverages: {
-        published: ['a coverage id']
+        published: ['a coverage unique id']
       }
     }))
       .toBe(true);
@@ -71,7 +72,7 @@ describe('Service: Report', function () {
         $httpBackend
           .expectPOST(globals.root+'proxy/publish', {
             report: '53cd05a09c616712c900052d',
-            coverage: 'coverage id'
+            coverage: 'coverage unique id'
           })
           .respond(201);
         reportsSaveDeferred.resolve({});
@@ -101,7 +102,7 @@ describe('Service: Report', function () {
       $httpBackend
         .expectPOST(globals.root+'proxy/unpublish', {
           report: '53cd05a09c616712c900052d',
-          coverage: 'coverage id'
+          coverage: 'coverage unique id'
         })
         .respond(201);
       promise = Report.unpublish(toBePublished, coverage);
