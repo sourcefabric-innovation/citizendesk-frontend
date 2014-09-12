@@ -2,7 +2,7 @@ var globals = {
   root: 'https://cd2.sourcefabric.net/citizendesk-interface/',
   // all controllers sharing the `simple-report-list.html` template
   // have to implement the same interface
-  simpleListControllerTest: function(name) {
+  simpleListControllerTest: function(name, $routeParams) {
     var SimpleReportList = {};
     // Initialize the controller and a mock scope
     beforeEach(inject(function ($controller, $rootScope) {
@@ -11,7 +11,8 @@ var globals = {
       scope = $rootScope.$new();
       DebunkedListCtrl = $controller(name, {
         $scope: scope,
-        SimpleReportList: SimpleReportList
+        SimpleReportList: SimpleReportList,
+        $routeParams: $routeParams
       });
     }));
 

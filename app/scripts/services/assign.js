@@ -32,7 +32,17 @@ angular.module('citizendeskFrontendApp')
           api.reports
             .query({
               where: JSON.stringify({
-                'assignments.user_id': user._id
+                $and: [{
+                  'assignments.user_id': user._id
+                }, {
+                  $or: [{
+                    status: '',
+                  }, {
+                    status: {$exists: false}
+                  }, {
+                    'coverages.published': { $size: 0 }
+                  }]
+                }]
               })
             })
             .then(function(response) {

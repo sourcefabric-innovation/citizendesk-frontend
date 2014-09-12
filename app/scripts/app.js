@@ -71,6 +71,10 @@ angular
         templateUrl: 'views/simple-report-list.html',
         controller: 'GenericReportListCtrl'
       })
+      .when('/assigned-to/:id/:name', {
+        templateUrl: 'views/simple-report-list.html',
+        controller: 'AssignedToCtrl'
+      })
       // session identifiers may contain slashes, thus the eager match
       .when('/session/:session*', {
         templateUrl: 'views/session.html',
