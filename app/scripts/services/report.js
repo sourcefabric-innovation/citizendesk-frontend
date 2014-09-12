@@ -36,7 +36,7 @@ angular.module('citizendeskFrontendApp')
     };
     this.getSelectedCoverage = function(report, coverages) {
       if (coverages && report.coverages && report.coverages.published) {
-        return _.find(coverages, {_id: report.coverages.published[0]});
+        return _.find(coverages, {uuid: report.coverages.published[0]});
       }
     };
     // abstraction of an handler needed both on the tweet report

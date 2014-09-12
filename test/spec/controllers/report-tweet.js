@@ -72,9 +72,11 @@ describe('Controller: ReportTweetCtrl', function () {
     });
   });
   describe('starting assigned to an existent coverage', function() {
-    var coverageId = '53c53ab09c61671221000000';
+    var coverageUniqueId = '53c53ab09c61671221000000';
     beforeEach(inject(function ($controller, $rootScope) {
-      Coverages.promise = $q.when(angular.copy(mocks.coverages.list._items));
+      var mock = angular.copy(mocks.coverages.list._items);
+      mock[0].uuid = coverageUniqueId;
+      Coverages.promise = $q.when(mock);
 
       api.reports.reset.getById();
       api.steps.reset.query();
@@ -87,8 +89,8 @@ describe('Controller: ReportTweetCtrl', function () {
 
       var rep = angular.copy(mocks.reports['538df48f9c616729ad000035']);
       rep.coverages = {
-        outgested: [coverageId],
-        published: [coverageId]
+        outgested: [coverageUniqueId],
+        published: [coverageUniqueId]
       };
       api.reports.def.getById.resolve(rep);
       api.steps.def.query.resolve(mocks.steps.list);
@@ -103,7 +105,7 @@ describe('Controller: ReportTweetCtrl', function () {
       expect(args[1].length).toBe(2);
     });
     it('picks the coverage as the selected one', function(){
-      expect(scope.selectedCoverage._id).toBe(coverageId);
+      expect(scope.selectedCoverage.uuid).toBe(coverageUniqueId);
     });
   });
 });
