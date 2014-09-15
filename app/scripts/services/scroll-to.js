@@ -2,7 +2,6 @@
 
 angular.module('citizendeskFrontendApp')
   .service('ScrollTo', function ScrollTo(Bacon) {
-    var service = this;
     this.targetStream = new Bacon.Bus();
     this.target = this.targetStream.toProperty();
     // empty listener necessary in order to have the property updated
