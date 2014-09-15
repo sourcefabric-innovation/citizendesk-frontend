@@ -2,7 +2,7 @@
 /* jshint camelcase: false */
 
 angular.module('citizendeskFrontendApp')
-  .controller('AssignCtrl', function ($scope, Assign, PageBroker, $window, api, $http, session, reportStatuses, superdeskDate) {
+  .controller('AssignCtrl', function ($scope, Assign, PageBroker, api, $http, session, reportStatuses, superdeskDate) {
     $scope.users = Assign.users;
     $scope.totals = Assign.totals;
     $scope.identity = session.identity;
@@ -29,6 +29,8 @@ angular.module('citizendeskFrontendApp')
         });
     };
     $scope.back = function() {
-      $window.history.back();
+      // no update is actually needed, but this will not harm and it
+      // will trigger scrolling to the corresponding report
+      PageBroker.back({ updateId: $scope.report._id });
     };
   });

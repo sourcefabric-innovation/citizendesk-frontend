@@ -11,7 +11,8 @@ angular
     'eveApi',
     'ui.bootstrap',
     'luegg.directives',
-    'matchMedia'
+    'matchMedia',
+    'duScroll'
   ])
   .constant('config', {
     server: { url: 'https://cd2.sourcefabric.net/citizendesk-interface/' }
