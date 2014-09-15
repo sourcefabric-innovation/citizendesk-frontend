@@ -42,6 +42,7 @@ module.exports = function(config) {
       //'test/spec/services/link-tweet-entities.js',
       //'test/spec/services/bacon.js',
       //'test/spec/services/scroll-to.js',
+      //'test/spec/services/superdesk-date.js',
       //'test/spec/controllers/my-monitor.js',
       //'test/spec/controllers/configure-autoreply.js',
       //'test/spec/controllers/assign.js',

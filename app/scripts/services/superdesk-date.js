@@ -12,17 +12,17 @@ angular.module('citizendeskFrontendApp')
     return {
       render: function(d) {
         if (d instanceof Date) {
-          var datePart = $filter('date')(d, 'yyyy-MM-dd');
-          /*
-
-           can't use Angular filter for the hour part, because it would
-           apply the locale
-
-           */
-          var hour = padTwo(d.getUTCHours()),
+          var year = d.getUTCFullYear(),
+              month = padTwo(d.getUTCMonth() + 1),
+              day = padTwo(d.getUTCDate()),
+              hour = padTwo(d.getUTCHours()),
               minute = padTwo(d.getUTCMinutes()),
               second = padTwo(d.getUTCSeconds());
-          return datePart + 'T' + hour + ':' + minute + ':' + second + '+0000';
+
+          var datePart = year + '-' + month + '-' + day,
+              timePart = hour + ':' + minute + ':' + second + '+0000';
+
+          return datePart + 'T' + timePart;
         } else {
           var tryToRender = JSON.stringify(d);
           throw Error('superdeskDate parsing '+tryToRender);
@@ -50,8 +50,10 @@ angular.module('citizendeskFrontendApp')
             hour = timeSplit[0],
             minute = timeSplit[1],
             second = timeSplit[2];
-        // no comment
-        return new Date(Date.UTC(year, month, day, hour, minute, second));
+
+        // i love you Javascript, luckily we have got tests
+        var UTC = Date.UTC(year, month, day, hour, minute, second);
+        return new Date(UTC);
       }
     };
   });

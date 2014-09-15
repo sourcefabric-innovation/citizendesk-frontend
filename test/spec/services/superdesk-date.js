@@ -4,7 +4,8 @@
 
  Superdesk defines a format to be used for dates, on top of
  Eve. Testing is important here, also because date objects varies a
- lot depending on the browser
+ lot depending on the browser, so for these tests it makes sense to
+ enable several Karma runners
 
  */
 
@@ -14,9 +15,11 @@ describe('Service: superdeskDate', function () {
   beforeEach(module('citizendeskFrontendApp'));
 
   // instantiate service
-  var superdeskDate;
+  var superdeskDate,
+      TzDate;
   beforeEach(inject(function (_superdeskDate_) {
     superdeskDate = _superdeskDate_;
+    TzDate = angular.mock.TzDate;
   }));
 
   it('parses a date', function () {
@@ -31,8 +34,8 @@ describe('Service: superdeskDate', function () {
     expect(rendered).toBe(original);
   });
   it('consistently parses', function () {
-    var original = new Date(0),
-        rendered = superdeskDate.render(original),
+    var original = new Date(0);
+    var rendered = superdeskDate.render(original),
         parsed = superdeskDate.parse(rendered);
     expect(parsed.toUTCString()).toBe(original.toUTCString());
   });
