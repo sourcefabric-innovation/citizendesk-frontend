@@ -3,19 +3,14 @@
 /* see also http://bahmutov.calepin.co/catch-all-errors-in-angular-app.html */
 
 angular.module('citizendeskFrontendApp')
-  .factory('errorHttpInterceptor', function (Raven, $q, Body, $location, session) {
+  .factory('errorHttpInterceptor', function ($injector, $q, Body, Raven) {
     function error(response, message) {
       Body.connectionError = message;
-      var request50char, username;
+      var request50char;
       if(response.config.data) {
         request50char = JSON.stringify(response.config.data).slice(0, 50);
       } else {
         request50char = 'the corresponding request had no data';
-      }
-      if(session.identity) {
-        username = session.identity.username;
-      } else {
-        username = 'username not available because of missing identity';
       }
       Raven.raven.captureException(new Error(message), {
         extra: {
@@ -24,9 +19,7 @@ angular.module('citizendeskFrontendApp')
           // being a "get" request we cannot send too much stuff
           requestLocation: response.config.url,
           request50char: request50char,
-          requestMethod: response.config.method,
-          location: $location.url(),
-          username: username
+          requestMethod: response.config.method
         }
       });
       return $q.reject(message);

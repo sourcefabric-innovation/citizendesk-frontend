@@ -178,7 +178,10 @@ angular
       .otherwise({
         redirectTo: '/assigned-to-me'
       });
-  }]).run(['gettextCatalog', 'Raven', 'initAuth', function(gettextCatalog, Raven, initAuth){ // these annotations are currently not automatically managed by the building process, others are
+  }]).run(['gettextCatalog', 'Raven', 'initAuth', function(gettextCatalog, Raven, initAuth){
+    // the annotations above are currently not automatically managed
+    // by the building process, while the others are
+    
     //gettextCatalog.currentLanguage = 'it_IT';
     gettextCatalog.debug = true;
     Raven.install();
