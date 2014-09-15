@@ -47,13 +47,13 @@
   </div>
 </p>
 <div
-   ng-repeat="report in queue.reports | filter:q | limitTo:limit"
+   ng-repeat="report in queue.reports | filter:q | limitTo:queue.limit"
    tweet-summary
    >
 </div>
-<p ng-show="queue.reports.length > limit">
+<p ng-show="queue.reports.length > queue.limit">
   <button class="btn btn-default btn-lg btn-block"
-          ng-click="limit = limit + 50"
+          ng-click="queue.limit = queue.limit + 50"
           >
     <span translate>
       See more reports

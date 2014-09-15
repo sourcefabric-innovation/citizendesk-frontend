@@ -3,7 +3,6 @@
 angular.module('citizendeskFrontendApp')
   .controller('TwitterSearchCtrl', function ($scope, TwitterSearches, $routeParams, $location, QueueSelection, PageBroker, linkTweetEntities, AliasesInLists, ScrollTo) {
     $scope.queue = {};
-    $scope.limit = 50;
     $scope.loading = true;
     function checkUpdate() {
       var returned = PageBroker.getReturnedData();

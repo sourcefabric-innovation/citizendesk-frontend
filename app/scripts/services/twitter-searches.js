@@ -25,6 +25,7 @@ angular.module('citizendeskFrontendApp')
         return $q.when(queue);
       } else {
         queue.reports = [];
+        queue.limit   = 50;
         return $http
           .post(config.server.url + 'proxy/start-twitter-search/', {
             user_id: '1',
