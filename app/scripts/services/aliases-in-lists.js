@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('citizendeskFrontendApp')
-  .service('AliasesInLists', function (api) {
+  .service('AliasesInLists', function (api, Raven) {
     var service = this,
         /* we could generally build an index for all the aliases, but
         we cannot be sure that they will be in a small number. on the
@@ -39,7 +39,7 @@ angular.module('citizendeskFrontendApp')
       return index;
     };
     this.embedAuthorAlias = function(report){
-      if (report && report.authors && report.authors[0]) {
+      try {
         var author = report.authors[0],
             authority = author.authority,
             id = author.identifiers.user_name;
@@ -48,6 +48,8 @@ angular.module('citizendeskFrontendApp')
             author.alias = index[authority][id];
           }
         });
+      } catch (e) {
+        Raven.raven.captureException(e);
       }
     };
 
