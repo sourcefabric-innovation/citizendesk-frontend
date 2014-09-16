@@ -6,7 +6,7 @@ angular.module('citizendeskFrontendApp')
     $scope.reports = [];
     api.reports
       .query({
-        when: JSON.stringify({
+        where: JSON.stringify({
           'channels.value': $routeParams.id
         }),
         sort:'[("produced", -1)]'
