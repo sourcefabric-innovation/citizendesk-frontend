@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('citizendeskFrontendApp')
-  .controller('ListFromTheWebCtrl', function ($scope, SimpleReportList, gettextCatalog, $location, Report, lodash) {
+  .controller('ListFromTheWebCtrl', function ($scope, SimpleReportList, gettextCatalog, $location, Report, lodash, reportStatuses) {
     $scope.description = gettextCatalog.getString('Content from the Web');
     $scope.disabled = {}; // for the dismiss function
     $scope.goAdd = function() {
@@ -13,6 +13,10 @@ angular.module('citizendeskFrontendApp')
           'channels.type': 'frontend'
         }, {
           'feed_type': 'web_link'
+        }, {
+          status: reportStatuses('')
+        }, {
+          assignments: {$size: 0}
         }]
       })
       .then(function() {
