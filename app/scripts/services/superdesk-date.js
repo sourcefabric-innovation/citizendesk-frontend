@@ -4,7 +4,7 @@
 // the standard
 
 angular.module('citizendeskFrontendApp')
-  .factory('superdeskDate', function ($filter) {
+  .factory('superdeskDate', function () {
     function padTwo(maybeString) {
       var s = String(maybeString);
       return s.length === 1 ? '0'+s : s;
