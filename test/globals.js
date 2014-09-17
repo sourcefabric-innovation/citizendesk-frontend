@@ -3,10 +3,12 @@ var globals = {
   // all controllers sharing the `simple-report-list.html` template
   // have to implement the same interface
   simpleListControllerTest: function(name, $routeParams) {
-    var SimpleReportList = {};
+    var SimpleReportList = {
+      init: function() { return {then: function(){}}; }
+    };
     // Initialize the controller and a mock scope
     beforeEach(inject(function ($controller, $rootScope) {
-      SimpleReportList.init = jasmine.createSpy('service init');
+      spyOn(SimpleReportList, 'init').andCallThrough();
 
       scope = $rootScope.$new();
       DebunkedListCtrl = $controller(name, {

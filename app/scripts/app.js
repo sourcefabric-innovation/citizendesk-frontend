@@ -52,6 +52,10 @@ angular
         templateUrl: 'views/report-sms.html',
         controller: 'ReportSmsCtrl'
       })
+      .when('/report-web_link/:id', {
+        templateUrl: 'views/report-web-link.html',
+        controller: 'ReportWebLinkCtrl'
+      })
       .when('/report-tweet/:id', {
         templateUrl: 'views/report-tweet.html',
         controller: 'ReportTweetCtrl'
@@ -75,6 +79,14 @@ angular
       .when('/assigned-to/:id/:name', {
         templateUrl: 'views/simple-report-list.html',
         controller: 'AssignedToCtrl'
+      })
+      .when('/select-media-to-publish/:type/:id', {
+        templateUrl: 'views/select-media-to-publish.html',
+        controller: 'SelectMediaToPublishCtrl'
+      })
+      .when('/list-from-the-web/', {
+        templateUrl: 'views/list-from-the-web.html',
+        controller: 'ListFromTheWebCtrl'
       })
       // session identifiers may contain slashes, thus the eager match
       .when('/session/:session*', {
@@ -164,6 +176,10 @@ angular
       .when('/processed-queues', {
         templateUrl: 'views/processed-queues.html',
         controller: 'ProcessedQueuesCtrl'
+      })
+      .when('/ingest-from-location', {
+        templateUrl: 'views/ingest-from-location.html',
+        controller: 'IngestFromLocationCtrl'
       })
       // static pages, without controllers
       .when('/error-no-monitors', {

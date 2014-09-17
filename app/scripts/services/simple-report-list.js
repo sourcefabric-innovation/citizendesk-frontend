@@ -1,9 +1,10 @@
 'use strict';
 
 angular.module('citizendeskFrontendApp')
-  .service('SimpleReportList', function(api, Report, PageBroker) {
+  .service('SimpleReportList', function(api, Report, PageBroker, $q) {
     this.init = function($scope, query, options) {
-      var parameters = {};
+      var parameters = {},
+          deferred = $q.defer();
       if (options && options.parameters) {
         parameters = options.parameters;
       }
@@ -28,9 +29,11 @@ angular.module('citizendeskFrontendApp')
               fetch(page + 1);
             } else {
               $scope.loading = false;
+              deferred.resolve();
             }
           });
       }
       fetch(1);
+      return deferred.promise;
     };
   });
