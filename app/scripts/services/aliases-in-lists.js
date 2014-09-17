@@ -40,16 +40,23 @@ angular.module('citizendeskFrontendApp')
     };
     this.embedAuthorAlias = function(report){
       try {
-        var author = report.authors[0],
-            authority = author.authority,
-            id = author.identifiers.user_name;
-        service.indexPromise.then(function(index){
-          if (index[authority] && index[authority][id]) {
-            author.alias = index[authority][id];
+        report.authors.forEach(function (author) {
+          if (author.identifiers) {
+            var authority = author.authority,
+                id = author.identifiers.user_name;
+            service.indexPromise.then(function(index){
+              if (index[authority] && index[authority][id]) {
+                author.alias = index[authority][id];
+              }
+            });
           }
         });
       } catch (e) {
-        Raven.raven.captureException(e);
+        Raven.raven.captureException(e, {
+          extra: {
+            report_id: report._id
+          }
+        });
       }
     };
 
