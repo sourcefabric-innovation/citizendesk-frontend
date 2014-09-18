@@ -53,32 +53,6 @@ describe('Controller: ReportSmsCtrl', function () {
   it('has the correct link to the endpoint', function() {
     expect(scope.report._links.self.href).toBe('http://cd2.sourcefabric.net/citizendesk-interface/reports/53ba73019c6167462300068b');
   });
-  it('attaches a report to the scope', function () {
-    expect(scope.report).toBeDefined();
-  });
-  it('checks when verified', function() {
-    scope.verified = true;
-    scope.$digest();
-    expect(Report.getVerificationHandler).toHaveBeenCalled();
-  });
-  describe('starting with existent steps', function() {
-    beforeEach(inject(function ($controller, $rootScope) {
-      scope = $rootScope.$new();
-      dependencies.$scope = scope;
-      api.reports.reset.getById();
-      api.steps.reset.query();
-      ReportCtrl = $controller('ReportSmsCtrl', dependencies);
-      api.reports.def.getById
-        .resolve(angular.copy(mocks.reports['538df48f9c616729ad000035']));
-      api.steps.def.query.resolve(mocks.steps.list);
-      scope.$digest();
-    }));
-    it('checks when verified', function() {
-      scope.verified = true;
-      scope.$digest();
-      expect(Report.getVerificationHandler).toHaveBeenCalled();
-    });
-  });
   describe('when starting a transcript', function() {
     beforeEach(function() {
       scope.startTranscript();
@@ -143,11 +117,11 @@ describe('Controller: ReportSmsCtrl', function () {
   });
   it('deletes a summary', function(){
     def.reports.remove = $q.defer();
-    spyOn(scope.api.reports, 'remove')
+    spyOn(api.reports, 'remove')
       .andReturn(def.reports.remove.promise);
     spyOn($window.history, 'back');
     scope.deleteSummary();
-    expect(scope.api.reports.remove).toHaveBeenCalled();
+    expect(api.reports.remove).toHaveBeenCalled();
     expect(scope.deleteSummaryDisabled).toBe(true);
     def.reports.remove.resolve({});
     scope.$digest();

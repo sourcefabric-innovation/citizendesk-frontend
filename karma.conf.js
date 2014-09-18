@@ -43,6 +43,7 @@ module.exports = function(config) {
       //'test/spec/services/bacon.js',
       //'test/spec/services/scroll-to.js',
       //'test/spec/services/superdesk-date.js',
+      //'test/spec/services/shared-report.js',
       //'test/spec/controllers/my-monitor.js',
       //'test/spec/controllers/configure-autoreply.js',
       //'test/spec/controllers/assign.js',
@@ -55,6 +56,7 @@ module.exports = function(config) {
       //'test/spec/controllers/citizen-card.js',
       //'test/spec/controllers/report-tweet.js',
       //'test/spec/controllers/processed-queries.js',
+      //'test/spec/controllers/common-report-detail-part.js',
 
       // for karma markup preprocessor
       'app/views/**/*.html'
