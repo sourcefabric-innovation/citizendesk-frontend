@@ -46,7 +46,11 @@ angular.module('citizendeskFrontendApp')
             $scope.onBehalf = user;
           });
       }
+      if (report.notices_outer.length) {
+        $scope.comment = true;
+      }
     });
+    // watchers have to be added just once
     shared.property.take(1).onValue(function(){
       $scope.$watch('report.status', function(newValue, oldValue){
         if(newValue === oldValue) {
@@ -82,6 +86,21 @@ angular.module('citizendeskFrontendApp')
         }
         $scope.report.status_updated = superdeskDate.render(new Date());
         $scope.save();
+      });
+      $scope.$watch('report.notices_outer', function(n, o) {
+        if(n === o) {
+          return;
+        }
+        $scope.report.status_updated = superdeskDate.render(new Date());
+        $scope.save();
+      }, true);
+      $scope.$watch('comment', function(n, o) {
+        if(n === o) {
+          return;
+        }
+        if(n === false) {
+          $scope.report.notices_outer = [];
+        }
       });
     });
     Bacon
