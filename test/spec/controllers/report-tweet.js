@@ -96,9 +96,6 @@ describe('Controller: ReportTweetCtrl', function () {
       api.steps.def.query.resolve(mocks.steps.list);
       scope.$digest();
     }));
-    it('synchronises to report and coverages promises', function(){
-      expect($q.all.mostRecentCall.args[0][1].then).toBeDefined();
-    });
     it('tries to get the selected coverage', function(){
       expect(Report.getSelectedCoverage).toHaveBeenCalled();
       var args = Report.getSelectedCoverage.mostRecentCall.args;

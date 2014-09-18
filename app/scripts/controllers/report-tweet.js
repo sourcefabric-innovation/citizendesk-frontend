@@ -4,64 +4,60 @@
 angular.module('citizendeskFrontendApp')
   .controller('ReportTweetCtrl', function ($scope, $routeParams, Raven, api, $location, Coverages, Report, linkTweetEntities, Bacon, $q, screenSize, superdeskDate) {
     var id = $routeParams.id,
-        properties = {
-          coveragesData: Bacon.constant(Coverages.promise)
-        },
         streams = {
-          updateReport: new Bacon.Bus()
+          updateReport: new Bacon.Bus(),
+          coveragesData: new Bacon.Bus(),
+          reportData: new Bacon.Bus()
         };
-    properties.coveragesData.onValue(function(promise){
-      promise.then(function(coverages) { $scope.coverages = coverages; });
+    Coverages.promise.then(function (coverages) {
+      streams.coveragesData.push(coverages);
     });
-    streams.reportData = streams.updateReport.map(function() {
-      return api.reports.getById(id);
+    streams.coveragesData.onValue(function(coverages) {
+      $scope.coverages = coverages;
     });
-    streams.reportData.onValue(function(promise) {
-      return promise.then(function(report){
-        Report.addSteps(report); // idempotent
-        $scope.isPublished = Report.checkPublished(report);
-        $scope.report = report;
-        $scope.linkedText = linkTweetEntities(report);
-        if (report.on_behalf_id) {
-          api.users.getById(report.on_behalf_id)
-            .then(function(user) {
-              $scope.onBehalf = user;
-            });
-        }
-      });
-    });
-    streams.reportData.take(1).onValue(function(promise){
-        promise.then(function(){
-          $scope.$watch(
-            'report.status',
-            Report.getVerificationHandler($scope)
-          );
-          $scope.$watch(
-            'report.steps',
-            Report.getStepsHandler($scope)
-          );
-          $scope.$watch('report.status', function(n, o) {
-            if(n === o) {
-              return;
-            }
-            $scope.report.status_updated = superdeskDate.render(new Date());
-            $scope.save();
-          });
+    streams.updateReport.onValue(function() {
+        api.reports.getById(id)
+        .then(function(response) {      
+          streams.reportData.push(response);
         });
+    });
+    streams.reportData.onValue(function(report){
+      Report.addSteps(report); // idempotent
+      $scope.isPublished = Report.checkPublished(report);
+      $scope.report = report;
+      $scope.linkedText = linkTweetEntities(report);
+      if (report.on_behalf_id) {
+        api.users.getById(report.on_behalf_id)
+          .then(function(user) {
+            $scope.onBehalf = user;
+          });
+      }
+    });
+    streams.reportData.take(1).onValue(function(){
+      $scope.$watch(
+        'report.status',
+        Report.getVerificationHandler($scope)
+      );
+      $scope.$watch(
+        'report.steps',
+        Report.getStepsHandler($scope)
+      );
+      $scope.$watch('report.status', function(n, o) {
+        if(n === o) {
+          return;
+        }
+        $scope.report.status_updated = superdeskDate.render(new Date());
+        $scope.save();
       });
+    });
 
     Bacon
-      .combineAsArray(streams.reportData, properties.coveragesData)
+      .combineAsArray(streams.reportData, streams.coveragesData)
       .onValue(function(value) {
-        var reportPromise = value[0],
-            coveragesPromise = value[1];
-        $q.all([reportPromise, coveragesPromise])
-          .then(function(results){
-            var report = results[0],
-                coverages = results[1];
-            $scope.selectedCoverage = Report
-              .getSelectedCoverage(report, coverages);
-          });
+        var report = value[0],
+            coverages = value[1];
+        $scope.selectedCoverage = Report
+          .getSelectedCoverage(report, coverages);
       });
 
     $scope.largeScreen = screenSize.is('md,lg');
