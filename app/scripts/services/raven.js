@@ -7,7 +7,7 @@ angular.module('citizendeskFrontendApp')
 
     this.install = function() {
       Raven
-        .config('http://b1901abf077d476ba253bce45dd5bf91@sentry.sourcefabric.org/8', {
+        .config('https://b1901abf077d476ba253bce45dd5bf91@sentry.sourcefabric.org/8', {
           ignoreErrors: [],
           dataCallback: function(data) {
             var username;
