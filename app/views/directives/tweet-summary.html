@@ -69,7 +69,6 @@
     </p>
   </div>
   <div class="panel-footer clearfix">
-    <p>
       <span ng-show="report.original.entities.media.length"
             class="glyphicon glyphicon-picture"></span>
       <span ng-show="report.original.entities.urls.length"
@@ -79,7 +78,6 @@
       <span ng-repeat="tag in report.authors[0].alias.tags"
             class="label" ng-bind="tag.name" ng-class="tag.variation">
       </span>
-    </p>
     <span report-summary-buttons></span> 
   </div>
 </div>
