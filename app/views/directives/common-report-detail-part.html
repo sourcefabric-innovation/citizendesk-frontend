@@ -93,11 +93,32 @@
         </label>
       </div>
     </div>
-    <div class="form-group">
-      <textarea class="form-control" rows="2"
-                ng-model="report.notices_outer[0]"
-                ng-model-options="{ debounce: 2000 }"
-                ng-show="comment"></textarea>
+    <div class="form-group" ng-show="comment">
+      <div ng-hide="isPublished">
+        <textarea class="form-control" rows="2"
+                  ng-model="report.notices_outer[0]"
+                  ng-model-options="{ debounce: 1000 }"
+                  ></textarea>
+      </div>
+      <div ng-show="isPublished" class="clearfix">
+        <textarea class="form-control" rows="2"
+                  ng-model="report.notices_outer[0]"
+                  ></textarea>
+        <span class="pull-right">
+          <button class="btn btn-default"
+                  ng-click="report.notices_outer[0] = commentCopy"
+                  ng-disabled="disabled"
+                  >
+            <span translate>Cancel</span>
+          </button>
+          <button class="btn btn-primary"
+                  ng-click="save()"
+                  ng-disabled="disabled"
+                  >
+            <span translate>Save</span>
+          </button>
+        </span>
+      </div>
     </div>
   </div>
   <div class="row">

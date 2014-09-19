@@ -48,6 +48,7 @@ angular.module('citizendeskFrontendApp')
       }
       if (report.notices_outer.length) {
         $scope.comment = true;
+        $scope.commentCopy = report.notices_outer[0];
       }
     });
     // watchers have to be added just once
@@ -89,6 +90,10 @@ angular.module('citizendeskFrontendApp')
       });
       $scope.$watch('report.notices_outer', function(n, o) {
         if(n === o) {
+          return;
+        }
+        // do not auto save when the report is already published
+        if($scope.isPublished) {
           return;
         }
         $scope.report.status_updated = superdeskDate.render(new Date());
