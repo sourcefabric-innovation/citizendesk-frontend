@@ -31,6 +31,7 @@
                ng-class="{'btn-success': report.status=='verified'}"
                ng-disabled="disabled || verificationDisabled"
                btn-radio="'verified'">
+          <span class="glyphicon glyphicon-ok"></span>
           <span translate>
             Verified!
           </span>
@@ -46,6 +47,7 @@
                ng-class="{'btn-danger': report.status=='debunked'}"
                ng-disabled="disabled"
                btn-radio="'debunked'">
+          <span class="glyphicon glyphicon-warning-sign"></span>
           <span translate>
             This is false
           </span>
@@ -127,11 +129,13 @@
               ng-disabled="disablePublish || (!selectedCoverage)"
               ng-click="publish()">
         <span translate>Publish</span>
+        <span class="glyphicon glyphicon-send"></span>
       </button>
       <button class="btn btn-warning" ng-if="isPublished"
               ng-disabled="disablePublish || (!selectedCoverage)"
               ng-click="unpublish()">
         <span translate>Unpublish</span>
+        <span class="glyphicon glyphicon-remove"></span>
       </button>
     </div>
     <div class="col-md-8 col-xs-8">
