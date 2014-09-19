@@ -1,8 +1,7 @@
 'use strict';
 
 angular.module('citizendeskFrontendApp')
-  .factory('initAuth', ['$rootScope', '$route', '$location', '$http', '$window', 'session', function($rootScope, $route, $location, $http, $window, session) {
-
+  .factory('initAuth', function($rootScope, $route, $location, $http, $window, session) {
     return function() {
 
       // populate current user
@@ -34,5 +33,4 @@ angular.module('citizendeskFrontendApp')
         }
       });
     };
-    
-  }]);
+  });

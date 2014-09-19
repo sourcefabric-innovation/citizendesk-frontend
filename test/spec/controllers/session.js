@@ -34,6 +34,11 @@ describe('Controller: SessionCtrl', function () {
       },
       $location = {
         url: function(){}
+      },
+      Report = {
+        create: function(){
+          return {};
+        }
       };
 
   // Initialize the controller and a mock scope
@@ -69,7 +74,8 @@ describe('Controller: SessionCtrl', function () {
       },
       detailsFetcher: detailsFetcher,
       api: api,
-      $location: $location
+      $location: $location,
+      Report: Report
     });
     scope.$digest();
   }));

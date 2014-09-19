@@ -11,14 +11,9 @@ angular.module('citizendeskFrontendApp')
      * @returns {object} promise
      */
     this.login = function(username, password) {
-
-      function fetchIdentity(loginData) {
-        return api.users.getById(loginData.user);
-      }
-
       return authAdapter.authenticate(username, password)
         .then(function(sessionData) {
-          return fetchIdentity(sessionData)
+          return api.users.getById(sessionData.user)
             .then(function(userData) {
               session.start(sessionData, userData);
               return session.identity;

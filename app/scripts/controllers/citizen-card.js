@@ -6,7 +6,7 @@ angular.module('citizendeskFrontendApp')
     function fetch() {
       var queryParams = {
         where: JSON.stringify({
-          'identifiers.user_name': $routeParams.name,
+          'identifiers.user_name': $routeParams.id,
           authority: $routeParams.authority
         }),
         embedded: '{"tags": 1}'
@@ -19,12 +19,35 @@ angular.module('citizendeskFrontendApp')
           if (data.length > 0) {
             $scope.alias = data[0];
           } else {
-            $http({
-              method: 'POST',
-              url: config.server.url + 'proxy/fetch-citizen-alias/',
-              data: $routeParams
-            })
-            .then(function() {
+            var authority = $routeParams.authority,
+                id        = $routeParams.id,
+                creation;
+            if (authority === 'citizen_desk') {
+              creation = api.users
+                .getById(id)
+                .then(function(user) {
+                  return api.citizen_aliases.save({
+                    authority: authority,
+                    identifiers: {
+                      user_id: user.id,
+                      user_id_search: user.id,
+                      user_name: user.username
+                    },
+                    tags: [],
+                    avatars: []
+                  });
+                });
+            } else {
+              creation = $http({
+                method: 'POST',
+                url: config.server.url + 'proxy/fetch-citizen-alias/',
+                data: {
+                  authority: authority,
+                  name: id
+                }
+              });
+            }
+            creation.then(function() {
               api.citizen_aliases
                 .query(queryParams)
                 .then(function(response) {
@@ -34,8 +57,6 @@ angular.module('citizendeskFrontendApp')
                     if (data.length > 1) {
                       throw new Error('multiple aliases for the same user');
                     }
-                  } else {
-                    throw new Error('zero aliases after fetch request');
                   }
                 });
             });
@@ -46,7 +67,7 @@ angular.module('citizendeskFrontendApp')
     api.reports
       .query({
         where: JSON.stringify({
-          'authors.identifiers.user_name': $routeParams.name,
+          'authors.identifiers.user_name': $routeParams.id,
           'authors.authority': $routeParams.authority
         })
       })

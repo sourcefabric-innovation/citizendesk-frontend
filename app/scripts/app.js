@@ -68,7 +68,7 @@ angular
         templateUrl: 'views/twitter-search.html',
         controller: 'TwitterSearchCtrl'
       })
-      .when('/citizen-card/:authority/:name', {
+      .when('/citizen-card/:authority/:id', {
         templateUrl: 'views/citizen-card.html',
         controller: 'CitizenCardCtrl'
       })

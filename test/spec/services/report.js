@@ -15,16 +15,16 @@ describe('Service: Report', function () {
       },
       reportsSaveDeferred,
       initAuth = function(){},
-      $window = {};
+      $window = {},
+      session = {
+        identity: angular.copy(mocks.auth.success)
+      };
+
   // load the service's module
   beforeEach(module('citizendeskFrontendApp'));
   // mock dependencies
   beforeEach(module(function($provide) {
-    $provide.value('session', {
-      identity: {
-        _id: 'test user id'
-      }
-    });
+    $provide.value('session', session);
     /* playing with `$http` triggers somehow `$locationChangeStart`,
     which triggers the authentication and raises an error. replacing
     the autenthication with this empty function */
@@ -45,5 +45,9 @@ describe('Service: Report', function () {
     var newReport = Report.create({
       session: 'abcde'
     });
+    expect(newReport.authors[0].identifiers.user_name)
+      .toBe('53bab5339c61671f63bc3788');
+    expect(newReport.notices_outer)
+      .toEqual([]);
   });
 });

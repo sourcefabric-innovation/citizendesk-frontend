@@ -17,6 +17,8 @@ describe('Service: Session', function () {
       self: {href: 'delete_session_url'}
     }
   };
+  var sessionData = angular.copy(mocks.auth.success),
+      userData    = angular.copy(mocks.users['53ce6cc79c616732fd0f8de6']);
 
   beforeEach(function() {
     localStorage.clear();
@@ -55,6 +57,15 @@ describe('Service: Session', function () {
 
     $rootScope.$apply();
     expect(identity.name).toBe('foo');
+  }));
+
+  it('stores user data', inject(function(session) {
+    // this is how session is initialised in the auth service, called
+    // by the login modal controller. Here i am also using mock data
+    // coming from the actual API
+    session.start(sessionData, userData);
+    expect(session.identity._id).toBe('53ce6cc79c616732fd0f8de6');
+    expect(session.identity.username).toBe('Francesco');
   }));
 
   /*

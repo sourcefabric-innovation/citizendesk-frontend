@@ -10,22 +10,16 @@ describe('Controller: CitizenCardCtrl', function () {
       scope,
       $httpBackend,
       api,
-      PageBroker = {};
+      PageBroker = {},
+      $controller,
+      $rootScope;
 
   // Initialize the controller and a mock scope
-  beforeEach(inject(function ($controller, $rootScope, _$httpBackend_, _api_) {
-    scope = $rootScope.$new();
+  beforeEach(inject(function (_$controller_, _$rootScope_, _$httpBackend_, _api_) {
     $httpBackend = _$httpBackend_;
     api = _api_;
-    spyOn(api.citizen_aliases, 'query').andCallThrough();
-    CitizenCardCtrl = $controller('CitizenCardCtrl', {
-      $scope: scope,
-      $routeParams: {
-        name: 'BBCBreaking',
-        authority: 'twitter'
-      },
-      PageBroker: PageBroker
-    });
+    $controller = _$controller_;
+    $rootScope = _$rootScope_;
   }));
 
   afterEach(function() {
@@ -33,54 +27,103 @@ describe('Controller: CitizenCardCtrl', function () {
     $httpBackend.verifyNoOutstandingExpectation();
   });
 
-  describe('when an alias is available', function() {
-    beforeEach(inject(function($rootScope) {
-      api.citizen_aliases.def.query
-        .resolve(mocks.citizen_aliases.query_result);
-      scope.$digest();
-    }));
-    it('gets items in the response', function() {
-      expect(scope.response._items).toBeDefined();
+  it('creates missing local aliases instead of asking the core', function() {
+    scope = $rootScope.$new();
+    $controller('CitizenCardCtrl', {
+      $scope: scope,
+      $routeParams: {
+        id: 'abcdef',
+        authority: 'citizen_desk'
+      },
+      PageBroker: PageBroker
     });
-    it('gets links in the response', function() {
-      expect(scope.response._links).toBeDefined();
-    });
-    it('gets meta in the response', function() {
-      expect(scope.response._meta).toBeDefined();
-    });
-    it('adds the alias to the scope', function() {
-      expect(scope.alias.locations).toEqual(['London, UK']);
-    });
-    it('brings the user to the lists editing page', function(){
-      PageBroker.load = jasmine.createSpy('page broker load');
-      scope.editTags();
-      expect(PageBroker.load).toHaveBeenCalled();
-      expect(PageBroker.load.mostRecentCall.args[0])
-        .toBe('/edit-user-lists');
-      expect(PageBroker.load.mostRecentCall.args[1])
-        .toEqual(scope.alias);
-    });
-  });
+    api.citizen_aliases.def.query
+      .resolve(mocks.citizen_aliases.empty_query_result);
 
-  describe('when an alias is not available', function() {
+    spyOn(api.citizen_aliases, 'save').andCallThrough();
+    spyOn(api.users, 'getById').andCallThrough();
+
+    scope.$digest();
+    expect(api.users.getById).toHaveBeenCalled();
+
+    api.citizen_aliases.reset.query();
+    spyOn(api.citizen_aliases, 'query').andCallThrough();
+
+    api.users.def.getById.resolve(angular.copy(mocks.auth.success));
+    scope.$digest();
+    expect(api.citizen_aliases.save).toHaveBeenCalled();
+    api.citizen_aliases.def.save.resolve();
+    scope.$digest();
+    expect(api.citizen_aliases.query).toHaveBeenCalled();
+    api.citizen_aliases.def.query
+      .resolve(mocks.citizen_aliases.query_result);
+    expect(scope.alias).not.toBeDefined();
+    scope.$digest();
+    expect(scope.alias).toBeDefined();
+  });
+  describe('with a not local alias', function() {
     beforeEach(function() {
-      api.citizen_aliases.def.query
-        .resolve(mocks.citizen_aliases.empty_query_result);
-      $httpBackend
-        .expectPOST(globals.root + 'proxy/fetch-citizen-alias/', {
-          name: 'BBCBreaking',
+
+      spyOn(api.citizen_aliases, 'query').andCallThrough();
+      scope = $rootScope.$new();
+      $controller('CitizenCardCtrl', {
+        $scope: scope,
+        $routeParams: {
+          id: 'BBCBreaking',
           authority: 'twitter'
-        })
-        .respond(200);
-      scope.$digest(); // resolve the first promise
-      api.citizen_aliases.reset.query(); // prepare a fresh promise
-      $httpBackend.flush(); // respond to the HTTP request
-      api.citizen_aliases.def.query
-        .resolve(mocks.citizen_aliases.query_result);
-      scope.$digest();
+        },
+        PageBroker: PageBroker
+      });
     });
-    it('adds the alias to the scope', function() {
-      expect(scope.alias.locations).toEqual(['London, UK']);
+    describe('when an alias is available', function() {
+      beforeEach(inject(function($rootScope) {
+        api.citizen_aliases.def.query
+          .resolve(mocks.citizen_aliases.query_result);
+        scope.$digest();
+      }));
+      it('gets items in the response', function() {
+        expect(scope.response._items).toBeDefined();
+      });
+      it('gets links in the response', function() {
+        expect(scope.response._links).toBeDefined();
+      });
+      it('gets meta in the response', function() {
+        expect(scope.response._meta).toBeDefined();
+      });
+      it('adds the alias to the scope', function() {
+        expect(scope.alias.locations).toEqual(['London, UK']);
+      });
+      it('brings the user to the lists editing page', function(){
+        PageBroker.load = jasmine.createSpy('page broker load');
+        scope.editTags();
+        expect(PageBroker.load).toHaveBeenCalled();
+        expect(PageBroker.load.mostRecentCall.args[0])
+          .toBe('/edit-user-lists');
+        expect(PageBroker.load.mostRecentCall.args[1])
+          .toEqual(scope.alias);
+      });
+    });
+
+    describe('when an alias is not available', function() {
+      beforeEach(function() {
+        api.citizen_aliases.def.query
+          .resolve(mocks.citizen_aliases.empty_query_result);
+        $httpBackend
+          .expectPOST(globals.root + 'proxy/fetch-citizen-alias/', {
+            name: 'BBCBreaking',
+            authority: 'twitter'
+          })
+          .respond(200);
+        scope.$digest(); // resolve the first promise
+        api.citizen_aliases.reset.query(); // prepare a fresh promise
+        $httpBackend.flush(); // respond to the HTTP request
+        api.citizen_aliases.def.query
+          .resolve(mocks.citizen_aliases.query_result);
+        scope.$digest();
+      });
+      it('adds the alias to the scope', function() {
+        expect(scope.alias.locations).toEqual(['London, UK']);
+      });
     });
   });
 });

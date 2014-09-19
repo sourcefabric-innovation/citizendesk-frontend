@@ -45,13 +45,18 @@ angular.module('citizendeskFrontendApp')
         user_id: session._id,
         authors: [{
           authority: 'citizen_desk',
-          identifiers: session._id
+          identifiers: {
+            user_name:         session.identity._id,
+            user_name_search:  session.identity._id,
+            user_display_name: session.identity.username
+          }
         }],
         assignments: [],
         feed_type: 'plain',
         automatic: false,
         local: true,
-        proto: false
+        proto: false,
+        notices_outer: []
       };
     };
   });
