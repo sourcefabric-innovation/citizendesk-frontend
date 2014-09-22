@@ -12,6 +12,19 @@ angular.module('citizendeskFrontendApp')
         }
       };
     }
+    function assigned() {
+      return {
+        $and: [{
+          'assignments.user_id': { $exists: true }
+        }, {
+          $or: [{
+            status: '',
+          }, {
+            status: {$exists: false}
+          }]
+        }]
+      };
+    }
     function not_published() {
       return {
         $or: [{
@@ -28,18 +41,12 @@ angular.module('citizendeskFrontendApp')
     var queries = {
       where: {}
     };
-    queries.where.assigned = {
-      'assignments.user_id': { $exists: true }
-    };
+    queries.where.assigned = assigned();
     queries.where.not_published_assigned = {
-      $and: [{
-        'assignments.user_id': { $exists: true }
-      }, not_published()]
+      $and: [assigned(), not_published()]
     };
     queries.where.published_assigned = {
-      $and: [{
-        'assignments.user_id': { $exists: true }
-      }, published()]
+      $and: [assigned(), published()]
     };
     queries.where.dismissed = { status: reportStatuses('dismissed') };
     queries.where.debunked = { status: reportStatuses('debunked') };
