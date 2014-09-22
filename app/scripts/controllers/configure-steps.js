@@ -11,7 +11,10 @@ angular.module('citizendeskFrontendApp')
       });
     $scope.disabled = false;
     $scope.add = function() {
-      $scope.steps.push({ description: '' });
+      $scope.steps.push({
+        description: '',
+        mandatory: false
+      });
     };
     $scope.save = function(step) {
       $scope.disabled = true;
