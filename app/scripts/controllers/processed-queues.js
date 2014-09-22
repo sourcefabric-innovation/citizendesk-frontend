@@ -1,8 +1,9 @@
 'use strict';
 
 angular.module('citizendeskFrontendApp')
-  .controller('ProcessedQueuesCtrl', function ($scope, ProcessedQueues, gettextCatalog) {
+  .controller('ProcessedQueuesCtrl', function ($scope, ProcessedQueues, gettextCatalog, screenSize) {
     $scope.collapseEmpty = true;
+    $scope.largeScreen = screenSize.is('md,lg');
     $scope.groups = [{
       key: 'published_debunked',
       description: gettextCatalog.getString('Published but debunked!'),
