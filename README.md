@@ -2,10 +2,11 @@
 [![Coverage Status](https://coveralls.io/repos/sourcefabric-innovation/citizendesk-frontend/badge.png?branch=master)](https://coveralls.io/r/sourcefabric-innovation/citizendesk-frontend?branch=master)
 [![devDependency Status](https://david-dm.org/sourcefabric-innovation/citizendesk-frontend/dev-status.svg)](https://david-dm.org/sourcefabric-innovation/citizendesk-frontend#info=devDependencies)
 
-### Citizendesk frontend
+### Citizen Desk Web Front End
 
-This is the frontend for Citizendesk. It will serve a web interface
-connected with a [Citizendesk interface][interface] component.
+This is the web front end for Citizendesk. It provides a web user
+interface communicating with a [Citizendesk Application Programming
+Interface][interface] component.
 
 You can try a demo
 [here](https://sourcefabric-innovation.github.io/citizendesk-frontend/dist/),
