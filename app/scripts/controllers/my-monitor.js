@@ -70,6 +70,7 @@ angular.module('citizendeskFrontendApp')
       return api.reports.query({
         page: page,
         sort:'[("produced", -1)]',
+        embedded: '{"assignments.user_id": 1}',
         where: JSON.stringify({
           'channels.value': $scope.monitor._id
         })
