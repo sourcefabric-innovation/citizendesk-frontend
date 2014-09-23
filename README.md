@@ -22,9 +22,10 @@ to install the Bower dependencies running bower install:
 
 In order to work, the front end has to be connected to a [Citizendesk
 interface][interface] component, and you have to write its address in
-the file `app/scripts/services/prefix.js`.
-
-[interface]: https://github.com/sourcefabric-innovation/citizendesk-interface
+the `config.server.url` configuration variable, which you can find in
+`app/scripts/app.js`. This is the standard way to connect an [Eve API
+client service](https://github.com/sourcefabric-innovation/eve-api) to
+its server-side API provider.
 
 #### Development notes
 
@@ -42,4 +43,4 @@ failing and you really do not know what is going on, check this list:
  - make sure that your mocks are updated using the `./mockatenate` script
  - if your are directly mocking HTTP, make sure that the API endpoint you are using (throug `eve-api`) is in the root mock
 
-There is currently some instability in the tests. Sometimes the Phantom driver will be slower and the Phantom server timeout will elapse. Until we are able to fix this, just try again in this case.
+[interface]: https://github.com/sourcefabric-innovation/citizendesk-interface
