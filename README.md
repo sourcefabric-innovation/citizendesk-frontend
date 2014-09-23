@@ -1,6 +1,8 @@
 [![Build Status](https://travis-ci.org/sourcefabric-innovation/citizendesk-frontend.png?branch=master)](https://travis-ci.org/sourcefabric-innovation/citizendesk-frontend)
 [![Coverage Status](https://coveralls.io/repos/sourcefabric-innovation/citizendesk-frontend/badge.png?branch=master)](https://coveralls.io/r/sourcefabric-innovation/citizendesk-frontend?branch=master)
 [![devDependency Status](https://david-dm.org/sourcefabric-innovation/citizendesk-frontend/dev-status.svg)](https://david-dm.org/sourcefabric-innovation/citizendesk-frontend#info=devDependencies)
+[![Issue Stats](http://issuestats.com/github/sourcefabric-innovation/citizendesk-frontend/badge/pr?style=flat)](http://issuestats.com/github/sourcefabric-innovation/citizendesk-frontend)
+[![Issue Stats](http://issuestats.com/github/sourcefabric-innovation/citizendesk-frontend/badge/issue?style=flat)](http://issuestats.com/github/sourcefabric-innovation/citizendesk-frontend)
 
 ### Citizen Desk Web Front End
 
