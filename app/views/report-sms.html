@@ -80,17 +80,7 @@
       <dl>
         <dt translate>Author</dt>
         <dd>
-          <a ng-bind="report.authors[0].identifiers.user_name"
-             ng-href="#/citizen-card/{{report.authors[0].authority}}/{{report.authors[0].identifiers.user_name}}"
-             ng-hide="report.authors[0].authority === 'citizen_desk'"
-             ></a>
-          <!-- disable report listing in case of a local author, see
-          comments on
-          https://github.com/sourcefabric-innovation/citizendesk-frontend/issues/53
-          -->
-          <strong ng-bind="report.authors[0].identifiers.user_display_name"
-                  ng-show="report.authors[0].authority === 'citizen_desk'"
-                  ></strong>
+          <report-author author="report.authors[0]">
         </dd>
       </dl>
       <dl>

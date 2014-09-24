@@ -4,9 +4,7 @@
    >
   <div class="panel-heading clearfix">
     <h5>
-      <a ng-bind="report.authors[0].identifiers.user_name"
-       ng-href="#/citizen-card/{{report.authors[0].authority}}/{{report.authors[0].identifiers.user_name}}"
-       ></a>
+      <report-author author="report.authors[0]">
       <small ng-bind="report.produced | date:'medium'"></small>
     </h5>
   </div>
