@@ -44,9 +44,6 @@ describe('Controller: TwitterSearchCtrl', function () {
     });
   }));
 
-  it('attaches a queue to the scope', function () {
-    expect(scope.queue).toBeDefined();
-  });
   it('assigns', function() {
     var report = { _id: 'report id' }
     scope.assign(report);
