@@ -48,7 +48,18 @@ angular
         templateUrl: 'views/verified-reports.html',
         controller: 'VerifiedReportsCtrl'
       })
+      // the following routes are automatically generated from the
+      // reports, using the structure `/report-<feed_type>/id`, in
+      // order to jump from the report summaries to the report details
       .when('/report-sms/:id', {
+        templateUrl: 'views/report-sms.html',
+        controller: 'ReportSmsCtrl'
+      })
+      // `feed_type` has value `plain`, for example, in the case of a
+      // session summary. according to what Martin says, `plain`
+      // should describe simple text reports. This can be rendered as
+      // an `sms` is rendered at the moment
+      .when('/report-plain/:id', {
         templateUrl: 'views/report-sms.html',
         controller: 'ReportSmsCtrl'
       })
