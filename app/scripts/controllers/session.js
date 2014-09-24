@@ -2,7 +2,7 @@
 /* jshint camelcase: false */
 
 angular.module('citizendeskFrontendApp')
-  .controller('SessionCtrl', function ($scope, api, $routeParams, $http, config, session, addNewValues, PagePolling, Body, $filter, $location, Report) {
+  .controller('SessionCtrl', function ($scope, api, $routeParams, $http, config, session, addNewValues, PagePolling, Body, $filter, $location, Report, reportStatuses) {
     Body.glue = true;
     $scope.body = Body;
     $scope.reports = [];
@@ -106,6 +106,7 @@ angular.module('citizendeskFrontendApp')
       newReport.texts = [{
         original: $scope.summaryContent
       }];
+      newReport.status = reportStatuses('verified');
       newReport.summary = true;
       api.reports
         .save(newReport)
