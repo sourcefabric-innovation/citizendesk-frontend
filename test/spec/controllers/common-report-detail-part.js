@@ -50,6 +50,22 @@ describe('Controller: CommonReportDetailPartCtrl', function () {
   it('asks for its report', function() {
     expect(api.reports.getById).toHaveBeenCalled();
   });
+  describe('on a report with a comment', function() {
+    beforeEach(function() {
+      api.reports.def.getById
+        .resolve(angular.copy(mocks.reports['542428909c6167473a721132']));
+      api.steps.def.query.resolve(mocks.steps.list);
+      scope.$digest();
+    });
+    it('removes the comment when the box is unchecked', function () {
+      expect(scope.report.notices_outer)
+        .toEqual([ 'Good news for Mozambique!' ]);
+      scope.comment = false;
+      scope.$digest();
+      expect(scope.report.notices_outer).toEqual([]);
+      expect(api.reports.save).toHaveBeenCalled();
+    });
+  });
   describe('started without steps', function() {
     beforeEach(function() {
       api.reports.def.getById
