@@ -8,12 +8,8 @@ angular.module('citizendeskFrontendApp')
       .property
       .onValue(function(report) {
         $scope.report = report;
-        $scope.$watch('report.session', function(newValue) {
-          $scope.encodedSession = encodeURIComponent(newValue);
-        });
-        $scope.$watch('report.texts', function() {
-          $scope.hasTranscript = $scope.report.texts[0].transcript;
-        }, true);
+        $scope.encodedSession = encodeURIComponent(report.session);
+        $scope.hasTranscript = Boolean($scope.report.texts[0].transcript);
       });
 
     $scope.startTranscript = function() {
@@ -48,7 +44,7 @@ angular.module('citizendeskFrontendApp')
     $scope.discardTranscript = function() {
       $scope.disableTranscript = true;
       var texts = angular.copy($scope.report.texts);
-      texts[0].transcript = undefined;
+      delete texts[0].transcript;
       api.reports
         .update($scope.report, {texts: texts})
         .then(function(report) {

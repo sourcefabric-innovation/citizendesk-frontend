@@ -108,6 +108,20 @@ describe('Controller: ReportSmsCtrl', function () {
         it('is not editing a transcript', function() {
           expect(scope.editingTranscript).toBe(false);
         });
+        it('can discard the transcript', function() {
+          api.reports.reset.update();
+          spyOn(api.reports, 'update').andCallThrough();
+          scope.discardTranscript();
+          var report = angular.copy(api.reports.update.mostRecentCall.args[0]),
+              patch  = angular.copy(api.reports.update.mostRecentCall.args[1]),
+              updated = angular.extend(report, patch);
+          expect(updated.texts[0].transcript).not.toBeDefined();
+          expect(api.reports.update).toHaveBeenCalled();
+          api.reports.def.update.resolve(updated);
+          scope.$digest();
+          expect(scope.report.texts[0].transcript).not.toBeDefined();
+          expect(scope.hasTranscript).toBe(false);
+        });
         afterEach(function() {
           $httpBackend.verifyNoOutstandingRequest();
           $httpBackend.verifyNoOutstandingExpectation();
