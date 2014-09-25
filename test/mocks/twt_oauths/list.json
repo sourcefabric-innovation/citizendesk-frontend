@@ -1,1 +1,33 @@
-{"_items": [{"_updated": "Thu, 01 Jan 1970 00:00:00 GMT", "logs": {"updated": "Mon, 24 Mar 2014 11:54:22 GMT", "created": "Mon, 24 Mar 2014 11:54:22 GMT"}, "spec": {"consumer_secret": "lGKwHAYJv7YnPTGR9Zs7wFDLM6gvrKtwtlwjlWgaS4", "access_token_key": "1960324645-CBO7cMKawGY2w8RYQ9zTGJZP5w9xMV3VRWF1CHK", "consumer_key": "JGlewgaLsKsBC1STyOTcg", "access_token_secret": "a8lkUGylSbZyR5JcDXhfuW7N403ZgFGq9htHPgfcmBQ73"}, "_links": {"self": {"href": "/twt_oauths/1", "title": "Twt_oauth"}}, "_created": "Thu, 01 Jan 1970 00:00:00 GMT", "_id": 1, "_etag": "9da39c7616bd1ff043f0cc6e8d3569125cf5d56d"}], "_links": {"self": {"href": "/twt_oauths", "title": "twt_oauths"}, "parent": {"href": "", "title": "home"}}}
+{
+  "_links": {
+    "self": {
+      "title": "twt_oauths",
+      "href": "/twt_oauths"
+    },
+    "parent": {
+      "title": "home",
+      "href": "/"
+    }
+  },
+  "_items": [
+    {
+      "_id": "540713c19c6167654ad4a48e",
+      "_updated": "2014-09-03T13:12:33+0000",
+      "_created": "2014-09-03T13:12:33+0000",
+      "spec": {
+        "consumer_key": "**********************qis",
+        "consumer_secret": "***********************************************1NX",
+        "access_token_secret": "******************************************29C",
+        "access_token_key": "***********************************************a3I"
+      },
+      "_etag": "2acd66e68b8a8e7ce16f43fd827af3e95aad3fc3",
+      "_links": {
+        "self": {
+          "title": "Twt_oauth",
+          "href": "/twt_oauths/540713c19c6167654ad4a48e"
+        }
+      },
+      "user_id": "53f75ecb9c61671a58057a5a"
+    }
+  ]
+}

@@ -13,6 +13,8 @@ angular.module('citizendeskFrontendApp')
         $scope.key = response._items.pop();
         if (!$scope.key) {
           $scope.noKey = true;
+        } else {
+          $scope.disabled = true;
         }
       });
     $scope.add = function() {
@@ -21,9 +23,10 @@ angular.module('citizendeskFrontendApp')
         spec: {}
       };
       $scope.noKey = false;
-      $scope.editing = true;
+      $scope.edit();
     };
     $scope.edit = function() {
+      $scope.disabled = false;
       $scope.copy = angular.copy($scope.key);
       $scope.editing = true;
       /* we cannot reuse the displayed data when the user wants to edit,
@@ -32,6 +35,7 @@ angular.module('citizendeskFrontendApp')
       $scope.key.spec = {};
     };
     $scope.cancelEdit = function() {
+      $scope.disabled = true;
       $scope.editing = false;
       $scope.key = $scope.copy;
     };

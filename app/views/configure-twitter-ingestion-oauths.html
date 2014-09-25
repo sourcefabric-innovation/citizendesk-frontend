@@ -55,21 +55,21 @@
           Save
         </span>
       </button>
-      <button class="btn btn-primary" ng-click="cancelEditing()">
+      <button class="btn btn-default" ng-click="cancelEdit()">
         <span translate>
           Cancel editing
         </span>
       </button>
     </div>
-    <div class="col-md-10 col-md-offset-2" ng-if="!editing">
-      <button class="btn btn-primary" ng-click="edit()">
-        <span translate>
-          Edit
-        </span>
-      </button>
-    </div>
   </fieldset>
 </form>
+<div class="col-md-10 col-md-offset-2" ng-if="!editing && !noKey">
+  <button class="btn btn-primary" ng-click="edit()">
+    <span translate>
+      Edit
+    </span>
+  </button>
+</div>
 <div ng-show="noKey">
   <p translate>
     There are no Twitter monitor keys set up for you. You need to add

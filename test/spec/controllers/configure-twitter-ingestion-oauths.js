@@ -38,16 +38,34 @@ describe('Controller: ConfigureTwitterIngestionOauthsCtrl', function () {
   });
   describe('after receiving the keys', function() {
     beforeEach(function() {
-      deferreds.query.resolve({
-        _items: [{
-          _id: 'key id',
-          spec: 'whatever'
-        }]
-      });
+      deferreds.query.resolve(angular.copy(mocks.twt_oauths.list));
       scope.$digest();
     });
     it('has a key', function() {
       expect(scope.key).toBeTruthy();
+      expect(scope.key.spec.consumer_key).toBeDefined();
+    });
+    it('is disabled', function() {
+      expect(scope.disabled).toBeTruthy();
+    });
+    describe('on edit', function() {
+      beforeEach(function() {
+        scope.edit();
+      });
+      it('gets enabled', function() {
+        expect(scope.disabled).toBeFalsy();
+      });
+      it('clears the model', function(){
+        expect(scope.key.spec.consumer_key).not.toBeDefined();
+      });
+      describe('on edit cancel', function() {
+        beforeEach(function() {
+          scope.cancelEdit();
+        });
+        it('restores the received key in the scope', function() {
+          expect(scope.key.spec.consumer_key).toBeDefined();
+        });
+      });
     });
   });
 });
