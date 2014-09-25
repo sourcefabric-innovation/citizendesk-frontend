@@ -7,6 +7,26 @@
   <div class="panel-body">
     <img class="img-responsive center-block" ng-src="{{medium.media_url}}">
   </div>
+  <div class="panel-footer text-center">
+    <a target="_blank"
+       class="btn btn-default"
+       ng-href="http://regex.info/exif.cgi?imgurl={{medium.media_url}}"
+       >
+      Jeffrey's Exif Viewer
+    </a>
+    <a target="_blank"
+       ng-href="http://www.google.com/searchbyimage?image_url={{medium.media_url}}"
+       class="btn btn-default"
+       >
+      <span translate>Reverse Image Search</span>
+    </a>
+    <a target="_blank"
+       ng-href="http://fotoforensics.com/upload-url.php?url={{medium.media_url}}"
+       class="btn btn-default"
+       >
+      <span translate>Error level</span>
+    </a>
+  </div>
 </div>
 <div class="panel panel-info">
   <div class="panel-heading" translate>
