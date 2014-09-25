@@ -72,8 +72,6 @@
     <div class="panel" ng-repeat="medium in report.original.entities.media">
       <img class="img-responsive center-block" ng-src="{{medium.media_url}}">
     </div>
-    <span ng-show="report.original.entities.media.length"
-          class="glyphicon glyphicon-picture"></span>
     <span ng-show="report.original.entities.urls.length"
           class="glyphicon glyphicon-link"></span>
     <!-- i use ng repeat below, but i am currently developing in a way
