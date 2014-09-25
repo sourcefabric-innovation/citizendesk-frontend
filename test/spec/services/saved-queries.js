@@ -19,4 +19,7 @@ describe('Service: SavedQueries', function () {
       SavedQueries.getWhere('wrong');
     }).toThrow();
   });
+  it('provides parametric queries', function() {
+    expect(SavedQueries.parametric.publishedIn('coverage id')).toBeDefined();
+  });
 });

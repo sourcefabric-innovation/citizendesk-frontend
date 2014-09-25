@@ -95,6 +95,10 @@ angular
         templateUrl: 'views/select-media-to-publish.html',
         controller: 'SelectMediaToPublishCtrl'
       })
+      .when('/reports-in-coverage/:uniqueId', {
+        templateUrl: 'views/simple-report-list.html',
+        controller: 'ReportsInCoverageCtrl'
+      })
       .when('/list-from-the-web/', {
         templateUrl: 'views/list-from-the-web.html',
         controller: 'ListFromTheWebCtrl'

@@ -6,6 +6,6 @@ describe('Controller: GenericReportListCtrl', function () {
   beforeEach(module('citizendeskFrontendApp'));
 
   globals.simpleListControllerTest('GenericReportListCtrl', {
-    query:'published_debunked'
+    query: 'published_debunked'
   });
 });

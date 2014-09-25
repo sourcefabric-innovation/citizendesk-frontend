@@ -88,4 +88,13 @@ angular.module('citizendeskFrontendApp')
         throw Error('"'+key+'" is not a saved where query');
       }
     };
+    // omitting the "where" distinction in the parametric queries, i
+    // suppose that their main use will be to build "where" queries
+    this.parametric = {
+      publishedIn: function(coverageUniqueId) {
+        return {
+          'coverages.published': coverageUniqueId
+        };
+      }
+    };
   });
