@@ -156,6 +156,10 @@ angular
         templateUrl: 'views/configure-lists-specific.html',
         controller: 'ConfigureListsSpecificCtrl'
       })
+      .when('/configure-time-zone', {
+        templateUrl: 'views/configure-time-zone.html',
+        controller: 'ConfigureTimeZoneCtrl'
+      })
       .when('/edit-user-lists', {
         templateUrl: 'views/edit-user-lists.html',
         controller: 'EditUserListsCtrl'
