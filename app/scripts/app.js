@@ -29,7 +29,8 @@ angular
       'twt_filters',
       'core_config',
       'citizen_lists',
-      'report_statuses'
+      'report_statuses',
+      'identity_records'
     ].forEach(function(entity) {
       apiProvider.api(entity, { type:'http', backend: { rel:entity }});
     });
@@ -99,14 +100,26 @@ angular
         templateUrl: 'views/simple-report-list.html',
         controller: 'ReportsInCoverageCtrl'
       })
-      .when('/list-from-the-web/', {
-        templateUrl: 'views/list-from-the-web.html',
-        controller: 'ListFromTheWebCtrl'
+      .when('/associate-alias/:aliasId/:identityId', {
+        templateUrl: 'views/associate-alias.html',
+        controller: 'AssociateAliasCtrl'
+      })
+      .when('/identity-record/:id?', {
+        templateUrl: 'views/identity-record.html',
+        controller: 'IdentityRecordCtrl'
+      })
+      .when('/list-identity-records/:aliasId?', {
+        templateUrl: 'views/list-identity-records.html',
+        controller: 'ListIdentityRecordsCtrl'
       })
       // session identifiers may contain slashes, thus the eager match
       .when('/session/:session*', {
         templateUrl: 'views/session.html',
         controller: 'SessionCtrl'
+      })
+      .when('/list-from-the-web/', {
+        templateUrl: 'views/list-from-the-web.html',
+        controller: 'ListFromTheWebCtrl'
       })
       .when('/mobile-queue/', {
         templateUrl: 'views/mobile-queue.html',

@@ -1,5 +1,5 @@
 <h3 translate>
-  Info about user {{alias.identifiers.user_name_search}}
+  Info about alias {{alias.identifiers.user_name_search}}
 </h3>
 <div ng-switch="alias.authority">
   <div ng-switch-when="twitter">
@@ -24,22 +24,65 @@
     </h4>
   </div>
 </div>
-<p ng-if="alias">
-  <h5 ng-if="alias.tags.length===0">
-    <span translate>This user is not associated with any list</span>
-  </h5>
-  <h5 ng-if="alias.tags.length===1">
-    <span translate>This user is associated with the list:</span>
-    <label class="label" ng-class="alias.tags[0].variation"
-           ng-bind="alias.tags[0].name">
-    </label>
-  </h5>
-  <button class="btn btn-default" ng-click="editTags()">
-    <span translate>
-      Set the list associated with this user
-    </span>
-  </button>
-</p>
+<div class="panel panel-default">
+  <div class="panel-body">
+    <div ng-hide="alias.identity_record_id">
+      <p translate>
+        This alias is not associated with any identity
+      </p>
+      <button class="btn btn-default" ng-click="associate()">
+        <span translate>
+          Associate with an identity
+        </span>
+      </button>
+    </div>
+    <div ng-show="alias.identity_record_id">
+      <p>
+        <span translate translate-comment="followed by a person name">
+          This alias is associated with
+        </span>
+        <a ng-href="#/identity-record/{{alias.identity_record_id._id}}">
+          {{alias.identity_record_id.first_name}}
+          {{alias.identity_record_id.last_name}}
+        </a>
+      </p>
+      <button class="btn btn-default" ng-click="associate()">
+        <span translate translate-comment="keep this short">
+          Change the associated identity
+        </span>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="panel panel-default">
+  <div class="panel-body">
+    <div ng-if="alias.tags.length===0">
+      <p translate>
+        This alias is not associated with any list
+      </p>
+      <button class="btn btn-default" ng-click="editTags()">
+        <span translate>
+          Add to a list
+        </span>
+      </button>
+    </div>
+    <div ng-if="alias.tags.length===1">
+      <p translate>
+        This alias belongs to the list below:
+      </p>
+      <p>
+        <label class="label" ng-class="alias.tags[0].variation"
+               ng-bind="alias.tags[0].name">
+        </label>
+      </p>
+      <button class="btn btn-default" ng-click="editTags()">
+        <span translate>
+          Change the list this alias belongs to
+        </span>
+      </button>
+    </div>
+  </div>
+</div>
 <p>
   <h5 translate> Reports authored by this user </h5>
   <div

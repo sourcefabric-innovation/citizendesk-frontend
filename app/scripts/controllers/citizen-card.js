@@ -2,14 +2,14 @@
 /* jshint camelcase: false */
 
 angular.module('citizendeskFrontendApp')
-  .controller('CitizenCardCtrl', function ($scope, $routeParams, api, config, $http, PageBroker) {
+  .controller('CitizenCardCtrl', function ($scope, $routeParams, api, config, $http, PageBroker, $location) {
     function fetch() {
       var queryParams = {
         where: JSON.stringify({
           'identifiers.user_name': $routeParams.id,
           authority: $routeParams.authority
         }),
-        embedded: '{"tags": 1}'
+        embedded: '{"tags": 1, "identity_record_id":1}'
       };
       api.citizen_aliases
         .query(queryParams)
@@ -76,5 +76,8 @@ angular.module('citizendeskFrontendApp')
       });
     $scope.editTags = function() {
       PageBroker.load('/edit-user-lists', $scope.alias);
+    };
+    $scope.associate = function() {
+      $location.url('/list-identity-records/'+$scope.alias._id);
     };
   });

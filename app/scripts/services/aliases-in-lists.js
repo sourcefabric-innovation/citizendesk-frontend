@@ -15,7 +15,7 @@ angular.module('citizendeskFrontendApp')
               }
             }
           }),
-          embedded: '{"tags":1}'
+          embedded: '{"tags":1, "identity_record_id":1}'
         };
 
     this.update = function(){

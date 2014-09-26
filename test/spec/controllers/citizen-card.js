@@ -12,14 +12,17 @@ describe('Controller: CitizenCardCtrl', function () {
       api,
       PageBroker = {},
       $controller,
-      $rootScope;
+      $rootScope,
+      $location;
 
   // Initialize the controller and a mock scope
-  beforeEach(inject(function (_$controller_, _$rootScope_, _$httpBackend_, _api_) {
+  beforeEach(inject(function (_$controller_, _$rootScope_, _$httpBackend_, _api_, _$location_) {
     $httpBackend = _$httpBackend_;
     api = _api_;
     $controller = _$controller_;
     $rootScope = _$rootScope_;
+    $location = _$location_;
+    spyOn($location, 'url');
   }));
 
   afterEach(function() {
@@ -72,7 +75,8 @@ describe('Controller: CitizenCardCtrl', function () {
           id: 'BBCBreaking',
           authority: 'twitter'
         },
-        PageBroker: PageBroker
+        PageBroker: PageBroker,
+        $location: $location
       });
     });
     describe('when an alias is available', function() {
@@ -101,6 +105,11 @@ describe('Controller: CitizenCardCtrl', function () {
           .toBe('/edit-user-lists');
         expect(PageBroker.load.mostRecentCall.args[1])
           .toEqual(scope.alias);
+      });
+      it('can lead the user to the association page', function() {
+        scope.associate();
+        expect($location.url)
+          .toHaveBeenCalledWith('/list-identity-records/53b3daf69c61674623000056');
       });
     });
 
