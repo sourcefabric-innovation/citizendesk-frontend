@@ -37,6 +37,15 @@ Tests use a `mocks` object built with a tool called
 update the file, run the './mockatenate' command from the root repository
 folder
 
+##### Deploy to the `gh-pages` branch
+
+In the repo root there is a bash script which, in a correctly
+configured system, will publish the current master to gh-pages. It
+will run the tests, checkout the branch, rebase and push. It is not
+error proof, it is just a shortcut. You are expected to understand
+what it does. Once in a while, it will probably make sense to squash
+all the `fix` commits there.
+
 ##### Test troubleshooting
 
 There are some details in maintaining the tests that, if you do not
@@ -45,5 +54,6 @@ failing and you really do not know what is going on, check this list:
 
  - make sure that your mocks are updated using the `./mockatenate` script
  - if your are directly mocking HTTP, make sure that the API endpoint you are using (throug `eve-api`) is in the root mock
+ - there is a build process concatenating all the templates. it is triggered automatically when a template is modified and `grunt serve` is running
 
 [interface]: https://github.com/sourcefabric-innovation/citizendesk-interface
