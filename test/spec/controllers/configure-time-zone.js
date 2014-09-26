@@ -27,7 +27,23 @@ describe('Controller: ConfigureTimeZoneCtrl', function () {
     expect(scope.offset).toBeLessThan(14);
     expect(scope.offset).toBeGreaterThan(-11);
   });
-  it('produces a string starting with + o -, followed by one or 2 numbers', function() {
-    expect(/^[+-][0-9]{1,2}$/.test(scope.offsetString)).toBe(true);
+  // adding extra tests for the test regular expression! you never know
+  describe('our tester', function() {
+    var tester;
+    beforeEach(function() {
+      tester = new RegExp('^([+-][1]?[0-9])?$');
+    });
+    it('accepts a string starting with + followed by one number', function() {
+      expect(tester.test('+2')).toBe(true);
+    });
+    it('accepts a string starting with - followed by two numbers', function() {
+      expect(tester.test('-12')).toBe(true);
+    });
+    it('accepts an empty string', function() {
+      expect(tester.test('')).toBe(true);
+    });
+    it('accepts our offset string', function() {
+      expect(tester.test(scope.offsetString)).toBe(true);
+    });
   });
 });

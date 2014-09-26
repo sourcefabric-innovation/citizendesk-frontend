@@ -8,6 +8,8 @@ angular.module('citizendeskFrontendApp')
       $scope.offset = offsetInMinutes / 60;
       if ($scope.offset > 0) {
         $scope.offsetString = '+' + $scope.offset;
+      } else if ($scope.offset === 0) {
+        $scope.offsetString = '';
       } else {
         $scope.offsetString = String($scope.offset);
       }
