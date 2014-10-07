@@ -3,6 +3,16 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: app/views/help-tweet-queues.html
+msgid "<i>Monitors</i> follow your search terms in Twitter in real time. They will periodically show you the most recent tweets about the topic you set. You have to set your monitor to include keywords (like \"Obama\"), Twitter user names (like @joesmith), or hashtags (like #eurovision). You can monitor multiple items - just separate each monitored phrase with a comma. Since this may result in a huge amount of reports from Twitter, we only support search terms with a reduced number of matches. A typical use for a monitor is to watch your own Twitter username and the usernames of others."
+msgstr ""
+
+#: app/views/help-tweet-queues.html
+msgid ""
+"A Twitter search is different. It searches the past, while the monitor is looking forward. Twitter searches do not have the limitations that monitors do, but they are\n"
+"  not constantly updated. They are only updated just when you create or refresh them."
+msgstr ""
+
 #: app/views/configure-coverages.html
 msgid "Active"
 msgstr ""
@@ -16,6 +26,33 @@ msgstr ""
 msgid "Add a key"
 msgstr ""
 
+#: app/views/list-identity-records.html
+msgid "Add a new identity"
+msgstr ""
+
+#: app/views/list-from-the-web.html
+msgid "Add a new link"
+msgstr ""
+
+#: app/views/ingest-from-location.html
+msgid "Add a report from a web location"
+msgstr ""
+
+#: app/views/ingest-from-location.html
+msgid "Add another"
+msgstr ""
+
+#: app/views/citizen-card.html
+msgid "Add to a list"
+msgstr ""
+
+#: app/views/configure-time-zone.html
+msgid ""
+"All time data showed in the application are converted to your time\n"
+"  zone. The time zone cannot be customised by this application, being\n"
+"  it a setting of the operative system."
+msgstr ""
+
 #: app/views/assign.html
 msgid "Assign to:"
 msgstr ""
@@ -24,16 +61,25 @@ msgstr ""
 msgid "Author"
 msgstr ""
 
+#: app/views/configure-autoreply.html
 #: app/views/configure.html
 msgid "Autoreply"
 msgstr ""
 
+#: app/views/configure-lists-specific.html
+#: app/views/identity-record.html
+#: app/views/ingest-from-location.html
 #: app/views/report-sms.html
+#: app/views/select-media-to-publish.html
 msgid "Cancel"
 msgstr ""
 
 #: app/views/configure-twitter-ingestion-oauths.html
 msgid "Cancel editing"
+msgstr ""
+
+#: app/views/citizen-card.html
+msgid "Change the list this alias belongs to"
 msgstr ""
 
 #: app/views/configure-steps.html
@@ -48,16 +94,52 @@ msgid ""
 "    to existing coverages"
 msgstr ""
 
+#: app/views/report-tweet.html
+#: app/views/report-web-link.html
+msgid "Citizen card"
+msgstr ""
+
+#: app/views/configure-lists-specific.html
+#: app/views/configure-lists.html
+#: app/views/configure.html
+msgid "Citizen lists"
+msgstr ""
+
+#: app/views/edit-user-lists.html
+msgid "Citizen {{alias.identifiers.user_name}} belongs to list:"
+msgstr ""
+
+#: app/views/configure-lists-specific.html
+msgid "Citizens belonging to this list:"
+msgstr ""
+
+#: app/views/processed-queues.html
+msgid "Collapse empty groups"
+msgstr ""
+
+#: app/views/configure-autoreply.html
 #: app/views/configure-coverages.html
+#: app/views/configure-lists-specific.html
+#: app/views/configure-lists.html
+#: app/views/configure-status-presentation.html
 #: app/views/configure-steps.html
+#: app/views/configure-time-zone.html
 #: app/views/configure-twitter-ingestion-oauths.html
 #: app/views/configure.html
 msgid "Configure"
 msgstr ""
 
+#: app/views/queues.html
+msgid "Content from the Web"
+msgstr ""
+
 #: app/views/configure-coverages.html
 #: app/views/configure.html
 msgid "Coverages"
+msgstr ""
+
+#: app/views/configure-lists.html
+msgid "Create a new list"
 msgstr ""
 
 #: app/views/session.html
@@ -69,6 +151,7 @@ msgid "Created"
 msgstr ""
 
 #: app/views/configure-coverages.html
+#: app/views/configure-lists-specific.html
 #: app/views/configure-steps.html
 msgid "Delete"
 msgstr ""
@@ -97,6 +180,11 @@ msgstr ""
 msgid "Discard"
 msgstr ""
 
+#: app/views/identity-record.html
+msgid "E-Mail"
+msgstr ""
+
+#: app/views/configure-lists.html
 #: app/views/configure-twitter-ingestion-oauths.html
 #: app/views/report-sms.html
 msgid "Edit"
@@ -106,8 +194,16 @@ msgstr ""
 msgid "Error deleting"
 msgstr ""
 
+#: app/views/report-tweet.html
+msgid "Error level"
+msgstr ""
+
 #: app/views/report-sms.html
 msgid "External link"
+msgstr ""
+
+#: app/views/identity-record.html
+msgid "First name"
 msgstr ""
 
 #: app/views/assign.html
@@ -118,8 +214,28 @@ msgstr ""
 msgid "Go to the corresponding session"
 msgstr ""
 
+#: app/views/queues.html
+msgid "Hide Twitter searches"
+msgstr ""
+
+#: app/views/help-tweet-queues.html
+msgid "How are incoming reports from Twitter organised?"
+msgstr ""
+
 #: app/views/configure-twitter-ingestion-oauths.html
 msgid "How do I get a key? (tutorial in English)"
+msgstr ""
+
+#: app/views/identity-record.html
+msgid "Identity record"
+msgstr ""
+
+#: app/views/list-identity-records.html
+msgid "Identity records"
+msgstr ""
+
+#: app/views/select-media-to-publish.html
+msgid "Image {{$index+1}}"
 msgstr ""
 
 #: app/views/my-monitor.html
@@ -129,13 +245,42 @@ msgid ""
 "      the"
 msgstr ""
 
-#: app/views/assigned-to-me.html
-msgid "Items assigned to you"
+#: app/views/queues.html
+msgid "Incoming Reports"
 msgstr ""
 
+#: app/views/citizen-card.html
+msgid "Info about alias {{alias.identifiers.user_name_search}}"
+msgstr ""
+
+#: app/views/ingest-from-location.html
+msgid "Ingest"
+msgstr ""
+
+#: app/views/assigned-to-me.html
+msgid "Items assigned to you <small>for verification or publishing</small>"
+msgstr ""
+
+#: app/views/identity-record.html
+msgid "Last name"
+msgstr ""
+
+#: app/views/configure-lists-specific.html
+msgid "List name"
+msgstr ""
+
+#: app/views/assigned-to-me.html
+#: app/views/list-from-the-web.html
 #: app/views/mobile-queue.html
+#: app/views/new-twitter-search.html
+#: app/views/simple-report-list.html
 #: app/views/twitter-search.html
 msgid "Loading..."
+msgstr ""
+
+#: app/views/identity-record.html
+#: app/views/ingest-from-location.html
+msgid "Location"
 msgstr ""
 
 #: app/views/assign.html
@@ -144,6 +289,7 @@ msgstr ""
 
 #: app/views/report-sms.html
 #: app/views/report-tweet.html
+#: app/views/report-web-link.html
 msgid "Media"
 msgstr ""
 
@@ -151,8 +297,22 @@ msgstr ""
 msgid "Mobile reports"
 msgstr ""
 
+#: app/views/session.html
+msgid "Mobile session"
+msgstr ""
+
 #: app/views/citizen-card.html
-msgid "Mobile user {{alias.identifiers.user_name}}"
+msgid "Mobile user"
+msgstr ""
+
+#: app/views/configure-status-presentation.html
+msgid ""
+"Modify these texts in order to change the way verification status\n"
+"    is presented to the readers"
+msgstr ""
+
+#: app/views/help-tweet-queues.html
+msgid "Monitors"
 msgstr ""
 
 #: app/views/new-twitter-search.html
@@ -160,11 +320,16 @@ msgstr ""
 msgid "New Twitter search"
 msgstr ""
 
+#: app/views/configure-lists-specific.html
+msgid "New list"
+msgstr ""
+
 #: app/views/citizen-card.html
 msgid "No reports here at the moment"
 msgstr ""
 
-#: app/views/assigned-to-me.html
+#: app/views/list-from-the-web.html
+#: app/views/simple-report-list.html
 msgid "No reports in this queue"
 msgstr ""
 
@@ -177,22 +342,29 @@ msgstr ""
 msgid "Number of reports assigned for every user"
 msgstr ""
 
+#: app/views/report-web-link.html
+msgid "Original link"
+msgstr ""
+
 #: app/views/report-sms.html
 msgid "Original text:"
+msgstr ""
+
+#: app/views/select-media-to-publish.html
+msgid "Please select the image you want to be published with this report"
 msgstr ""
 
 #: app/views/new-twitter-search.html
 msgid "Please specify some search terms"
 msgstr ""
 
-#: app/views/report-sms.html
-#: app/views/report-tweet.html
-msgid "Publish"
+#: app/views/configure-lists-specific.html
+msgid "Preview"
 msgstr ""
 
-#: app/views/report-sms.html
-#: app/views/report-tweet.html
-msgid "Published by {{onBehalf.username}}"
+#: app/views/processed-queues.html
+#: app/views/queues.html
+msgid "Processed reports"
 msgstr ""
 
 #: app/views/session.html
@@ -203,20 +375,46 @@ msgstr ""
 msgid "Reply to {{replyReport.authors[0].identifiers.user_name}}"
 msgstr ""
 
+#: app/views/report-sms.html
+#: app/views/report-tweet.html
+#: app/views/report-web-link.html
+msgid "Report details"
+msgstr ""
+
 #: app/views/citizen-card.html
 msgid "Reports authored by this user"
+msgstr ""
+
+#: app/views/help-tweet-queues.html
+msgid "Reports come from Twitter in two flavors: <i>Monitors</i> and <i>Twitter Searches</i>."
+msgstr ""
+
+#: app/views/configure-steps.html
+msgid "Required"
 msgstr ""
 
 #: app/views/session.html
 msgid "Reset"
 msgstr ""
 
+#: app/views/report-tweet.html
+msgid "Reverse Image Search"
+msgstr ""
+
 #: app/views/configure-autoreply.html
 #: app/views/configure-coverages.html
+#: app/views/configure-lists-specific.html
+#: app/views/configure-status-presentation.html
 #: app/views/configure-steps.html
 #: app/views/configure-twitter-ingestion-oauths.html
+#: app/views/edit-user-lists.html
+#: app/views/identity-record.html
 #: app/views/report-sms.html
 msgid "Save"
+msgstr ""
+
+#: app/views/select-media-to-publish.html
+msgid "Save selection"
 msgstr ""
 
 #: app/views/my-monitor.html
@@ -229,6 +427,14 @@ msgstr ""
 
 #: app/views/session.html
 msgid "See summary details"
+msgstr ""
+
+#: app/views/list-identity-records.html
+msgid "Select an identity to associate the alias with"
+msgstr ""
+
+#: app/views/report-web-link.html
+msgid "Select the published image"
 msgstr ""
 
 #: app/views/session.html
@@ -248,6 +454,10 @@ msgstr ""
 msgid "Session summary"
 msgstr ""
 
+#: app/views/queues.html
+msgid "Show Twitter searches"
+msgstr ""
+
 #: app/views/my-monitor.html
 msgid "Start monitoring"
 msgstr ""
@@ -256,8 +466,17 @@ msgstr ""
 msgid "Start your monitor"
 msgstr ""
 
+#: app/views/configure-status-presentation.html
+#: app/views/configure.html
+msgid "Status presentation"
+msgstr ""
+
 #: app/views/session.html
 msgid "Stick to the bottom"
+msgstr ""
+
+#: app/views/configure-lists-specific.html
+msgid "Style for the list label"
 msgstr ""
 
 #: app/views/session.html
@@ -265,7 +484,12 @@ msgid "Summary"
 msgstr ""
 
 #: app/views/report-sms.html
+#: app/views/report-web-link.html
 msgid "Text"
+msgstr ""
+
+#: app/views/ingest-from-location.html
+msgid "The link has been added to the list of incoming web reports"
 msgstr ""
 
 #: app/views/report-sms.html
@@ -278,37 +502,72 @@ msgid ""
 "    one in order to be able to define Twitter monitors"
 msgstr ""
 
-#: app/views/error-no-searches.html
-msgid ""
-"There are no Twitter searches defined. You\n"
-"  can <a href=\"#/new-twitter-search\">define one</a>"
-msgstr ""
-
 #: app/views/error-no-monitors.html
 msgid "There are no monitors defined"
+msgstr ""
+
+#: app/views/assigned-to-me.html
+msgid ""
+"There are no reports assigned to you yet. You can go to\n"
+"  the <a href=\"#/queues/\">incoming reports page</a> to pick something\n"
+"  interesting"
 msgstr ""
 
 #: app/views/verified-reports.html
 msgid "There are no verified reports yet"
 msgstr ""
 
-#: app/views/report-sms.html
-#: app/views/report-tweet.html
-msgid "This report is verified"
+#: app/views/citizen-card.html
+msgid "This alias belongs to the list below:"
+msgstr ""
+
+#: app/views/citizen-card.html
+msgid "This alias is not associated with any list"
+msgstr ""
+
+#: app/views/configure-lists-specific.html
+msgid ""
+"This list cannot be deleted, because some citizens belong to\n"
+"    it. Please remove the citizens from the list in order to delete it"
+msgstr ""
+
+#: app/views/configure-lists-specific.html
+msgid "This list does not contain any citizen"
+msgstr ""
+
+#: app/views/configure-time-zone.html
+msgid ""
+"This means that you have to configure the time zone either in\n"
+"  Android or in iOS, Windows, Linux, or the system installed on your\n"
+"  machine."
 msgstr ""
 
 #: app/views/report-sms.html
 msgid ""
 "This report was generated as the summary of a session, so you\n"
-"      can perform specific actions like deleting this summary"
+"    can perform specific actions like deleting this summary"
 msgstr ""
 
-#: app/views/citizen-card.html
-msgid "Time Zone"
+#: app/views/error-no-searches.html
+msgid ""
+"This twitter search does not exist. Maybe it was deleted. You\n"
+"  can <a href=\"#/new-twitter-search\">define a new one</a>"
+msgstr ""
+
+#: app/views/configure-time-zone.html
+#: app/views/configure.html
+msgid "Time zone"
 msgstr ""
 
 #: app/views/configure-coverages.html
+#: app/views/report-web-link.html
 msgid "Title"
+msgstr ""
+
+#: app/views/help-tweet-queues.html
+msgid ""
+"To set up your monitor, you have to provide a Twitter API key. Thus every user can have a maximum of one monitor account, but with a large number of monitored terms. If you haven't done so already, Click on your monitor in order to start the set\n"
+"  up."
 msgstr ""
 
 #: app/views/twitter-search.html
@@ -319,14 +578,23 @@ msgstr ""
 msgid "Tweet"
 msgstr ""
 
+#: app/views/queues.html
+msgid ""
+"Tweets\n"
+"  <a href=\"#/help-tweet-queues\">\n"
+"    <small>\n"
+"      <span class=\"glyphicon glyphicon-question-sign\"></span>\n"
+"    </small>\n"
+"  </a>"
+msgstr ""
+
 #: app/views/configure-twitter-ingestion-oauths.html
 #: app/views/configure.html
 msgid "Twitter monitor key"
 msgstr ""
 
-#: app/views/report-sms.html
-#: app/views/report-tweet.html
-msgid "Unpublish"
+#: app/views/help-tweet-queues.html
+msgid "Twitter searches"
 msgstr ""
 
 #: app/views/configure-steps.html
@@ -338,8 +606,18 @@ msgstr ""
 msgid "Verified reports"
 msgstr ""
 
+#: app/views/configure-time-zone.html
+msgid ""
+"You can come back to this page in order to check that your current\n"
+"  time zone settings are accurate."
+msgstr ""
+
 #: app/views/my-monitor.html
 msgid "Your Twitter key is missing"
+msgstr ""
+
+#: app/views/configure-time-zone.html
+msgid "Your current time zone is UTC {{offsetString}}"
 msgstr ""
 
 #: app/views/queues.html
@@ -347,7 +625,21 @@ msgid "Your monitor"
 msgstr ""
 
 #: app/views/my-monitor.html
+msgid ""
+"Your monitored terms have been saved. Check back to this page to\n"
+"      see updates as they come in"
+msgstr ""
+
+#: app/views/ingest-from-location.html
+msgid "example"
+msgstr ""
+
+#: app/views/my-monitor.html
 msgid "key configuration page"
+msgstr ""
+
+#: app/views/edit-user-lists.html
+msgid "no list"
 msgstr ""
 
 #: app/views/my-monitor.html
