@@ -6,9 +6,10 @@
 
 ### Citizen Desk Web Front End
 
-This is the web front end for Citizendesk. It provides a web user
-interface communicating with a [Citizendesk Application Programming
-Interface][interface] component.
+This is the web front end for [Citizen
+Desk](https://www.sourcefabric.org/en/citizendesk/). It provides a web
+user interface communicating with a [Citizendesk Application
+Programming Interface][interface] component.
 
 You can try a demo
 [here](https://sourcefabric-innovation.github.io/citizendesk-frontend/dist/),
