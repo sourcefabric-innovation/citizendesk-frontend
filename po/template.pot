@@ -26,10 +26,6 @@ msgstr ""
 msgid "Add a key"
 msgstr ""
 
-#: app/views/list-identity-records.html
-msgid "Add a new identity"
-msgstr ""
-
 #: app/views/list-from-the-web.html
 msgid "Add a new link"
 msgstr ""
@@ -42,15 +38,11 @@ msgstr ""
 msgid "Add another"
 msgstr ""
 
-#: app/views/citizen-card.html
-msgid "Add to a list"
-msgstr ""
-
 #: app/views/configure-time-zone.html
 msgid ""
-"All time data showed in the application are converted to your time\n"
-"  zone. The time zone cannot be customised by this application, being\n"
-"  it a setting of the operative system."
+"All time data showed in the application is converted to your time\n"
+"  zone. The time zone cannot be customised by this application, it\n"
+"  being a setting of the operative system."
 msgstr ""
 
 #: app/views/assign.html
@@ -67,7 +59,6 @@ msgid "Autoreply"
 msgstr ""
 
 #: app/views/configure-lists-specific.html
-#: app/views/identity-record.html
 #: app/views/ingest-from-location.html
 #: app/views/report-sms.html
 #: app/views/select-media-to-publish.html
@@ -76,10 +67,6 @@ msgstr ""
 
 #: app/views/configure-twitter-ingestion-oauths.html
 msgid "Cancel editing"
-msgstr ""
-
-#: app/views/citizen-card.html
-msgid "Change the list this alias belongs to"
 msgstr ""
 
 #: app/views/configure-steps.html
@@ -180,10 +167,6 @@ msgstr ""
 msgid "Discard"
 msgstr ""
 
-#: app/views/identity-record.html
-msgid "E-Mail"
-msgstr ""
-
 #: app/views/configure-lists.html
 #: app/views/configure-twitter-ingestion-oauths.html
 #: app/views/report-sms.html
@@ -200,10 +183,6 @@ msgstr ""
 
 #: app/views/report-sms.html
 msgid "External link"
-msgstr ""
-
-#: app/views/identity-record.html
-msgid "First name"
 msgstr ""
 
 #: app/views/assign.html
@@ -226,14 +205,6 @@ msgstr ""
 msgid "How do I get a key? (tutorial in English)"
 msgstr ""
 
-#: app/views/identity-record.html
-msgid "Identity record"
-msgstr ""
-
-#: app/views/list-identity-records.html
-msgid "Identity records"
-msgstr ""
-
 #: app/views/select-media-to-publish.html
 msgid "Image {{$index+1}}"
 msgstr ""
@@ -250,7 +221,7 @@ msgid "Incoming Reports"
 msgstr ""
 
 #: app/views/citizen-card.html
-msgid "Info about alias {{alias.identifiers.user_name_search}}"
+msgid "Info about user {{alias.identifiers.user_name_search}}"
 msgstr ""
 
 #: app/views/ingest-from-location.html
@@ -259,10 +230,6 @@ msgstr ""
 
 #: app/views/assigned-to-me.html
 msgid "Items assigned to you <small>for verification or publishing</small>"
-msgstr ""
-
-#: app/views/identity-record.html
-msgid "Last name"
 msgstr ""
 
 #: app/views/configure-lists-specific.html
@@ -278,7 +245,6 @@ msgstr ""
 msgid "Loading..."
 msgstr ""
 
-#: app/views/identity-record.html
 #: app/views/ingest-from-location.html
 msgid "Location"
 msgstr ""
@@ -408,7 +374,6 @@ msgstr ""
 #: app/views/configure-steps.html
 #: app/views/configure-twitter-ingestion-oauths.html
 #: app/views/edit-user-lists.html
-#: app/views/identity-record.html
 #: app/views/report-sms.html
 msgid "Save"
 msgstr ""
@@ -427,10 +392,6 @@ msgstr ""
 
 #: app/views/session.html
 msgid "See summary details"
-msgstr ""
-
-#: app/views/list-identity-records.html
-msgid "Select an identity to associate the alias with"
 msgstr ""
 
 #: app/views/report-web-link.html
@@ -452,6 +413,10 @@ msgstr ""
 
 #: app/views/report-sms.html
 msgid "Session summary"
+msgstr ""
+
+#: app/views/citizen-card.html
+msgid "Set the list associated with this user"
 msgstr ""
 
 #: app/views/queues.html
@@ -517,14 +482,6 @@ msgstr ""
 msgid "There are no verified reports yet"
 msgstr ""
 
-#: app/views/citizen-card.html
-msgid "This alias belongs to the list below:"
-msgstr ""
-
-#: app/views/citizen-card.html
-msgid "This alias is not associated with any list"
-msgstr ""
-
 #: app/views/configure-lists-specific.html
 msgid ""
 "This list cannot be deleted, because some citizens belong to\n"
@@ -554,6 +511,14 @@ msgid ""
 "  can <a href=\"#/new-twitter-search\">define a new one</a>"
 msgstr ""
 
+#: app/views/citizen-card.html
+msgid "This user is associated with the list:"
+msgstr ""
+
+#: app/views/citizen-card.html
+msgid "This user is not associated with any list"
+msgstr ""
+
 #: app/views/configure-time-zone.html
 #: app/views/configure.html
 msgid "Time zone"
@@ -579,13 +544,7 @@ msgid "Tweet"
 msgstr ""
 
 #: app/views/queues.html
-msgid ""
-"Tweets\n"
-"  <a href=\"#/help-tweet-queues\">\n"
-"    <small>\n"
-"      <span class=\"glyphicon glyphicon-question-sign\"></span>\n"
-"    </small>\n"
-"  </a>"
+msgid "Tweets"
 msgstr ""
 
 #: app/views/configure-twitter-ingestion-oauths.html
