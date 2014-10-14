@@ -181,10 +181,6 @@ angular
         templateUrl: 'views/new-twitter-search.html',
         controller: 'NewTwitterSearchCtrl'
       })
-      .when('/web-queue', {
-        templateUrl: 'views/web-queue.html',
-        controller: 'WebQueueCtrl'
-      })
       .when('/assigned-to-me', {
         templateUrl: 'views/assigned-to-me.html',
         controller: 'AssignedToMeCtrl'
