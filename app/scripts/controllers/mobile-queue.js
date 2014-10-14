@@ -23,6 +23,7 @@ angular.module('citizendeskFrontendApp')
           where: JSON.stringify({
             $and: [
               {feed_type: 'sms'},
+              {local: {$ne: true}},
               {automatic: {$ne: true}},
               {status: reportStatuses('')},
               {assignments: {$size: 0}}
