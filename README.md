@@ -35,8 +35,8 @@ its server-side API provider.
 
 Tests use a `mocks` object built with a tool called
 [mockatenate](https://github.com/danse/mockatenate). In order to
-update the file, run the './mockatenate' command from the root repository
-folder
+update the file, run the `./mockatenate` command from the root
+repository folder
 
 ##### Deploy to the `gh-pages` branch
 
