@@ -4,8 +4,10 @@
    >
   <div class="panel-heading clearfix">
     <h5>
-      <report-author author="report.authors[0]">
-      <small ng-bind="report.produced | date:'medium'"></small>
+      <report-author author="report.authors[0]"></report-author>
+      <div>
+        <small ng-bind="report.produced | date:'medium'"></small>
+      </div>
     </h5>
   </div>
   <div class="panel-body break-long-words"
