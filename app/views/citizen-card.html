@@ -87,8 +87,10 @@
   <h5 translate> Reports authored by this user </h5>
   <div
      ng-repeat="report in reports"
-     report-summary
+     ng-switch on="report.feed_type"
      >
+    <div ng-switch-when="tweet" tweet-summary></div>
+    <div ng-switch-default      report-summary></div>
   </div>
   <div ng-hide="reports.length" translate>
     No reports here at the moment

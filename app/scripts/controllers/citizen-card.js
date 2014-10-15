@@ -2,7 +2,7 @@
 /* jshint camelcase: false */
 
 angular.module('citizendeskFrontendApp')
-  .controller('CitizenCardCtrl', function ($scope, $routeParams, api, config, $http, PageBroker, $location) {
+  .controller('CitizenCardCtrl', function ($scope, $routeParams, api, config, $http, PageBroker, $location, linkTweetEntities) {
     function fetch() {
       var queryParams = {
         where: JSON.stringify({
@@ -73,6 +73,11 @@ angular.module('citizendeskFrontendApp')
       })
       .then(function(response) {
         $scope.reports = response._items;
+        $scope.reports.forEach(function(report) {
+          if (report.feed_type === 'tweet') {
+            report.linkedText = linkTweetEntities(report);
+          }
+        });
       });
     $scope.editTags = function() {
       PageBroker.load('/edit-user-lists', $scope.alias);
