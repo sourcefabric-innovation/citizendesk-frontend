@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('citizendeskFrontendApp')
-  .controller('ListIdentityRecordsCtrl', function ($scope, api, $routeParams, $location) {
+  .controller('ListIdentityRecordsCtrl', function ($scope, api, $routeParams, $location, $window) {
     api.identity_records
       .query({
         where: JSON.stringify({
@@ -13,7 +13,7 @@ angular.module('citizendeskFrontendApp')
       .then(function(response) {
         $scope.identities = response._items;
       });
-    $scope.configurationNavigation = !$routeParams.aliasId;
+    $scope.configuration = !$routeParams.aliasId;
     $scope.select = function(identity) {
       var url,
           identityId = identity._id;
@@ -27,4 +27,19 @@ angular.module('citizendeskFrontendApp')
     $scope.add = function() {
       $location.url('/identity-record/');
     };
+    if (!$scope.configuration) {
+      api.citizen_aliases
+        .getById($routeParams.aliasId)
+        .then(function(alias) {
+          $scope.dissociate = function() {
+            $scope.disabled = true;
+            delete alias.identity_record_id;
+            api.citizen_aliases
+              .replace(alias._links.self.href, alias)
+              .then(function() {
+                $window.history.back();
+              });
+          };
+        });
+    }
   });

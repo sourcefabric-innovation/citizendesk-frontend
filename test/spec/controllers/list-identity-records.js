@@ -8,13 +8,17 @@ describe('Controller: ListIdentityRecordsCtrl', function () {
   var scope,
       api,
       $q,
-      $location;
+      $location,
+      $window;
 
-  beforeEach(inject(function (_api_, _$location_) {
+  beforeEach(inject(function (_api_, _$location_, _$window_) {
     api = _api_;
     spyOn(api.identity_records, 'query').andCallThrough();
+    spyOn(api.citizen_aliases, 'replace').andCallThrough();
     $location = _$location_;
     spyOn($location, 'url');
+    $window = _$window_;
+    spyOn($window.history, 'back');
   }));
   function common() {
     it('asks for identities', function () {
@@ -34,7 +38,7 @@ describe('Controller: ListIdentityRecordsCtrl', function () {
     }));
     common();
     it('does not show the configuration navigation', function() {
-      expect(scope.configurationNavigation).toBeFalsy();
+      expect(scope.configuration).toBeFalsy();
     });
     it('assigns the identity on select', function() {
       scope.select({
@@ -48,6 +52,30 @@ describe('Controller: ListIdentityRecordsCtrl', function () {
       });
       expect($location.url.calls.length).toBe(1);
     });
+    describe('dissociating', function() {
+      beforeEach(function() {
+        api.citizen_aliases.def.getById.resolve({
+          _links: {
+            self: {
+              href: '/identity_records/5436b1119c6167604098427d'
+            }
+          }
+        });
+        scope.$digest();
+        scope.dissociate();
+      });
+      it('asks for the right resource', function() {
+        expect(api.citizen_aliases.replace).toHaveBeenCalled();
+      });
+      it('disables while waiting', function() {
+        expect(scope.disabled).toBeTruthy();
+      });
+      it('navigates back on success', function() {
+        api.citizen_aliases.def.replace.resolve();
+        scope.$digest();
+        expect($window.history.back).toHaveBeenCalled();
+      });
+    });
   });
   describe('without an alias to assign the identity to', function() {
     beforeEach(inject(function ($controller, $rootScope) {
@@ -60,7 +88,7 @@ describe('Controller: ListIdentityRecordsCtrl', function () {
     }));
     common();
     it('shows the configuration navigation', function() {
-      expect(scope.configurationNavigation).toBeTruthy();
+      expect(scope.configuration).toBeTruthy();
     });
     it('goes to the identity page on select', function() {
       scope.select({
