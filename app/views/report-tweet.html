@@ -5,23 +5,23 @@
     Media
   </div>
   <div class="panel-body">
-    <img class="img-responsive center-block" ng-src="{{medium.media_url}}">
+    <img class="img-responsive center-block" ng-src="{{medium.media_url_https}}">
   </div>
   <div class="panel-footer text-center">
     <a target="_blank"
        class="btn btn-default"
-       ng-href="http://regex.info/exif.cgi?imgurl={{medium.media_url}}"
+       ng-href="http://regex.info/exif.cgi?imgurl={{medium.media_url_https}}"
        >
       Jeffrey's Exif Viewer
     </a>
     <a target="_blank"
-       ng-href="http://www.google.com/searchbyimage?image_url={{medium.media_url}}"
+       ng-href="http://www.google.com/searchbyimage?image_url={{medium.media_url_https}}"
        class="btn btn-default"
        >
       <span translate>Reverse Image Search</span>
     </a>
     <a target="_blank"
-       ng-href="http://fotoforensics.com/upload-url.php?url={{medium.media_url}}"
+       ng-href="http://fotoforensics.com/upload-url.php?url={{medium.media_url_https}}"
        class="btn btn-default"
        >
       <span translate>Error level</span>
