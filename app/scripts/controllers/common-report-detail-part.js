@@ -149,7 +149,7 @@ angular.module('citizendeskFrontendApp')
       $http
         .post(config.server.url + 'proxy/unpublish', {
           report: $scope.report._id,
-          coverage: $scope.selectedCoverage.uuid
+          coverage: $scope.report.coverages.published[0]
         })
         .then(function() {
           shared.update();

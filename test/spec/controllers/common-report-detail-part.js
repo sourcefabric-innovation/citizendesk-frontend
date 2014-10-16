@@ -111,10 +111,28 @@ describe('Controller: CommonReportDetailPartCtrl', function () {
       expect(scope.selectedCoverage.uuid).toBe(coverageUniqueId);
     });
   });
+  describe('starting assigned to a deleted coverage', function() {
+    beforeEach(inject(function ($controller, $rootScope) {
+      def.coverages.resolve([]);
+
+      var rep = angular.copy(mocks.reports['538df48f9c616729ad000035']);
+      rep.coverages = {
+        outgested: [coverageUniqueId],
+        published: [coverageUniqueId]
+      };
+      api.reports.def.getById.resolve(rep);
+      api.steps.def.query.resolve(mocks.steps.list);
+      scope.$digest();
+    }));
+    it('can check whether a report is published or not', function() {
+      expect(scope.isPublished).toBe(true);
+    });
+    it('can unpublish', function() {
+      scope.unpublish();
+    });
+  });
   describe('when asked for publishing', function() {
     var coverage = { uuid: coverageUniqueId},
-        toBePublished = angular
-          .copy(mocks.reports['53cd05a09c616712c900052d']),
         promise;
     beforeEach(function() {
       api.reports.def.getById
@@ -159,24 +177,18 @@ describe('Controller: CommonReportDetailPartCtrl', function () {
     });
   });
   describe('when asked for unpublishing', function() {
-    var coverage = { uuid: coverageUniqueId},
-        toBePublished = angular
-          .copy(mocks.reports['53cd05a09c616712c900052d']),
-        promise;
     beforeEach(function() {
       api.reports.def.getById
         .resolve(angular.copy(mocks.reports['538df48f9c616729ad000035']));
       scope.$digest();
-      scope.selectedCoverage = {
-        uuid: 'coverage unique id'
-      };
+      scope.report.coverages = { published: [ 'coverage unique id' ] };
       $httpBackend
         .expectPOST(globals.root+'proxy/unpublish', {
           report: '53ba73019c6167462300068b',
           coverage: 'coverage unique id'
         })
         .respond(201);
-      scope.unpublish(coverage);
+      scope.unpublish();
     });
     it('asks to unpublish', function () {
       $httpBackend.verifyNoOutstandingExpectation();
