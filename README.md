@@ -19,7 +19,7 @@ picking an username like `User1`, `User2`, `User3`, with password
 #### Deployment
 
 In the simplest case, the app can be deployed just statically serving
-the files under `app/`. Remember to install the Bower dependencies
+the files under `app/`. Remember to install the [Bower][bower] dependencies
 running bower install:
 
     $ bower install
@@ -84,3 +84,4 @@ failing and you really do not know what is going on, check this list:
 [interface]: https://github.com/sourcefabric-innovation/citizendesk-interface
 [yeoman]: http://yeoman.io/
 [grunt]: http://gruntjs.com/
+[bower]: http://bower.io/
