@@ -2,26 +2,31 @@
   Info about alias {{alias.identifiers.user_name_search}}
 </h3>
 <div ng-switch="alias.authority">
-  <div ng-switch-when="twitter">
-    <div class="media">
-      <a class="pull-left"
-         ng-href="//twitter.com/{{alias.identifiers.user_name_search}}"
-         target="_blank"
+  <div class="panel panel-info" ng-switch-when="twitter">
+    <div class="panel-heading"
          >
-        <img class="media-object" ng-src="{{alias.avatars[0].https}}">
-      </a>
-      <div class="media-body">
-        <h4 class="media-heading"
-            >
-          Twitter user
-        </h4>
+      Twitter alias
+    </div>
+    <div class="panel-body">
+      <div class="media">
+        <a class="pull-left"
+           ng-href="//twitter.com/{{alias.identifiers.user_name_search}}"
+           target="_blank"
+           >
+          <img class="media-object" ng-src="{{alias.avatars[0].https}}">
+        </a>
+        <div class="media-body">
+          <h5 class="media-heading"
+              ng-bind="alias.identifiers.user_name_search"
+              ></h5>
+        </div>
       </div>
     </div>
   </div>
-  <div ng-switch-default>
-    <h4 translate>
-      Mobile user
-    </h4>
+  <div class="panel panel-info" ng-switch-default>
+    <div class="panel-heading" translate>
+      Mobile alias
+    </div>
   </div>
 </div>
 <div class="panel panel-default">
