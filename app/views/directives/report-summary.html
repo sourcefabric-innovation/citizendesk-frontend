@@ -10,14 +10,20 @@
       </div>
     </h5>
   </div>
-  <div class="panel-body break-long-words"
-       ng-bind="report.texts[0].original"></div>
+  <div class="panel-body break-long-words">
+    <p ng-repeat="text in report.texts"
+       ng-bind="text.original"></p>
+  </div>
   <div class="panel-footer clearfix">
+    <div class="panel" ng-if="report.media[0]">
+      <img class="img-responsive center-block"
+           ng-src="{{report.media[0].link}}">
+    </div>
     <!-- i use ng repeat below, but i am currently developing in a way
          to have just one tag for every user -->
     <p>
       <span ng-repeat="tag in report.authors[0].alias.tags"
-          class="label" ng-bind="tag.name" ng-class="tag.variation">
+            class="label" ng-bind="tag.name" ng-class="tag.variation">
       </span>
     </p>
     <span report-summary-buttons></span>

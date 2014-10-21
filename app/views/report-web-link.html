@@ -16,9 +16,7 @@
   </div>
 </div>
 <div class="panel panel-info">
-  <div class="panel-heading" translate>
-    Text
-  </div>
+  <div class="panel-heading" ng-bind="report.texts[0].original"></div>
   <div class="panel-body break-long-words">
     <p
        id="text lead"
@@ -28,10 +26,6 @@
 </div>
 <div>
   <dl class="dl-horizontal">
-    <dt translate>Title</dt>
-    <dd>
-      <strong ng-bind="report.original.title"></strong>
-    </dd>
     <dt translate>Original link</dt>
     <dd>
       <a ng-bind="report.original.url"
