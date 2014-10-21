@@ -59,6 +59,10 @@
           </label>
           <textarea class="form-control" rows="3" ng-model="reply">
           </textarea>
+          <p class="help-block" translate>
+            Still {{140 - reply.length}} characters in order to fit in
+            a single SMS
+          </p>
         </div>
         <button class="btn btn-primary" translate
                 ng-click="sendReply({report_id: replyReport._id, message: reply})"
