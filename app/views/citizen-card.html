@@ -42,15 +42,16 @@
       </button>
     </div>
     <div ng-show="alias.identity_record_id">
-      <p>
-        <span translate translate-comment="followed by a person name">
-          This alias is associated with
-        </span>
-        <a ng-href="#/identity-record/{{alias.identity_record_id._id}}">
-          {{alias.identity_record_id.first_name}}
-          {{alias.identity_record_id.last_name}}
-        </a>
-      </p>
+      <address>
+        <strong>
+          <a ng-href="#/identity-record/{{alias.identity_record_id._id}}">
+            {{alias.identity_record_id.first_name}}
+            {{alias.identity_record_id.last_name}}
+          </a>
+        </strong><br>
+        <span ng-bind="alias.identity_record_id.location"></span><br>
+        <a href="mailto:#" ng-bind="alias.identity_record_id.email"></a>
+      </address>
       <button class="btn btn-default" ng-click="associate()">
         <span translate translate-comment="keep this short">
           Change the associated identity
