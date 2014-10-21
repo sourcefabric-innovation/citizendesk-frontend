@@ -15,7 +15,9 @@ Programming Interface][interface] component.
 You can try a demo
 [here](https://sourcefabric-innovation.github.io/citizendesk-frontend/dist/),
 picking an username like `User1`, `User2`, `User3`, with password
-`no`.
+`no`. Keep in mind that Citizen Desk is meant to be mobile first, so
+you are encouraged to use chrome emulation tools to emulate a mobile
+device if you are trying it from a desktop.
 
 #### Deployment
 
