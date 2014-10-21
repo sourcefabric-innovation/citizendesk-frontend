@@ -270,4 +270,15 @@ describe('Controller: CommonReportDetailPartCtrl', function () {
       scope.$digest();
     });
   });
+  describe('on a local report, like a session summary', function() {
+    beforeEach(function() {
+      api.reports.def.getById
+        .resolve(angular.copy(mocks.reports['544629d39c61676c74f215e6']));
+      api.steps.def.query.resolve(mocks.steps.list);
+      scope.$digest();
+    });
+    it('hides verification controls', function() {
+      expect(scope.report.local).toBe(true);
+    });
+  });
 });

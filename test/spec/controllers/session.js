@@ -39,10 +39,11 @@ describe('Controller: SessionCtrl', function () {
         create: function(){
           return {};
         }
-      };
+      },
+      reportStatuses;
 
   // Initialize the controller and a mock scope
-  beforeEach(inject(function ($controller, $rootScope, _$httpBackend_, $q) {
+  beforeEach(inject(function ($controller, $rootScope, _$httpBackend_, $q, _reportStatuses_) {
     $httpBackend = _$httpBackend_;
     scope = $rootScope.$new();
 
@@ -78,6 +79,8 @@ describe('Controller: SessionCtrl', function () {
       Report: Report
     });
     scope.$digest();
+
+    reportStatuses = _reportStatuses_;
   }));
 
   it('gets the reports in the session', function() {
@@ -145,6 +148,8 @@ describe('Controller: SessionCtrl', function () {
       expect(api.reports.save).toHaveBeenCalled();
       expect(api.reports.save.mostRecentCall.args[0].texts)
         .toEqual([ { original : 'summary content' } ]);
+      expect(api.reports.save.mostRecentCall.args[0].status)
+        .toEqual(reportStatuses('verified'));
       def.reports.save.resolve('whatever');
       scope.$digest();
       expect(api.reports.query).toHaveBeenCalled();
