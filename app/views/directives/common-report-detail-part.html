@@ -16,6 +16,9 @@
                      ng-change="changeStep(step.done)"
                      >
               {{step.description}}
+              <span ng-if="step.mandatory"
+                    ng-hide="step.done"
+                    class="glyphicon glyphicon-exclamation-sign"></span>
             </label>
           </div>
         </div>
