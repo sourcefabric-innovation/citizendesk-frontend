@@ -98,7 +98,7 @@ describe('Controller: SessionCtrl', function () {
     beforeEach(inject(function($q) {
       $httpBackend
         .expectPOST(globals.root + 'proxy/mobile-reply/', {
-          "report_id":"test-report-id",
+          "report_id":"53bd65389c61672e3d00000c",
           "message":"Please, tell us where you are!",
           "sensitive":false,
           "language":"en"
@@ -110,10 +110,8 @@ describe('Controller: SessionCtrl', function () {
 
       def.reports.query.promise = $q.when(reports);
 
-      scope.sendReply({
-        report_id: 'test-report-id',
-        message: 'Please, tell us where you are!'
-      });
+      scope.reply = 'Please, tell us where you are!';
+      scope.sendReply();
       $httpBackend.flush();
       scope.$digest();
     }));
@@ -123,6 +121,9 @@ describe('Controller: SessionCtrl', function () {
     it('sends a message reply', function () {
       $httpBackend.verifyNoOutstandingRequest();
       $httpBackend.verifyNoOutstandingExpectation();
+    });
+    it('empties the text area', function() {
+      expect(scope.reply).toBe('');
     });
   });
 

@@ -27,7 +27,11 @@ angular.module('citizendeskFrontendApp')
     $scope.reset = function() {
       $scope.reply = '';
     };
-    $scope.sendReply = function(data) {
+    $scope.sendReply = function() {
+      var data = {
+        report_id: $scope.replyReport._id,
+        message: $scope.reply
+      };
       data.user_id = session.identity._id;
       data.sensitive = false;
       data.language = 'en';
