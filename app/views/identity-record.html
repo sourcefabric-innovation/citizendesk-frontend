@@ -53,6 +53,16 @@
   <div class="list-group">
     <a ng-repeat="al in aliases" class="list-group-item"
        ng-href="#/citizen-card/{{al.authority}}/{{al.identifiers.user_name}}"
-       ng-bind="al.identifiers.user_name_search"></a>
+       >
+      <span class="pull-right">
+        <span ng-if="al.authority === 'twitter'"
+              class="fa fa-twitter"></span>
+        <span ng-if="al.authority === 'telco'"
+              class="fa fa-phone"></span>
+      </span>
+      <span
+       ng-bind="al.identifiers.user_name_search">
+      </span>
+    </a>
   </div>
 </div>
