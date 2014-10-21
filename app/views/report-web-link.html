@@ -1,6 +1,11 @@
 <h3 translate>Report details</h3>
 <div class="panel panel-info">
-  <div class="panel-heading" ng-bind="report.texts[0].original"></div>
+  <div class="panel-heading">
+    <a ng-bind="report.texts[0].original"
+       ng-href="{{report.original.url}}"
+       target="_blank">
+    </a>
+  </div>
   <div class="panel-body break-long-words">
     <p
        id="text lead"
