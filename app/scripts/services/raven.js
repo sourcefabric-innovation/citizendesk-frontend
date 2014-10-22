@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('citizendeskFrontendApp')
-  .service('Raven', function RavenService($location, session) {
+  .service('Raven', function RavenService($location, session, $window) {
     // AngularJS will instantiate a singleton by calling "new" on this function
     var service = this;
 
@@ -25,5 +25,9 @@ angular.module('citizendeskFrontendApp')
         })
         .install();
       service.raven = Raven;
+      // reload the page after an error has been sent to Sentry
+      document.addEventListener('ravenSuccess', function() {
+        $window.location.reload();
+      });
     };
   });
