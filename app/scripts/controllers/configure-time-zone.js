@@ -2,8 +2,11 @@
 
 angular.module('citizendeskFrontendApp')
   .controller('ConfigureTimeZoneCtrl', function ($scope) {
-    $scope.$watch(function() {
-      var negativeOffsetInMinutes = (new Date()).getTimezoneOffset(),
+    $scope.getOffset = function() {
+      return (new Date()).getTimezoneOffset();
+    };
+    $scope.watcher = function() {
+      var negativeOffsetInMinutes = $scope.getOffset(),
           offsetInMinutes = - negativeOffsetInMinutes;
       $scope.offset = offsetInMinutes / 60;
       if ($scope.offset > 0) {
@@ -13,5 +16,6 @@ angular.module('citizendeskFrontendApp')
       } else {
         $scope.offsetString = String($scope.offset);
       }
-    });
+    };
+    $scope.$watch($scope.watcher);
   });

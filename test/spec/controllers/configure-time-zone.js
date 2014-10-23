@@ -27,6 +27,16 @@ describe('Controller: ConfigureTimeZoneCtrl', function () {
     expect(scope.offset).toBeLessThan(14);
     expect(scope.offset).toBeGreaterThan(-11);
   });
+  it('does not show an offset string when the offset is zero', function() {
+    scope.getOffset = function() { return 0; };
+    scope.watcher();
+    expect(scope.offsetString).toBe('');
+  });
+  it('just converts to string when the offset is negative', function() {
+    scope.getOffset = function() { return 60; };
+    scope.watcher();
+    expect(scope.offsetString).toBe('-1');
+  });
   // adding extra tests for the test regular expression! you never know
   describe('our tester', function() {
     var tester;

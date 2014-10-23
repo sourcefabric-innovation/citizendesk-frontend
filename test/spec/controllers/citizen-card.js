@@ -126,13 +126,38 @@ describe('Controller: CitizenCardCtrl', function () {
         scope.$digest(); // resolve the first promise
         api.citizen_aliases.reset.query(); // prepare a fresh promise
         $httpBackend.flush(); // respond to the HTTP request
+      });
+      it('adds the alias to the scope', function() {
         api.citizen_aliases.def.query
           .resolve(mocks.citizen_aliases.query_result);
         scope.$digest();
-      });
-      it('adds the alias to the scope', function() {
         expect(scope.alias.locations).toEqual(['London, UK']);
       });
+      it('throws an error if we have multiple aliases', function() {
+        var response = angular.copy(mocks.citizen_aliases.query_result);
+        response._items.push(angular.copy(response._items[0]));
+        expect(function() {
+          scope.aliasesHandler(response);
+        }).toThrow();
+      });
+    });
+    it('gets reports', function() {
+      api.reports.def.query.resolve({
+        _items: [{
+          feed_type: 'tweet',
+          original: {
+            entities: {
+              user_mentions: [],
+              hashtags: [],
+              urls: []
+            }
+          }
+        }, {
+          feed_type: 'other'
+        }]
+      });
+      scope.$digest();
+      expect(scope.reports.length).toBe(2);
     });
   });
 });

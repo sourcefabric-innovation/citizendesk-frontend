@@ -43,4 +43,7 @@ describe('Filter: sortByDate', function () {
       "prop":"2014-07-01T12:16:24+0000"
     }]);
   });
+  it('ignores missing input', function() {
+    expect(sortByDate(null)).toEqual([]);
+  });
 });

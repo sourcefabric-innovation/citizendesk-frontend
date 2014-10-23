@@ -11,9 +11,6 @@ angular.module('citizendeskFrontendApp')
       auth.login($scope.username, $scope.password)
         .then(function() {
           $scope.$close();
-        })
-        .catch(function() {
-          $scope.errors.service = true;
         });
     };
   });

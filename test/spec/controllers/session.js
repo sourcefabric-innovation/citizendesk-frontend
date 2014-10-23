@@ -11,27 +11,6 @@ describe('Controller: SessionCtrl', function () {
       scope,
       $httpBackend,
       detailsFetcher = jasmine.createSpy(),
-      api = {
-        reports: {
-          query: function(params){
-            var where = JSON.parse(params.where);
-            if (where.$and[1].summary) {
-              return def.reports_summaries.query.promise;
-            } else {
-              return def.reports.query.promise;
-            }
-          },
-          save: function(){}
-        },
-        users: {
-          query: function(){}
-        }
-      },
-      def = {
-        reports: {},
-        reports_summaries: {},
-        users: {}
-      },
       $location = {
         url: function(){}
       },
@@ -40,26 +19,23 @@ describe('Controller: SessionCtrl', function () {
           return {};
         }
       },
-      reportStatuses;
+      reportStatuses,
+      api;
 
   // Initialize the controller and a mock scope
-  beforeEach(inject(function ($controller, $rootScope, _$httpBackend_, $q, _reportStatuses_) {
+  beforeEach(inject(function ($controller, $rootScope, _$httpBackend_, $q, _reportStatuses_, _api_) {
     $httpBackend = _$httpBackend_;
-    scope = $rootScope.$new();
+    api = _api_;
+    reportStatuses = _reportStatuses_;
 
     spyOn($location, 'url');
 
     spyOn(api.reports, 'query').andCallThrough();
+    api.reports.def.query.resolve(mocks.reports['list-not-paginated-session']);
 
-    def.reports.query = $q.defer();
-    def.reports.query.resolve(mocks.reports['list-not-paginated-session']);
+    spyOn(api.users, 'query').andCallThrough();
 
-    def.reports_summaries.query = $q.defer();
-
-    def.users.query = $q.defer();
-    spyOn(api.users, 'query').andReturn(def.users.query.promise);
-    def.users.query.resolve({_items:[], _links:{}});
-
+    scope = $rootScope.$new();
     SessionCtrl = $controller('SessionCtrl', {
       $scope: scope,
       $routeParams: {
@@ -74,13 +50,10 @@ describe('Controller: SessionCtrl', function () {
         return 'now';
       },
       detailsFetcher: detailsFetcher,
-      api: api,
       $location: $location,
       Report: Report
     });
     scope.$digest();
-
-    reportStatuses = _reportStatuses_;
   }));
 
   it('gets the reports in the session', function() {
@@ -93,7 +66,34 @@ describe('Controller: SessionCtrl', function () {
     scope.$digest();
     expect(scope.replyReport._id).toBe('53bd65389c61672e3d00000c');
   });
-
+  it('checks again on interval', function() {
+    expect(api.reports.query.calls.length).toBe(2);
+    scope.onInterval();
+    expect(api.reports.query.calls.length).toBe(3);
+  });
+  it('checks users on a single page', function() {
+    expect(function() {
+      api.users.def.query.resolve({_items:[{
+        _id: 1
+      }, {
+        _id: 2
+      }], _links:{}});
+      scope.$digest();
+    }).not.toThrow();
+  });
+  it('checks users on multiple pages', function() {
+    expect(function() {
+      api.users.def.query.resolve({_items:[{
+        _id: 1
+      }, {
+        _id: 2
+      }], _links:{ next: 'whatever' }});
+      // reset the promise otherwise the request for a new page will
+      // lead to an infinite loop and your computer will heat
+      api.users.reset.query();
+      scope.$digest();
+    }).not.toThrow();
+  });
   describe('when a reply is sent', function() {
     beforeEach(inject(function($q) {
       $httpBackend
@@ -108,7 +108,8 @@ describe('Controller: SessionCtrl', function () {
             .copy(mocks.reports['list-not-paginated-session']);
       reports._items.push({id_:'new report'});
 
-      def.reports.query.promise = $q.when(reports);
+      api.reports.reset.query();
+      api.reports.def.query.resolve(reports);
 
       scope.reply = 'Please, tell us where you are!';
       scope.sendReply();
@@ -136,14 +137,11 @@ describe('Controller: SessionCtrl', function () {
   });
 
   describe('creating a summary', function() {
-    beforeEach(inject(function($q) {
+    beforeEach(function() {
       scope.summaryContent = 'summary content';
 
-      def.reports.save = $q.defer();
-      spyOn(api.reports, 'save').andReturn(def.reports.save.promise);
-
-      def.reports.query = $q.defer();
-    }));
+      spyOn(api.reports, 'save').andCallThrough();
+    });
     it('saves a report and queries for summaries', function() {
       scope.submitSummary();
       expect(api.reports.save).toHaveBeenCalled();
@@ -151,26 +149,48 @@ describe('Controller: SessionCtrl', function () {
         .toEqual([ { original : 'summary content' } ]);
       expect(api.reports.save.mostRecentCall.args[0].status)
         .toEqual(reportStatuses('verified'));
-      def.reports.save.resolve('whatever');
+      api.reports.def.save.resolve('whatever');
       scope.$digest();
       expect(api.reports.query).toHaveBeenCalled();
     });
   });
-  describe('when a summary is already available', function(){
-    beforeEach(function(){
-      def.reports_summaries.query
-        .resolve({
-          _items: [{
-            _id: 'summary report'
-          }],
-          _links: {}
-        });
-      scope.$digest();
-    });
-    it('can redirect the user to the summary details', function(){
-      scope.goToSummary();
-      expect($location.url)
-        .toHaveBeenCalledWith('/report-sms/summary report' );
-    });
+  it('redirects the user to the summary details', function(){
+    scope.goToSummary();
+    expect($location.url)
+      .toHaveBeenCalledWith('/report-sms/53bbec329c61672e3d000007' );
   });
+  it('can handle also several reports pages', inject(function($rootScope, $controller, $q) {
+    var first = true;
+    api.reports.reset.query();
+    // all this machinery is in order to have a the first promise
+    // resolved, and the second blocked
+    spyOn(api.reports, 'query').andCallFake(function() {
+      if (first) {
+        first = false;
+        return $q.when(mocks.reports.list);
+      } else {
+        return $q.defer().promise;
+      }
+    });
+    scope = $rootScope.$new();
+    SessionCtrl = $controller('SessionCtrl', {
+      $scope: scope,
+      $routeParams: {
+        session: 'test-session-id'
+      },
+      session: {
+        identity: {
+          user: 'test-user-id'
+        }
+      },
+      now: function() {
+        return 'now';
+      },
+      detailsFetcher: detailsFetcher,
+      $location: $location,
+      Report: Report
+    });
+    scope.$digest();
+    expect(api.reports.query.calls.length).toBe(3);
+  }));
 });

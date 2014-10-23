@@ -6,17 +6,25 @@ describe('Controller: LoginModalCtrl', function () {
   beforeEach(module('citizendeskFrontendApp'));
 
   var LoginModalCtrl,
-    scope;
+      scope;
 
   // Initialize the controller and a mock scope
-  beforeEach(inject(function ($controller, $rootScope) {
+  beforeEach(inject(function ($controller, $rootScope, $q) {
     scope = $rootScope.$new();
+    scope.$close = jasmine.createSpy('modal close');
     LoginModalCtrl = $controller('LoginModalCtrl', {
-      $scope: scope
+      $scope: scope,
+      auth: {
+        login: function() {
+          return $q.when();
+        }
+      }
     });
   }));
 
-  it('should attach a submit method to the scope', function () {
-    expect(scope.submit).toBeDefined();
+  it('submits', function () {
+    scope.submit();
+    scope.$digest();
+    expect(scope.$close).toHaveBeenCalled();
   });
 });
