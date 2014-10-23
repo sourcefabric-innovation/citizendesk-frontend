@@ -22,5 +22,15 @@ describe('Controller: ConfigureStatusPresentationCtrl', function () {
 
   it('queries for report statuses', function () {
     expect(api.report_statuses.query).toHaveBeenCalled();
+    api.report_statuses.def.query.resolve({ _items:[{}, {}] });
+    scope.$digest();
+    expect(scope.statuses).toBeDefined();
+  });
+  it('saves a status', function() {
+    scope.save({});
+    expect(scope.disabled).toBeTruthy();
+    api.report_statuses.def.save.resolve();
+    scope.$digest();
+    expect(scope.disabled).toBeFalsy();
   });
 });

@@ -7,24 +7,18 @@ describe('Controller: ConfigureAutoreplyCtrl', function () {
 
   var ConfigureAutoreplyCtrl,
       scope,
-      deferreds = {},
-      $q,
       api;
 
   // Initialize the controller and a mock scope
-  beforeEach(inject(function ($controller, $rootScope, _$q_, _api_) {
-    $q = _$q_;
+  beforeEach(inject(function ($controller, $rootScope, _api_) {
     api = _api_;
     scope = $rootScope.$new();
     
-    deferreds.query = $q.defer();
-    deferreds.save = $q.defer();
-    spyOn(api.core_config, 'save').andReturn(deferreds.save.promise);
-    spyOn(api.core_config, 'query').andReturn(deferreds.query.promise);
+    spyOn(api.core_config, 'save').andCallThrough();
+    spyOn(api.core_config, 'query').andCallThrough();
 
     ConfigureAutoreplyCtrl = $controller('ConfigureAutoreplyCtrl', {
       $scope: scope,
-      api: api
     });
   }));
 
@@ -33,11 +27,18 @@ describe('Controller: ConfigureAutoreplyCtrl', function () {
   });
   describe('after a response', function() {
     beforeEach(function(){
-      deferreds.query.resolve({_items:[{}]});
+      api.core_config.def.query.resolve({_items:[{}]});
       scope.$digest();
     });
     it('exposes the config in the scope', function(){
       expect(scope.config).toBeDefined();
+    });
+    it('saves the config', function() {
+      scope.save();
+      expect(scope.disabled).toBeTruthy();
+      api.core_config.def.save.resolve();
+      scope.$digest();
+      expect(scope.disabled).toBeFalsy();
     });
   });
 });

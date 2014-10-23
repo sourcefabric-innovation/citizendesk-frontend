@@ -7,19 +7,30 @@ describe('Controller: NewTwitterSearchCtrl', function () {
 
   var NewTwitterSearchCtrl,
       scope,
-      TwitterSearches = {
-      };
+      TwitterSearches = {},
+      $location = {},
+      def;
 
   // Initialize the controller and a mock scope
-  beforeEach(inject(function ($controller, $rootScope) {
+  beforeEach(inject(function ($controller, $rootScope, $q) {
     scope = $rootScope.$new();
     NewTwitterSearchCtrl = $controller('NewTwitterSearchCtrl', {
       $scope: scope,
-      TwitterSearches: TwitterSearches
+      TwitterSearches: TwitterSearches,
+      $location: $location
     });
+    $location.url = jasmine.createSpy('location url');
+    def = $q.defer();
+    TwitterSearches.create = function() {
+      return def.promise;
+    };
+    spyOn(TwitterSearches, 'create').andCallThrough();
   }));
 
   it('can submit', function () {
-    expect(scope.submit).toBeDefined();
+    scope.submit();
+    def.resolve();
+    scope.$digest();
+    expect($location.url).toHaveBeenCalled();
   });
 });

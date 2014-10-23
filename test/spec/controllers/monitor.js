@@ -26,7 +26,16 @@ describe('Controller: MonitorCtrl', function () {
       $routeParams: {
         id: 'monitor id'
       },
-      api: api
+      api: api,
+      Monitors: {
+        getById: function() {
+          return $q.when({
+            user_id: {
+              username: 'Francesco'
+            }
+          })
+        }
+      }
     });
   }));
 
@@ -45,5 +54,31 @@ describe('Controller: MonitorCtrl', function () {
     }]});
     scope.$digest();
     expect(scope.reports.length).toBe(1);
+  });
+  it('catches exceptions in `linkTweetEntities`', function() {
+    // the first report is fine, the second is random content and
+    // would stop the whole process and prevent to add any report if
+    // we would not catch the exception
+    expect(function() {
+      deferred.resolve({
+        _items:[{
+          original: {
+            entities: {
+              user_mentions: [],
+              hashtags: [],
+              urls: []
+            }
+          }
+        }, {
+          random: 'content'
+        }]
+      });
+      scope.$digest();
+    }).not.toThrow();
+    expect(scope.reports.length).toBe(1);
+  });
+  it('gets the monitor', function() {
+    scope.$digest();
+    expect(scope.monitor).toBeDefined();
   });
 });

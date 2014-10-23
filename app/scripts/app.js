@@ -45,10 +45,6 @@ angular
         templateUrl: 'views/new-report.html',
         controller: 'NewReportCtrl'
       })
-      .when('/verified-reports', {
-        templateUrl: 'views/verified-reports.html',
-        controller: 'VerifiedReportsCtrl'
-      })
       // the following routes are automatically generated from the
       // reports, using the structure `/report-<feed_type>/id`, in
       // order to jump from the report summaries to the report details
