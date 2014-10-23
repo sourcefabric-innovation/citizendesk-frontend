@@ -145,21 +145,9 @@ angular
         templateUrl: 'views/configure-coverages.html',
         controller: 'ConfigureCoveragesCtrl'
       })
-      .when('/configure-twitter-ingestion', {
-        templateUrl: 'views/configure-twitter-ingestion.html',
-        controller: 'ConfigureTwitterIngestionCtrl'
-      })
-      .when('/configure-twitter-ingestion-filters', {
-        templateUrl: 'views/configure-twitter-ingestion-filters.html',
-        controller: 'ConfigureTwitterIngestionFiltersCtrl'
-      })
       .when('/configure-twitter-ingestion-oauths', {
         templateUrl: 'views/configure-twitter-ingestion-oauths.html',
         controller: 'ConfigureTwitterIngestionOauthsCtrl'
-      })
-      .when('/configure-twitter-ingestion-streams', {
-        templateUrl: 'views/configure-twitter-ingestion-streams.html',
-        controller: 'ConfigureTwitterIngestionStreamsCtrl'
       })
       .when('/configure-lists', {
         templateUrl: 'views/configure-lists.html',
