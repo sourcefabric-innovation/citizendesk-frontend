@@ -58,6 +58,10 @@ describe('Controller: IdentityRecordCtrl', function () {
         });
       });
     });
+    it('cancels', function() {
+      scope.cancel();
+      expect($window.history.back).toHaveBeenCalled();
+    });
   });
   describe('started with an id', function() {
     beforeEach(inject(function ($controller, $rootScope, _api_) {
@@ -80,6 +84,19 @@ describe('Controller: IdentityRecordCtrl', function () {
           first_name: 'Francesco',
           last_name: 'Occhipinti'
         });
+        scope.$digest();
+      });
+      it('exposes it through the scope', function() {
+        expect(scope.identity._id).toBe('identity id');
+      });
+      it('enables the controls', function() {
+        expect(scope.disabled).toBeFalsy();
+      });
+      it('deletes', function() {
+        api.identity_records.reset.save();
+        spyOn(api.identity_records, 'save').andCallThrough();
+        scope.delete();
+        expect(api.identity_records.save).toHaveBeenCalled();
       });
     });
     describe('with aliases', function() {
@@ -91,6 +108,17 @@ describe('Controller: IdentityRecordCtrl', function () {
       });
       it('disables deletion', function() {
         expect(scope.deleteDisabled).toBeTruthy();
+      });
+    });
+    describe('without aliases', function() {
+      beforeEach(function() {
+        api.citizen_aliases.def.query.resolve({
+          _items: []
+        });
+        scope.$digest();
+      });
+      it('enables deletion', function() {
+        expect(scope.deleteDisabled).toBeFalsy();
       });
     });
   });

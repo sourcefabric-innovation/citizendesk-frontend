@@ -33,8 +33,16 @@ describe('Controller: ConfigureStepsCtrl', function () {
   });
   it('saves a step', function() {
     scope.save(scope.steps[1]);
+    expect(scope.disabled).toBeTruthy();
+    api.steps.def.save.resolve();
+    scope.$digest();
+    expect(scope.disabled).toBeFalsy();
   });
   it('deletes a step', function() {
     scope.remove(scope.steps[1]);
+    expect(scope.disabled).toBeTruthy();
+    api.steps.def.remove.resolve();
+    scope.$digest();
+    expect(scope.disabled).toBeFalsy();
   });
 });

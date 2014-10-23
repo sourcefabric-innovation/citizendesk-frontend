@@ -7,24 +7,18 @@ describe('Controller: ConfigureTwitterIngestionOauthsCtrl', function () {
 
   var ConfigureTwitterIngestionOauthsCtrl,
       scope,
-      api = {
-        twt_oauths: {
-          save: function() {},
-          query: function() {}
-        }
-      },
       $q,
-      deferreds = {};
+      api;
 
   // Initialize the controller and a mock scope
-  beforeEach(inject(function ($controller, $rootScope, _$q_) {
+  beforeEach(inject(function ($controller, $rootScope, _$q_, _api_) {
     $q = _$q_;
+    api = _api_;
     scope = $rootScope.$new();
-    deferreds.query = $q.defer();
-    spyOn(api.twt_oauths, 'query').andReturn(deferreds.query.promise);
+    spyOn(api.twt_oauths, 'query').andCallThrough();
+    spyOn(api.twt_oauths, 'save').andCallThrough();
     ConfigureTwitterIngestionOauthsCtrl = $controller('ConfigureTwitterIngestionOauthsCtrl', {
       $scope: scope,
-      api: api,
       session: {
         identity: {
           _id: 'test user id'
@@ -36,9 +30,19 @@ describe('Controller: ConfigureTwitterIngestionOauthsCtrl', function () {
   it('asks for keys', function () {
     expect(api.twt_oauths.query).toHaveBeenCalled();
   });
+  it('when receives no keys writes it down', function() {
+    api.twt_oauths.def.query.resolve({_items: []});
+    scope.$digest();
+    expect(scope.noKey).toBeTruthy();
+  });
+  it('adds a key', function(){
+    scope.add();
+    expect(scope.key).toBeDefined();
+    expect(scope.noKey).toBeFalsy();
+  });
   describe('after receiving the keys', function() {
     beforeEach(function() {
-      deferreds.query.resolve(angular.copy(mocks.twt_oauths.list));
+      api.twt_oauths.def.query.resolve(angular.copy(mocks.twt_oauths.list));
       scope.$digest();
     });
     it('has a key', function() {
@@ -57,6 +61,12 @@ describe('Controller: ConfigureTwitterIngestionOauthsCtrl', function () {
       });
       it('clears the model', function(){
         expect(scope.key.spec.consumer_key).not.toBeDefined();
+      });
+      it('saves', function() {
+        scope.save();
+        api.twt_oauths.def.save.resolve();
+        scope.$digest();
+        expect(scope.editing).toBeFalsy();
       });
       describe('on edit cancel', function() {
         beforeEach(function() {

@@ -21,18 +21,13 @@ angular.module('citizendeskFrontendApp')
       api.steps.save(step)
         .then(function() {
           $scope.disabled = false;
-        })
-        .catch(function() {
-          $scope.disabled = false;
         });
     };
     $scope.remove = function(step) {
+      $scope.disabled = true;
       api.steps.remove(step)
         .then(function() {
           _.remove($scope.steps, step);
-          $scope.disabled = false;
-        })
-        .catch(function() {
           $scope.disabled = false;
         });
     };
