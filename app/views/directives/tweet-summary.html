@@ -3,6 +3,12 @@
    scroll-target="report._id"
    class="panel panel-default"
    >
+  <div class="panel-heading clearfix" ng-if="report.authors[0].alias.tags[0]">
+    <span class="label pull-right"
+          ng-bind="report.authors[0].alias.tags[0].name"
+          ng-class="report.authors[0].alias.tags[0].variation">
+    </span>
+  </div>
   <div class="panel-body break-long-words">
     <p>
       <div class="row">
@@ -74,11 +80,6 @@
     </div>
     <span ng-show="report.original.entities.urls.length"
           class="glyphicon glyphicon-link"></span>
-    <!-- i use ng repeat below, but i am currently developing in a way
-         to have just one tag for every user -->
-    <span ng-repeat="tag in report.authors[0].alias.tags"
-          class="label" ng-bind="tag.name" ng-class="tag.variation">
-    </span>
     <span report-summary-buttons></span> 
   </div>
 </div>

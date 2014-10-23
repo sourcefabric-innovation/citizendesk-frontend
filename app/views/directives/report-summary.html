@@ -9,6 +9,10 @@
         <small ng-bind="report.produced | date:'medium'"></small>
       </div>
     </h5>
+    <span class="label pull-right"
+          ng-bind="report.authors[0].alias.tags[0].name"
+          ng-class="report.authors[0].alias.tags[0].variation">
+    </span>
   </div>
   <div class="panel-body break-long-words">
     <p ng-repeat="text in report.texts"
@@ -19,13 +23,6 @@
       <img class="img-responsive center-block"
            ng-src="{{report.media[0].link}}">
     </div>
-    <!-- i use ng repeat below, but i am currently developing in a way
-         to have just one tag for every user -->
-    <p>
-      <span ng-repeat="tag in report.authors[0].alias.tags"
-            class="label" ng-bind="tag.name" ng-class="tag.variation">
-      </span>
-    </p>
     <span report-summary-buttons></span>
   </div>
 </div>
