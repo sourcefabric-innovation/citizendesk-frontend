@@ -1,7 +1,10 @@
 'use strict';
 
 angular.module('citizendeskFrontendApp')
-  .filter('sortByDate', function (lodash, parseDate) {
+  .filter('sortByDate', function (lodash, superdeskDate) {
+    function parseDate(s) {
+      return superdeskDate.parse(s);
+    }
     return function (input, prop, newest) {
       if (input) {
         var result = angular.copy(input);
