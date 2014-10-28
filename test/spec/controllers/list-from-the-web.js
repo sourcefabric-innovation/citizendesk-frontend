@@ -33,7 +33,23 @@ describe('Controller: ListFromTheWebCtrl', function () {
     scope.$digest();
     expect($location.url).toHaveBeenCalled();
   });
-
+  describe('with reports', function () {
+    beforeEach(function(){
+      api.reports.def.query.resolve({
+        _items: [{ _id: 'to be dismissed'}, {}, {}],
+        _links: {}
+      });
+      scope.$digest();
+    });
+    it('just lists reports', function(){
+      expect($location.url).not.toHaveBeenCalled();
+    });
+    it('removes a dismissed report', function(){
+      expect(scope.reports.length).toBe(3);
+      scope.dismissHandler(scope.reports[0]);
+      expect(scope.reports.length).toBe(2);
+    });
+  });
   describe('from the point of view of a simple list controller', function() {
     globals.simpleListControllerTest('ListFromTheWebCtrl');
   });

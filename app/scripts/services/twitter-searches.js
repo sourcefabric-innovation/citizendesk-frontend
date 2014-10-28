@@ -2,7 +2,7 @@
 /* jshint camelcase: false */
 
 angular.module('citizendeskFrontendApp')
-  .service('TwitterSearches', function($resource, $q, Raven, $http, api, lodash, addNewValues, AliasesInLists, Report, config, reportStatuses, session) {
+  .service('TwitterSearches', function($resource, $q, Raven, $http, api, lodash, addNewValues, AliasesInLists, Report, config, reportStatuses, session, allPages) {
 
     var service = this,
         _ = lodash;
@@ -67,7 +67,7 @@ angular.module('citizendeskFrontendApp')
           {assignments: {$size: 0}}
         ]
       });
-      function fetch(page) {
+      return allPages(function(page) {
         return api.reports
           .query({
             where: query,
@@ -77,13 +77,12 @@ angular.module('citizendeskFrontendApp')
           .then(function(response) {
             addNewValues(queue.reports, response._items);
             queue.reports.forEach(AliasesInLists.embedAuthorAlias);
-            if (response._links.next) {
-              fetch(page + 1);
-            }
-            return queue;
+            return response;
           });
-      }
-      return fetch(1);
+      })
+        .then(function() {
+          return queue;
+        });
     };
     this.byId = function(id) {
       return service.promise

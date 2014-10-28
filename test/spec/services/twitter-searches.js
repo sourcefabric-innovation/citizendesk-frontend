@@ -23,11 +23,12 @@ describe('Service: TwitterSearches', function () {
     cycle. replacing the autenthication with this empty function */
     $provide.value('initAuth', function(){});
   }));
-  beforeEach(inject(function(_$q_, _api_) {
+  beforeEach(inject(function(_$q_, _api_, Raven) {
     $q = _$q_;
     api = _api_;
     spyOn(api.twt_searches, 'query').andCallThrough();
     session.getIdentity = function() { return $q.when(); };
+    Raven.raven.captureMessage = jasmine.createSpy('Raven capture message');
   }));
   beforeEach(inject(function (_TwitterSearches_, _$rootScope_, _$httpBackend_) {
     $rootScope = _$rootScope_;
@@ -41,7 +42,29 @@ describe('Service: TwitterSearches', function () {
     expect(api.twt_searches.create).toHaveBeenCalled();
     expect(api.twt_searches.create.mostRecentCall.args[0].creator)
       .toBe('test user id');
+    expect(TwitterSearches.list.length).toBe(0);
+    api.twt_searches.def.create.resolve({});
+    $rootScope.$digest();
+    expect(TwitterSearches.list.length).toBe(1);
   });
+  it('deletes a search', function() {
+    TwitterSearches.list.push({i:'am',a:'search'});
+    TwitterSearches.delete(TwitterSearches.list[0]);
+    api.twt_searches.def.remove.resolve('everything is gonna be allright');
+    $rootScope.$digest();
+    expect(TwitterSearches.list.length).toBe(0);
+  });
+  it('calls Raven when a search id is not found', inject(function(Raven) {
+    expect(Raven.raven.captureMessage).not.toHaveBeenCalled();
+    TwitterSearches.byId('this cannot be found');
+    api.twt_searches.def.query.resolve({
+      _items: [{
+        _id: 'this can be found'
+      }]
+    });
+    $rootScope.$digest();
+    expect(Raven.raven.captureMessage).toHaveBeenCalled();
+  }));
   describe('after downloading searches', function(){
     var queue;
     beforeEach(function(){
@@ -62,6 +85,31 @@ describe('Service: TwitterSearches', function () {
       spyOn(TwitterSearches, 'start').andCallThrough();
       $rootScope.$digest(); // return the searches
       $httpBackend.flush(); // respond start request
+    });
+    // the following test may look a bit funny because the code
+    // performs two successive calls to the same `eve-api` method, so
+    // we have to play with the Angular digest in order to avoid an
+    // endless loop
+    it('downloads its reports even on multiple pages', function() {
+      // provide a resolution for the promise, but the resolution will
+      // wait untill the next digest cycle
+      api.reports.def.query.resolve({
+        _items: [{}],
+        _links: {
+          next: 'whatever'
+        }
+      });
+      // reset the promise, so that the next call will stop (avoid the
+      // endless loop)
+      api.reports.reset.query();
+      // add the spy again, it was wiped out with the reset
+      spyOn(api.reports, 'query').andCallThrough();
+      // now that the new promise is ready, digest the previous
+      // resolution. the code will find that `_links.next` is present
+      // and ask for the second page
+      $rootScope.$digest();
+      // expect the next page to have been requested
+      expect(api.reports.query).toHaveBeenCalled();
     });
     describe('and some specific reports', function(){
       beforeEach(function(){

@@ -3,7 +3,7 @@
 describe('Service: AuthService', function () {
 
   var USER_HREF = 'http://user/1',
-      SESSION = 'sess',
+      SESSION = 'RIr89qFZlvvtTIpe8PiPtcs2YL4g1X80cDBCdUlR',
       USERNAME = 'foo';
 
   /**
@@ -29,6 +29,9 @@ describe('Service: AuthService', function () {
 
   // load the service's module
   beforeEach(module('citizendeskFrontendApp'));
+  beforeEach(module(function(authProvider) {
+    authProvider.disabled = false;
+  }));
 
   beforeEach(module(function($provide) {
     $provide.service('authAdapter', AuthAdapterMock);
@@ -41,14 +44,14 @@ describe('Service: AuthService', function () {
     session.clear();
   }));
 
-  xit('can login', inject(function(auth, session, $httpBackend, $rootScope) {
+  it('can login', inject(function(auth, session, $httpBackend, $rootScope, api) {
 
     expect(session.identity).toBe(null);
     expect(session.token).toBe(null);
 
     var resolved = {};
 
-    $httpBackend.expectGET(USER_HREF).respond({username: USERNAME});
+    api.users.def.getById.resolve({username: USERNAME});
 
     session.getIdentity().then(function() {
       resolved.identity = true;
@@ -60,13 +63,13 @@ describe('Service: AuthService', function () {
       resolved.login = true;
     });
 
-    $rootScope.$apply();
+    $rootScope.$digest();
 
     expect(resolved.login).toBe(true);
     expect(resolved.identity).toBe(true);
   }));
 
-  xit('checks credentials', inject(function(auth, $rootScope) {
+  it('checks credentials', inject(function(auth, $rootScope) {
     var resolved = false, rejected = false;
 
     auth.login('wrong', 'credentials').then(function() {
@@ -79,5 +82,4 @@ describe('Service: AuthService', function () {
     expect(resolved).toBe(false);
     expect(rejected).toBe(true);
   }));
-
 });

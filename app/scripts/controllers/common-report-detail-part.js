@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('citizendeskFrontendApp')
-  .controller('CommonReportDetailPartCtrl', function ($scope, Coverages, SharedReport, $routeParams, lodash, screenSize, api, session, $http, config, superdeskDate, gettextCatalog, $window) {
+  .controller('CommonReportDetailPartCtrl', function ($scope, Coverages, SharedReport, $routeParams, lodash, screenSize, api, session, $http, config, superdeskDate, gettextCatalog, $window, Raven) {
     var coveragesData = new Bacon.Bus(),
         shared = SharedReport.get($routeParams.id),
         _ = lodash;
@@ -167,10 +167,6 @@ angular.module('citizendeskFrontendApp')
           $scope.alert = 'saved';
           $scope.disabled = false;
           shared.stream.push(saved);
-        })
-        .catch(function () {
-          $scope.status = 'danger';
-          $scope.alert = 'error';
         });
     };
     $scope.largeScreen = screenSize.is('md,lg');

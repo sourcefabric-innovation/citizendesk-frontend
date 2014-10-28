@@ -11,8 +11,8 @@ describe('Service: Now', function () {
     Now = _now_;
   }));
 
-  it('should do something', function () {
-    expect(!!Now).toBe(true);
+  it('produces a timestamp', function () {
+    expect(typeof Now()).toBe('number');
   });
 
 });

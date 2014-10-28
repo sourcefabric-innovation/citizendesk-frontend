@@ -59,4 +59,53 @@ describe('Controller: IngestFromLocationCtrl', function () {
       });
     });
   });
+  describe('when repeating', function() {
+    beforeEach(function() {
+      scope.repeat = true;
+    });
+    describe('on submit', function() {
+      beforeEach(function() {
+        scope.location = 'http://www.example.com';
+        scope.submit();
+        $httpBackend
+          .expectPOST(globals.root + 'proxy/ingest_from_location/')
+          .respond();
+      });
+      it('calls the relevant interface', function() {
+        $httpBackend.verifyNoOutstandingExpectation();
+      });
+      describe('on response', function() {
+        beforeEach(function() {
+          $httpBackend.flush();
+        });
+        it('shows a message to the user', function() {
+          expect(scope.showConfirm).toBeTruthy();
+        });
+        it('hides the message after the timeout', function() {
+          $timeout.flush();
+          expect(scope.showConfirm).toBeFalsy();
+        });
+      });
+      describe('after a second submit', function() {
+        beforeEach(function() {
+          $httpBackend
+            .expectPOST(globals.root + 'proxy/ingest_from_location/')
+            .respond();
+          scope.submit();
+        });
+        describe('on response', function() {
+          beforeEach(function() {
+            $httpBackend.flush();
+          });
+          it('shows a message to the user', function() {
+            expect(scope.showConfirm).toBeTruthy();
+          });
+          it('hides the message after the timeout', function() {
+            $timeout.flush();
+            expect(scope.showConfirm).toBeFalsy();
+          });
+        });
+      });
+    });
+  });
 });

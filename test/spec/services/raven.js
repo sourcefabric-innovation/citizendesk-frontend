@@ -4,17 +4,23 @@ describe('Service: Raven', function () {
 
   // load the service's module
   beforeEach(module('citizendeskFrontendApp'));
-
-  // instantiate service
-  var Raven;
-  beforeEach(inject(function (_Raven_) {
-    Raven = _Raven_;
+  beforeEach(module(function(RavenProvider) {
+    RavenProvider.disabled = false;
   }));
 
-  xit('captures messages', function () {
+  // the `raven` library can be configured just once, so we cannot
+  // initialise the service in a `beforeEach` like usual, we have to
+  // execute all the tests at once
+  it('behaves', inject(function (Raven, $window, session) {
     expect(Raven.raven.captureMessage).toBeDefined();
-  });
-  it('captures exceptions', function(){
     expect(Raven.raven.captureException).toBeDefined();
-  });
+    spyOn($window.location, 'reload');
+    Raven.onRavenSuccess();
+    expect($window.location.reload).toHaveBeenCalled();
+    expect(Raven.dataCallback({}).tags.username)
+      .toBe('username not available because of missing identity');
+    session.identity = { username: 'Rachel' };
+    expect(Raven.dataCallback({}).tags.username)
+      .toBe('Rachel');
+  }));
 });

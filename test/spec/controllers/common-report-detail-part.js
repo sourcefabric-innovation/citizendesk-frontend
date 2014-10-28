@@ -23,10 +23,11 @@ describe('Controller: CommonReportDetailPartCtrl', function () {
         }
       },
       $rootScope,
-      reportStatuses;
+      reportStatuses,
+      Raven;
 
   // Initialize the controller and a mock scope
-  beforeEach(inject(function ($controller, _$rootScope_, _$httpBackend_, _$q_, _api_, _reportStatuses_) {
+  beforeEach(inject(function ($controller, _$rootScope_, _$httpBackend_, _$q_, _api_, _reportStatuses_, _Raven_) {
     $q = _$q_;
     api = _api_;
     spyOn(api.reports, 'getById').andCallThrough();
@@ -37,6 +38,7 @@ describe('Controller: CommonReportDetailPartCtrl', function () {
     Coverages.promise = def.coverages.promise;
     $rootScope = _$rootScope_;
     reportStatuses = _reportStatuses_;
+    Raven = _Raven_;
 
     scope = $rootScope.$new();
     $controller('CommonReportDetailPartCtrl', {
@@ -49,6 +51,31 @@ describe('Controller: CommonReportDetailPartCtrl', function () {
   }));
   it('asks for its report', function() {
     expect(api.reports.getById).toHaveBeenCalled();
+  });
+  describe('on a report published on behalf of someone', function() {
+    var journalistId = 'id of the journalist who published';
+    beforeEach(function() {
+      var report = angular.copy(mocks.reports['542428909c6167473a721132']);
+      report.on_behalf_id = journalistId;
+      api.reports.def.getById.resolve(report);
+      api.steps.def.query.resolve(mocks.steps.list);
+      spyOn(api.users, 'getById').andCallThrough();
+      scope.$digest();
+    });
+    it('asks for details about the journalist', function() {
+      expect(api.users.getById).toHaveBeenCalled();
+    });
+    describe('after getting the details about who published', function() {
+      beforeEach(function() {
+        api.users.def.getById.resolve({
+          _id: journalistId
+        });
+        scope.$digest();
+      });
+      it('adds the details to the scope', function(){
+        expect(scope.onBehalf._id).toBe(journalistId);
+      });
+    });
   });
   describe('on a report with a comment', function() {
     beforeEach(function() {
@@ -70,14 +97,35 @@ describe('Controller: CommonReportDetailPartCtrl', function () {
     beforeEach(function() {
       api.reports.def.getById
         .resolve(angular.copy(mocks.reports['538df48f9c616729ad000035']));
-      api.steps.def.query.resolve(mocks.steps.list);
       scope.$digest();
     });
-    it('attaches a report to the scope', function () {
-      expect(scope.report).toBeDefined();
+    it('asks for steps', function() {
+      expect(api.steps.query).toHaveBeenCalled();
     });
-    it('can check whether a report is published or not', function() {
-      expect(scope.isPublished).toBe(false);
+    describe('getting no steps', function(){
+      beforeEach(function(){
+        spyOn(Raven.raven, 'captureMessage');
+        api.steps.def.query.resolve({ _items:[] });
+        scope.$digest();
+      });
+      it('notifies us that something is wrong', function () {
+        expect(Raven.raven.captureMessage).toHaveBeenCalled();
+      });
+    });
+    describe('getting steps', function(){
+      beforeEach(function(){
+        api.steps.def.query.resolve(mocks.steps.list);
+        scope.$digest();
+      });
+      it('attaches a report to the scope', function () {
+        expect(scope.report).toBeDefined();
+      });
+      it('can check whether a report is published or not', function() {
+        expect(scope.isPublished).toBe(false);
+      });
+      it('attaches steps to the report', function() {
+        expect(scope.report.steps.length).toBe(3);
+      });
     });
   });
   describe('starting with existent steps', function() {

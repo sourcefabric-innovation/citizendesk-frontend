@@ -24,9 +24,10 @@ angular.module('citizendeskFrontendApp')
           $scope.goAdd();
         }
       });
-    $scope.dismiss = Report.getDismiss($scope.disabled, function(report) {
+    $scope.dismissHandler = function(report) {
       lodash.remove($scope.reports, function(candidate) {
         return candidate._id === report._id;
       });
-    });
+    };
+    $scope.dismiss = Report.getDismiss($scope.disabled, $scope.dismissHandler);
   });

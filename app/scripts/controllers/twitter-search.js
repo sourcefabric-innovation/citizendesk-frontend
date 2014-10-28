@@ -33,8 +33,9 @@ angular.module('citizendeskFrontendApp')
       $scope.status = 'deleting';
       TwitterSearches
         .delete($scope.queue)
-        .then(function() { $scope.status = 'deleted'; })
-        .catch(function() { $scope.status = 'error'; });
+        .then(function() {
+          $scope.status = 'deleted';
+        });
     };
     $scope.assign = function(report) {
       PageBroker.load('/assign/', {

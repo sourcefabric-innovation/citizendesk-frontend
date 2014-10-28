@@ -7,6 +7,8 @@ describe('Controller: TwitterSearchCtrl', function () {
 
   var TwitterSearchCtrl,
       scope,
+      returnedData = {
+      },
       PageBroker = {
         load: function(){},
         getReturnedData: function(){}
@@ -14,33 +16,42 @@ describe('Controller: TwitterSearchCtrl', function () {
       TwitterSearches = {
         byId: function(){},
         start: function(){},
-        refreshReport: function(){}
+        refreshReport: function(){},
+        delete: function(){}
       },
       $q,
       def = {
         PageBroker: {},
         TwitterSearches: {}
-      };
+      },
+      $location;
 
   // Initialize the controller and a mock scope
-  beforeEach(inject(function ($controller, $rootScope, _$q_) {
+  beforeEach(inject(function ($controller, $rootScope, _$q_, _$location_) {
     $q = _$q_;
-    scope = $rootScope.$new();
 
     def.TwitterSearches.byId = $q.defer();
     def.TwitterSearches.start = $q.defer();
     spyOn(TwitterSearches, 'byId').andReturn(def.TwitterSearches.byId.promise);
     spyOn(TwitterSearches, 'start')
       .andReturn(def.TwitterSearches.start.promise);
+    spyOn(TwitterSearches, 'delete')
+      .andReturn($q.when());
     
     spyOn(PageBroker, 'load');
+
+    $location = _$location_;
+    spyOn($location, 'url');
+
+    scope = $rootScope.$new();
     TwitterSearchCtrl = $controller('TwitterSearchCtrl', {
       $scope: scope,
       $routeParams: {
         id: 'search id'
       },
       PageBroker: PageBroker,
-      TwitterSearches: TwitterSearches
+      TwitterSearches: TwitterSearches,
+      $location: $location
     });
   }));
 
@@ -77,5 +88,43 @@ describe('Controller: TwitterSearchCtrl', function () {
     it('calculates the linked text for every report', function(){
       expect(scope.queue.reports[0].linkedText).toBeDefined();
     });
+    describe('deleting it', function() {
+      beforeEach(function() {
+        scope.delete();
+        scope.$digest();
+      });
+      it('tells the user', function() {
+        expect(scope.status).toBe('deleted');
+      });
+    });
   });
+  describe('when the user is loading a deleted search', function() {
+    beforeEach(function(){
+      def.TwitterSearches.byId.resolve();
+      scope.$digest();
+    });
+    it('leads her to an explanatory page', function() {
+      expect($location.url).toHaveBeenCalled();
+    });
+  });
+  it('has no problems if the page broker provides no data', inject(function($rootScope, $controller) {
+    spyOn(PageBroker, 'getReturnedData').andReturn();
+    spyOn(TwitterSearches, 'refreshReport');
+    scope = $rootScope.$new();
+    TwitterSearchCtrl = $controller('TwitterSearchCtrl', {
+      $scope: scope,
+      $routeParams: {
+        id: 'search id'
+      },
+      PageBroker: PageBroker,
+      TwitterSearches: TwitterSearches,
+      $location: $location
+    });
+    def.TwitterSearches.byId.resolve({
+      _id: 'search id',
+      reports: []
+    });
+    scope.$digest();
+    expect(TwitterSearches.refreshReport).not.toHaveBeenCalled();
+  }));
 });

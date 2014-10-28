@@ -44,5 +44,4 @@ describe('Service: Assign', function () {
     $rootScope.$digest(); // for $q
     expect(Assign.totals['53b146149c616733d6e8c7d4']).toBe(10);
   });
-
 });

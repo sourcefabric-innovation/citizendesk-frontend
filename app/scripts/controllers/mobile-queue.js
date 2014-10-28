@@ -2,7 +2,7 @@
 /* jshint camelcase: false */
 
 angular.module('citizendeskFrontendApp')
-  .controller('MobileQueueCtrl', function ($scope, api, QueueSelection, PageBroker, AliasesInLists, reportStatuses, Report, lodash) {
+  .controller('MobileQueueCtrl', function ($scope, api, QueueSelection, PageBroker, AliasesInLists, reportStatuses, Report, lodash, allPages) {
     QueueSelection.description = 'Reports coming from mobile phones';
     $scope.reports = [];
     $scope.loading = true;
@@ -17,8 +17,8 @@ angular.module('citizendeskFrontendApp')
         return candidate._id === report._id;
       });
     });
-    function fetch(page) {
-      api.reports
+    allPages(function(page) {
+      return api.reports
         .query({
           where: JSON.stringify({
             $and: [
@@ -37,11 +37,9 @@ angular.module('citizendeskFrontendApp')
             AliasesInLists.embedAuthorAlias(report);
           });
           $scope.reports = $scope.reports.concat(response._items);
-          if (response._links.next) {
-            fetch(page + 1);
-          }
+          // hide the loading icon even after the first page is here
           $scope.loading = false;
+          return response;
         });
-    }
-    fetch(1);
+    });
   });

@@ -63,6 +63,28 @@ describe('Service: AliasesInLists', function () {
       $rootScope.$digest();
       expect(report.authors[0].alias).toBeDefined();
     });
+    it('ignores alias embedding when identifiers are missing', function() {
+      var report = {
+        authors: [{}]
+      };
+      expect(function() {
+        AliasesInLists.embedAuthorAlias(report);
+        $rootScope.$digest();
+      }).not.toThrow();
+    });
+    it('ignores alias embedding when the id is missing', function() {
+      var report = {
+        authors: [{
+          authority: 'authority',
+          identifiers: {
+            user_name: 'missing id'
+          }
+        }]
+      };
+      AliasesInLists.embedAuthorAlias(report);
+      $rootScope.$digest();
+      expect(report.authors[0].alias).not.toBeDefined();
+    });
     describe('after an update request', function(){
       // update requests will be needed, for example, after adding an
       // alias to a citizen list

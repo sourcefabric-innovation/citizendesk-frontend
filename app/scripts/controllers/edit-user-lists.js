@@ -7,9 +7,7 @@ angular.module('citizendeskFrontendApp')
       .then(function(alias) {
         $scope.alias = alias;
         var list = alias.tags[0];
-        if (list) {
-          $scope.currentList = list._id;
-        }
+        $scope.currentList = list._id;
       });
     api.citizen_lists
       .query()

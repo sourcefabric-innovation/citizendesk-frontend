@@ -15,7 +15,8 @@
 angular.module('citizendeskFrontendApp')
   .service('QueueSelection', function ($rootScope) {
     var service = this;
-    $rootScope.$on('$locationChangeSuccess', function() {
+    this.onLocationChangeSuccess = function() {
       delete service.description;
-    });
+    };
+    $rootScope.$on('$locationChangeSuccess', service.onLocationChangeSuccess);
   });

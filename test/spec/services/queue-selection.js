@@ -11,8 +11,9 @@ describe('Service: QueueSelection', function () {
     QueueSelection = _QueueSelection_;
   }));
 
-  it('should do something', function () {
-    expect(!!QueueSelection).toBe(true);
+  it('deletes the description on page change', function () {
+    QueueSelection.description = 'description for an old page';
+    QueueSelection.onLocationChangeSuccess();
+    expect(QueueSelection.description).toBeUndefined();
   });
-
 });

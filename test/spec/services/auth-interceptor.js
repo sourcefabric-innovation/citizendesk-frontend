@@ -11,22 +11,47 @@ describe('Service: AuthInterceptor', function () {
     AuthInterceptor = _AuthInterceptor_;
   }));
 
-  it('should intercept 401 response, run auth and resend request', inject(function($rootScope, session, $q, $httpBackend) {
+  // reusing the test for two different methods
+  ['response', 'responseError'].map(function(method) {
+    it('should intercept 401 '+method+', run auth and resend request', inject(function($rootScope, session, $q, $httpBackend) {
 
-    var config = {method: 'GET', url: 'test', headers: {}},
-        response = {status: 401, config: config};
+      var config = {
+        method: 'GET',
+        url: 'test',
+        headers: {}
+      };
+      var response = {
+        status: 401,
+        config: config
+      };
 
-    spyOn(session, 'expire').andCallThrough();
-    spyOn(session, 'getIdentity').andCallThrough();
+      spyOn(session, 'expire');
+      spyOn(session, 'getIdentity').andCallThrough();
 
-    AuthInterceptor.response(response);
+      $httpBackend.expectGET('test').respond();
 
-    $rootScope.$digest();
+      // resolving just the first `getIdentity` promise, otherwise a
+      // loop of location changes will happen (probably due to event
+      // handling in the `initAuth` service) and it will scare you
+      var called;
+      session.getIdentity = function() {
+        if (called) {
+          return $q.defer().promise;
+        } else {
+          called = true;
+          return $q.when();
+        }
+      };
 
-    expect(session.expire).toHaveBeenCalled();
+      AuthInterceptor[method](response);
 
-    $httpBackend.verifyNoOutstandingExpectation();
-    $httpBackend.verifyNoOutstandingRequest();
-  }));
+      $rootScope.$digest();
 
+      expect(session.expire).toHaveBeenCalled();
+
+      $httpBackend.flush();
+      $httpBackend.verifyNoOutstandingExpectation();
+      $httpBackend.verifyNoOutstandingRequest();
+    }));
+  });
 });

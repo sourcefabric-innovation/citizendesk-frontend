@@ -11,8 +11,9 @@ describe('Service: ExceptionHandler', function () {
     ExceptionHandler = _$exceptionHandler_;
   }));
 
-  it('should do something', function () {
-    expect(!!ExceptionHandler).toBe(true);
-  });
-
+  it('captures exceptions', inject(function (Raven) {
+    spyOn(Raven.raven, 'captureException');
+    ExceptionHandler('i am an exception');
+    expect(Raven.raven.captureException).toHaveBeenCalled();
+  }));
 });

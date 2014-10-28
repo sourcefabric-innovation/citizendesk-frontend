@@ -48,11 +48,13 @@ describe('Service: Monitors', function () {
     beforeEach(function() {
       deferreds.twt_streams_query.resolve({
         _items: [{
+          _id: 'stream 1',
           user_id: {
             _id: '1'
           },
           spec: { filter_id: 'a' }
         }, {
+          _id: 'stream 2',
           user_id: {
             _id: '2'
           },
@@ -82,6 +84,15 @@ describe('Service: Monitors', function () {
           });
         $rootScope.$digest();
         expect(result.user_id._id).toBe('1');
+      });
+      it('can get by monitor id', function() {
+        var result;
+        Monitors.getById('stream 2')
+          .then(function(_result) {
+            result = _result;
+          });
+        $rootScope.$digest();
+        expect(result._id).toBe('stream 2');
       });
     });
   });
