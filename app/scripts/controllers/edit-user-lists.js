@@ -7,7 +7,11 @@ angular.module('citizendeskFrontendApp')
       .then(function(alias) {
         $scope.alias = alias;
         var list = alias.tags[0];
-        $scope.currentList = list._id;
+        if (list) {
+          $scope.currentList = list._id;
+        } else {
+          $scope.currentList = false;
+        }
       });
     api.citizen_lists
       .query()
@@ -25,8 +29,11 @@ angular.module('citizendeskFrontendApp')
       } else {
         $scope.alias.tags = [];
       }
+      var toBeSaved = angular.copy($scope.alias);
+      // cancel the embedding before saving
+      toBeSaved.identity_record_id = toBeSaved.identity_record_id._id;
       api.citizen_aliases
-        .save($scope.alias)
+        .save(toBeSaved)
         .then(function() {
           $window.history.back();
           AliasesInLists.update();

@@ -35,33 +35,31 @@ describe('Controller: EditUserListsCtrl', function () {
       $window: $window,
       AliasesInLists: AliasesInLists
     });
-
-    def.getData.resolve({
-      _id: 'alias id',
-      tags: []
-    });
   }));
-  describe('with lists', function() {
-    beforeEach(function() {
-      api.citizen_lists.def.query.resolve({
-        _items: [{ _id: 'the first list'}, {}, {}],
-        _links: {}
+  describe('users not belonging to any list', function() {
+    beforeEach(function(){
+      def.getData.resolve({
+        _id: 'alias id',
+        identity_record_id: {
+          _id: 'identity record id',
+          first_name: 'Franco',
+          last_name: 'Occhi'
+        },
+        tags: []
       });
       scope.$digest();
     });
-    it('adds the lists to the scope', function() {
-      expect(scope.lists.length).toBe(3);
+    it('is understood', function() {
+      expect(scope.currentList).toBe(false);
     });
-    it('saves when setting a list', function(){
+    it('can save', function(){
       spyOn(api.citizen_aliases, 'save').andCallThrough();
-      scope.currentList = scope.lists[0];
       scope.save();
       expect(api.citizen_aliases.save)
         .toHaveBeenCalledWith({
           _id : 'alias id',
-          tags : [{
-            _id: 'the first list'
-          }]
+          identity_record_id: 'identity record id',
+          tags : []
         });
       expect(scope.disabled).toBeTruthy();
       api.citizen_aliases.def.save.resolve();
@@ -70,33 +68,80 @@ describe('Controller: EditUserListsCtrl', function () {
       expect(AliasesInLists.update).toHaveBeenCalled();
     });
   });
-  describe('without lists', function() {
+  describe('when the user already belongs to a list', function() {
     beforeEach(function() {
-      api.citizen_lists.def.query.resolve({
-        _items: [],
-        _links: {}
+      def.getData.resolve({
+        _id: 'alias id',
+        identity_record_id: {
+          _id: 'identity record id',
+          first_name: 'Franco',
+          last_name: 'Occhi'
+        },
+        tags: [{ _id: 'list id' }]
       });
-      scope.$digest();
     });
-    it('tells the user that we have no lists', function() {
-      expect(scope.noLists).toBeTruthy();
+    describe('with lists', function() {
+      beforeEach(function() {
+        api.citizen_lists.def.query.resolve({
+          _items: [{ _id: 'the first list'}, {}, {}],
+          _links: {}
+        });
+        scope.$digest();
+      });
+      it('adds the lists to the scope', function() {
+        expect(scope.lists.length).toBe(3);
+      });
+      it('saves when setting a list', function(){
+        spyOn(api.citizen_aliases, 'save').andCallThrough();
+        scope.currentList = scope.lists[0];
+        scope.save();
+        expect(api.citizen_aliases.save)
+          .toHaveBeenCalledWith({
+            _id : 'alias id',
+            identity_record_id: 'identity record id',
+            tags : [{
+              _id: 'the first list'
+            }]
+          });
+        expect(scope.disabled).toBeTruthy();
+        api.citizen_aliases.def.save.resolve();
+        scope.$digest();
+        expect($window.history.back).toHaveBeenCalled();
+        expect(AliasesInLists.update).toHaveBeenCalled();
+      });
     });
-    it('asks for all the lists', function () {
-      expect(api.citizen_lists.query).toHaveBeenCalled();
-    });
-    it('stores the alias in the scope', function(){
-      expect(scope.alias._id).toBe('alias id');
-    });
-    it('saves when removing the list', function(){
-      spyOn(api.citizen_aliases, 'save').andCallThrough();
-      scope.save();
-      expect(api.citizen_aliases.save)
-        .toHaveBeenCalledWith({ _id : 'alias id', tags : [  ] });
-      expect(scope.disabled).toBeTruthy();
-      api.citizen_aliases.def.save.resolve();
-      scope.$digest();
-      expect($window.history.back).toHaveBeenCalled();
-      expect(AliasesInLists.update).toHaveBeenCalled();
+    describe('without lists', function() {
+      beforeEach(function() {
+        api.citizen_lists.def.query.resolve({
+          _items: [],
+          _links: {}
+        });
+        scope.$digest();
+      });
+      it('tells the user that we have no lists', function() {
+        expect(scope.noLists).toBeTruthy();
+      });
+      it('asks for all the lists', function () {
+        expect(api.citizen_lists.query).toHaveBeenCalled();
+      });
+      it('stores the alias in the scope', function(){
+        expect(scope.alias._id).toBe('alias id');
+      });
+      it('saves just the id', function(){
+        spyOn(api.citizen_aliases, 'save').andCallThrough();
+        scope.save();
+        expect(api.citizen_aliases.save)
+          .toHaveBeenCalledWith({
+            _id : 'alias id',
+            identity_record_id: 'identity record id',
+            tags : ['list id']
+          });
+        expect(scope.disabled).toBeTruthy();
+        api.citizen_aliases.def.save.resolve();
+        scope.$digest();
+        expect($window.history.back).toHaveBeenCalled();
+        expect(AliasesInLists.update).toHaveBeenCalled();
+      });
     });
   });
 });
