@@ -57,7 +57,7 @@
           <label translate>
             Reply to {{replyReport.authors[0].identifiers.user_name}}
           </label>
-          <textarea class="form-control" rows="3" ng-model="reply">
+          <textarea class="form-control" rows="3" ng-model="$parent.reply">
           </textarea>
           <p class="help-block" translate>
             Still {{140 - reply.length}} characters in order to fit in
