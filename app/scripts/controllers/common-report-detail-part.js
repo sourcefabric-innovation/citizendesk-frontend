@@ -1,11 +1,66 @@
 'use strict';
 
+// there is some Bacon logic in this controller, it is just a
+// convenient way i found to express the relationships between
+// events. It can be removed if it looks confusing. Specifically, i
+// use it to glue together all computations that have to be done when
+// a report is modified. A different style would be to use scope
+// watching for this
+
 angular.module('citizendeskFrontendApp')
   .controller('CommonReportDetailPartCtrl', function ($scope, Coverages, SharedReport, $routeParams, lodash, screenSize, api, session, $http, config, superdeskDate, gettextCatalog, $window, Raven) {
-    var coveragesData = new Bacon.Bus(),
-        shared = SharedReport.get($routeParams.id),
+    var shared = SharedReport.get($routeParams.id),
         _ = lodash;
 
+    $scope.reportStatusChange = function(newValue, oldValue){
+      if(newValue === oldValue) {
+        return;
+      }
+      // possibly complain about doing the necessary steps
+      if ($scope.report.steps) {
+        var badVerification = gettextCatalog.getString('This report is being marked as verified without going through the planned verification steps');
+        var allDone = $scope.report.steps.every(function(step) {
+          return step.done;
+        });
+        if (newValue === 'verified' && allDone === false) {
+          $window.alert(badVerification);
+        }
+      }
+      // possibly complain about not playing with verification
+      if (oldValue === 'verified') {
+        var doNotJump = gettextCatalog.getString('This report was marked as verified, and now it is marked as unverified again! This is a very bad practice, and should be avoided');
+        $window.alert(doNotJump);
+      }
+      $scope.report.status_updated = superdeskDate.render(new Date());
+      $scope.save();
+    };
+    $scope.reportStepsChange = function() {
+      if ($scope.report && $scope.report.steps) {
+        $scope.verificationDisabled = $scope.report.steps
+          .some(function(step) {
+            return step.mandatory && (!step.done);
+          });
+      }
+    };
+    $scope.noticesOuterChange = function(n, o) {
+      if(n === o) {
+        return;
+      }
+      // do not auto save when the report is already published
+      if($scope.isPublished) {
+        return;
+      }
+      $scope.report.status_updated = superdeskDate.render(new Date());
+      $scope.save();
+    };
+    $scope.commentChange = function(n, o) {
+      if(n === o) {
+        return;
+      }
+      if(n === false) {
+        $scope.report.notices_outer = [];
+      }
+    };
     function addSteps(report) {
       if (!('steps' in report)) {
         api.steps.query()
@@ -30,11 +85,17 @@ angular.module('citizendeskFrontendApp')
       }
     }
 
+    // once we get coverages, and for every update in the report,
+    // update the `selectedCoverage` in the scope
     Coverages.promise.then(function (coverages) {
-      coveragesData.push(coverages);
-    });
-    coveragesData.onValue(function(coverages) {
       $scope.coverages = coverages;
+      shared.property.onValue(function(report) {
+        if (coverages && report.coverages && report.coverages.published) {
+          $scope.selectedCoverage = _.find(coverages, {
+            uuid: report.coverages.published[0]
+          });
+        }
+      });
     });
     shared.property.onValue(function (report) {
       $scope.report = report; // shadows a report in the parent scope
@@ -53,75 +114,15 @@ angular.module('citizendeskFrontendApp')
     });
     // watchers have to be added just once
     shared.property.take(1).onValue(function(){
-      $scope.$watch('report.status', function(newValue, oldValue){
-        if(newValue === oldValue) {
-          return;
-        }
-        // possibly complain about doing the necessary steps
-        if ($scope.report.steps) {
-          var badVerification = gettextCatalog.getString('This report is being marked as verified without going through the planned verification steps');
-          var allDone = $scope.report.steps.every(function(step) {
-            return step.done;
-          });
-          if (newValue === 'verified' && allDone === false) {
-            $window.alert(badVerification);
-          }
-        }
-        // possibly complain about not playing with verification
-        if (oldValue === 'verified') {
-          var doNotJump = gettextCatalog.getString('This report was marked as verified, and now it is marked as unverified again! This is a very bad practice, and should be avoided');
-          $window.alert(doNotJump);
-        }
-      });
-      $scope.$watch('report.steps', function() {
-        if ($scope.report && $scope.report.steps) {
-          $scope.verificationDisabled = $scope.report.steps
-            .some(function(step) {
-              return step.mandatory && (!step.done);
-            });
-        }
-      }, true);
-      $scope.$watch('report.status', function(n, o) {
-        if(n === o) {
-          return;
-        }
-        $scope.report.status_updated = superdeskDate.render(new Date());
-        $scope.save();
-      });
-      $scope.$watch('report.notices_outer', function(n, o) {
-        if(n === o) {
-          return;
-        }
-        // do not auto save when the report is already published
-        if($scope.isPublished) {
-          return;
-        }
-        $scope.report.status_updated = superdeskDate.render(new Date());
-        $scope.save();
-      }, true);
-      $scope.$watch('comment', function(n, o) {
-        if(n === o) {
-          return;
-        }
-        if(n === false) {
-          $scope.report.notices_outer = [];
-        }
-      });
+      $scope.$watch('report.status', $scope.reportStatusChange);
+      $scope.$watch('report.steps', $scope.reportStepsChange, true);
+      $scope.$watch('report.notices_outer', $scope.noticesOuterChange, true);
+      $scope.$watch('comment', $scope.commentChange);
     });
-    Bacon
-      .combineAsArray(shared.property, coveragesData)
-      .onValue(function(value) {
-        var report = value[0], coverages = value[1];
-        if (coverages && report.coverages && report.coverages.published) {
-          $scope.selectedCoverage = _.find(coverages, {
-            uuid: report.coverages.published[0]
-          });
-        }
-      });
 
     $scope.changeStep = function(checking) {
       if (!checking) {
-        alert('A validation step should never be unchecked, if you are unchecking now this means that the validation process was poor. Please be sure to avoid this in the future');
+        $window.alert('A validation step should never be unchecked, if you are unchecking now this means that the validation process was poor. Please be sure to avoid this in the future');
       }
       $scope.save();
     };

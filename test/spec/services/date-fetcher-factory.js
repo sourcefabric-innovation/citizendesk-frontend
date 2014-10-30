@@ -28,8 +28,7 @@ describe('Service: dateFetcherFactory', function () {
       deferreds = {},
       $q,
       $rootScope;
-  beforeEach(module(function($provide) {
-  }));
+
   beforeEach(inject(function (_dateFetcherFactory_, _$q_, _$rootScope_) {
     dateFetcherFactory = _dateFetcherFactory_;
     $q = _$q_;
@@ -51,6 +50,15 @@ describe('Service: dateFetcherFactory', function () {
     expect(endpoint.query.mostRecentCall.args[0].where)
       .toBe('{"$and":[{"condition":"value"},{}]}');
   });
+  it('passes the response through when it receives it', function() {
+    var dateFetcher = dateFetcherFactory({
+      initialise: [],
+      property: 'whatever',
+      endpoint: endpoint
+    });
+    var response = { _items:[] };
+    expect(dateFetcher.onResponse(response)).toEqual(response);
+  });
 
   describe('a queried dateFetcher', function() {
     var dateFetcher, promise;
@@ -62,7 +70,6 @@ describe('Service: dateFetcherFactory', function () {
           modified: '2014-07-28T14:38:16+0000'
         },{
           modified: '2014-07-29T14:38:16+0000'
-        },{
         }]),
         property: 'modified',
         endpoint: endpoint
@@ -80,6 +87,7 @@ describe('Service: dateFetcherFactory', function () {
             modified: '2014-07-31T14:44:49+0000'
           }
         });
+        $rootScope.$digest();
         dateFetcher.queryWhere({condition:'value'});
       });
       it('queries with an updated date', function() {

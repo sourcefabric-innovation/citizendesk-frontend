@@ -50,4 +50,9 @@ describe('Service: Report', function () {
     expect(newReport.notices_outer)
       .toEqual([]);
   });
+  it('tells us when trying to link a malformed report', inject(function(Raven) {
+    spyOn(Raven.raven, 'captureException');
+    Report.linkTweetTexts({ feed_type:'tweet' });
+    expect(Raven.raven.captureException).toHaveBeenCalled();
+  }));
 });

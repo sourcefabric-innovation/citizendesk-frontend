@@ -39,6 +39,7 @@ describe('Controller: CommonReportDetailPartCtrl', function () {
     $rootScope = _$rootScope_;
     reportStatuses = _reportStatuses_;
     Raven = _Raven_;
+    $window.alert = jasmine.createSpy('window alert');
 
     scope = $rootScope.$new();
     $controller('CommonReportDetailPartCtrl', {
@@ -64,6 +65,18 @@ describe('Controller: CommonReportDetailPartCtrl', function () {
     });
     it('asks for details about the journalist', function() {
       expect(api.users.getById).toHaveBeenCalled();
+    });
+    it('complains when a step gets unchecked', function() {
+      scope.changeStep(false);
+      expect($window.alert).toHaveBeenCalled();
+    });
+    it('saves when a step gets checked', function() {
+      scope.changeStep(true);
+      expect(api.reports.save).toHaveBeenCalled();
+      expect(scope.disabled).toBe(true);
+      api.reports.def.save.resolve();
+      scope.$digest();
+      expect(scope.disabled).toBe(false);
     });
     describe('after getting the details about who published', function() {
       beforeEach(function() {
@@ -104,7 +117,7 @@ describe('Controller: CommonReportDetailPartCtrl', function () {
     });
     describe('getting no steps', function(){
       beforeEach(function(){
-        spyOn(Raven.raven, 'captureMessage');
+        spyOn(Raven.raven, 'captureMessage').andCallThrough();
         api.steps.def.query.resolve({ _items:[] });
         scope.$digest();
       });
@@ -251,7 +264,7 @@ describe('Controller: CommonReportDetailPartCtrl', function () {
       });
     });
   });
-  describe('the step change handler', function() {
+  describe('the change handlers', function() {
     var mandatory = {
           done: false,
           mandatory: true
@@ -268,19 +281,37 @@ describe('Controller: CommonReportDetailPartCtrl', function () {
       scope.report.steps = steps;
       scope.$digest();
     });
-    it('disables verification when a mandatory step is missing', function() {
+    it('disable verification when a mandatory step is missing', function() {
       expect(scope.verificationDisabled).toBe(true);
     });
-    it('enables verification when an optional step is missing', function() {
+    it('enable verification when an optional step is missing', function() {
       mandatory.done = true;
       optional.done = false;
       scope.$digest();
       expect(scope.verificationDisabled).toBe(false);
     });
-    it('works even when steps are not given', function() {
+    it('work even when steps are not given', function() {
       scope.report.steps = undefined;
       scope.$digest();
       expect(scope.verificationDisabled).toBe(false);
+    });
+    it('complain when the user changes idea about verification', function() {
+      scope.reportStatusChange('whatever', 'verified');
+      expect($window.alert).toHaveBeenCalledWith('This report was marked as verified, and now it is marked as unverified again! This is a very bad practice, and should be avoided');
+    });
+    it('do not autosave the comment if the report is published', function() {
+      scope.isPublished = true;
+      scope.noticesOuterChange(
+        'new version that the user is editing...',
+        'old version of the comment'
+      );
+      expect(api.reports.save).not.toHaveBeenCalled();
+    });
+    it('reset the comment only if the box get unchecked', function() {
+      var comment = ['there is a comment here'];
+      scope.report.notices_outer = angular.copy(comment);
+      scope.commentChange(true);
+      expect(scope.report.notices_outer).toEqual(comment);
     });
   });
   describe('the status change handler', function(){
@@ -288,7 +319,6 @@ describe('Controller: CommonReportDetailPartCtrl', function () {
       api.reports.def.getById
         .resolve(angular.copy(mocks.reports['538df48f9c616729ad000035']));
       scope.$digest();
-      $window.alert = jasmine.createSpy('window alert');
       scope.report.steps = [{
         done: true
       }, {

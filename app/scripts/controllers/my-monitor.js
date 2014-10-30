@@ -24,7 +24,7 @@ angular.module('citizendeskFrontendApp')
     $scope.editing = false;
     $scope.newReports = []; // filled by the polling loop
     $scope.search = [];
-    $scope.$watch('missing', function() {
+    $scope.missingChange = function() {
       var miss = $scope.missing;
       /* if we are lacking key and monitor, point the user to key creation */
       $scope.showKeyPointer = miss.monitor && miss.key;
@@ -39,14 +39,16 @@ angular.module('citizendeskFrontendApp')
           {extra: { name: session.identity.username}}
         );
       }
-    }, true); // object equality
-    $scope.$watch('monitor', function() {
+    };
+    $scope.monitorChange = function() {
       if ($scope.monitor) {
         var track = $scope.monitor.filter.spec.track;
         $scope.search = track;
         QueueSelection.description = track.join(', ');
       }
-    }, true); // object equality
+    };
+    $scope.$watch('missing', $scope.missingChange, true); // object equality
+    $scope.$watch('monitor', $scope.monitorChange, true); // object equality
 
     var monitor = {
       start: function(m) {

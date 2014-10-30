@@ -12,6 +12,10 @@ angular.module('citizendeskFrontendApp')
 
          */
         date: null,
+        onResponse: function(response) {
+          fetcher.update(response._items);
+          return response;
+        },
         update: function(arr) {
           var dates = [];
           arr.forEach(function(element) {
@@ -44,11 +48,9 @@ angular.module('citizendeskFrontendApp')
               ]
             })
           };
-          return arg.endpoint.query(params)
-            .then(function(response) {
-              fetcher.update(response._items);
-              return response;
-            });
+          return arg.endpoint
+            .query(params)
+            .then(fetcher.onResponse);
         }
       };
       fetcher.update(arg.initialise);

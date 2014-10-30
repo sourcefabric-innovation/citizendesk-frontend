@@ -24,6 +24,17 @@ describe('Controller: ListIdentityRecordsCtrl', function () {
     it('asks for identities', function () {
       expect(api.identity_records.query).toHaveBeenCalled();
     });
+    it('attaches identities to the scope', function() {
+      api.identity_records.def.query.resolve({
+        _items: 'items'
+      });
+      scope.$digest();
+      expect(scope.identities).toBe('items');
+    });
+    it('leads the user to an identity creation page', function(){
+      scope.add();
+      expect($location.url).toHaveBeenCalled();
+    });
   }
   describe('with an alias to assign the identity to', function() {
     beforeEach(inject(function ($controller, $rootScope) {

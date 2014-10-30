@@ -18,6 +18,7 @@ describe('Controller: AssociateAliasCtrl', function () {
     spyOn(api.citizen_aliases, 'save').andCallThrough();
     $window = _$window_;
     spyOn($window.history, 'go');
+    spyOn($window.history, 'back');
 
     scope = $rootScope.$new();
     AssociateAliasCtrl = $controller('AssociateAliasCtrl', {
@@ -72,5 +73,9 @@ describe('Controller: AssociateAliasCtrl', function () {
         });
       });
     });
+  });
+  it('cancels', function() {
+    scope.cancel();
+    expect($window.history.back).toHaveBeenCalled();
   });
 });

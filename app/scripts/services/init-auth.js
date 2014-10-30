@@ -2,7 +2,19 @@
 
 angular.module('citizendeskFrontendApp')
   .factory('initAuth', function($rootScope, $route, $location, $http, $window, session) {
-    return function() {
+    function initAuth() {
+
+      // prevent routing when there is no token
+      initAuth.onLocationChange = function (e) {
+        if (!session.token) {
+          session.getIdentity().then(function() {
+            $http.defaults.headers.common.Authorization = 'Basic ' + btoa(session.token + ':');
+            $route.reload();
+          });
+          e.preventDefault();
+        }
+      };
+      $rootScope.$on('$locationChangeStart', initAuth.onLocationChange);
 
       // populate current user
       $rootScope.$watch(function() {
@@ -21,16 +33,6 @@ angular.module('citizendeskFrontendApp')
           delete $http.defaults.headers.common.Authorization;
         }
       });
-
-      // prevent routing when there is no token
-      $rootScope.$on('$locationChangeStart', function (e) {
-        if (!session.token) {
-          session.getIdentity().then(function() {
-            $http.defaults.headers.common.Authorization = 'Basic ' + btoa(session.token + ':');
-            $route.reload();
-          });
-          e.preventDefault();
-        }
-      });
-    };
+    }
+    return initAuth;
   });

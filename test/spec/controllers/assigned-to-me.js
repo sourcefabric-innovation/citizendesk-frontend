@@ -8,24 +8,20 @@ describe('Controller: AssignedToMeCtrl', function () {
   var AssignedToMeCtrl,
       scope,
       $q,
-      api = {
-        reports: {
-          query: function() {
-            return $q.when(angular.copy(mocks.reports['list-not-paginated']));
-          }
-        }
-      },
       AliasesInLists = {
         embedAuthorAlias: function(report) {
           report.authors[0].alias = 'whatever';
         }
-      };
+      },
+      api;
 
   // Initialize the controller and a mock scope
-  beforeEach(inject(function ($controller, $rootScope, _$q_) {
+  beforeEach(inject(function ($controller, $rootScope, _$q_, _api_) {
     $q = _$q_;
     scope = $rootScope.$new();
-    spyOn(api.reports, 'query').andCallThrough();
+    api = _api_;
+    spyOn(api.reports, 'query')
+      .andReturn($q.when(angular.copy(mocks.reports['list-not-paginated'])));
     AssignedToMeCtrl = $controller('AssignedToMeCtrl', {
       $scope: scope,
       api: api,
@@ -50,5 +46,12 @@ describe('Controller: AssignedToMeCtrl', function () {
   });
   it('embeds author aliases', function() {
     expect(scope.reports[0].authors[0].alias).toBeDefined();
+  });
+  it('dismisses a report', function() {
+    var r = scope.reports[0];
+    scope.dismiss(r);
+    api.reports.def.update.resolve(r);
+    scope.$digest();
+    expect(scope.reports.length).toBe(0);
   });
 });

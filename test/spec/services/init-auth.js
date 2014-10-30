@@ -6,13 +6,19 @@ describe('Service: InitAuth', function () {
   beforeEach(module('citizendeskFrontendApp'));
 
   // instantiate service
-  var InitAuth;
+  var initAuth;
   beforeEach(inject(function (_initAuth_) {
-    InitAuth = _initAuth_;
+    initAuth = _initAuth_;
   }));
 
-  it('should do something', function () {
-    expect(!!InitAuth).toBe(true);
-  });
-
+  it('reloads after getting the identity', inject(function ($rootScope, $http, session, $route, $q) {
+    delete session.token;
+    spyOn(session, 'getIdentity').andReturn($q.when());
+    spyOn($route, 'reload');
+    initAuth.onLocationChange({ preventDefault:function(){} });
+    session.token = '<token>';
+    $rootScope.$digest();
+    expect($http.defaults.headers.common.Authorization).toBe('Basic bnVsbDo=');
+    expect($route.reload).toHaveBeenCalled();
+  }));
 });

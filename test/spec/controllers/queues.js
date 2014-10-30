@@ -17,12 +17,20 @@ describe('Controller: QueuesCtrl', function () {
         promise: {
           then: function(f) { f({_items:[]}); }
         }
+      },
+      Monitors: {
+        promise: {
+          then: function(f) { f({_items:[]}); }
+        }
       }
     });
   }));
 
   it('attaches twitter searches to the scope', function () {
     expect(scope.searches).toBeDefined();
+  });
+  it('attaches monitors to the scope', function () {
+    expect(scope.monitors).toBeDefined();
   });
   it('proxies session', function() {
     expect(scope.session).toBeDefined();

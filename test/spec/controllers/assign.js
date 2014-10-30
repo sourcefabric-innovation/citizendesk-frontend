@@ -91,4 +91,8 @@ describe('Controller: AssignCtrl', function () {
     expect(PageBroker.back.mostRecentCall.args)
       .toEqual([{ updateId : 'test-report-id' }]);
   }));
+  it('goes back', function(){
+    scope.back();
+    expect(PageBroker.back).toHaveBeenCalled();
+  });
 });

@@ -46,6 +46,13 @@ describe('Controller: ConfigureListsSpecificCtrl', function () {
     expect(scope.variations[0].class)
       .toEqual('label-default');
   });
+  it('saves the list', function() {
+    scope.save();
+    expect(scope.disabled).toBe(true);
+    api.citizen_lists.def.save.resolve();
+    scope.$digest();
+    expect(scope.disabled).toBe(false);
+  });
   describe('when on a new list', function(){
     beforeEach(function(){
       def.getData.resolve('new');
