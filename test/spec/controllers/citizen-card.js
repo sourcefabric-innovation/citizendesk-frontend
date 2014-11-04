@@ -43,14 +43,14 @@ describe('Controller: CitizenCardCtrl', function () {
     api.citizen_aliases.def.query
       .resolve(mocks.citizen_aliases.empty_query_result);
 
-    spyOn(api.citizen_aliases, 'save').andCallThrough();
-    spyOn(api.users, 'getById').andCallThrough();
+    spyOn(api.citizen_aliases, 'save').and.callThrough();
+    spyOn(api.users, 'getById').and.callThrough();
 
     scope.$digest();
     expect(api.users.getById).toHaveBeenCalled();
 
     api.citizen_aliases.reset.query();
-    spyOn(api.citizen_aliases, 'query').andCallThrough();
+    spyOn(api.citizen_aliases, 'query').and.callThrough();
 
     api.users.def.getById.resolve(angular.copy(mocks.auth.success));
     scope.$digest();
@@ -67,7 +67,7 @@ describe('Controller: CitizenCardCtrl', function () {
   describe('with a not local alias', function() {
     beforeEach(function() {
 
-      spyOn(api.citizen_aliases, 'query').andCallThrough();
+      spyOn(api.citizen_aliases, 'query').and.callThrough();
       scope = $rootScope.$new();
       $controller('CitizenCardCtrl', {
         $scope: scope,
@@ -101,9 +101,9 @@ describe('Controller: CitizenCardCtrl', function () {
         PageBroker.load = jasmine.createSpy('page broker load');
         scope.editTags();
         expect(PageBroker.load).toHaveBeenCalled();
-        expect(PageBroker.load.mostRecentCall.args[0])
+        expect(PageBroker.load.calls.mostRecent().args[0])
           .toBe('/edit-user-lists');
-        expect(PageBroker.load.mostRecentCall.args[1])
+        expect(PageBroker.load.calls.mostRecent().args[1])
           .toEqual(scope.alias);
       });
       it('can lead the user to the association page', function() {

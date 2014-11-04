@@ -21,7 +21,7 @@ describe('Controller: AssignedToMeCtrl', function () {
     scope = $rootScope.$new();
     api = _api_;
     spyOn(api.reports, 'query')
-      .andReturn($q.when(angular.copy(mocks.reports['list-not-paginated'])));
+      .and.returnValue($q.when(angular.copy(mocks.reports['list-not-paginated'])));
     AssignedToMeCtrl = $controller('AssignedToMeCtrl', {
       $scope: scope,
       api: api,
@@ -34,7 +34,7 @@ describe('Controller: AssignedToMeCtrl', function () {
   }));
 
   it('queries for the assigned reports list', function() {
-    var query = api.reports.query.mostRecentCall.args[0];
+    var query = api.reports.query.calls.mostRecent().args[0];
     expect(query.page).toBe(1);
     expect(query.sort).toBe('[("produced", -1)]');
   });

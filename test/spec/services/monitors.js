@@ -28,10 +28,10 @@ describe('Service: Monitors', function () {
     $rootScope = _$rootScope_;
     deferreds.twt_streams_query = $q.defer();
     spyOn(api.twt_streams, 'query')
-      .andReturn(deferreds.twt_streams_query.promise);
+      .and.returnValue(deferreds.twt_streams_query.promise);
     deferreds.twt_filters_query = $q.defer();
     spyOn(api.twt_filters, 'query')
-      .andReturn(deferreds.twt_filters_query.promise);
+      .and.returnValue(deferreds.twt_filters_query.promise);
   }));
   beforeEach(inject(function (_Monitors_) {
     Monitors = _Monitors_;
@@ -42,7 +42,7 @@ describe('Service: Monitors', function () {
   });
   it('asks again when update is called', function() {
     Monitors.update();
-    expect(api.twt_streams.query.calls.length).toBe(2);
+    expect(api.twt_streams.query.calls.count()).toBe(2);
   });
   describe('got monitors from the server', function() {
     beforeEach(function() {

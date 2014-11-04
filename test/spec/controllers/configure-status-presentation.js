@@ -12,7 +12,7 @@ describe('Controller: ConfigureStatusPresentationCtrl', function () {
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope, _api_) {
     api = _api_;
-    spyOn(api.report_statuses, 'query').andCallThrough();
+    spyOn(api.report_statuses, 'query').and.callThrough();
     
     scope = $rootScope.$new();
     ConfigureStatusPresentationCtrl = $controller('ConfigureStatusPresentationCtrl', {

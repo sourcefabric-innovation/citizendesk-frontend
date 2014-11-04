@@ -14,7 +14,7 @@ describe('Controller: ConfigureStepsCtrl', function () {
   beforeEach(inject(function ($controller, $rootScope, _$httpBackend_, _api_) {
     scope = $rootScope.$new();
     api = _api_;
-    spyOn(api.steps, 'query').andCallThrough();
+    spyOn(api.steps, 'query').and.callThrough();
     ConfigureStepsCtrl = $controller('ConfigureStepsCtrl', {
       $scope: scope
     });

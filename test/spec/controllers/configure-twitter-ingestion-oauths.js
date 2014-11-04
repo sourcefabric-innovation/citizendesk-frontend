@@ -15,8 +15,8 @@ describe('Controller: ConfigureTwitterIngestionOauthsCtrl', function () {
     $q = _$q_;
     api = _api_;
     scope = $rootScope.$new();
-    spyOn(api.twt_oauths, 'query').andCallThrough();
-    spyOn(api.twt_oauths, 'save').andCallThrough();
+    spyOn(api.twt_oauths, 'query').and.callThrough();
+    spyOn(api.twt_oauths, 'save').and.callThrough();
     ConfigureTwitterIngestionOauthsCtrl = $controller('ConfigureTwitterIngestionOauthsCtrl', {
       $scope: scope,
       session: {

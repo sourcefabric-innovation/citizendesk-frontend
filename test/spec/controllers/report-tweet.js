@@ -27,8 +27,8 @@ describe('Controller: ReportTweetCtrl', function () {
     Coverages.promise = $q.when([]);
     scope = $rootScope.$new();
     dependencies.$scope = scope;
-    spyOn(api.reports, 'getById').andCallThrough();
-    spyOn(api.steps, 'query').andCallThrough();
+    spyOn(api.reports, 'getById').and.callThrough();
+    spyOn(api.steps, 'query').and.callThrough();
     ReportCtrl = $controller('ReportTweetCtrl', dependencies);
     $httpBackend = _$httpBackend_;
     api.reports.def.getById

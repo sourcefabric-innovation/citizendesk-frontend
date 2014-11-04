@@ -22,12 +22,12 @@ describe('Controller: SelectMediaToPublishCtrl', function () {
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope, _api_, _$window_, $q, _$location_) {
     api = _api_;
-    spyOn(api.reports, 'getById').andCallThrough();
-    spyOn(api.reports, 'save').andCallThrough();
+    spyOn(api.reports, 'getById').and.callThrough();
+    spyOn(api.reports, 'save').and.callThrough();
     $window = _$window_;
     spyOn($window.history, 'back');
     def.PageBroker.getData = $q.defer();
-    spyOn(PageBroker, 'getData').andCallThrough();
+    spyOn(PageBroker, 'getData').and.callThrough();
     $location = _$location_;
     spyOn($location, 'url');
     
@@ -60,7 +60,7 @@ describe('Controller: SelectMediaToPublishCtrl', function () {
       scope.selected = 1;
       scope.submit();
       expect(api.reports.save).toHaveBeenCalled();
-      var report = api.reports.save.mostRecentCall.args[0];
+      var report = api.reports.save.calls.mostRecent().args[0];
       expect(report.media[0].link).toBe('http://second-image-link.png');
       api.reports.def.save.resolve('');
       scope.$digest();

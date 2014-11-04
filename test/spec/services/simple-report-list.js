@@ -31,7 +31,7 @@ describe('Service: SimpleReportList', function () {
       }
     });
     api.reports.reset.query();
-    spyOn(api.reports, 'query').andCallThrough();
+    spyOn(api.reports, 'query').and.callThrough();
     scope.$digest();
     expect(api.reports.query).toHaveBeenCalled();
   }));

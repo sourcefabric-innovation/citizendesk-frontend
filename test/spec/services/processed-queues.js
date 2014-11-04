@@ -15,7 +15,7 @@ describe('Service: ProcessedQueues', function () {
     ProcessedQueues = _ProcessedQueues_;
     $rootScope = _$rootScope_;
 
-    spyOn(api.reports, 'query').andCallThrough();
+    spyOn(api.reports, 'query').and.callThrough();
     ProcessedQueues.requests.push('assigned');
     ProcessedQueues.requests.push('dismissed');
     ProcessedQueues
@@ -32,7 +32,7 @@ describe('Service: ProcessedQueues', function () {
 
   it('fetches the different types of reports', function () {
     expect(api.reports.query).toHaveBeenCalled();
-    expect(api.reports.query.calls.length).toBe(2);
+    expect(api.reports.query.calls.count()).toBe(2);
   });
   describe('upon the first burst of responses', function() {
     beforeEach(function() {
@@ -53,7 +53,7 @@ describe('Service: ProcessedQueues', function () {
     describe('upon a second request and burst of responses', function() {
       beforeEach(function() {
         api.reports.reset.query();
-        spyOn(api.reports, 'query').andCallThrough();
+        spyOn(api.reports, 'query').and.callThrough();
         ProcessedQueues.requests.push('assigned');
         ProcessedQueues.requests.push('dismissed');
         // here we reply with a single response, but actually they will
@@ -67,7 +67,7 @@ describe('Service: ProcessedQueues', function () {
         $rootScope.$digest();
       });
       it('fetches again', function () {
-        expect(api.reports.query.calls.length).toBe(2);
+        expect(api.reports.query.calls.count()).toBe(2);
       });
       it('updates the total counts', function() {
         expect(results.assigned._meta.total).toBe(4);

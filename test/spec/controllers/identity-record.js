@@ -13,9 +13,9 @@ describe('Controller: IdentityRecordCtrl', function () {
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope, _api_, _$window_) {
     api = _api_;
-    spyOn(api.identity_records, 'getById').andCallThrough();
-    spyOn(api.identity_records, 'save').andCallThrough();
-    spyOn(api.citizen_aliases, 'query').andCallThrough();
+    spyOn(api.identity_records, 'getById').and.callThrough();
+    spyOn(api.identity_records, 'save').and.callThrough();
+    spyOn(api.citizen_aliases, 'query').and.callThrough();
     $window = _$window_;
     spyOn($window.history, 'back');
   }));
@@ -94,7 +94,7 @@ describe('Controller: IdentityRecordCtrl', function () {
       });
       it('deletes', function() {
         api.identity_records.reset.save();
-        spyOn(api.identity_records, 'save').andCallThrough();
+        spyOn(api.identity_records, 'save').and.callThrough();
         scope.delete();
         expect(api.identity_records.save).toHaveBeenCalled();
       });

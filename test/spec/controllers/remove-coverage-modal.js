@@ -12,7 +12,7 @@ describe('Controller: RemoveCoverageModalCtrl', function () {
   // Initialize the controller and a mock scope
   beforeEach(inject(function (_api_, $controller, $rootScope) {
     api = _api_;
-    spyOn(api.reports, 'query').andCallThrough();
+    spyOn(api.reports, 'query').and.callThrough();
 
     scope = $rootScope.$new();
     scope.coverage = {

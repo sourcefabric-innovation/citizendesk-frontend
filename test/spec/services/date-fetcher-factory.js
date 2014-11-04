@@ -34,7 +34,7 @@ describe('Service: dateFetcherFactory', function () {
     $q = _$q_;
     $rootScope = _$rootScope_;
     deferreds.query = $q.defer();
-    spyOn(endpoint, 'query').andReturn(deferreds.query.promise);
+    spyOn(endpoint, 'query').and.returnValue(deferreds.query.promise);
   }));
 
   it('should do something', function () {
@@ -47,7 +47,7 @@ describe('Service: dateFetcherFactory', function () {
       endpoint: endpoint
     });
     var promise = dateFetcher.queryWhere({condition:'value'});
-    expect(endpoint.query.mostRecentCall.args[0].where)
+    expect(endpoint.query.calls.mostRecent().args[0].where)
       .toBe('{"$and":[{"condition":"value"},{}]}');
   });
   it('passes the response through when it receives it', function() {
@@ -77,7 +77,7 @@ describe('Service: dateFetcherFactory', function () {
       promise = dateFetcher.queryWhere({condition:'value'});
     });
     it('queries with the right date', function() {
-      expect(endpoint.query.mostRecentCall.args[0].where)
+      expect(endpoint.query.calls.mostRecent().args[0].where)
         .toBe('{"$and":[{"condition":"value"},{"modified":{"$gt":"2014-07-30T14:40:01+0000"}}]}');
     });
     describe('queried after the response', function() {
@@ -91,7 +91,7 @@ describe('Service: dateFetcherFactory', function () {
         dateFetcher.queryWhere({condition:'value'});
       });
       it('queries with an updated date', function() {
-        expect(endpoint.query.mostRecentCall.args[0].where)
+        expect(endpoint.query.calls.mostRecent().args[0].where)
           .toBe('{"$and":[{"condition":"value"},{"modified":{"$gt":"2014-07-30T14:40:01+0000"}}]}');
       });
     });

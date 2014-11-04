@@ -24,7 +24,7 @@ describe('Controller: NewTwitterSearchCtrl', function () {
     TwitterSearches.create = function() {
       return def.promise;
     };
-    spyOn(TwitterSearches, 'create').andCallThrough();
+    spyOn(TwitterSearches, 'create').and.callThrough();
   }));
 
   it('can submit', function () {

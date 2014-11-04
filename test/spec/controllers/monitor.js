@@ -19,7 +19,7 @@ describe('Controller: MonitorCtrl', function () {
   beforeEach(inject(function ($controller, $rootScope, _$q_) {
     $q = _$q_;
     deferred = $q.defer();
-    spyOn(api.reports, 'query').andReturn(deferred.promise);
+    spyOn(api.reports, 'query').and.returnValue(deferred.promise);
     scope = $rootScope.$new();
     MonitorCtrl = $controller('MonitorCtrl', {
       $scope: scope,

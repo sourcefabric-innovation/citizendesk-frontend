@@ -12,7 +12,7 @@ describe('Service: SharedReport', function () {
   beforeEach(inject(function (_SharedReport_, _api_, _$rootScope_) {
     SharedReport = _SharedReport_;
     api = _api_;
-    spyOn(api.reports, 'getById').andCallThrough();
+    spyOn(api.reports, 'getById').and.callThrough();
     $rootScope = _$rootScope_;
   }));
 
@@ -37,7 +37,7 @@ describe('Service: SharedReport', function () {
     describe('on the second request', function() {
       beforeEach(function() {
         api.reports.reset.getById();
-        spyOn(api.reports, 'getById').andCallThrough();
+        spyOn(api.reports, 'getById').and.callThrough();
         SharedReport.get('abc');
       });
       it('does not requires the report again', function() {

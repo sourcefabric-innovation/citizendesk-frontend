@@ -23,8 +23,8 @@ describe('Controller: EditUserListsCtrl', function () {
     api = _api_;
     def.getData = $q.defer();
     PageBroker.getData = function() { return def.getData.promise; };
-    spyOn(PageBroker, 'getData').andCallThrough();
-    spyOn(api.citizen_lists, 'query').andCallThrough();
+    spyOn(PageBroker, 'getData').and.callThrough();
+    spyOn(api.citizen_lists, 'query').and.callThrough();
     $window.history.back = jasmine.createSpy('window history back');
     AliasesInLists.update = jasmine.createSpy('aliases in lists update');
 
@@ -53,7 +53,7 @@ describe('Controller: EditUserListsCtrl', function () {
       expect(scope.currentList).toBe(false);
     });
     it('can save', function(){
-      spyOn(api.citizen_aliases, 'save').andCallThrough();
+      spyOn(api.citizen_aliases, 'save').and.callThrough();
       scope.save();
       expect(api.citizen_aliases.save)
         .toHaveBeenCalledWith({
@@ -92,7 +92,7 @@ describe('Controller: EditUserListsCtrl', function () {
         expect(scope.lists.length).toBe(3);
       });
       it('saves when setting a list', function(){
-        spyOn(api.citizen_aliases, 'save').andCallThrough();
+        spyOn(api.citizen_aliases, 'save').and.callThrough();
         scope.currentList = scope.lists[0];
         scope.save();
         expect(api.citizen_aliases.save)
@@ -128,7 +128,7 @@ describe('Controller: EditUserListsCtrl', function () {
         expect(scope.alias._id).toBe('alias id');
       });
       it('saves just the id', function(){
-        spyOn(api.citizen_aliases, 'save').andCallThrough();
+        spyOn(api.citizen_aliases, 'save').and.callThrough();
         scope.save();
         expect(api.citizen_aliases.save)
           .toHaveBeenCalledWith({

@@ -8,7 +8,7 @@ var globals = {
     };
     // Initialize the controller and a mock scope
     beforeEach(inject(function ($controller, $rootScope) {
-      spyOn(SimpleReportList, 'init').andCallThrough();
+      spyOn(SimpleReportList, 'init').and.callThrough();
 
       scope = $rootScope.$new();
       DebunkedListCtrl = $controller(name, {

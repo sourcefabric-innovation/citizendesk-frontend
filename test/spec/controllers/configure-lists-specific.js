@@ -28,7 +28,7 @@ describe('Controller: ConfigureListsSpecificCtrl', function () {
     PageBroker.getData = function(){
       return def.getData.promise;
     };
-    spyOn(PageBroker, 'getData').andCallThrough();
+    spyOn(PageBroker, 'getData').and.callThrough();
     $window.history.back = jasmine.createSpy('window back');
 
     scope = $rootScope.$new();
@@ -69,7 +69,7 @@ describe('Controller: ConfigureListsSpecificCtrl', function () {
   });
   describe('when editing an existing list', function(){
     beforeEach(function(){
-      spyOn(api.citizen_aliases, 'query').andCallThrough();
+      spyOn(api.citizen_aliases, 'query').and.callThrough();
       def.getData.resolve({
         _id: 'list id',
         name: 'list name'
@@ -111,7 +111,7 @@ describe('Controller: ConfigureListsSpecificCtrl', function () {
       describe('when asked for deletion', function(){
         beforeEach(function(){
           api.citizen_aliases.reset.query();
-          spyOn(api.citizen_aliases, 'query').andCallThrough();
+          spyOn(api.citizen_aliases, 'query').and.callThrough();
           scope.delete();
         });
         // this is a way to reduce concurrency problem. while this
@@ -136,7 +136,7 @@ describe('Controller: ConfigureListsSpecificCtrl', function () {
         });
         describe('when associated aliases are not found', function(){
           beforeEach(function(){
-            spyOn(api.citizen_lists, 'remove').andCallThrough();
+            spyOn(api.citizen_lists, 'remove').and.callThrough();
             api.citizen_aliases.def.query.resolve({
               _items: [],
               _links: {}

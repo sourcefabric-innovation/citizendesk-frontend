@@ -14,8 +14,8 @@ describe('Controller: ConfigureAutoreplyCtrl', function () {
     api = _api_;
     scope = $rootScope.$new();
     
-    spyOn(api.core_config, 'save').andCallThrough();
-    spyOn(api.core_config, 'query').andCallThrough();
+    spyOn(api.core_config, 'save').and.callThrough();
+    spyOn(api.core_config, 'query').and.callThrough();
 
     ConfigureAutoreplyCtrl = $controller('ConfigureAutoreplyCtrl', {
       $scope: scope,

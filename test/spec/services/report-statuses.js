@@ -12,7 +12,7 @@ describe('Service: reportStatuses', function () {
 
   beforeEach(inject(function(_api_, _$rootScope_){
     api = _api_;
-    spyOn(api.report_statuses, 'query').andCallThrough();
+    spyOn(api.report_statuses, 'query').and.callThrough();
     $rootScope = _$rootScope_;
   }));
   beforeEach(inject(function (_reportStatuses_) {

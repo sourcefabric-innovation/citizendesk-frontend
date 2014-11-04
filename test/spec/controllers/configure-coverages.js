@@ -31,7 +31,7 @@ describe('Controller: ConfigureCoveragesCtrl', function () {
 
     ['query', 'save', 'remove'].forEach(function(method) {
       def[method] = $q.defer();
-      spyOn(api.coverages, method).andReturn(def[method].promise);
+      spyOn(api.coverages, method).and.returnValue(def[method].promise);
     });
 
     // costant function

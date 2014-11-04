@@ -9,7 +9,7 @@ describe('Service: CitizenLists', function () {
   var CitizenLists, api;
   beforeEach(inject(function(_api_){
     api = _api_;
-    spyOn(api.citizen_lists, 'query').andCallThrough();
+    spyOn(api.citizen_lists, 'query').and.callThrough();
   }));
   beforeEach(inject(function (_CitizenLists_) {
     CitizenLists = _CitizenLists_;

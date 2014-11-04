@@ -20,7 +20,7 @@ describe('Service: Assign', function () {
     $httpBackend = _$httpBackend_;
     $rootScope = _$rootScope_;
     api = _api_;
-    spyOn(api.users, 'query').andCallThrough();
+    spyOn(api.users, 'query').and.callThrough();
     api.users.def.query.resolve(mocks.users.list);
   }));
   beforeEach(inject(function (_Assign_, $rootScope) {

@@ -58,7 +58,7 @@ describe('Service: PageBroker', function () {
         $location.url = function() {
           return '/new-route/';
         };
-        spyOn($location, 'url').andCallThrough();
+        spyOn($location, 'url').and.callThrough();
         $rootScope.$broadcast('$locationChangeSuccess');
       });
       it('has data', function() {
@@ -76,7 +76,7 @@ describe('Service: PageBroker', function () {
           $location.url = function() {
             return '/different-route/';
           };
-          spyOn($location, 'url').andCallThrough();
+          spyOn($location, 'url').and.callThrough();
           $rootScope.$broadcast('$locationChangeSuccess');
         });
         /* if a page relies on data being in the page broker, this may

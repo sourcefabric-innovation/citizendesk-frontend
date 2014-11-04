@@ -26,7 +26,7 @@ describe('Service: TwitterSearches', function () {
   beforeEach(inject(function(_$q_, _api_, Raven) {
     $q = _$q_;
     api = _api_;
-    spyOn(api.twt_searches, 'query').andCallThrough();
+    spyOn(api.twt_searches, 'query').and.callThrough();
     session.getIdentity = function() { return $q.when(); };
     Raven.raven.captureMessage = jasmine.createSpy('Raven capture message');
   }));
@@ -37,10 +37,10 @@ describe('Service: TwitterSearches', function () {
   }));
 
   it('creates a new search', function () {
-    spyOn(api.twt_searches, 'create').andCallThrough();
+    spyOn(api.twt_searches, 'create').and.callThrough();
     TwitterSearches.create('a test query');
     expect(api.twt_searches.create).toHaveBeenCalled();
-    expect(api.twt_searches.create.mostRecentCall.args[0].creator)
+    expect(api.twt_searches.create.calls.mostRecent().args[0].creator)
       .toBe('test user id');
     expect(TwitterSearches.list.length).toBe(0);
     api.twt_searches.def.create.resolve({});
@@ -81,8 +81,8 @@ describe('Service: TwitterSearches', function () {
       $httpBackend
         .expectPOST(globals.root + 'proxy/start-twitter-search/')
         .respond();
-      spyOn(api.reports, 'query').andCallThrough();
-      spyOn(TwitterSearches, 'start').andCallThrough();
+      spyOn(api.reports, 'query').and.callThrough();
+      spyOn(TwitterSearches, 'start').and.callThrough();
       $rootScope.$digest(); // return the searches
       $httpBackend.flush(); // respond start request
     });
@@ -103,7 +103,7 @@ describe('Service: TwitterSearches', function () {
       // endless loop)
       api.reports.reset.query();
       // add the spy again, it was wiped out with the reset
-      spyOn(api.reports, 'query').andCallThrough();
+      spyOn(api.reports, 'query').and.callThrough();
       // now that the new promise is ready, digest the previous
       // resolution. the code will find that `_links.next` is present
       // and ask for the second page
@@ -131,7 +131,7 @@ describe('Service: TwitterSearches', function () {
         var result;
         beforeEach(function(){
           spyOn(api.reports, 'getById')
-            .andCallThrough();
+            .and.callThrough();
           TwitterSearches
             .refreshReport('search id', 'to be refreshed')
             .then(function(_result_) {

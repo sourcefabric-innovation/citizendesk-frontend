@@ -13,9 +13,9 @@ describe('Controller: AssociateAliasCtrl', function () {
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope, _api_, _$window_) {
     api = _api_;
-    spyOn(api.identity_records, 'getById').andCallThrough();
-    spyOn(api.citizen_aliases, 'getById').andCallThrough();
-    spyOn(api.citizen_aliases, 'save').andCallThrough();
+    spyOn(api.identity_records, 'getById').and.callThrough();
+    spyOn(api.citizen_aliases, 'getById').and.callThrough();
+    spyOn(api.citizen_aliases, 'save').and.callThrough();
     $window = _$window_;
     spyOn($window.history, 'go');
     spyOn($window.history, 'back');
@@ -60,7 +60,7 @@ describe('Controller: AssociateAliasCtrl', function () {
         expect(scope.disabled).toBeTruthy();
       });
       it('requires to associate', function() {
-        var toBeSaved = api.citizen_aliases.save.mostRecentCall.args[0];
+        var toBeSaved = api.citizen_aliases.save.calls.mostRecent().args[0];
         expect(toBeSaved.identity_record_id).toBeDefined();
       });
       describe('on association success', function() {

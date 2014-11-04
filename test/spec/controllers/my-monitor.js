@@ -45,9 +45,9 @@ describe('Controller: MyMonitorCtrl', function () {
 
     deferreds.Monitors_getByUserId = $q.defer();
     spyOn(Monitors, 'getByUserId')
-      .andReturn(deferreds.Monitors_getByUserId.promise);
+      .and.returnValue(deferreds.Monitors_getByUserId.promise);
 
-    spyOn(api.twt_oauths, 'query').andCallThrough();
+    spyOn(api.twt_oauths, 'query').and.callThrough();
 
     spyOn(PagePolling, 'setInterval');
     $timeout = jasmine.createSpy('timeout');
@@ -121,12 +121,12 @@ describe('Controller: MyMonitorCtrl', function () {
       describe('when the user enters search terms', function() {
         beforeEach(function() {
 
-          spyOn(api.twt_filters, 'save').andCallThrough();
-          spyOn(api.twt_streams, 'save').andCallThrough();
-          spyOn(api.reports, 'query').andCallThrough();
+          spyOn(api.twt_filters, 'save').and.callThrough();
+          spyOn(api.twt_streams, 'save').and.callThrough();
+          spyOn(api.reports, 'query').and.callThrough();
           deferreds.$http_get = $q.defer();
           spyOn($http, 'get')
-            .andReturn(deferreds.$http_get.promise);
+            .and.returnValue(deferreds.$http_get.promise);
 
           scope.search = ['search terms'];
           scope.create();
@@ -137,7 +137,7 @@ describe('Controller: MyMonitorCtrl', function () {
           scope.$digest();
         });
         it('asked to create the filter', function() {
-          expect(api.twt_filters.save.mostRecentCall.args)
+          expect(api.twt_filters.save.calls.mostRecent().args)
             .toEqual([ { spec : { track : ['search terms'] } } ]);
         });
         it('creates the monitor', function(){
@@ -174,7 +174,7 @@ describe('Controller: MyMonitorCtrl', function () {
             it('shows an explanation and hides it after a while', function() {
               expect(scope.tellToWait).toBeTruthy();
               expect($timeout).toHaveBeenCalled();
-              $timeout.mostRecentCall.args[0]();
+              $timeout.calls.mostRecent().args[0]();
               expect(scope.tellToWait).toBeFalsy();
             });
             it('asks for reports', function() {
@@ -193,7 +193,7 @@ describe('Controller: MyMonitorCtrl', function () {
               });
               describe('after the interval', function() {
                 beforeEach(function(){
-                  PagePolling.setInterval.calls[0].args[0]();
+                  PagePolling.setInterval.calls.argsFor(0)[0]();
                 });
                 it('fetches new reports after the interval', function(){
                   expect(scope.updating).toBe(true);
@@ -218,7 +218,7 @@ describe('Controller: MyMonitorCtrl', function () {
   });
   describe('after the monitor is received', function() {
     beforeEach(function() {
-      spyOn(api.reports, 'query').andCallThrough();
+      spyOn(api.reports, 'query').and.callThrough();
 
       deferreds.Monitors_getByUserId.resolve(monitor);
       scope.$digest();
@@ -230,9 +230,9 @@ describe('Controller: MyMonitorCtrl', function () {
       expect(api.reports.query).toHaveBeenCalled();
     });
     it('looks for more reports when we ask so, not duplicating', function() {
-      expect(api.reports.query.calls.length).toBe(1);
+      expect(api.reports.query.calls.count()).toBe(1);
       scope.moreReports();
-      expect(api.reports.query.calls.length).toBe(2);
+      expect(api.reports.query.calls.count()).toBe(2);
       api.reports.def.query.resolve({
         _items: [{_id: 1}, {_id: 2}]
       });
@@ -271,7 +271,7 @@ describe('Controller: MyMonitorCtrl', function () {
       });
       describe('and she saves', function() {
         beforeEach(function() {
-          spyOn(api.twt_filters, 'save').andCallThrough();
+          spyOn(api.twt_filters, 'save').and.callThrough();
           scope.save();
         });
         it('updates the filter', function() {
@@ -280,12 +280,12 @@ describe('Controller: MyMonitorCtrl', function () {
         describe('after the filter is updated', function() {
           beforeEach(function() {
             var response = angular
-                  .copy(api.twt_filters.save.mostRecentCall.args[0]);
+                  .copy(api.twt_filters.save.calls.mostRecent().args[0]);
             response._etag = 'new etag';
             api.twt_filters.def.save.resolve(response);
             deferreds.get = $q.defer();
             spyOn(Monitors, 'update');
-            spyOn($http, 'get').andReturn(deferreds.get.promise);
+            spyOn($http, 'get').and.returnValue(deferreds.get.promise);
             scope.$digest();
           });
           it('updates the filter in the scope', function(){
@@ -306,7 +306,7 @@ describe('Controller: MyMonitorCtrl', function () {
               deferreds.get = $q.defer()
               stopDeferred.resolve();
               scope.$digest();
-              expect($http.get.mostRecentCall.args[0]).toBe(start);
+              expect($http.get.calls.mostRecent().args[0]).toBe(start);
               deferreds.get.resolve();
             });
             it('comes back to the starting status', function() {
@@ -316,7 +316,7 @@ describe('Controller: MyMonitorCtrl', function () {
             it('shows an explanation and hides it after a while', function() {
               expect(scope.tellToWait).toBeTruthy();
               expect($timeout).toHaveBeenCalled();
-              $timeout.mostRecentCall.args[0]();
+              $timeout.calls.mostRecent().args[0]();
               expect(scope.tellToWait).toBeFalsy();
             });
           });

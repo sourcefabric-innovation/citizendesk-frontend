@@ -30,9 +30,9 @@ describe('Controller: CommonReportDetailPartCtrl', function () {
   beforeEach(inject(function ($controller, _$rootScope_, _$httpBackend_, _$q_, _api_, _reportStatuses_, _Raven_) {
     $q = _$q_;
     api = _api_;
-    spyOn(api.reports, 'getById').andCallThrough();
-    spyOn(api.reports, 'save').andCallThrough();
-    spyOn(api.steps, 'query').andCallThrough();
+    spyOn(api.reports, 'getById').and.callThrough();
+    spyOn(api.reports, 'save').and.callThrough();
+    spyOn(api.steps, 'query').and.callThrough();
     $httpBackend = _$httpBackend_;
     def.coverages = $q.defer();
     Coverages.promise = def.coverages.promise;
@@ -60,7 +60,7 @@ describe('Controller: CommonReportDetailPartCtrl', function () {
       report.on_behalf_id = journalistId;
       api.reports.def.getById.resolve(report);
       api.steps.def.query.resolve(mocks.steps.list);
-      spyOn(api.users, 'getById').andCallThrough();
+      spyOn(api.users, 'getById').and.callThrough();
       scope.$digest();
     });
     it('asks for details about the journalist', function() {
@@ -117,7 +117,7 @@ describe('Controller: CommonReportDetailPartCtrl', function () {
     });
     describe('getting no steps', function(){
       beforeEach(function(){
-        spyOn(Raven.raven, 'captureMessage').andCallThrough();
+        spyOn(Raven.raven, 'captureMessage').and.callThrough();
         api.steps.def.query.resolve({ _items:[] });
         scope.$digest();
       });
@@ -209,7 +209,7 @@ describe('Controller: CommonReportDetailPartCtrl', function () {
     });
     it('asks to set the behalf property', function () {
       expect(api.reports.save).toHaveBeenCalled();
-      expect(api.reports.save.mostRecentCall.args[1])
+      expect(api.reports.save.calls.mostRecent().args[1])
         .toEqual({on_behalf_id:'test user id'});
     });
     describe('when the behalf property is saved', function() {

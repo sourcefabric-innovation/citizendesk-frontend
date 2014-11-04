@@ -77,18 +77,18 @@ describe('Controller: AssignCtrl', function () {
   it('assigns to an user', inject(function($q) {
     var deferred = $q.defer();
     api.reports.update = function(){};
-    spyOn(api.reports, 'update').andReturn(deferred.promise);
+    spyOn(api.reports, 'update').and.returnValue(deferred.promise);
 
     scope.assignTo('test-user-id');
     expect(api.reports.update).toHaveBeenCalled();
-    var updated = api.reports.update.mostRecentCall.args[1];
+    var updated = api.reports.update.calls.mostRecent().args[1];
     expect(updated.proto).toBe(false);
     expect(updated.assignments).toEqual([{user_id: 'test-user-id'}]);
     expect(scope.disabled).toBe(true);
 
     deferred.resolve({});
     $rootScope.$digest();
-    expect(PageBroker.back.mostRecentCall.args)
+    expect(PageBroker.back.calls.mostRecent().args)
       .toEqual([{ updateId : 'test-report-id' }]);
   }));
   it('goes back', function(){

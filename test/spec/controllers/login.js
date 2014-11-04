@@ -18,7 +18,7 @@ describe('Controller: LoginCtrl', function () {
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
     $modal.open = jasmine.createSpy();
-    spyOn(scope, '$watch').andCallFake(function(expression, listener) {
+    spyOn(scope, '$watch').and.callFake(function(expression, listener) {
       watchExpression = expression;
       watchListener = listener;
     });

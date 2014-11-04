@@ -13,7 +13,7 @@ describe('Controller: ConfigureListsCtrl', function () {
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope, _api_) {
     api = _api_;
-    spyOn(api.citizen_lists, 'query').andCallThrough();
+    spyOn(api.citizen_lists, 'query').and.callThrough();
     PageBroker.load = jasmine.createSpy('page broker load');
 
     scope = $rootScope.$new();

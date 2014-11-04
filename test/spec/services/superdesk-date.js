@@ -42,11 +42,11 @@ describe('Service: superdeskDate', function () {
   it('complains if we ask weird things', function() {
     expect(function() {
       superdeskDate.render('a cucumber');
-    }).toThrow('superdeskDate parsing "a cucumber"');
+    }).toThrow(Error('superdeskDate parsing "a cucumber"'));
   });
   it('refuses to render dates not in UTC', function() {
     expect(function() {
       superdeskDate.parse("2014-07-02T17:09:12+0001");
-    }).toThrow('Date 2014-07-02T17:09:12+0001 is probably not in UTC time, or not in the expected format');
+    }).toThrow(Error('Date 2014-07-02T17:09:12+0001 is probably not in UTC time, or not in the expected format'));
   });
 });

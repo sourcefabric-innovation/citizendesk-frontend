@@ -39,9 +39,9 @@ describe('Controller: ReportSmsCtrl', function () {
     api = _api_;
     scope = $rootScope.$new();
     dependencies.$scope = scope;
-    spyOn(api.reports, 'getById').andCallThrough();
-    spyOn(api.steps, 'query').andCallThrough();
-    spyOn(Report, 'getVerificationHandler').andCallThrough();
+    spyOn(api.reports, 'getById').and.callThrough();
+    spyOn(api.steps, 'query').and.callThrough();
+    spyOn(Report, 'getVerificationHandler').and.callThrough();
     ReportCtrl = $controller('ReportSmsCtrl', dependencies);
     $httpBackend = _$httpBackend_;
   }));
@@ -99,7 +99,7 @@ describe('Controller: ReportSmsCtrl', function () {
       });
       describe('when saving', function() {
         beforeEach(function() {
-          spyOn(api.reports, 'update').andCallThrough();
+          spyOn(api.reports, 'update').and.callThrough();
           scope.transcriptCandidate = 'edited';
           scope.saveTranscript();
         });
@@ -130,10 +130,10 @@ describe('Controller: ReportSmsCtrl', function () {
           });
           it('can discard the transcript', function() {
             api.reports.reset.update();
-            spyOn(api.reports, 'update').andCallThrough();
+            spyOn(api.reports, 'update').and.callThrough();
             scope.discardTranscript();
-            var report = angular.copy(api.reports.update.mostRecentCall.args[0]),
-                patch  = angular.copy(api.reports.update.mostRecentCall.args[1]),
+            var report = angular.copy(api.reports.update.calls.mostRecent().args[0]),
+                patch  = angular.copy(api.reports.update.calls.mostRecent().args[1]),
                 updated = angular.extend(report, patch);
             expect(updated.texts[0].transcript).not.toBeDefined();
             expect(api.reports.update).toHaveBeenCalled();
@@ -153,7 +153,7 @@ describe('Controller: ReportSmsCtrl', function () {
   it('deletes a summary', function(){
     def.reports.remove = $q.defer();
     spyOn(api.reports, 'remove')
-      .andReturn(def.reports.remove.promise);
+      .and.returnValue(def.reports.remove.promise);
     spyOn($window.history, 'back');
     scope.deleteSummary();
     expect(api.reports.remove).toHaveBeenCalled();

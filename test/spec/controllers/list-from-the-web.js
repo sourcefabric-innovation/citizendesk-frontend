@@ -13,7 +13,7 @@ describe('Controller: ListFromTheWebCtrl', function () {
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope, _api_, _$location_) {
     api = _api_;
-    spyOn(api.reports, 'query').andCallThrough();
+    spyOn(api.reports, 'query').and.callThrough();
     $location = _$location_;
     spyOn($location, 'url');
     

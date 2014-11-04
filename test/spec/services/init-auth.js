@@ -13,7 +13,7 @@ describe('Service: InitAuth', function () {
 
   it('reloads after getting the identity', inject(function ($rootScope, $http, session, $route, $q) {
     delete session.token;
-    spyOn(session, 'getIdentity').andReturn($q.when());
+    spyOn(session, 'getIdentity').and.returnValue($q.when());
     spyOn($route, 'reload');
     initAuth.onLocationChange({ preventDefault:function(){} });
     session.token = '<token>';

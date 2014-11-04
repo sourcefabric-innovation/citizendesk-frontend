@@ -15,7 +15,7 @@ describe('Service: AliasesInLists', function () {
 
   beforeEach(inject(function (_api_){
     api = _api_;
-    spyOn(api.citizen_aliases, 'query').andCallThrough();
+    spyOn(api.citizen_aliases, 'query').and.callThrough();
   }));
   beforeEach(inject(function (_AliasesInLists_, _$rootScope_) {
     AliasesInLists = _AliasesInLists_;
@@ -23,7 +23,7 @@ describe('Service: AliasesInLists', function () {
   }));
 
   it('requires the aliases', function () {
-    expect(api.citizen_aliases.query.calls.length).toBe(1);
+    expect(api.citizen_aliases.query.calls.count()).toBe(1);
   });
   describe('after reply', function(){
     var alias;
@@ -92,7 +92,7 @@ describe('Service: AliasesInLists', function () {
         AliasesInLists.update();
       });
       it('requires the aliases again', function(){
-        expect(api.citizen_aliases.query.calls.length).toBe(2);
+        expect(api.citizen_aliases.query.calls.count()).toBe(2);
       });
     });
   });

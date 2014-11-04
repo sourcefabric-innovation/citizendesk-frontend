@@ -32,11 +32,11 @@ describe('Controller: TwitterSearchCtrl', function () {
 
     def.TwitterSearches.byId = $q.defer();
     def.TwitterSearches.start = $q.defer();
-    spyOn(TwitterSearches, 'byId').andReturn(def.TwitterSearches.byId.promise);
+    spyOn(TwitterSearches, 'byId').and.returnValue(def.TwitterSearches.byId.promise);
     spyOn(TwitterSearches, 'start')
-      .andReturn(def.TwitterSearches.start.promise);
+      .and.returnValue(def.TwitterSearches.start.promise);
     spyOn(TwitterSearches, 'delete')
-      .andReturn($q.when());
+      .and.returnValue($q.when());
     
     spyOn(PageBroker, 'load');
 
@@ -58,7 +58,7 @@ describe('Controller: TwitterSearchCtrl', function () {
   it('assigns', function() {
     var report = { _id: 'report id' }
     scope.assign(report);
-    expect(PageBroker.load.mostRecentCall.args).toEqual([
+    expect(PageBroker.load.calls.mostRecent().args).toEqual([
       '/assign/',
       { report: report }
     ]);
@@ -69,7 +69,7 @@ describe('Controller: TwitterSearchCtrl', function () {
         _id: 'search id',
         reports: angular.copy(mocks.reports['list-not-paginated']._items)
       });
-      spyOn(PageBroker, 'getReturnedData').andReturn({
+      spyOn(PageBroker, 'getReturnedData').and.returnValue({
         updateId: 'update id'
       });
       spyOn(TwitterSearches, 'refreshReport');
@@ -79,7 +79,7 @@ describe('Controller: TwitterSearchCtrl', function () {
       expect(PageBroker.getReturnedData).toHaveBeenCalled();
     });
     it('asks for a report update', function(){
-      expect(TwitterSearches.refreshReport.mostRecentCall.args)
+      expect(TwitterSearches.refreshReport.calls.mostRecent().args)
         .toEqual([ 'search id', 'update id' ]);
     });
     it('gets reports', function(){
@@ -108,7 +108,7 @@ describe('Controller: TwitterSearchCtrl', function () {
     });
   });
   it('has no problems if the page broker provides no data', inject(function($rootScope, $controller) {
-    spyOn(PageBroker, 'getReturnedData').andReturn();
+    spyOn(PageBroker, 'getReturnedData').and.returnValue();
     spyOn(TwitterSearches, 'refreshReport');
     scope = $rootScope.$new();
     TwitterSearchCtrl = $controller('TwitterSearchCtrl', {

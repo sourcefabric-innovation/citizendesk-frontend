@@ -41,9 +41,9 @@ describe('Controller: ReportWebLinkCtrl', function () {
   beforeEach(inject(function ($controller, $rootScope, _$httpBackend_, _$q_, _api_) {
     $q = _$q_;
     api = _api_;
-    spyOn(api.reports, 'getById').andCallThrough();
-    spyOn(api.steps, 'query').andCallThrough();
-    spyOn(Report, 'getVerificationHandler').andCallThrough();
+    spyOn(api.reports, 'getById').and.callThrough();
+    spyOn(api.steps, 'query').and.callThrough();
+    spyOn(Report, 'getVerificationHandler').and.callThrough();
     spyOn(PageBroker, 'load');
 
     scope = $rootScope.$new();
@@ -65,7 +65,7 @@ describe('Controller: ReportWebLinkCtrl', function () {
   });
   it('leads to the media select page', function() {
     scope.toMediaSelection();
-    var args = PageBroker.load.mostRecentCall.args;
+    var args = PageBroker.load.calls.mostRecent().args;
     expect(args[0])
       .toBe('/select-media-to-publish/web_link/5418128a9c616745002376bb');
     expect(args[1]._id).toBe(scope.report._id);

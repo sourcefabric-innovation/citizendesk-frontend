@@ -26,7 +26,7 @@ describe('Service: AuthInterceptor', function () {
       };
 
       spyOn(session, 'expire');
-      spyOn(session, 'getIdentity').andCallThrough();
+      spyOn(session, 'getIdentity').and.callThrough();
 
       $httpBackend.expectGET('test').respond();
 

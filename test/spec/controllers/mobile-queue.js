@@ -17,7 +17,7 @@ describe('Controller: MobileQueueCtrl', function () {
   beforeEach(inject(function ($controller, $rootScope, _$httpBackend_, _api_) {
     scope = $rootScope.$new();
     api = _api_;
-    spyOn(api.reports, 'query').andCallThrough();
+    spyOn(api.reports, 'query').and.callThrough();
     MobileQueueCtrl = $controller('MobileQueueCtrl', {
       $scope: scope,
       PageBroker: PageBroker
@@ -35,7 +35,7 @@ describe('Controller: MobileQueueCtrl', function () {
   it('assigns', function() {
     var report = { _id: 'report id' }
     scope.assign(report);
-    expect(PageBroker.load.mostRecentCall.args).toEqual([
+    expect(PageBroker.load.calls.mostRecent().args).toEqual([
       '/assign/',
       { report: report }
     ]);
@@ -45,7 +45,7 @@ describe('Controller: MobileQueueCtrl', function () {
   });
   it('dismisses', function() {
     var id = scope.reports[0]._id;
-    spyOn(api.reports, 'update').andCallThrough();
+    spyOn(api.reports, 'update').and.callThrough();
     scope.dismiss(scope.reports[0]);
     expect(api.reports.update).toHaveBeenCalled();
     api.reports.def.update.resolve({ _id: id });

@@ -30,10 +30,10 @@ describe('Controller: SessionCtrl', function () {
 
     spyOn($location, 'url');
 
-    spyOn(api.reports, 'query').andCallThrough();
+    spyOn(api.reports, 'query').and.callThrough();
     api.reports.def.query.resolve(mocks.reports['list-not-paginated-session']);
 
-    spyOn(api.users, 'query').andCallThrough();
+    spyOn(api.users, 'query').and.callThrough();
 
     scope = $rootScope.$new();
     SessionCtrl = $controller('SessionCtrl', {
@@ -67,9 +67,9 @@ describe('Controller: SessionCtrl', function () {
     expect(scope.replyReport._id).toBe('53bd65389c61672e3d00000c');
   });
   it('checks again on interval', function() {
-    expect(api.reports.query.calls.length).toBe(2);
+    expect(api.reports.query.calls.count()).toBe(2);
     scope.onInterval();
-    expect(api.reports.query.calls.length).toBe(3);
+    expect(api.reports.query.calls.count()).toBe(3);
   });
   it('checks users on a single page', function() {
     expect(function() {
@@ -129,10 +129,10 @@ describe('Controller: SessionCtrl', function () {
   });
 
   it('fetches the reports twice, once for reports and once for summaries', function() {
-    expect(api.reports.query.calls.length).toBe(2);
+    expect(api.reports.query.calls.count()).toBe(2);
   });
   it('fetches the summaries after the reports', function(){
-    expect(api.reports.query.mostRecentCall.args)
+    expect(api.reports.query.calls.mostRecent().args)
       .toEqual([ { where : '{"$and":[{"session":"test-session-id"},{"summary":true}]}', sort : '[("produced", 1)]', page : 1 } ]);
   });
 
@@ -140,14 +140,14 @@ describe('Controller: SessionCtrl', function () {
     beforeEach(function() {
       scope.summaryContent = 'summary content';
 
-      spyOn(api.reports, 'save').andCallThrough();
+      spyOn(api.reports, 'save').and.callThrough();
     });
     it('saves a report and queries for summaries', function() {
       scope.submitSummary();
       expect(api.reports.save).toHaveBeenCalled();
-      expect(api.reports.save.mostRecentCall.args[0].texts)
+      expect(api.reports.save.calls.mostRecent().args[0].texts)
         .toEqual([ { original : 'summary content' } ]);
-      expect(api.reports.save.mostRecentCall.args[0].status)
+      expect(api.reports.save.calls.mostRecent().args[0].status)
         .toEqual(reportStatuses('verified'));
       api.reports.def.save.resolve('whatever');
       scope.$digest();
@@ -164,7 +164,7 @@ describe('Controller: SessionCtrl', function () {
     api.reports.reset.query();
     // all this machinery is in order to have a the first promise
     // resolved, and the second blocked
-    spyOn(api.reports, 'query').andCallFake(function() {
+    spyOn(api.reports, 'query').and.callFake(function() {
       if (first) {
         first = false;
         return $q.when(mocks.reports.list);
@@ -191,6 +191,6 @@ describe('Controller: SessionCtrl', function () {
       Report: Report
     });
     scope.$digest();
-    expect(api.reports.query.calls.length).toBe(3);
+    expect(api.reports.query.calls.count()).toBe(3);
   }));
 });

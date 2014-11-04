@@ -13,8 +13,8 @@ describe('Controller: ListIdentityRecordsCtrl', function () {
 
   beforeEach(inject(function (_api_, _$location_, _$window_) {
     api = _api_;
-    spyOn(api.identity_records, 'query').andCallThrough();
-    spyOn(api.citizen_aliases, 'replace').andCallThrough();
+    spyOn(api.identity_records, 'query').and.callThrough();
+    spyOn(api.citizen_aliases, 'replace').and.callThrough();
     $location = _$location_;
     spyOn($location, 'url');
     $window = _$window_;
@@ -61,7 +61,7 @@ describe('Controller: ListIdentityRecordsCtrl', function () {
       scope.select({
         _id: 'identity id'
       });
-      expect($location.url.calls.length).toBe(1);
+      expect($location.url.calls.count()).toBe(1);
     });
     describe('dissociating', function() {
       beforeEach(function() {

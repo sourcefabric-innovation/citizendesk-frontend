@@ -38,7 +38,7 @@ describe('Service: Report', function () {
     $rootScope = _$rootScope_;
     reportsSaveDeferred = $q.defer();
     api.reports.save = function(){};
-    spyOn(api.reports, 'save').andReturn(reportsSaveDeferred.promise);
+    spyOn(api.reports, 'save').and.returnValue(reportsSaveDeferred.promise);
   }));
 
   it('creates a report', function() {
