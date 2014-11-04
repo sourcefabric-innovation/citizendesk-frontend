@@ -57,7 +57,7 @@ describe('Controller: LoginCtrl', function () {
     $httpBackend
       .expect(
         'DELETE',
-        'https://cd2.sourcefabric.net/citizendesk-interface/href'
+        globals.root+'href'
       ).respond(200);
     scope.logout();
     $httpBackend.flush();
