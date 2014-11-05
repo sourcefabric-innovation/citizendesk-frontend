@@ -1,9 +1,10 @@
 'use strict';
 
-describe('Service: AuthService', function () {
+describe('Service: auth', function () {
 
   var SESSION = 'RIr89qFZlvvtTIpe8PiPtcs2YL4g1X80cDBCdUlR',
-      USERNAME = 'foo';
+      USERNAME = 'foo',
+      $rootScope;
 
   /**
    * Mock auth adapter which will authenticate admin:admin and fail otherwise
@@ -37,9 +38,10 @@ describe('Service: AuthService', function () {
   }));
 
   // instantiate service
-  var AuthService;
-  beforeEach(inject(function (_auth_, session) {
-    AuthService = _auth_;
+  var auth;
+  beforeEach(inject(function (_auth_, _$rootScope_, session) {
+    auth = _auth_;
+    $rootScope = _$rootScope_;
     session.clear();
   }));
 
@@ -80,5 +82,25 @@ describe('Service: AuthService', function () {
     $rootScope.$apply();
     expect(resolved).toBe(false);
     expect(rejected).toBe(true);
+  }));
+  it('deletes and clears the session', inject(function($httpBackend, session) {
+    session.getSessionHref = function() { return 'href'; };
+    spyOn(session, 'clear');
+    $httpBackend
+      .expect(
+        'DELETE',
+        globals.root+'href'
+      ).respond(200);
+    auth.logout();
+    $httpBackend.flush();
+    $rootScope.$digest();
+    expect(session.clear).toHaveBeenCalled();
+  }));
+  it('clears the session even when no reference is given', inject(function(session) {
+    session.getSessionHref = function() {};
+    spyOn(session, 'clear');
+    auth.logout();
+    $rootScope.$digest();
+    expect(session.clear).toHaveBeenCalled();
   }));
 });

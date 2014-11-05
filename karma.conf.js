@@ -27,6 +27,7 @@ module.exports = function(config) {
       'app/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
       'app/bower_components/angular-bootstrap-media-queries/match-media.js',
       'app/bower_components/angular-scroll/angular-scroll.min.js',
+      'app/bower_components/safe-access/safe-access.js',
       'app/scripts/*.js',
       'app/scripts/**/*.js',
       'test/globals.js',

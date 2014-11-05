@@ -50,22 +50,4 @@ describe('Controller: LoginCtrl', function () {
     var token = scope.watcher();
     expect(token).toBe('i am a token!');
   });
-  it('deletes and clears the session', inject(function($httpBackend) {
-    session.getSessionHref = function() { return 'href'; };
-    $httpBackend
-      .expect(
-        'DELETE',
-        globals.root+'href'
-      ).respond(200);
-    scope.logout();
-    $httpBackend.flush();
-    scope.$digest();
-    expect(session.clear).toHaveBeenCalled();
-  }));
-  it('clears the session even when no reference is given', function() {
-    session.getSessionHref = function() {};
-    scope.logout();
-    scope.$digest();
-    expect(session.clear).toHaveBeenCalled();
-  });
 });

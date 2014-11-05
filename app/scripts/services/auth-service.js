@@ -4,7 +4,7 @@ angular.module('citizendeskFrontendApp')
   .provider('auth', function() {
     var provider = this;
     this.disabled = false;
-    this.$get = ['$q', 'api', 'session', 'authAdapter', function($q, api, session, authAdapter) {
+    this.$get = ['$q', 'api', 'session', 'authAdapter', '$http', 'config', function($q, api, session, authAdapter, $http, config) {
 
       if (provider.disabled) {
         return {};
@@ -19,6 +19,16 @@ angular.module('citizendeskFrontendApp')
                     return session.identity;
                   });
               });
+          },
+          logout: function() {
+            var sessionHref = session.getSessionHref(),
+                promise;
+            if (sessionHref) {
+              promise = $http.delete(config.server.url + sessionHref);
+            } else {
+              promise = $q.when();
+            }
+            promise.finally(function() { session.clear(); });
           }
         };
       }
