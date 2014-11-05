@@ -19,7 +19,8 @@
     "angular-sanitize": "~1.2.21",
     "bacon": "~0.7.19",
     "angular-bootstrap-media-queries": "https://github.com/jacopotarantino/angular-match-media.git#466d9c96de7ee97153f1e05853b95171458345c5",
-    "angular-scroll": "~0.6.2"
+    "angular-scroll": "~0.6.2",
+    "angular-cookies": "~1.3.1"
   },
   "devDependencies": {
     "angular-mocks": "~1.2.0",

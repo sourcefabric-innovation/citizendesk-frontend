@@ -4,7 +4,7 @@ angular.module('citizendeskFrontendApp')
   .provider('Raven', function() {
     var provider = this;
     this.disabled;
-    this.$get = ['$location', 'session', '$window', function($location, session, $window) {
+    this.$get = ['$location', 'session', 'onRavenSuccess', function($location, session, onRavenSuccess) {
 
       // if disabled, provide an object with the same interface, but
       // doing nothing
@@ -34,9 +34,6 @@ angular.module('citizendeskFrontendApp')
         };
         return data;
       };
-      service.onRavenSuccess = function() {
-        $window.location.reload();
-      };
       service.install = function() {
         Raven
           .config(location, {
@@ -46,7 +43,7 @@ angular.module('citizendeskFrontendApp')
           .install();
         service.raven = Raven;
         // reload the page after an error has been sent to Sentry
-        document.addEventListener('ravenSuccess', service.onRavenSuccess);
+        document.addEventListener('ravenSuccess', onRavenSuccess);
       };
       return service;
     }]

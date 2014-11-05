@@ -2,8 +2,13 @@
 
 describe('Service: Raven', function () {
 
+  var onRavenSuccess;
   // load the service's module
   beforeEach(module('citizendeskFrontendApp'));
+  beforeEach(module(function($provide) {
+    onRavenSuccess = jasmine.createSpy('on raven success');
+    $provide.value('onRavenSuccess', onRavenSuccess);
+  }));
   beforeEach(module(function(RavenProvider) {
     RavenProvider.disabled = false;
   }));
@@ -14,9 +19,6 @@ describe('Service: Raven', function () {
   it('behaves', inject(function (Raven, $window, session) {
     expect(Raven.raven.captureMessage).toBeDefined();
     expect(Raven.raven.captureException).toBeDefined();
-    spyOn($window.location, 'reload');
-    Raven.onRavenSuccess();
-    expect($window.location.reload).toHaveBeenCalled();
     expect(Raven.dataCallback({}).tags.username)
       .toBe('username not available because of missing identity');
     session.identity = { username: 'Rachel' };

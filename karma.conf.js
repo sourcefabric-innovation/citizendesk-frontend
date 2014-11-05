@@ -18,6 +18,7 @@ module.exports = function(config) {
       'app/bower_components/angular-resource/angular-resource.js',
       'app/bower_components/angular-messages/angular-messages.js',
       'app/bower_components/angular-mocks/angular-mocks.js',
+      'app/bower_components/angular-cookies/angular-cookies.js',
       'app/bower_components/raven-js/dist/raven.js',
       'app/bower_components/angular-gettext/dist/angular-gettext.min.js',
       'app/bower_components/lodash/dist/lodash.min.js',

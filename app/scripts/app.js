@@ -7,6 +7,7 @@ angular
     'ngResource',
     'ngMessages',
     'ngSanitize',
+    'ngCookies',
     'gettext',
     'eveApi',
     'ui.bootstrap',
