@@ -66,8 +66,9 @@
   </div>
 </div>
 
-<div class="panel panel-default" ng-if="alias.tags.length===0">
-  <div class="panel-body">
+<div class="panel panel-default" ng-show="loading">
+
+  <div class="panel-body" ng-if="alias.tags.length===0">
     
       <p translate>
         This alias is not associated with any list
@@ -79,10 +80,8 @@
       </button>
 
   </div>
-</div>    
 
-<div class="panel panel-default" ng-if="alias.tags.length===1">
-  <div class="panel-body">
+  <div class="panel-body" ng-if="alias.tags.length===1">
 
     <p translate>
       This alias belongs to the list below:
@@ -99,6 +98,7 @@
     </button>
 
   </div>
+
 </div>
 
 <div class="panel panel-default">

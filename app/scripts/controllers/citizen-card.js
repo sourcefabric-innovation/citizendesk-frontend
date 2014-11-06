@@ -62,6 +62,7 @@ angular.module('citizendeskFrontendApp')
           });
         }
         creation.then($scope.getAliases);
+        $scope.loading = false;
       });
     api.reports
       .query({
