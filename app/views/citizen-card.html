@@ -94,16 +94,19 @@
     </div>
   </div>
 </div>
-<p>
-  <h5 translate> Reports authored by this user </h5>
-  <div
-     ng-repeat="report in reports"
-     ng-switch on="report.feed_type"
-     >
-    <div ng-switch-when="tweet" tweet-summary></div>
-    <div ng-switch-default      report-summary></div>
+<div class="panel panel-default">  <div class="panel-body">
+    <p translate>
+      Reports authored by this user
+    </p>
+    <div
+       ng-repeat="report in reports"
+       ng-switch on="report.feed_type"
+       >
+      <div ng-switch-when="tweet" tweet-summary></div>
+      <div ng-switch-default      report-summary></div>
+    </div>
+    <div ng-hide="reports.length" translate>
+      No reports here at the moment
+    </div>
   </div>
-  <div ng-hide="reports.length" translate>
-    No reports here at the moment
-  </div>
-</p>
+</div>
