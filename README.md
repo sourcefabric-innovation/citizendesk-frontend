@@ -81,6 +81,9 @@ error proof, it is just a shortcut. You are expected to understand
 what it does. Once in a while, it will probably make sense to squash
 all the `fix` commits there.
 
+Just run `source deploy-gh-pages.dot` or `. deploy-gh-pages.dot` in
+your shell in order to try the script
+
 #### Testing
 
 For basic informations about running the tests, refer to the Travis
