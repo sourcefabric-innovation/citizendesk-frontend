@@ -26,6 +26,7 @@ angular.module('citizendeskFrontendApp')
         })
         .then($scope.aliasesHandler);
     };
+    $scope.loading = true;
     $scope
       .getAliases()
       .then(function(success) {
