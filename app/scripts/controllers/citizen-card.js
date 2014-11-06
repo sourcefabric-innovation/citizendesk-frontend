@@ -26,46 +26,43 @@ angular.module('citizendeskFrontendApp')
         })
         .then($scope.aliasesHandler);
     };
-    function fetch() {
-      $scope
-        .getAliases()
-        .then(function(success) {
-          if (success) {
-            return;
-          }
-          // else, create the alias
-          var authority = $routeParams.authority,
-              id        = $routeParams.id,
-              creation;
-          if (authority === 'citizen_desk') {
-            creation = api.users
-              .getById(id)
-              .then(function(user) {
-                return api.citizen_aliases.save({
-                  authority: authority,
-                  identifiers: {
-                    user_id: user.id,
-                    user_id_search: user.id,
-                    user_name: user.username
-                  },
-                  tags: [],
-                  avatars: []
-                });
-              });
-          } else {
-            creation = $http({
-              method: 'POST',
-              url: config.server.url + 'proxy/fetch-citizen-alias/',
-              data: {
+    $scope
+      .getAliases()
+      .then(function(success) {
+        if (success) {
+          return;
+        }
+        // else, create the alias
+        var authority = $routeParams.authority,
+            id        = $routeParams.id,
+            creation;
+        if (authority === 'citizen_desk') {
+          creation = api.users
+            .getById(id)
+            .then(function(user) {
+              return api.citizen_aliases.save({
                 authority: authority,
-                name: id
-              }
+                identifiers: {
+                  user_id: user.id,
+                  user_id_search: user.id,
+                  user_name: user.username
+                },
+                tags: [],
+                avatars: []
+              });
             });
-          }
-          creation.then($scope.getAliases);
-        });
-    }
-    fetch();
+        } else {
+          creation = $http({
+            method: 'POST',
+            url: config.server.url + 'proxy/fetch-citizen-alias/',
+            data: {
+              authority: authority,
+              name: id
+            }
+          });
+        }
+        creation.then($scope.getAliases);
+      });
     api.reports
       .query({
         where: JSON.stringify({
