@@ -36,9 +36,9 @@ describe('Service: Assign', function () {
     Assign.updateTotals();
     var response = angular.copy(mocks.reports.list);
     response._meta = {
-      "total": 10,
-      "page": 1,
-      "max_results": 25
+      total: 10,
+      page: 1,
+      max_results: 25
     };
     api.reports.def.query.resolve(response);
     $rootScope.$digest(); // for $q

@@ -8,7 +8,6 @@ describe('Service: Monitors', function () {
 
   // instantiate service
   var Monitors,
-      $httpBackend,
       deferreds = {},
       $q,
       $rootScope,
@@ -23,7 +22,7 @@ describe('Service: Monitors', function () {
   beforeEach(module(function($provide) {
     $provide.value('api', api);
   }));
-  beforeEach(inject(function(_$httpBackend_, _$q_, _$rootScope_) {
+  beforeEach(inject(function(_$q_, _$rootScope_) {
     $q = _$q_;
     $rootScope = _$rootScope_;
     deferreds.twt_streams_query = $q.defer();

@@ -45,6 +45,6 @@ angular.module('citizendeskFrontendApp')
             service.users.push(user);
           });
           return response;
-        })
+        });
     });
   });

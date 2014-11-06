@@ -6,7 +6,7 @@ describe('Service: reportStatuses', function () {
   beforeEach(module('citizendeskFrontendApp'));
 
   // instantiate service
-  var ReportStatuses,
+  var reportStatuses,
       api,
       $rootScope;
 
@@ -16,11 +16,11 @@ describe('Service: reportStatuses', function () {
     $rootScope = _$rootScope_;
   }));
   beforeEach(inject(function (_reportStatuses_) {
-    ReportStatuses = _reportStatuses_;
+    reportStatuses = _reportStatuses_;
   }));
 
   it('gives statuses', function () {
-    expect(ReportStatuses('debunked')).toBe('debunked');
-    expect(ReportStatuses('')).toBe('');
+    expect(reportStatuses('debunked')).toBe('debunked');
+    expect(reportStatuses('')).toBe('');
   });
 });

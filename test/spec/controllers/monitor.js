@@ -33,7 +33,7 @@ describe('Controller: MonitorCtrl', function () {
             user_id: {
               username: 'Francesco'
             }
-          })
+          });
         }
       }
     });

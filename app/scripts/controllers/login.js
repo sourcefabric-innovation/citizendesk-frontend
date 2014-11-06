@@ -16,11 +16,12 @@ angular.module('citizendeskFrontendApp')
       }
     });
     $scope.logout = function() {
-      var sessionHref = session.getSessionHref();
+      var sessionHref = session.getSessionHref(),
+          promise;
       if (sessionHref) {
-        var promise = $http.delete(config.server.url + sessionHref);
+        promise = $http.delete(config.server.url + sessionHref);
       } else {
-        var promise = $q.when();
+        promise = $q.when();
       }
       promise.finally(function() { session.clear(); });
     };

@@ -1,19 +1,19 @@
 'use strict';
 
-describe('Service: ExceptionHandler', function () {
+describe('Service: exceptionHandler', function () {
 
   // load the service's module
   beforeEach(module('citizendeskFrontendApp'));
 
   // instantiate service
-  var ExceptionHandler;
+  var exceptionHandler;
   beforeEach(inject(function (_$exceptionHandler_) {
-    ExceptionHandler = _$exceptionHandler_;
+    exceptionHandler = _$exceptionHandler_;
   }));
 
   it('captures exceptions', inject(function (Raven) {
     spyOn(Raven.raven, 'captureException');
-    ExceptionHandler('i am an exception');
+    exceptionHandler('i am an exception');
     expect(Raven.raven.captureException).toHaveBeenCalled();
   }));
 });

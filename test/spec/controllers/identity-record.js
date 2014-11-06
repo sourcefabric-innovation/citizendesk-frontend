@@ -21,7 +21,7 @@ describe('Controller: IdentityRecordCtrl', function () {
   }));
 
   describe('started without id', function() {
-    beforeEach(inject(function ($controller, $rootScope, _api_) {
+    beforeEach(inject(function ($controller, $rootScope) {
       scope = $rootScope.$new();
       IdentityRecordCtrl = $controller('IdentityRecordCtrl', {
         $scope: scope,
@@ -64,7 +64,7 @@ describe('Controller: IdentityRecordCtrl', function () {
     });
   });
   describe('started with an id', function() {
-    beforeEach(inject(function ($controller, $rootScope, _api_) {
+    beforeEach(inject(function ($controller, $rootScope) {
       scope = $rootScope.$new();
       IdentityRecordCtrl = $controller('IdentityRecordCtrl', {
         $scope: scope,

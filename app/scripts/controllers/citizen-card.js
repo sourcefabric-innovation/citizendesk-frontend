@@ -2,7 +2,7 @@
 /* jshint camelcase: false */
 
 angular.module('citizendeskFrontendApp')
-  .controller('CitizenCardCtrl', function ($scope, $routeParams, api, config, $http, PageBroker, $location, linkTweetEntities, Raven) {
+  .controller('CitizenCardCtrl', function ($scope, $routeParams, api, config, $http, PageBroker, $location, linkTweetEntities) {
     $scope.aliasesHandler = function(response) {
       var items = response._items,
           length = items.length;

@@ -7,8 +7,6 @@ describe('Controller: TwitterSearchCtrl', function () {
 
   var TwitterSearchCtrl,
       scope,
-      returnedData = {
-      },
       PageBroker = {
         load: function(){},
         getReturnedData: function(){}
@@ -56,7 +54,7 @@ describe('Controller: TwitterSearchCtrl', function () {
   }));
 
   it('assigns', function() {
-    var report = { _id: 'report id' }
+    var report = { _id: 'report id' };
     scope.assign(report);
     expect(PageBroker.load.calls.mostRecent().args).toEqual([
       '/assign/',

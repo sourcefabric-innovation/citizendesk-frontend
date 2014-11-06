@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('citizendeskFrontendApp')
-  .factory('Set', function Set(lodash) {
+  .factory('setFactory', function(lodash) {
     return function(elements) {
       return function(element) {
         if (lodash.contains(elements, element)) {

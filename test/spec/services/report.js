@@ -9,10 +9,6 @@ describe('Service: Report', function () {
       $httpBackend,
       $rootScope,
       api = { reports: {}},
-      coverage = {
-        _id: 'coverage id',
-        uuid: 'coverage unique id'
-      },
       reportsSaveDeferred,
       initAuth = function(){},
       $window = {},

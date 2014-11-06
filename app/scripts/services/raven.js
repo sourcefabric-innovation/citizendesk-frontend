@@ -3,7 +3,7 @@
 angular.module('citizendeskFrontendApp')
   .provider('Raven', function() {
     var provider = this;
-    this.disabled;
+    this.disabled = false;
     this.$get = ['$location', 'session', 'onRavenSuccess', function($location, session, onRavenSuccess) {
 
       // if disabled, provide an object with the same interface, but
@@ -46,5 +46,5 @@ angular.module('citizendeskFrontendApp')
         document.addEventListener('ravenSuccess', onRavenSuccess);
       };
       return service;
-    }]
+    }];
   });

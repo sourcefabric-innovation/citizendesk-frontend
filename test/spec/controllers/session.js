@@ -95,13 +95,13 @@ describe('Controller: SessionCtrl', function () {
     }).not.toThrow();
   });
   describe('when a reply is sent', function() {
-    beforeEach(inject(function($q) {
+    beforeEach(inject(function() {
       $httpBackend
         .expectPOST(globals.root + 'proxy/mobile-reply/', {
-          "report_id":"53bd65389c61672e3d00000c",
-          "message":"Please, tell us where you are!",
-          "sensitive":false,
-          "language":"en"
+          'report_id':'53bd65389c61672e3d00000c',
+          'message':'Please, tell us where you are!',
+          'sensitive':false,
+          'language':'en'
         })
         .respond(200);
       var reports = angular

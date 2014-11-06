@@ -6,8 +6,7 @@ describe('Controller: CitizenCardCtrl', function () {
   // load the controller's module
   beforeEach(module('citizendeskFrontendApp'));
 
-  var CitizenCardCtrl,
-      scope,
+  var scope,
       $httpBackend,
       api,
       PageBroker = {},
@@ -80,7 +79,7 @@ describe('Controller: CitizenCardCtrl', function () {
       });
     });
     describe('when an alias is available', function() {
-      beforeEach(inject(function($rootScope) {
+      beforeEach(inject(function() {
         api.citizen_aliases.def.query
           .resolve(mocks.citizen_aliases.query_result);
         scope.$digest();
