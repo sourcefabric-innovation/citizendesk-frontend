@@ -142,7 +142,7 @@ describe('Controller: CommonReportDetailPartCtrl', function () {
     });
   });
   describe('starting with existent steps', function() {
-    beforeEach(inject(function ($controller, $rootScope) {
+    beforeEach(inject(function () {
       api.reports.def.getById
         .resolve(angular.copy(mocks.reports['538df48f9c616729ad000035']));
       api.steps.def.query
@@ -151,7 +151,7 @@ describe('Controller: CommonReportDetailPartCtrl', function () {
     }));
   });
   describe('starting assigned to an existent coverage', function() {
-    beforeEach(inject(function ($controller, $rootScope) {
+    beforeEach(inject(function () {
       var mock = angular.copy(mocks.coverages.list._items);
       mock[0].uuid = coverageUniqueId;
       def.coverages.resolve(mock);
@@ -173,7 +173,7 @@ describe('Controller: CommonReportDetailPartCtrl', function () {
     });
   });
   describe('starting assigned to a deleted coverage', function() {
-    beforeEach(inject(function ($controller, $rootScope) {
+    beforeEach(inject(function () {
       def.coverages.resolve([]);
 
       var rep = angular.copy(mocks.reports['538df48f9c616729ad000035']);
@@ -193,8 +193,7 @@ describe('Controller: CommonReportDetailPartCtrl', function () {
     });
   });
   describe('when asked for publishing', function() {
-    var coverage = { uuid: coverageUniqueId},
-        promise;
+    var coverage = { uuid: coverageUniqueId};
     beforeEach(function() {
       api.reports.def.getById
         .resolve(angular.copy(mocks.reports['538df48f9c616729ad000035']));

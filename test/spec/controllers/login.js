@@ -30,8 +30,7 @@ describe('Controller: LoginCtrl', function () {
     session.clear = jasmine.createSpy('session clear');
   }));
 
-  it('shows the modal if the token is missing', inject(function($q) {
-    var deferred = $q.defer();
+  it('shows the modal if the token is missing', inject(function() {
     watchListener();
     scope.$digest(); // in order to resolve the $q promise
     expect($modal.open).toHaveBeenCalled();
@@ -42,8 +41,7 @@ describe('Controller: LoginCtrl', function () {
     scope.$digest();
     expect(scope.username).toBe('Francesco');
   });
-  it('does not show the modal if the token is there', inject(function($q) {
-    var deferred = $q.defer();
+  it('does not show the modal if the token is there', inject(function() {
     watchListener(session.token);
     scope.$digest(); // in order to resolve the $q promise
     expect($modal.open).not.toHaveBeenCalled();

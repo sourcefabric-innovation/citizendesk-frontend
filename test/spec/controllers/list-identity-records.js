@@ -7,7 +7,6 @@ describe('Controller: ListIdentityRecordsCtrl', function () {
 
   var scope,
       api,
-      $q,
       $location,
       $window;
 

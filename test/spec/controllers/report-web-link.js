@@ -31,9 +31,6 @@ describe('Controller: ReportWebLinkCtrl', function () {
         $window: $window,
         PageBroker: PageBroker
       },
-      def = {
-        reports: {}
-      },
       $q,
       api;
 

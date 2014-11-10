@@ -12,7 +12,7 @@ describe('Filter: arrayToText', function () {
   }));
 
   it('formats an array for printing', function () {
-    var a = ['a', 2, 'c']
+    var a = ['a', 2, 'c'];
     expect(arrayToText(a)).toBe('a, 2, c');
   });
 

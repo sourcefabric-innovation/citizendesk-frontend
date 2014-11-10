@@ -4,7 +4,6 @@ angular.module('citizendeskFrontendApp')
   .factory('onRavenSuccess', function ($window, $cookieStore, $rootScope) {
     var cookie = 'on-raven-success-service-reload-counter',
         preventReloading = false;
-    $rootScope.$on('locationChangeSuccess', onLocationChangeSuccess);
     function onLocationChangeSuccess() {
       if (preventReloading) {
         $cookieStore.remove(cookie);
@@ -19,6 +18,7 @@ angular.module('citizendeskFrontendApp')
         $window.location.reload();
       }
     }
+    $rootScope.$on('locationChangeSuccess', onLocationChangeSuccess);
     // expose just for the tests
     onRavenSuccess.onLocationChangeSuccess = onLocationChangeSuccess;
     return onRavenSuccess;

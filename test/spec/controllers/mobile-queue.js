@@ -33,7 +33,7 @@ describe('Controller: MobileQueueCtrl', function () {
   });
 
   it('assigns', function() {
-    var report = { _id: 'report id' }
+    var report = { _id: 'report id' };
     scope.assign(report);
     expect(PageBroker.load.calls.mostRecent().args).toEqual([
       '/assign/',

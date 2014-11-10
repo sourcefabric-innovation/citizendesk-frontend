@@ -1,4 +1,5 @@
 'use strict';
+/* jshint quotmark: false */
 
 /*
 
@@ -23,12 +24,12 @@ describe('Service: superdeskDate', function () {
   }));
 
   it('parses a date', function () {
-    var parsed = superdeskDate.parse("2014-07-02T17:09:12+0000");
+    var parsed = superdeskDate.parse('2014-07-02T17:09:12+0000');
     expect(parsed instanceof Date).toBe(true);
-    expect(parsed.toUTCString()).toBe("Wed, 02 Jul 2014 17:09:12 GMT");
+    expect(parsed.toUTCString()).toBe('Wed, 02 Jul 2014 17:09:12 GMT');
   });
   it('consistently renders', function () {
-    var original = "2014-07-02T17:09:12+0000",
+    var original = '2014-07-02T17:09:12+0000',
         parsed = superdeskDate.parse(original),
         rendered = superdeskDate.render(parsed);
     expect(rendered).toBe(original);

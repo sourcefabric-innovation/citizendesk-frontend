@@ -2,8 +2,7 @@
 
 describe('Service: AuthService', function () {
 
-  var USER_HREF = 'http://user/1',
-      SESSION = 'RIr89qFZlvvtTIpe8PiPtcs2YL4g1X80cDBCdUlR',
+  var SESSION = 'RIr89qFZlvvtTIpe8PiPtcs2YL4g1X80cDBCdUlR',
       USERNAME = 'foo';
 
   /**

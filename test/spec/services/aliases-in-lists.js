@@ -40,7 +40,7 @@ describe('Service: AliasesInLists', function () {
     });
     it('can get an alias by authority and id', function(){
       AliasesInLists.indexPromise.then(function(index) {
-        alias = index['authority']['id'];
+        alias = index.authority.id;
       });
       $rootScope.$digest();
       expect(alias).toEqual({

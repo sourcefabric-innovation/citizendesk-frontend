@@ -35,7 +35,7 @@ describe('Controller: ConfigureCoveragesCtrl', function () {
     });
 
     // costant function
-    function c(result) { return function() { return result; } }
+    function c(result) { return function() { return result; }; }
 
     $modal.open = c({
       result: $q.when()

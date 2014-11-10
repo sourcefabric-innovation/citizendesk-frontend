@@ -46,7 +46,7 @@ describe('Service: dateFetcherFactory', function () {
       property: 'whatever',
       endpoint: endpoint
     });
-    var promise = dateFetcher.queryWhere({condition:'value'});
+    dateFetcher.queryWhere({condition:'value'});
     expect(endpoint.query.calls.mostRecent().args[0].where)
       .toBe('{"$and":[{"condition":"value"},{}]}');
   });

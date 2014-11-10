@@ -86,7 +86,7 @@ describe('Controller: MyMonitorCtrl', function () {
     expect(Raven.raven.captureMessage).toHaveBeenCalled();
   });
   it('asks for the monitor belonging to this user', function() {
-    expect(Monitors.getByUserId).toHaveBeenCalledWith("test user id");
+    expect(Monitors.getByUserId).toHaveBeenCalledWith('test user id');
   });
   it('asks for keys belonging to this user', function() {
     expect(api.twt_oauths.query).toHaveBeenCalled();
@@ -303,7 +303,7 @@ describe('Controller: MyMonitorCtrl', function () {
             beforeEach(function(){
               var start = globals.root+'/proxy/start-stream/monitor id';
               var stopDeferred = deferreds.get;
-              deferreds.get = $q.defer()
+              deferreds.get = $q.defer();
               stopDeferred.resolve();
               scope.$digest();
               expect($http.get.calls.mostRecent().args[0]).toBe(start);
