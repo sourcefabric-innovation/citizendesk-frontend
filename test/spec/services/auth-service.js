@@ -83,24 +83,10 @@ describe('Service: auth', function () {
     expect(resolved).toBe(false);
     expect(rejected).toBe(true);
   }));
-  it('deletes and clears the session', inject(function($httpBackend, session) {
+  it('clears the session', inject(function(session) {
     session.getSessionHref = function() { return 'href'; };
     spyOn(session, 'clear');
-    $httpBackend
-      .expect(
-        'DELETE',
-        globals.root+'href'
-      ).respond(200);
     auth.logout();
-    $httpBackend.flush();
-    $rootScope.$digest();
-    expect(session.clear).toHaveBeenCalled();
-  }));
-  it('clears the session even when no reference is given', inject(function(session) {
-    session.getSessionHref = function() {};
-    spyOn(session, 'clear');
-    auth.logout();
-    $rootScope.$digest();
     expect(session.clear).toHaveBeenCalled();
   }));
 });

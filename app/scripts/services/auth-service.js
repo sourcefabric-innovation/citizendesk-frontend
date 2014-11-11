@@ -21,14 +21,7 @@ angular.module('citizendeskFrontendApp')
               });
           },
           logout: function() {
-            var sessionHref = session.getSessionHref(),
-                promise;
-            if (sessionHref) {
-              promise = $http.delete(config.server.url + sessionHref);
-            } else {
-              promise = $q.when();
-            }
-            promise.finally(function() { session.clear(); });
+            session.clear();
           }
         };
       }
