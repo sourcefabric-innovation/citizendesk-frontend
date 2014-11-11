@@ -10,10 +10,3 @@ before_script:
   - sh -e /etc/init.d/xvfb start
 after_script:
   - ./node_modules/.bin/coveralls < coverage/PhantomJS*/lcov.info
-notifications:
-  webhooks:
-    urls:
-      - https://webhooks.gitter.im/e/4a6f9ab7e7ba1a31951a
-    on_success: change  # options: [always|never|change] default: always
-    on_failure: always  # options: [always|never|change] default: always
-    on_start: false     # default: false

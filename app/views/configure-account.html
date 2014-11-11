@@ -1,0 +1,59 @@
+<ol class="breadcrumb">
+  <li><a href="#/configure" translate>Configure</a></li>
+  <li class="active" translate>Account</li>
+</ol>
+<p translate>
+  From this page you can change your password
+</p>
+<form name="form"  ng-submit="submit()">
+  <div class="form-group">
+    <label translate>Current password</label>
+    <input type="password" class="form-control"
+           ng-model="$parent.currentPassword"
+           required>
+  </div>
+  <div class="form-group">
+    <label translate>New password</label>
+    <input type="password" class="form-control"
+           ng-model="$parent.newPassword"
+           required>
+  </div>
+  <div class="form-group">
+    <label translate>Please confirm the new password</label>
+    <input type="password" class="form-control"
+           ng-model="$parent.confirmPassword"
+           required>
+  </div>
+  <div ng-messages="messages">
+    <div ng-message="passwordMismatch" class="alert alert-warning">
+      <span translate>
+        The two entries for the new password do not match
+      </span>
+    </div>
+    <div ng-message="authenticationFailure" class="alert alert-warning">
+      <span translate>
+        The current password is wrong, are you the right user? Citizen
+        Desk will log out in five seconds
+      </span>
+    </div>
+    <div ng-message="shortPassword" class="alert alert-warning">
+      <span translate>
+        We cannot save the new password, it is too short
+      </span>
+    </div>
+    <div ng-message="success" class="alert alert-success">
+      <span translate>
+        Your password has been updated
+      </span>
+    </div>
+  </div>
+  <span class="pull-right">
+    <button type="button" class="btn btn-default" ng-click="cancel()">
+      <span translate>Cancel</span>
+    </button>
+    <button type="submit" class="btn btn-primary"
+            ng-disabled="disableSubmit">
+      <span translate>Submit</span>
+    </button>
+  </span>
+</form>

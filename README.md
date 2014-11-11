@@ -5,7 +5,6 @@
 [![Issue Stats](http://issuestats.com/github/sourcefabric-innovation/citizendesk-frontend/badge/issue?style=flat)](http://issuestats.com/github/sourcefabric-innovation/citizendesk-frontend)
 
 ### Citizen Desk Web Front End
-[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/sourcefabric-innovation/citizendesk-frontend?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 This is the web front end for [Citizen
 Desk](https://www.sourcefabric.org/en/citizendesk/). It provides a web

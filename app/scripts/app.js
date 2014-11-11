@@ -158,6 +158,10 @@ angular
         templateUrl: 'views/configure-time-zone.html',
         controller: 'ConfigureTimeZoneCtrl'
       })
+      .when('/configure-account', {
+        templateUrl: 'views/configure-account.html',
+        controller: 'ConfigureAccountCtrl'
+      })
       .when('/edit-user-lists', {
         templateUrl: 'views/edit-user-lists.html',
         controller: 'EditUserListsCtrl'
