@@ -6,17 +6,19 @@ describe('Controller: LoginModalCtrl', function () {
   beforeEach(module('citizendeskFrontendApp'));
 
   var LoginModalCtrl,
-      scope;
+      scope,
+      deferred;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope, $q) {
     scope = $rootScope.$new();
     scope.$close = jasmine.createSpy('modal close');
+    deferred = $q.defer();
     LoginModalCtrl = $controller('LoginModalCtrl', {
       $scope: scope,
       auth: {
         login: function() {
-          return $q.when();
+          return deferred.promise;
         }
       }
     });
@@ -24,7 +26,14 @@ describe('Controller: LoginModalCtrl', function () {
 
   it('submits', function () {
     scope.submit();
+    deferred.resolve();
     scope.$digest();
     expect(scope.$close).toHaveBeenCalled();
+  });
+  it('displays error messages to the user', function() {
+    scope.submit();
+    deferred.reject(['whatever']);
+    scope.$digest();
+    expect(scope.messages.whatever).toBe(true);
   });
 });
