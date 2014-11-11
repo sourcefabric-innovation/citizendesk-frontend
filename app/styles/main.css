@@ -120,3 +120,8 @@ h3 small {
   width: 20px;
   margin: -16px 0 0 -10px;
 }
+
+/* add small margin to bottom of monitor pages */
+.ng-scope > form {
+  margin-bottom: 10px;
+}
