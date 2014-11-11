@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('citizendeskFrontendApp')
-  .controller('LoginCtrl', function ($scope, $modal, auth, $location, session, $window, $http, config, $q) {
+  .controller('LoginCtrl', function ($scope, $modal, auth, $location, session) {
     $scope.watcher = function() { return session.token; };
     $scope.$watch($scope.watcher, function(token) {
       $scope.identity = session.identity;
@@ -15,14 +15,5 @@ angular.module('citizendeskFrontendApp')
         });
       }
     });
-    $scope.logout = function() {
-      var sessionHref = session.getSessionHref(),
-          promise;
-      if (sessionHref) {
-        promise = $http.delete(config.server.url + sessionHref);
-      } else {
-        promise = $q.when();
-      }
-      promise.finally(function() { session.clear(); });
-    };
+    $scope.logout = auth.logout;
   });

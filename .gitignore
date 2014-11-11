@@ -5,3 +5,4 @@ dist
 app/bower_components
 app/scripts/templates.js
 karma_html
+coverage
