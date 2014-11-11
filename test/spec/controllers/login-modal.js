@@ -36,4 +36,9 @@ describe('Controller: LoginModalCtrl', function () {
     scope.$digest();
     expect(scope.messages.whatever).toBe(true);
   });
+  it('reset messages on credentials change', function(){
+    scope.messages = { error: true };
+    scope.onCredentialsChange('wrong', 'right');
+    expect(scope.messages.error).toBeFalsy();
+  });
 });

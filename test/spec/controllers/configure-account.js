@@ -55,6 +55,11 @@ describe('Controller: ConfigureAccountCtrl', function () {
     expect(scope.mismatch).toBe(true);
     expect(scope.messages.passwordMismatch).toBe(true);
   });
+  it('removes the error message when the user changes password', function() {
+    scope.messages.shortPassword = true;
+    scope.watchNew('short', 'now a long one');
+    expect(scope.messages.shortPassword).toBe(false);
+  });
   describe('on submit', function() {
     beforeEach(function() {
       scope.submit();
@@ -110,6 +115,17 @@ describe('Controller: ConfigureAccountCtrl', function () {
         $timeout.flush();
         scope.$digest();
         expect(auth.logout).toHaveBeenCalled();
+      });
+    });
+    describe('on unexpected auth failure', function() {
+      beforeEach(function(){
+        auth.def.reject(['unexpected']);
+        scope.$digest();
+      });
+      it('does not set a timeout', function() {
+        $timeout.flush();
+        scope.$digest();
+        expect(auth.logout).not.toHaveBeenCalled();
       });
     });
   });

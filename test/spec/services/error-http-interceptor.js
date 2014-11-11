@@ -7,10 +7,12 @@ describe('Service: ErrorHttpInterceptor', function () {
 
   // instantiate service
   var ErrorHttpInterceptor,
-      Raven;
-  beforeEach(inject(function (_errorHttpInterceptor_, _Raven_) {
+      Raven,
+      ErrorPolice;
+  beforeEach(inject(function (_errorHttpInterceptor_, _Raven_, _ErrorPolice_) {
     ErrorHttpInterceptor = _errorHttpInterceptor_;
     Raven = _Raven_;
+    ErrorPolice = _ErrorPolice_;
     Raven.raven.captureException = jasmine.createSpy('raven capture');
   }));
 
@@ -26,4 +28,15 @@ describe('Service: ErrorHttpInterceptor', function () {
     });
     expect(Raven.raven.captureException).toHaveBeenCalled();
   });
+  it('just returns matching keys if the error is known', inject(function($rootScope) {
+    spyOn(ErrorPolice, 'identify').and.returnValue(['known']);
+    var messages;
+    ErrorHttpInterceptor
+      .responseError({ a: { known: { one: {}}}})
+      .catch(function(_messages_) {
+        messages = _messages_;
+      });
+    $rootScope.$digest();
+    expect(messages).toEqual(['known']);
+  }));
 });
