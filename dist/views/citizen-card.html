@@ -59,9 +59,11 @@
     </div>
   </div>
 </div>
-<div class="panel panel-default">
-  <div class="panel-body">
-    <div ng-if="alias.tags.length===0">
+
+<div class="panel panel-default" ng-show="loading">
+
+  <div class="panel-body" ng-if="alias.tags.length===0">
+    
       <p translate>
         This alias is not associated with any list
       </p>
@@ -70,30 +72,40 @@
           Add to a list
         </span>
       </button>
+
+  </div>
+
+  <div class="panel-body" ng-if="alias.tags.length===1">
+
+    <p translate>
+      This alias belongs to the list below:
+    </p>
+    <p>
+      <label class="label" ng-class="alias.tags[0].variation" ng-bind="alias.tags[0].name">
+      </label>
+    </p>
+    <button class="btn btn-default" ng-click="editTags()">
+      <span translate>
+        Change the list this alias belongs to
+      </span>
+    </button>
+
+  </div>
+
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-body">
+
+    <p translate>
+      Reports authored by this user
+    </p>
+    <div ng-repeat="report in reports" ng-switch on="report.feed_type">
+      <div ng-switch-when="tweet" tweet-summary></div>
+      <div ng-switch-default report-summary></div>
     </div>
-    <div ng-if="alias.tags.length===1">
-      <p translate>
-        This alias belongs to the list below:
-      </p>
-      <p>
-        <label class="label" ng-class="alias.tags[0].variation" ng-bind="alias.tags[0].name">
-        </label>
-      </p>
-      <button class="btn btn-default" ng-click="editTags()">
-        <span translate>
-          Change the list this alias belongs to
-        </span>
-      </button>
+    <div ng-hide="reports.length" translate>
+      No reports here at the moment
     </div>
   </div>
 </div>
-<p>
-  <h5 translate> Reports authored by this user </h5>
-  <div ng-repeat="report in reports" ng-switch on="report.feed_type">
-    <div ng-switch-when="tweet" tweet-summary></div>
-    <div ng-switch-default report-summary></div>
-  </div>
-  <div ng-hide="reports.length" translate>
-    No reports here at the moment
-  </div>
-</p>
