@@ -37,8 +37,8 @@ module.exports = function (grunt) {
         tasks: ['newer:jshint:test', 'karma']
       },
       less: {
-        files: '/less/(,*/}*.less',
-        tasks: ['less']
+        files: ['<%= yeoman.app %>/less/{,*/}*.less'],
+        tasks: ['less:development']
       },
       styles: {
         files: ['<%= yeoman.app %>/styles/{,*/}*.css'],
@@ -137,7 +137,7 @@ module.exports = function (grunt) {
         options: {
           cleancss: true,
           compress: true,
-          paths: ['<%= yeoman.dist %>/less']
+          paths: ['<%= yeoman.app %>/less']
         },
         files: {'<%= yeoman.app %>/styles/main.css': '<%= yeoman.app %>/less/{,*/}*.less'}
       }
