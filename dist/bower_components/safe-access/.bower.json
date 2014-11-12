@@ -1,0 +1,32 @@
+{
+  "name": "safe-access",
+  "main": "safe-access.js",
+  "version": "0.2.0",
+  "homepage": "https://github.com/erictrinh/safe-access",
+  "authors": [
+    "Eric Trinh"
+  ],
+  "description": "A utility to allow for safe accessing of nested properties",
+  "keywords": [
+    "safe",
+    "accessor",
+    "nested"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "_release": "0.2.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.2.0",
+    "commit": "3f05427b2cacc93fb6ec3a8203452b9334539d14"
+  },
+  "_source": "git://github.com/erictrinh/safe-access.git",
+  "_target": "~0.2.0",
+  "_originalSource": "safe-access"
+}

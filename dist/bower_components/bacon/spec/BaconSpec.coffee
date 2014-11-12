@@ -123,7 +123,7 @@ describe "Bacon._", ->
     it "for strings", ->
       expect(_.toString("lol")).to.equal("lol")
     it "for dates", ->
-      expect(_.toString(new Date(0))).to.contain("1970")
+      expect(_.toString(new Date((new Date(0)).getTimezoneOffset() * 60 * 1000))).to.contain("1970")
     it "for arrays", ->
       expect(_.toString([1,2,3])).to.equal("[1,2,3]")
     it "for objects", ->
@@ -1309,6 +1309,14 @@ describe "Bacon.fromArray", ->
     expectStreamEvents(
       -> Bacon.fromArray([error(), 1])
       [error(), 1])
+  it "toString", ->
+    expect(Bacon.fromArray([1,2]).toString()).to.equal("Bacon.fromArray([1,2])")
+  it "doesn't mutate the given array, toString works after subscribe (bug fix)", ->
+    array = [1,2]
+    s = Bacon.fromArray(array)
+    s.onValue(->)
+    expect(s.toString()).to.equal("Bacon.fromArray([1,2])")
+    expect(array).to.deep.equal([1,2])
 
 describe "EventStream.concat", ->
   describe "provides values from streams in given order and ends when both are exhausted", ->

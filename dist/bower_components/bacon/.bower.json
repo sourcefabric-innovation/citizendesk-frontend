@@ -1,13 +1,13 @@
 {
   "name": "bacon",
-  "version": "0.7.22",
+  "version": "0.7.23",
   "main": "dist/Bacon.js",
   "homepage": "https://github.com/raimohanska/bacon.js",
-  "_release": "0.7.22",
+  "_release": "0.7.23",
   "_resolution": {
     "type": "version",
-    "tag": "0.7.22",
-    "commit": "27ebf227193254f57d43986f8acabd90d3f824c5"
+    "tag": "0.7.23",
+    "commit": "ae26c17d0b4999cebc4b6699f9ef3856a6b37811"
   },
   "_source": "git://github.com/raimohanska/bacon.js.git",
   "_target": "~0.7.19",
