@@ -30,8 +30,11 @@ angular.module('citizendeskFrontendApp')
         $scope.alias.tags = [];
       }
       var toBeSaved = angular.copy($scope.alias);
-      // cancel the embedding before saving
-      toBeSaved.identity_record_id = toBeSaved.identity_record_id._id;
+      // if the user has an associated identity record
+      if (toBeSaved.identity_record_id) {
+        // cancel the embedding before saving
+        toBeSaved.identity_record_id = toBeSaved.identity_record_id._id;
+      }
       api.citizen_aliases
         .save(toBeSaved)
         .then(function() {
