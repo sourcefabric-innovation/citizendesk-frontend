@@ -36,6 +36,31 @@ describe('Controller: EditUserListsCtrl', function () {
       AliasesInLists: AliasesInLists
     });
   }));
+  describe('users without an associated identity record', function() {
+    beforeEach(function(){
+      def.getData.resolve({
+        _id: 'alias id',
+        identity_record_id: undefined,
+        tags: []
+      });
+      scope.$digest();
+    });
+    it('can save', function(){
+      spyOn(api.citizen_aliases, 'save').and.callThrough();
+      scope.save();
+      expect(api.citizen_aliases.save)
+        .toHaveBeenCalledWith({
+          _id : 'alias id',
+          identity_record_id: undefined,
+          tags : []
+        });
+      expect(scope.disabled).toBeTruthy();
+      api.citizen_aliases.def.save.resolve();
+      scope.$digest();
+      expect($window.history.back).toHaveBeenCalled();
+      expect(AliasesInLists.update).toHaveBeenCalled();
+    });
+  });
   describe('users not belonging to any list', function() {
     beforeEach(function(){
       def.getData.resolve({
