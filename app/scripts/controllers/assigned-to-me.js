@@ -37,6 +37,9 @@ angular.module('citizendeskFrontendApp')
       .then(function() {
         $scope.loading = false;
       });
+    .then(function() {
+      $scope.loading = false;
+    });
     $scope.dismiss = Report.getDismiss($scope.disabled, function(report) {
       lodash.remove($scope.reports, function(candidate) {
         return candidate._id === report._id;
