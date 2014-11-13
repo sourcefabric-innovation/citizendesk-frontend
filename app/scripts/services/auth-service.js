@@ -4,7 +4,7 @@ angular.module('citizendeskFrontendApp')
   .provider('auth', function() {
     var provider = this;
     this.disabled = false;
-    this.$get = ['$q', 'api', 'session', 'authAdapter', '$http', 'config', function($q, api, session, authAdapter, $http, config) {
+    this.$get = ['$q', 'api', 'session', 'authAdapter', function($q, api, session, authAdapter) {
 
       if (provider.disabled) {
         return {};
