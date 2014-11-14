@@ -34,11 +34,49 @@ angular.module('citizendeskFrontendApp')
           return response;
         });
     })
-      .then(function() {
-        $scope.loading = false;
-      });
     .then(function() {
       $scope.loading = false;
+    });
+    $scope.$watchCollection('filterResults', function (oldValue) {
+      for (var i in $scope.reports) {
+        if (oldValue === 'newest'){
+          // order by date
+          // is default
+        } else {
+          // order by activity - to be decided
+        }
+        i++;
+      }
+    });
+    $scope.$watchCollection('modifyFilter', function (oldValue) {
+      for (var i in $scope.reports) {
+        if (oldValue === 'and'){
+          // filter && published
+        } else if (oldValue === 'or'){
+          // filter || published
+        } else if (oldValue === 'not'){
+          // filter !& published
+        }
+        else {
+          // no modifiers
+        }
+        i++;
+      }
+    });
+    $scope.$watchCollection('publishedStatus', function (oldValue) {
+      for (var i in $scope.reports) {
+        var published = $scope.reports[i].coverages.published;
+        console.log(published);
+        if (oldValue === 'pub-y'){
+          // hide out the unpublished elements
+        } else if (oldValue === 'pub-n'){
+          // hide out the published elements
+        }
+        else {
+          // show everything
+        }
+        i++;
+      }
     });
     $scope.dismiss = Report.getDismiss($scope.disabled, function(report) {
       lodash.remove($scope.reports, function(candidate) {

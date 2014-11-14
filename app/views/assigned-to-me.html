@@ -7,10 +7,15 @@
   <div class="form-group col-xs-12 col-md-4 col-lg-4">
     <label class="control-label sr-only" for="filter">Filter</label>
     <div class="controls">
-      <select id="filter" name="filter" class="form-control">
-        <option>Newest</option>
-        <option>Most Active</option>
-        <option>All</option>
+      <select id="filter"
+              name="filter"
+              class="form-control"
+              
+              ng-model="filterResults"
+              ng-init="filterResults='newest'"
+              >
+        <option value="newest">Newest</option>
+        <option value="active">Most Active</option>
       </select>
     </div>
   </div>
@@ -19,9 +24,17 @@
   <div class="form-group col-xs-12 col-md-3 col-lg-3">
     <label class="control-label sr-only" for="modifier">Modifier</label>
     <div class="controls">
-      <select id="modifier" name="modifier" class="form-control">
-        <option>Or</option>
-        <option>And</option>
+      <select id="modifier"
+              name="modifier"
+              class="form-control"
+
+              ng-model="modifyFilter"
+              ng-init="modifyFilter='none'"
+              >
+        <option value="none">No Modifiers</option>
+        <option value="or">Or</option>
+        <option value="and">And</option>
+        <option value="not">Not</option>
       </select>
     </div>
   </div>
@@ -30,9 +43,16 @@
   <div class="form-group col-xs-12 col-md-4 col-lg-4">
     <label class="control-label sr-only" for="published-state">Published State</label>
     <div class="controls">
-      <select id="published-state" name="published-state" class="form-control">
-        <option>Published</option>
-        <option>Not Published</option>
+      <select id="published-state"
+              name="published-state"
+              class="form-control"
+
+              ng-model="publishedStatus"
+              ng-init="publishedStatus='all'"
+              >
+        <option value="all">All</option>
+        <option value="pub-y">Published</option>
+        <option value="pub-n">Not Published</option> 
       </select>
     </div>
   </div>
