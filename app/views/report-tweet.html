@@ -5,43 +5,41 @@
   </div>
   <div class="panel-body break-long-words">
     <!-- upper part of the tweet -->
-    <p>
-      <div class="row">
-        <!-- avatar -->
-        <div class="col-md-2 col-xs-3">
+    <div class="row">
+      <!-- avatar -->
+      <div class="col-md-2 col-xs-3">
+        <a target="_blank"
+           ng-href="//twitter.com/{{report.original.user.screen_name}}">
+          <img class="media-object"
+               ng-src="{{report.original.user.profile_image_url_https}}">
+        </a>
+      </div>
+      <div class="col-md-8 col-xs-7">
+        <!-- full name -->
+        <div>
           <a target="_blank"
              ng-href="//twitter.com/{{report.original.user.screen_name}}">
-            <img class="media-object"
-                 ng-src="{{report.original.user.profile_image_url_https}}">
+            <strong ng-bind="report.original.user.name"></strong>
           </a>
         </div>
-        <div class="col-md-8 col-xs-7">
-          <!-- full name -->
-          <div>
-            <a target="_blank"
-               ng-href="//twitter.com/{{report.original.user.screen_name}}">
-              <strong ng-bind="report.original.user.name"></strong>
-            </a>
-          </div>
-          <!-- Twitter user name -->
-          <div>
-            <a target="_blank"
-               ng-href="//twitter.com/{{report.original.user.screen_name}}">
-              <span ng-bind="'@'+report.original.user.screen_name"
-                    class="text-muted">
-              </span>
-            </a>
-          </div>
-        </div>
-        <!-- logo button -->
-        <div class="col-md-2 col-xs-2">
-          <a href="https://twitter.com" target="_blank" class="pull-right">
-            <img src="https://g.twimg.com/dev/sites/default/files/images_documentation/bird_blue_16.png"
-                 width="14" height="11">
+        <!-- Twitter user name -->
+        <div>
+          <a target="_blank"
+             ng-href="//twitter.com/{{report.original.user.screen_name}}">
+            <span ng-bind="'@'+report.original.user.screen_name"
+                  class="text-muted">
+            </span>
           </a>
         </div>
       </div>
-    </p>
+      <!-- logo button -->
+      <div class="col-md-2 col-xs-2">
+        <a href="https://twitter.com" target="_blank" class="pull-right">
+          <img src="https://g.twimg.com/dev/sites/default/files/images_documentation/bird_blue_16.png"
+               width="14" height="11">
+        </a>
+      </div>
+    </div>
     <!-- middle part of the tweet -->
     <p id="text"
        ng-bind-html="linkedText"
