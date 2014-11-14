@@ -37,7 +37,7 @@ angular.module('citizendeskFrontendApp')
     .then(function() {
       $scope.loading = false;
     });
-    $scope.$watchCollection('filterResults', function (oldValue) {
+    $scope.$watch('filterResults', function (oldValue) {
       for (var i in $scope.reports) {
         if (oldValue === 'newest'){
           // order by date
@@ -48,7 +48,22 @@ angular.module('citizendeskFrontendApp')
         i++;
       }
     });
-    $scope.$watchCollection('modifyFilter', function (oldValue) {
+    $scope.$watch('typeFilter', function (oldValue) {
+      for (var i in $scope.reports) {
+        if (oldValue === 'sms'){
+          // just get sms
+        } else if (oldValue === 'tweet'){
+          // just get tweets
+        } else if (oldValue === 'other'){
+          // get undefined messages
+        } 
+        else {
+          // gimme the firehose
+        }
+        i++;
+      }
+    });
+    $scope.$watch('modifyFilter', function (oldValue) {
       for (var i in $scope.reports) {
         if (oldValue === 'and'){
           // filter && published
@@ -63,12 +78,14 @@ angular.module('citizendeskFrontendApp')
         i++;
       }
     });
-    $scope.$watchCollection('publishedStatus', function (oldValue) {
+    $scope.$watch('publishedStatus', function (oldValue) {
       for (var i in $scope.reports) {
         var published = $scope.reports[i].coverages.published;
-        console.log(published);
         if (oldValue === 'pub-y'){
           // hide out the unpublished elements
+          if (published.length === 0) {
+            console.log($scope.reports[i]);
+          }
         } else if (oldValue === 'pub-n'){
           // hide out the published elements
         }
