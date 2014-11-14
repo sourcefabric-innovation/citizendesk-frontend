@@ -19,7 +19,7 @@ angular.module('citizendeskFrontendApp')
               }, {
                 status: {$exists: false}
               }, {
-                'coverages.published': { $size: 0 }
+                'coverages.published': { $size: 1 }
               }]
             }]
           }),
