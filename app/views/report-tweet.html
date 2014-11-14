@@ -16,24 +16,22 @@
           </a>
         </div>
         <div class="col-md-8 col-xs-7">
-          <p>
-            <!-- full name -->
-            <div>
-              <a target="_blank"
-                 ng-href="//twitter.com/{{report.original.user.screen_name}}">
-                <strong ng-bind="report.original.user.name"></strong>
-              </a>
-            </div>
-            <!-- Twitter user name -->
-            <div>
-              <a target="_blank"
-                 ng-href="//twitter.com/{{report.original.user.screen_name}}">
-                <span ng-bind="'@'+report.original.user.screen_name"
-                      class="text-muted">
-                </span>
-              </a>
-            </div>
-          </p>
+          <!-- full name -->
+          <div>
+            <a target="_blank"
+               ng-href="//twitter.com/{{report.original.user.screen_name}}">
+              <strong ng-bind="report.original.user.name"></strong>
+            </a>
+          </div>
+          <!-- Twitter user name -->
+          <div>
+            <a target="_blank"
+               ng-href="//twitter.com/{{report.original.user.screen_name}}">
+              <span ng-bind="'@'+report.original.user.screen_name"
+                    class="text-muted">
+              </span>
+            </a>
+          </div>
         </div>
         <!-- logo button -->
         <div class="col-md-2 col-xs-2">
@@ -51,27 +49,25 @@
        >
     </p>
     <!-- lower part of the tweet -->
-    <p>
-      <div class="pull-right">
-        <a ng-href="https://twitter.com/intent/favorite?tweet_id={{report.original.id_str}}"
-           target="_blank">
-          <img
-             src="//si0.twimg.com/images/dev/cms/intents/icons/favorite.png">
-        </a>
-        <a ng-href="https://twitter.com/intent/tweet?in_reply_to={{report.original.id_str}}"
-           target="_blank">
-          <img
-             src="//si0.twimg.com/images/dev/cms/intents/icons/reply.png">
-        </a>
-        <a ng-href="https://twitter.com/intent/retweet?tweet_id={{report.original.id_str}}"
-           target="_blank">
-          <img
-             src="//si0.twimg.com/images/dev/cms/intents/icons/retweet.png">
-        </a>
-      </div>
-      <span ng-bind="report.produced | date:'medium'" class="text-muted">
-      </span>
-    </p>
+    <div class="pull-right">
+      <a ng-href="https://twitter.com/intent/favorite?tweet_id={{report.original.id_str}}"
+         target="_blank">
+        <img
+           src="//si0.twimg.com/images/dev/cms/intents/icons/favorite.png">
+      </a>
+      <a ng-href="https://twitter.com/intent/tweet?in_reply_to={{report.original.id_str}}"
+         target="_blank">
+        <img
+           src="//si0.twimg.com/images/dev/cms/intents/icons/reply.png">
+      </a>
+      <a ng-href="https://twitter.com/intent/retweet?tweet_id={{report.original.id_str}}"
+         target="_blank">
+        <img
+           src="//si0.twimg.com/images/dev/cms/intents/icons/retweet.png">
+      </a>
+    </div>
+    <span ng-bind="report.produced | date:'medium'" class="text-muted">
+    </span>
   </div>
 </div>
 <div class="panel panel-info"
