@@ -4,7 +4,7 @@
 
 <div class="input-group form-inline container">
   <!-- new -->
-  <div class="form-group col-xs-12 col-md-4 col-lg-4">
+  <div class="form-group col-xs-12 col-md-3 col-lg-3">
     <label class="control-label sr-only" for="filter">Filter</label>
     <div class="controls">
       <select id="filter"
@@ -39,8 +39,27 @@
     </div>
   </div>
 
+  <!-- type -->
+  <div class="form-group col-xs-12 col-md-3 col-lg-3">
+    <label class="control-label sr-only" for="type">Type</label>
+    <div class="controls">
+      <select id="type"
+              name="type"
+              class="form-control"
+
+              ng-model="typeFilter"
+              ng-init="typeFilter='all'"
+              >
+        <option value="all">All</option>
+        <option value="sms">SMS</option>
+        <option value="tweet">Tweet</option>
+        <option value="other">Other</option>
+      </select>
+    </div>
+  </div>
+
   <!-- published -->
-  <div class="form-group col-xs-12 col-md-4 col-lg-4">
+  <div class="form-group col-xs-12 col-md-3 col-lg-3">
     <label class="control-label sr-only" for="published-state">Published State</label>
     <div class="controls">
       <select id="published-state"
