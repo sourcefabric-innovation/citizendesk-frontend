@@ -51,15 +51,18 @@ angular.module('citizendeskFrontendApp')
     });
     $scope.$watch('typeFilter', function (oldValue) {
       for (var i in $scope.reports) {
-        if (oldValue === 'sms'){
-          // just get sms
-        } else if (oldValue === 'tweet'){
-          // just get tweets
-        } else if (oldValue === 'other'){
-          // get undefined messages
-        } 
-        else {
-          // gimme the firehose
+        var type = $scope.reports[i].feed_type;
+        if (oldValue === 'sms' && type === 'sms'){
+          console.log('sms');
+        }
+        if (oldValue === 'tweet' && type === 'tweet'){
+          console.log('tweet');
+        }
+        if (oldValue === 'other' && type === undefined){
+          console.log('type undefined');
+        }
+        if (oldValue === 'all'){
+          console.log('all types');
         }
         i++;
       }
