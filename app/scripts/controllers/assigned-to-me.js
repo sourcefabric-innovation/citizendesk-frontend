@@ -44,60 +44,69 @@ angular.module('citizendeskFrontendApp')
           // order by date
           // is default
         } else {
-          // order by activity - to be decided
+          // order by activity - to be decided / last changed?
         }
         i++;
       }
     });
+    // array options in the verified status select
+    $scope.typeOptArr = [
+      {'value': 'all', 'text': 'All'},
+      {'value': 'tweet', 'text': 'Tweet'},
+      {'value': 'sms', 'text': 'SMS'},
+      {'value': 'other', 'text': 'Other'}
+    ];
     $scope.$watch('typeFilter', function (oldValue) {
       for (var i in $scope.reports) {
         var type = $scope.reports[i].feed_type;
         if (oldValue === 'sms' && type === 'sms'){
-          console.log('sms');
+          // show me the sms
         }
         if (oldValue === 'tweet' && type === 'tweet'){
-          console.log('tweet');
+          // show me the tweets
         }
         if (oldValue === 'other' && type === undefined){
-          console.log('type undefined');
+          // show me the undefined
         }
         if (oldValue === 'all'){
-          console.log('all types');
+          // show me everything
         }
         i++;
       }
     });
+    // array options in the verified status select
+    $scope.verOptArr = [
+      {'value': 'all', 'text': 'All'},
+      {'value': 'ver-y', 'text': 'Verified'},
+      {'value': 'ver-n', 'text': 'Unverified'}
+    ];
     $scope.$watch('verifiedStatus', function (oldValue) {
-      for (var i in $scope.reports) {
-        var verified = $scope.reports[i].status;
-        var id = $scope.reports[i]._id;
-        if (oldValue === 'ver-y' && verified === 'verified') {
-          console.log(id, 'is verifed');
-        }
-        if (oldValue === 'ver-n' && verified === '') {
-          console.log(id, 'is not verifed');
-        }
-        if (oldValue === 'all') {
-          // show me everything - default
-          console.log('show me everything');
-        }
+      if (oldValue === 'ver-y') {
+        // show me the verifed posts
+        alterResults(true);
+      }
+      if (oldValue === 'ver-n') {
+        // show me the unverified
+      }
+      if (oldValue === 'all') {
+        // show me everything - default
       }
     });
+    // array of options in the published status select
+    $scope.pubOptArr = [
+      {'value': 'all', 'text': 'All'},
+      {'value': 'pub-y', 'text': 'Published'},
+      {'value': 'pub-n', 'text': 'Not Published'}
+    ];
     $scope.$watch('publishedStatus', function (oldValue) {
-      for (var i in $scope.reports) {
-        var published = $scope.reports[i].coverages.published;
-        if (oldValue === 'pub-y'){
-          // hide out the unpublished elements
-          if (published.length === 0) {
-            console.log($scope.reports[i]);
-          }
-        } else if (oldValue === 'pub-n'){
-          // hide out the published elements
-        }
-        else {
-          // show everything
-        }
-        i++;
+      if (oldValue === 'pub-y'){
+        // show me the unpublished elements
+      }
+      if (oldValue === 'pub-n'){
+        // show me the published elements
+      }
+      if (oldValue === 'all'){
+        // show me everything
       }
     });
     $scope.dismiss = Report.getDismiss($scope.disabled, function(report) {

@@ -19,8 +19,8 @@
       </select>
     </div>
   </div>
-  <!-- type -->
 
+  <!-- type -->
   <div class="form-group col-xs-12 col-md-3 col-lg-3">
     <label class="control-label sr-only" for="type">Type</label>
     <div class="controls">
@@ -29,30 +29,25 @@
               class="form-control"
 
               ng-model="typeFilter"
+              ng-options="obj.value as obj.text for obj in typeOptArr"
               ng-init="typeFilter='all'"
               >
-        <option value="all">All</option>
-        <option value="sms">SMS</option>
-        <option value="tweet">Tweet</option>
-        <option value="other">Other</option>
       </select>
     </div>
   </div>
 
-  <!-- modifier -->
+  <!-- verfication -->
   <div class="form-group col-xs-12 col-md-3 col-lg-3">
-    <label class="control-label sr-only" for="modifier">Modifier</label>
+    <label class="control-label sr-only" for="modifier">Verification Status</label>
     <div class="controls">
       <select id="verified"
               name="verified"
               class="form-control"
 
               ng-model="verifiedStatus"
+              ng-options="obj.value as obj.text for obj in verOptArr"
               ng-init="verifiedStatus='all'"
               >
-        <option value="all">All</option>
-        <option value="ver-y">Verified</option>
-        <option value="ver-n">Not Verified</option>
       </select>
     </div>
   </div>
@@ -66,11 +61,9 @@
               class="form-control"
 
               ng-model="publishedStatus"
+              ng-options="obj.value as obj.text for obj in pubOptArr"
               ng-init="publishedStatus='all'"
               >
-        <option value="all">All</option>
-        <option value="pub-y">Published</option>
-        <option value="pub-n">Not Published</option> 
       </select>
     </div>
   </div>
