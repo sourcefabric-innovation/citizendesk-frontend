@@ -28,6 +28,7 @@ angular.module('citizendeskFrontendApp')
         })
         .then(function(response) {
           var reports = response._items;
+          console.log(reports);
           Report.linkTweetTextsInList(reports);
           reports.map(AliasesInLists.embedAuthorAlias);
           $scope.reports = $scope.reports.concat(reports);
@@ -63,19 +64,20 @@ angular.module('citizendeskFrontendApp')
         i++;
       }
     });
-    $scope.$watch('modifyFilter', function (oldValue) {
+    $scope.$watch('verifiedStatus', function (oldValue) {
       for (var i in $scope.reports) {
-        if (oldValue === 'and'){
-          // filter && published
-        } else if (oldValue === 'or'){
-          // filter || published
-        } else if (oldValue === 'not'){
-          // filter !& published
+        var verified = $scope.reports[i].status;
+        var id = $scope.reports[i]._id;
+        if (oldValue === 'ver-y' && verified === 'verified') {
+          console.log(id, 'is verifed');
         }
-        else {
-          // no modifiers
+        if (oldValue === 'ver-n' && verified === '') {
+          console.log(id, 'is not verifed');
         }
-        i++;
+        if (oldValue === 'all') {
+          // show me everything - default
+          console.log('show me everything');
+        }
       }
     });
     $scope.$watch('publishedStatus', function (oldValue) {
