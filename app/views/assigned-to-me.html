@@ -12,10 +12,9 @@
               class="form-control"
               
               ng-model="filterResults"
+              ng-options="obj.value as obj.text for obj in filterOptArr"
               ng-init="filterResults='newest'"
               >
-        <option value="newest">Newest</option>
-        <option value="active">Most Active</option>
       </select>
     </div>
   </div>
@@ -30,7 +29,7 @@
 
               ng-model="typeFilter"
               ng-options="obj.value as obj.text for obj in typeOptArr"
-              ng-init="typeFilter='all'"
+              ng-init="typeFilter=0"
               >
       </select>
     </div>
@@ -46,7 +45,7 @@
 
               ng-model="verifiedStatus"
               ng-options="obj.value as obj.text for obj in verOptArr"
-              ng-init="verifiedStatus='all'"
+              ng-init="verifiedStatus=0"
               >
       </select>
     </div>
@@ -62,7 +61,7 @@
 
               ng-model="publishedStatus"
               ng-options="obj.value as obj.text for obj in pubOptArr"
-              ng-init="publishedStatus='all'"
+              ng-init="publishedStatus=0"
               >
       </select>
     </div>
@@ -77,9 +76,15 @@
   <input class="form-control" type="search" placeholder="Search" ng-model="q" name="search" />
 </div>
 
+<pre>Type Filter: {{typeFilter | json}}</pre>
+<pre>Verified Status: {{verifiedStatus | json}}</pre>
+<pre>Published Status: {{publishedStatus | json}}</pre>
+
 <div
-   ng-repeat="report in reports | filter:q"
+   ng-repeat="report in reports | filter:q | filter:typeFilter | filter:verifiedStatus | filter:publishedStatus"
    ng-switch on="report.feed_type"
+   ng-switch on="report.verified"
+   ng-class="{'verified': report.status=='verified'}"
    >
   <div ng-switch-when="tweet" tweet-summary></div>
   <div ng-switch-default      report-summary></div>
