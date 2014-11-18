@@ -1,5 +1,9 @@
 // imports
 @import "mixins.less";
+// @todo: Import Bootstrap 3 upstream less using bower
+// @import "boostrap3.less";
+// @todo: Move Darco's changes to a separate file for easier 
+// @import "bootstrap-overrides.less";
 @import "mobile.less";
 @import "hacks.less";
 
@@ -16,9 +20,12 @@
 @white: #fff;
 @black: #000;
 @mid-grey: #777;
+@mid-green: #0a8f64;
+@dark-green: #05533a;
 // borders
 @border: 1px solid #ccc;
 @alt-border: 1px solid #e5e5e5;
+@green-border: 1px solid @mid-green;
 
 /* Space out content a bit */
 body {
@@ -131,4 +138,9 @@ h3 {
   .form-group {
     margin-bottom: 15px;
   }
+}
+
+// add a nice little green ooutline to stuff that has been verified
+.verified {
+  outline: @green-border;
 }
