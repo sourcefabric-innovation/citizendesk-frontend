@@ -19,6 +19,7 @@
 @background: #e2e2e2;
 @white: #fff;
 @black: #000;
+@red: #ff0000;
 @mid-grey: #777;
 @mid-green: #0a8f64;
 @dark-green: #05533a;
@@ -26,6 +27,7 @@
 @border: 1px solid #ccc;
 @alt-border: 1px solid #e5e5e5;
 @green-border: 1px solid @mid-green;
+@red-border: 1px solid @red;
 
 /* Space out content a bit */
 body {
@@ -143,4 +145,7 @@ h3 {
 // add a nice little green ooutline to stuff that has been verified
 .verified {
   outline: @green-border;
+}
+.debunked {
+  outline: @red-border;
 }
