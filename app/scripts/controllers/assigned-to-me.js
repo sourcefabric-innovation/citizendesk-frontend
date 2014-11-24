@@ -43,7 +43,6 @@ angular.module('citizendeskFrontendApp')
       {'value': 'newest', 'text': 'Newest'},
       {'value': 'active', 'text': 'Most Active'}
     ];
-    $scope.$watch('filterResults');
     // array options in the verified status select
     $scope.typeOptArr = [
       {'value': 0, 'text': 'All'},
@@ -51,21 +50,39 @@ angular.module('citizendeskFrontendApp')
       {'value': 'sms', 'text': 'SMS'},
       {'value': 'other', 'text': 'Other'}
     ];
-    $scope.$watch('typeFilter');
     // array options in the verified status select
     $scope.verOptArr = [
       {'value': 0, 'text': 'All'},
       {'value': 'verified', 'text': 'Verified'},
-      {'value': null, 'text': 'Unverified'}
+      {'value': 'debunked', 'text': 'Debunked'},
+      {'value': '', 'text': 'Unverified'}
     ];
-    $scope.$watch('verifiedStatus');
     // array of options in the published status select
     $scope.pubOptArr = [
-      {'value': 0, 'text': 'All'},
-      {'value': 1, 'text': 'Published'},
-      {'value': 2, 'text': 'Not Published'}
+      {'value': '', 'text': 'All'},
+      {'value': 'pub-y', 'text': 'Published'},
+      {'value': 'pub-n', 'text': 'Not Published'}
     ];
-    $scope.$watch('publishedStatus');
+    $scope.$watch('published', function(oldValue){
+      for (var i in $scope.reports){
+        var report = $scope.reports[i];
+        var published = report.coverages.published.length;
+        if (oldValue === 'pub-y') {
+          return (published === 1);
+        }
+        if (oldValue === 'pub-n') {
+          return (published === 0);
+        }
+        if (oldValue === '') {
+          return ($scope.reports);
+        }
+        i++;
+      }
+    });
+
+    // $scope.published = function (report) {
+    //   return (report.published === 0 && report.published === 'pub-n');
+    // };
     $scope.dismiss = Report.getDismiss($scope.disabled, function(report) {
       lodash.remove($scope.reports, function(candidate) {
         return candidate._id === report._id;
