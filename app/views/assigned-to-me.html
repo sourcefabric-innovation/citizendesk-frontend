@@ -85,8 +85,7 @@
 <div
    ng-repeat="report in reports | filter:q | filter:type | filter:verified | filter:published"
    ng-switch on="report.feed_type"
-   ng-switch on="report.verified"
-   ng-class="{'verified': report.status=='verified'}"
+   ng-class="{'verified': report.status=='verified','debunked': report.status=='debunked', 'published': report.coverages.published.length === 1, 'sms recieved': report.channels[0].value === 'received', 'sms sent': report.channels[0].value === 'sent'}"
    >
   <div ng-switch-when="tweet" tweet-summary></div>
   <div ng-switch-default      report-summary></div>
