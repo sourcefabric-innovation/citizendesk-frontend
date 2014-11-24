@@ -11,9 +11,9 @@
               name="filter"
               class="form-control"
               
-              ng-model="filterResults"
+              ng-model="order"
               ng-options="obj.value as obj.text for obj in filterOptArr"
-              ng-init="filterResults='newest'"
+              ng-init="order='newest'"
               >
       </select>
     </div>
@@ -27,9 +27,9 @@
               name="type"
               class="form-control"
 
-              ng-model="typeFilter"
+              ng-model="type"
               ng-options="obj.value as obj.text for obj in typeOptArr"
-              ng-init="typeFilter=0"
+              ng-init="type=0"
               >
       </select>
     </div>
@@ -43,9 +43,9 @@
               name="verified"
               class="form-control"
 
-              ng-model="verifiedStatus"
+              ng-model="verified"
               ng-options="obj.value as obj.text for obj in verOptArr"
-              ng-init="verifiedStatus=0"
+              ng-init="verified=0"
               >
       </select>
     </div>
@@ -59,9 +59,9 @@
               name="published-state"
               class="form-control"
 
-              ng-model="publishedStatus"
+              ng-model="published"
               ng-options="obj.value as obj.text for obj in pubOptArr"
-              ng-init="publishedStatus=0"
+              ng-init="published=''"
               >
       </select>
     </div>
@@ -83,7 +83,7 @@
 -->
 
 <div
-   ng-repeat="report in reports | filter:q | filter:typeFilter | filter:verifiedStatus | filter:publishedStatus"
+   ng-repeat="report in reports | filter:q | filter:type | filter:verified | filter:published"
    ng-switch on="report.feed_type"
    ng-switch on="report.verified"
    ng-class="{'verified': report.status=='verified'}"
