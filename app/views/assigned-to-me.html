@@ -76,9 +76,11 @@
   <input class="form-control" type="search" placeholder="Search" ng-model="q" name="search" />
 </div>
 
-<pre>Type Filter: {{typeFilter | json}}</pre>
-<pre>Verified Status: {{verifiedStatus | json}}</pre>
-<pre>Published Status: {{publishedStatus | json}}</pre>
+<!-- 
+<pre>Type Filter: {{ type | json}}</pre>
+<pre>Verified Status: {{ verified | json }}</pre>
+<pre>Published Status: {{ published | json }}</pre> 
+-->
 
 <div
    ng-repeat="report in reports | filter:q | filter:typeFilter | filter:verifiedStatus | filter:publishedStatus"
