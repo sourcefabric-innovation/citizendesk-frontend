@@ -36,6 +36,10 @@ module.exports = function (grunt) {
         files: ['test/spec/{,*/}*.js'],
         tasks: ['newer:jshint:test', 'karma']
       },
+      less: {
+        files: ['<%= yeoman.app %>/less/{,*/}*.less'],
+        tasks: ['less:development']
+      },
       styles: {
         files: ['<%= yeoman.app %>/styles/{,*/}*.css'],
         tasks: ['newer:copy:styles', 'autoprefixer']
@@ -127,6 +131,18 @@ module.exports = function (grunt) {
       server: '.tmp'
     },
 
+    // build lesscss files
+    less: {
+      development: {
+        options: {
+          cleancss: true,
+          compress: true,
+          paths: ['<%= yeoman.app %>/less']
+        },
+        files: {'<%= yeoman.app %>/styles/main.css': '<%= yeoman.app %>/less/{,*/}*.less'}
+      }
+    },
+
     // Add vendor prefixed styles
     autoprefixer: {
       options: {
@@ -141,10 +157,6 @@ module.exports = function (grunt) {
         }]
       }
     },
-
-    
-
-    
 
     // Renames files for browser caching purposes
     rev: {
@@ -382,6 +394,7 @@ module.exports = function (grunt) {
     'ngtemplates',
     'useminPrepare',
     'concurrent:dist',
+    'less',
     'autoprefixer',
     'concat',
     'ngmin',

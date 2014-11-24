@@ -1,0 +1,151 @@
+// imports
+@import "mixins.less";
+// @todo: Import Bootstrap 3 upstream less using bower
+// @import "boostrap3.less";
+// @todo: Move Darco's changes to a separate file for easier 
+// @import "bootstrap-overrides.less";
+@import "mobile.less";
+@import "hacks.less";
+
+// defaults
+.left {
+  float: left;
+}
+.right {
+  float: right;
+}
+
+// variables
+@background: #e2e2e2;
+@white: #fff;
+@black: #000;
+@red: #ff0000;
+@mid-grey: #777;
+@mid-green: #0a8f64;
+@dark-green: #05533a;
+// borders
+@border: 1px solid #ccc;
+@alt-border: 1px solid #e5e5e5;
+@green-border: 1px solid @mid-green;
+@red-border: 1px solid @red;
+
+/* Space out content a bit */
+body {
+  padding-top: 67px;
+  padding-bottom: 20px;
+  background-color: @background;
+}
+h3 {
+  margin: 0px -15px 20px -15px;
+  padding: 14px 15px;
+  background: #D1D1D1;
+  border-bottom: @border;
+  small {
+    float: right;
+    display:block;
+    margin: 6px 0 0;
+  }
+}
+
+.input-group {
+  &.form-inline {
+    &.container {
+      &.ng-scope {
+        margin-left: -15px;
+      }
+    }
+  }
+}
+
+/* Everything but the jumbotron gets side spacing for mobile first views */
+.header,
+.marketing,
+.footer {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+/* Custom page header */
+.header {
+  border-bottom: @border;
+  /* Make the masthead heading the same height as the navigation */
+  h3 {
+    margin-top: 0;
+    margin-bottom: 0;
+    line-height: 40px;
+    padding-bottom: 19px;
+  }
+}
+
+/* Custom page footer */
+.footer {
+  padding-top: 19px;
+  color: @mid-grey;
+  border-top: @border;
+}
+
+/* Customize container */
+@media (min-width: 768px) {
+  .container {
+    max-width: 730px;
+  }
+}
+.container-narrow > hr {
+  margin: 30px 0;
+}
+
+/* Main marketing message and sign up button */
+.jumbotron {
+  text-align: center;
+  border-bottom: @alt-border;
+  .btn {
+    font-size: 21px;
+    padding: 14px 24px;
+  }
+}
+
+/* Supporting marketing content */
+.marketing {
+  margin: 40px 0;
+  p + h4 {
+    margin-top: 28px;
+  }
+}
+
+/* add small margin to bottom of monitor pages */
+.ng-scope > form {
+  margin-bottom: 10px;
+}
+
+/* add top arrow to dropdowns */
+.dropdown > a {
+  cursor: pointer;
+}
+.dropdown-menu::before {
+  background: @white;
+  position: relative;
+  left: 50%;
+  .rotate(-45deg);
+  display: block;
+  content: ' ';
+  border-top: 1px solid rgba(0,0,0,.25);
+  border-right: 1px solid rgba(0,0,0,.25);
+  height: 20px;
+  width: 20px;
+  margin: -16px 0 0 -10px;
+}
+
+// minor change to form handling class
+.form-inline{
+  .form-group {
+    margin-bottom: 15px;
+  }
+}
+
+// add a nice little green ooutline to stuff that has been verified
+.verified {
+  outline: @green-border;
+}
+.debunked {
+  outline: @red-border;
+}
