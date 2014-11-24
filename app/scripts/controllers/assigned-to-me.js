@@ -17,21 +17,7 @@ angular.module('citizendeskFrontendApp')
               $or: [{
                 status: '',
               }, {
-                status: {$exists: false}
-              }, {
-                verified: '',
-              }, {
-                verified: 'verified'
-              }, {
-                type: ''
-              }, {
-                type: 'tweet'
-              }, {
-                type: 'sms'
-              }, {
-                type: 'other'
-              }, {
-                'coverages.published': { $size: 0 }
+                status: {$exists: true}
               }, {
                 'coverages.published': { $size: 1 }
               }]
