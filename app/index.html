@@ -59,21 +59,34 @@
           </div>
           <div collapse="navCollapsed" class="navbar-collapse">
             <ul class="nav navbar-nav navbar-left">
-              <li><a ng-href="#/assigned-to-me" translate
-                     ng-click="clickNavigation()"
-                     >
+              <li>
+                <a ng-href="#/assigned-to-me" translate
+                   ng-click="clickNavigation()"
+                   >
                   Your Assignments
-              </a></li>
-              <li><a ng-href="#/queues" translate
-                     ng-click="clickNavigation()"
-                     >
+                </a>
+              </li>
+              <li>
+                <a ng-href="#/queues" translate
+                   ng-click="clickNavigation()"
+                   >
                   Queues
-              </a></li>
-              <li><a ng-href="#/configure" translate
-                     ng-click="clickNavigation()"
-                     >
-                  Configure
-              </a></li>
+                </a>
+              </li>
+              <li>
+                <a ng-href="#/list-identity-records" translate
+                   ng-click="clickNavigation()"
+                   >
+                Citizen Cards
+                </a>
+              </li>
+              <li>
+                <a ng-href="#/configure" translate
+                   ng-click="clickNavigation()"
+                   >
+                Configure
+                </a>
+              </li>
             </ul>
             <ul class="nav navbar-nav navbar-right"
                 ng-controller="LoginCtrl">
