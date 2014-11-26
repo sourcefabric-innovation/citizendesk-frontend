@@ -45,7 +45,7 @@
 
               ng-model="verified"
               ng-options="obj.value as obj.text for obj in verOptArr"
-              ng-init="verified=0"
+              ng-init="verified=verOptArr[0].value"
               >
       </select>
     </div>
@@ -61,7 +61,7 @@
 
               ng-model="published"
               ng-options="obj.value as obj.text for obj in pubOptArr"
-              ng-init="published=''"
+              ng-init="published=pubOptArr[2].value"
               >
       </select>
     </div>
@@ -83,9 +83,19 @@
 -->
 
 <div
-   ng-repeat="report in reports | filter:q | filter:type | filter:verified | filter:published"
+   ng-repeat="report in reports |
+              filter:q |
+              filter:type |
+              filter:verified |
+              filter:published"
    ng-switch on="report.feed_type"
-   ng-class="{'verified': report.status=='verified','debunked': report.status=='debunked', 'published': report.coverages.published.length === 1, 'sms recieved': report.channels[0].value === 'received', 'sms sent': report.channels[0].value === 'sent'}"
+   ng-class="{'verified': report.status=='verified',
+              'debunked': report.status=='debunked',
+              'published': report.coverages.published.length === 1,
+              'tweet': report.feed_type === 'tweet',
+              'sms': report.feed_type === 'sms',
+              'recieved': report.channels[0].value === 'received',
+              'sent': report.channels[0].value === 'sent'}"
    >
   <div ng-switch-when="tweet" tweet-summary></div>
   <div ng-switch-default      report-summary></div>
