@@ -45,7 +45,7 @@
 
               ng-model="verified"
               ng-options="obj.value as obj.text for obj in verOptArr"
-              ng-init="verified=0"
+              ng-init="verified='unverified'"
               >
       </select>
     </div>
@@ -61,7 +61,7 @@
 
               ng-model="published"
               ng-options="obj.value as obj.text for obj in pubOptArr"
-              ng-init="published=''"
+              ng-init="published=pubOptArr[2].value"
               >
       </select>
     </div>

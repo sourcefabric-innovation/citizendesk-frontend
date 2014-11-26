@@ -27,7 +27,18 @@ angular.module('citizendeskFrontendApp')
           sort: '[("produced", -1)]'
         })
         .then(function(response) {
-          var reports = response._items;
+          var reports = [];
+          lodash.forEach(response._items, function(report) {
+            if (report.coverages.published.length > 0) {
+              report.published = true;
+            } else {
+              report.published = false;
+            }
+            if (report.status === '') {
+              report.status = 'unverified';
+            }
+            reports.push(report);
+          });
           console.log(reports);
           Report.linkTweetTextsInList(reports);
           reports.map(AliasesInLists.embedAuthorAlias);
@@ -55,34 +66,14 @@ angular.module('citizendeskFrontendApp')
       {'value': 0, 'text': 'All'},
       {'value': 'verified', 'text': 'Verified'},
       {'value': 'debunked', 'text': 'Debunked'},
-      {'value': '', 'text': 'Unverified'}
+      {'value': 'unverified', 'text': 'Unverified'}
     ];
     // array of options in the published status select
     $scope.pubOptArr = [
       {'value': '', 'text': 'All'},
-      {'value': 'pub-y', 'text': 'Published'},
-      {'value': 'pub-n', 'text': 'Not Published'}
+      {'value': {'published': true}, 'text': 'Published'},
+      {'value': {'published': false}, 'text': 'Not Published'}
     ];
-    $scope.$watch('published', function(oldValue){
-      for (var i in $scope.reports){
-        var report = $scope.reports[i];
-        var published = report.coverages.published.length;
-        if (oldValue === 'pub-y') {
-          return (published === 1);
-        }
-        if (oldValue === 'pub-n') {
-          return (published === 0);
-        }
-        if (oldValue === '') {
-          return ($scope.reports);
-        }
-        i++;
-      }
-    });
-
-    // $scope.published = function (report) {
-    //   return (report.published === 0 && report.published === 'pub-n');
-    // };
     $scope.dismiss = Report.getDismiss($scope.disabled, function(report) {
       lodash.remove($scope.reports, function(candidate) {
         return candidate._id === report._id;
