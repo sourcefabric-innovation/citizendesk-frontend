@@ -45,7 +45,7 @@
 
               ng-model="verified"
               ng-options="obj.value as obj.text for obj in verOptArr"
-              ng-init="verified='unverified'"
+              ng-init="verified=verOptArr[0].value"
               >
       </select>
     </div>

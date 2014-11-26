@@ -35,7 +35,7 @@ angular.module('citizendeskFrontendApp')
               report.published = false;
             }
             if (report.status === '') {
-              report.status = 'unverified';
+              report.status = 'tbd';
             }
             reports.push(report);
           });
@@ -66,7 +66,7 @@ angular.module('citizendeskFrontendApp')
       {'value': 0, 'text': 'All'},
       {'value': 'verified', 'text': 'Verified'},
       {'value': 'debunked', 'text': 'Debunked'},
-      {'value': 'unverified', 'text': 'Unverified'}
+      {'value': 'tbd', 'text': 'Unverified'}
     ];
     // array of options in the published status select
     $scope.pubOptArr = [
