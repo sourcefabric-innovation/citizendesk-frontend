@@ -28,21 +28,25 @@ angular.module('citizendeskFrontendApp')
         })
         .then(function(response) {
           var reports = [];
+          // console.log('response._items length', response._items.length, '$scope.reports length', $scope.reports.length);
+          // console.log('before lodash');
           lodash.forEach(response._items, function(report) {
-            if (report.coverages.published.length > 0) {
-              report.published = true;
-            } else {
-              report.published = false;
-            }
+            // console.log('lodash 1');
+            report.published = (report.coverages.published.length > 0);
+            // console.log('lodash 2');
             if (report.status === '') {
               report.status = 'tbd';
             }
-            reports.push(report);
+            // console.log('lodash 3');
+            $scope.reports.push(report);
+            // console.log('lodash 4');
+            console.log('push into $scope.reports successful');
           });
-          console.log(reports);
+          // console.log('after lodash');
           Report.linkTweetTextsInList(reports);
-          reports.map(AliasesInLists.embedAuthorAlias);
+          $scope.reports.map(AliasesInLists.embedAuthorAlias);
           $scope.reports = $scope.reports.concat(reports);
+          // console.log('response._items length', response._items.length, '$scope.reports length', $scope.reports.length);
           return response;
         });
     })
