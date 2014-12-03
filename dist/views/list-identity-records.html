@@ -14,18 +14,24 @@ configuration breadcrumb, depending on the origin -->
     Select an identity to associate the alias with
   </p>
 </div>
-<div class="text-center">
-  <div class="btn-group-vertical">
-    <button class="btn btn-info" ng-click="add()">
+
+<!-- search users -->
+<div class="input-group ng-scope">
+    <div class="input-group-addon">
+      <span class="glyphicon glyphicon-search"></span>
+    </div>
+    <input class="form-control" type="search" ng-model="user" placeholder="Search for an identity">
+</div>
+
+<div class="list-group">
+  <div class="list-group-item list-group-item-success" ng-click="add()">
       <span translate>Add a new identity</span>
-    </button>
-    <button ng-repeat="identity in identities" class="btn btn-default" ng-disabled="disabled" ng-click="select(identity)">
-      {{identity.first_name}} {{identity.last_name}}
-    </button>
-    <button ng-show="dissociate" class="btn btn-warning" ng-disabled="disabled" ng-click="dissociate()">
-      <span translate translate-comment="for example, the owner of a phone number is...">
-        Unknown
-      </span>
-    </button>
+  </div>
+  <div class="list-group-item" ng-repeat="identity in identities |
+                  filter: user" ng-disabled="disabled" ng-click="select(identity)">
+    {{identity.first_name}} {{identity.last_name}}
+  </div>
+  <div class="list-group-item list-group-item-warning" ng-show="dissociate" ng-disabled="disabled" ng-click="dissociate()" translate translate-comment="for example, the owner of a phone number is...">
+    Unknown
   </div>
 </div>
