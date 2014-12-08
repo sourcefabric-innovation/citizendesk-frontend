@@ -14,6 +14,16 @@ angular.module('citizendeskFrontendApp')
         $scope.identities = response._items;
       });
     $scope.configuration = !$routeParams.aliasId;
+    $scope.user = '';
+    $scope.$watch(function(scope) { return scope.user; },
+      function(newValue, oldValue, scope) {
+        if (newValue !== '') {
+          scope.userFilter = newValue;
+        } else {
+          scope.userFilter = 'do not filter';
+        }
+      }
+    );
     $scope.select = function(identity) {
       var url,
           identityId = identity._id;

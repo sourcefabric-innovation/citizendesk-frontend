@@ -34,7 +34,7 @@ configuration breadcrumb, depending on the origin -->
   </div>
   <div class="list-group-item"
        ng-repeat="identity in identities |
-                  filter: user"
+                  filter: userFilter"
        ng-disabled="disabled"
        ng-click="select(identity)"
        >
