@@ -28,8 +28,8 @@ configuration breadcrumb, depending on the origin -->
       <span translate>Add a new identity</span>
   </div>
   <div class="list-group-item" ng-repeat="identity in identities |
-                  filter: user" ng-disabled="disabled" ng-click="select(identity)">
-    {{identity.first_name}} {{identity.last_name}}
+                  filter: userFilter" ng-disabled="disabled" ng-click="select(identity)">
+    {{identity.first_name}} {{identity.last_name}}<span ng-if="identity.location.length > 0">, {{identity.location}}</span>
   </div>
   <div class="list-group-item list-group-item-warning" ng-show="dissociate" ng-disabled="disabled" ng-click="dissociate()" translate translate-comment="for example, the owner of a phone number is...">
     Unknown
