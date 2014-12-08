@@ -34,11 +34,11 @@ configuration breadcrumb, depending on the origin -->
   </div>
   <div class="list-group-item"
        ng-repeat="identity in identities |
-                  filter: user"
+                  filter: userFilter"
        ng-disabled="disabled"
        ng-click="select(identity)"
        >
-    {{identity.first_name}} {{identity.last_name}}
+    {{identity.first_name}} {{identity.last_name}}<span ng-if="identity.location.length > 0">, {{identity.location}}</span>
   </div>
   <div class="list-group-item list-group-item-warning"
        ng-show="dissociate"
