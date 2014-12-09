@@ -55,7 +55,7 @@
     <a class="list-group-item list-group-item-warning"
        ng-show="searches.length"
        ng-click="collapseSearches = !collapseSearches">
-      <span class="glyphicon glyphicon-search pull-right"></span>
+      <span class="glyphicon glyphicon-chevron-down pull-right"></span>
       <span ng-switch="collapseSearches">
         <span ng-switch-when="true">
           <span translate>Show Twitter searches</span>
@@ -72,6 +72,12 @@
        >
       <span ng-bind="queue.description"></span>
       <span class="badge" ng-bind="queue.reports.length"></span>
+    </a>
+  </div>
+  <div>
+    <a class="list-group-item list-group-item-warning"
+       ng-href="#/twitter-search/{{searches[searches.length - 1]._id}}">
+      <span translate>Most recent search: {{searches[searches.length - 1].description}} <span class="badge pull-right"></span></span>
     </a>
   </div>
   <!--div class="list-group-item">
