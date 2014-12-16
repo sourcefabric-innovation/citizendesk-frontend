@@ -59,12 +59,27 @@
           </div>
           <div collapse="navCollapsed" class="navbar-collapse">
             <ul class="nav navbar-nav navbar-left">
-              <li>
-                <a ng-href="#/assigned-to-me" translate
-                   ng-click="clickNavigation()"
+              <li class="dropdown">
+                <a href="#"
+                   dropdown-toggle
+                   translate
                    >
-                  Your Assignments
+                  Assignments
                 </a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a ng-href="#/assigned-to-me"
+                       ng-click="clikNavigation()">
+                      My Assignments
+                    </a>
+                  </li>
+                  <li>
+                    <a ng-href="#/assigned"
+                       ng-click="clikNavigation()">
+                      All Assignments
+                    </a>
+                  </li>
+                </ul>
               </li>
               <li>
                 <a ng-href="#/queues" translate

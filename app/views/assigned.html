@@ -1,11 +1,23 @@
 <h3 translate>
-  Number of reports assigned for every user
+  Reports assigned to users
 </h3>
 <div class="list-group">
-  <a ng-href="#/assigned-to/{{user._id}}/{{user.username}}"
-     class="list-group-item"
-     ng-repeat="user in users">
-    <span class="badge" ng-bind="totals[user._id]"></span>
-    <span ng-bind="user.username"></span>
-  </a>
+  <div class="list-group-item"
+       ng-repeat="user in users"
+       ng-if="totals[user._id] !== 0">
+    <a ng-href="#/assigned-to/{{user._id}}/{{user.username}}">
+      <span ng-bind="user.username"></span>
+      <span class="badge" ng-bind="totals[user._id]">
+      </span>
+    </a>
+  </div>
+  <div class="list-group-item"
+       ng-repeat="user in users"
+       ng-if="totals[user._id] === 0">
+    <a ng-href="#/assigned-to/{{user._id}}/{{user.username}}">
+      <span ng-bind="user.username"></span>
+      <span class="badge" ng-bind="totals[user._id]">
+      </span>
+    </a>
+  </div>
 </div>

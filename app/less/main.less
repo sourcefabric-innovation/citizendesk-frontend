@@ -27,6 +27,19 @@ body {
   padding-bottom: 20px;
   background-color: @background;
 }
+
+/* Navbar specific styles */
+.navbar {
+  .dropdown {
+    &.open,
+    &.open:focus {
+      > a {
+        color: @white!important;
+      }
+    }
+  }
+}
+
 h3 {
   margin: 0px -15px 20px -15px;
   padding: 14px 15px;
