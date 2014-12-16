@@ -13,7 +13,7 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
     <link href="//fonts.googleapis.com/css?family=Roboto:400,300,300italic|Roboto+Slab:400,700,300&subset=latin,latin-ext" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="styles/aad5748d.main.css">
+    <link rel="stylesheet" href="styles/d641f846.main.css">
   </head>
   <body ng-app="citizendeskFrontendApp" ng-controller="BodyCtrl" scroll-glue ng-model="service.glue">
     <!--[if lt IE 7]>
@@ -51,10 +51,22 @@
           </div>
           <div collapse="navCollapsed" class="navbar-collapse">
             <ul class="nav navbar-nav navbar-left">
-              <li>
-                <a ng-href="#/assigned-to-me" translate ng-click="clickNavigation()">
-                  Your Assignments
+              <li class="dropdown">
+                <a href="#" dropdown-toggle translate>
+                  Assignments
                 </a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a ng-href="#/assigned-to-me" ng-click="clikNavigation()">
+                      My Assignments
+                    </a>
+                  </li>
+                  <li>
+                    <a ng-href="#/assigned" ng-click="clikNavigation()">
+                      All Assignments
+                    </a>
+                  </li>
+                </ul>
               </li>
               <li>
                 <a ng-href="#/queues" translate ng-click="clickNavigation()">
@@ -117,7 +129,7 @@
 
     <script src="scripts/d15800f9.scripts.js"></script>
 
-    <script src="scripts/001599eb.templates.js"></script>
+    <script src="scripts/b7ea33fa.templates.js"></script>
 
 </body>
 </html>
